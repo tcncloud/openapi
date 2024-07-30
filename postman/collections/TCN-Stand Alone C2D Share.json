@@ -1,0 +1,855 @@
+{
+	"info": {
+		"_postman_id": "2e43fc9f-2399-478a-997f-8334b58bf2c3",
+		"name": "TCN-Stand Alone C2D Share",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "37152959-2e43fc9f-2399-478a-997f-8334b58bf2c3"
+	},
+	"item": [
+		{
+			"name": "Refresh Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"agentsmithtoken\", jsonData.access_token);"
+						],
+						"type": "text/javascript",
+						"id": "d395aa20-3294-49a1-8041-1999da49f4b6"
+					}
+				}
+			],
+			"id": "27f05cb1-1dc2-436a-8864-be99b84e1b85",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"grant_type\":\"refresh_token\",\"scope\":\"offline_access\",\"client_secret\":\"\",\"client_id\":\"\",\"refresh_token\":\"\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://auth.tcn.com/oauth/token",
+					"protocol": "https",
+					"host": [
+						"auth",
+						"tcn",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Current Agent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"agentsid\", jsonData.agentSid);",
+							"pm.collectionVariables.set(\"clientsid\", jsonData.clientSid);",
+							"pm.collectionVariables.set(\"huntgroupsid\", jsonData.huntGroupSid);"
+						],
+						"type": "text/javascript",
+						"id": "7d97262a-f1ef-4f10-b15d-93dfd1b1b079"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"id": "d9862a66-45e3-4c71-affe-2aa569d80927"
+					}
+				}
+			],
+			"id": "9975a844-6fca-4a85-8758-af76f1f8bc35",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}api/v0alpha/p3api/getcurrentagent",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v0alpha",
+						"p3api",
+						"getcurrentagent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hunt Group Settings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"callerid\", jsonData.manualDial.defaultCallerId);",
+							"pm.collectionVariables.set(\"defaultcountrysid\", jsonData.manualDial.defaultCountrySid);",
+							"pm.collectionVariables.set(\"defaultcalleridcountrysid\", jsonData.manualDial.defaultCallerIdCountrySid);",
+							"pm.collectionVariables.set(\"nlcruleset\", jsonData.manualDial.naturalComplianceRuleSetName);",
+							"pm.collectionVariables.set(\"cellscrub\", jsonData.manualDial.scrubCellPhones);",
+							""
+						],
+						"type": "text/javascript",
+						"id": "71024d45-fa51-4d8a-b164-135604528189"
+					}
+				}
+			],
+			"id": "bb9196f6-6c34-4f90-b477-c99f4c52b783",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"huntGroupSid\":\"{{huntgroupsid}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}api/v0alpha/p3api/gethuntgroupagentsettings",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v0alpha",
+						"p3api",
+						"gethuntgroupagentsettings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Current Session",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"asmsessionsid\", jsonData.asmSessionSid);",
+							"pm.collectionVariables.set(\"sessionsid\", jsonData.voiceSession.voiceSessionSid);",
+							""
+						],
+						"type": "text/javascript",
+						"id": "6b6b6cce-ae7c-44e2-9ed0-c94109deaeab"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.get(\"cbf_access_token\");"
+						],
+						"type": "text/javascript",
+						"id": "cadc3662-b2ad-4867-8e7f-052a3ac110ac"
+					}
+				}
+			],
+			"id": "1cd8dbf0-c962-4602-9cf4-2c2b5de014a7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}api/v1alpha1/asm/asmapi/getcurrentsession",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v1alpha1",
+						"asm",
+						"asmapi",
+						"getcurrentsession"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agent Get Status",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"id": "a30b4221-e7af-4cee-9702-ac0fe17a3cc2"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"id": "1a0ede39-5759-42ff-a7de-45a28df92d29"
+					}
+				}
+			],
+			"id": "123fba59-c065-419b-b909-6d4a4bc0817e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}api/v0alpha/acd/agentgetstatus",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v0alpha",
+						"acd",
+						"agentgetstatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agent Stream",
+			"id": "6208cd62-43f1-4cb8-9aa9-b9fe7447aaf3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"asmSessionSid\":\"{{asmsessionsid}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}api/v1alpha1/asm/asm/streamagentstate",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v1alpha1",
+						"asm",
+						"asm",
+						"streamagentstate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dialmanualprepare",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"id": "202a6fc4-e7a8-4897-9a6c-4a8ceea56211"
+					}
+				}
+			],
+			"id": "480db9e6-bf3b-4116-87e1-9acc333512f3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"sessionSid\":{{sessionsid}}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}api/v0alpha/acd/dialmanualprepare",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v0alpha",
+						"acd",
+						"dialmanualprepare"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "processmanualdialcall",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"callsid\", jsonData.scrubbedCall.callSid);",
+							"pm.collectionVariables.set(\"taskgroupsid\", jsonData.scrubbedCall.taskGroupSid);"
+						],
+						"type": "text/javascript",
+						"id": "1c14abf5-c1dd-423f-8b54-4b58acc8df4c"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"id": "7f391f6e-7231-4069-9ec6-445f54e41549"
+					}
+				}
+			],
+			"id": "6b4d2ced-638e-4ce9-af58-3e5c12453b3a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"call\": {\n        \"agentSid\": \"{{agentsid}}\",\n        \"callerId\": \"{{callerid}}\",\n        \"clientSid\": \"{{clientsid}}\",\n        \"doRecord\": \"true\",\n        \"phoneNumber\": \"{{phonenumber}}\",\n        \"callerIdCountryCode\": \"1\",\n        \"countryCode\": \"1\",\n        \"countrySid\": \"{{defaultcountrysid}}\",\n        \"doDnclScrub\": \"true\",\n        \"callDataType\": \"manual\",\n        \"doCellPhoneScrub\": \"{{cellscrub}}\",\n        \"callerIdCountrySid\": \"{{defaultcalleridcountrysid}}\",\n        \"ruleSetName\": \"{{nlcruleset}}\",\n        \"simpleMetaData\": [\n            {\n                \"key\": \"AccountNumber\",\n                \"value\": \"195\"\n            },\n            {\n                \"key\": \"Zip Code\",\n                \"value\": \"08330\"\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}api/v0alpha/callqueue/processmanualdialcall",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v0alpha",
+						"callqueue",
+						"processmanualdialcall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ManualDialStart",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.get(\"currentSessionId\");",
+							"pm.environment.get(\"callSid\");",
+							"pm.environment.get(\"taskGroupSid\");"
+						],
+						"type": "text/javascript",
+						"id": "2de21951-0acc-4328-be0e-ce1d0351cc18"
+					}
+				}
+			],
+			"id": "68f60ee4-5cda-46ee-8382-c0cf0da898dc",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"agentSessionSid\": \"{{sessionsid}}\",\n    \"huntGroupSid\": \"{{huntgroupsid}}\",\n    \"simpleCallData\": {\n        \"callSid\": \"{{callsid}}\",\n        \"agentSid\": \"{{agentsid}}\",\n        \"taskGroupSid\": \"{{taskGroupSid}}\",\n        \"callerId\": \"{{callerid}}\",\n        \"clientSid\": \"{{clientsid}}\",\n        \"doRecord\": \"true\",\n        \"phoneNumber\": \"{{phonenumber}}\",\n        \"callerIdCountryCode\": \"1\",\n        \"countryCode\": \"1\",\n        \"callDataType\": \"manual\",\n        \"callerIdCountrySid\": \"{{defaultcalleridcountrysid}}\",\n        \"countrySid\": \"{{defaultcountrysid}}\",\n        \"ruleSetName\": \"{{nlcruleset}}\",\n        \"simpleMetaData\": [\n            {\n                \"key\": \"AccountNumber\",\n                \"value\": \"195\"\n            },\n            {\n                \"key\": \"Zip Code\",\n                \"value\": \"08330\"\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}api/v0alpha/p3api/manualdialstart",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v0alpha",
+						"p3api",
+						"manualdialstart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cancel Manual Dial",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.get(\"currentSessionId\");",
+							"pm.environment.get(\"callSid\");",
+							"pm.environment.get(\"taskGroupSid\");"
+						],
+						"type": "text/javascript",
+						"id": "64ef675a-f02f-46f3-8ea0-77bbdf2ac6f8"
+					}
+				}
+			],
+			"id": "fb0c69dd-7b67-4729-9383-fdf1c75aae49",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"sessionSid\":\"{{sessionsid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}api/v0alpha/acd/dialmanualcancel",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v0alpha",
+						"acd",
+						"dialmanualcancel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AgentDisconnect-End Call",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.get(\"currentSessionId\");"
+						],
+						"type": "text/javascript",
+						"id": "545f4406-a8d5-407e-83fb-3a788d221658"
+					}
+				}
+			],
+			"id": "0dba162b-8e7e-4487-922c-5176e9ae6147",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"reason\": \"Caller Disconnected\",\n    \"sessionSid\": {{sessionsid}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}api/v0alpha/acd/agentdisconnect",
+					"host": [
+						"{{url}}api"
+					],
+					"path": [
+						"v0alpha",
+						"acd",
+						"agentdisconnect"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Call Response",
+			"id": "ceb89ab3-dbbb-43f3-a504-a4823d5c9f48",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"callSid\": {{callSid}},\n    \"agentSessionSid\": {{sessionsid}},\n    \"callType\": \"MANUAL\",\n    \"agentCallResponseDetails\": [\n        {\n            \"key\": \"Disposition\",\n            \"value\": \"PTM by Mail PM\",\n            \"order\":\"0\"\n        },\n        {\n            \"key\": \"scripting\",\n            \"value\": \"195\",\n            \"order\":\"3\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}api/v0alpha/p3api/saveagentcallresponses",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v0alpha",
+						"p3api",
+						"saveagentcallresponses"
+					]
+				},
+				"description": "Saving of call context, or dispositions, can be used to push information to live agents, or be used in analytics as well as standard reporting. Saved as key value pairs and ordering for reporting purposes."
+			},
+			"response": []
+		},
+		{
+			"name": "Agent Set Ready",
+			"id": "f51eca76-ae35-4d38-a3e9-a984a837557c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"sessionSid\":\"{{sessionsid}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}api/v0alpha/acd/agentsetready",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v0alpha",
+						"acd",
+						"agentsetready"
+					]
+				},
+				"description": "Set the agent available after handling a call"
+			},
+			"response": []
+		},
+		{
+			"name": "End Session",
+			"id": "a78544e1-c3d5-4615-b8cd-c4e9747af042",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"asmSessionSid\": {{asmsessionsid}},\n  \"reason\": \"LOGOUT_BUTTON_AGENT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}api/v1alpha1/asm/asmapi/endsession",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v1alpha1",
+						"asm",
+						"asmapi",
+						"endsession"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DTMF",
+			"id": "b8cd0163-a919-40d3-94a0-b5ce3c305f04",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"session_sid\": {{sessionsid}},\n  \"dtmf_digits\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}api/v0alpha/acd/playdtmf",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v0alpha",
+						"acd",
+						"playdtmf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Countries",
+			"id": "7edd5ba3-11d2-4fdf-abf2-73603293cf7a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}api/v0alpha/org/countries/list/get",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v0alpha",
+						"org",
+						"countries",
+						"list",
+						"get"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "redirect_uri",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "useBrowser",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "clientSecret",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "https://auth.tcn.com/authorize?audience=https://api.cbf.tcn.com/",
+				"type": "string"
+			},
+			{
+				"key": "state",
+				"value": "login",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "offline_access openid profile",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "https://auth.tcn.com/oauth/token",
+				"type": "string"
+			},
+			{
+				"key": "accessToken",
+				"value": "80OroCuTpf6x_SX66XVWdI539QTt705l",
+				"type": "string"
+			},
+			{
+				"key": "tokenType",
+				"value": "Bearer",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				],
+				"id": "a30cd014-dd8e-4cff-be66-2f7263ca8085"
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				],
+				"id": "c5d6ee06-1ccb-4b28-b384-6ad5d694d084"
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "ff68b33b-2402-4fda-bebb-d951fed31cce",
+			"key": "URL",
+			"value": "https://api.cbf.tcn.com/"
+		},
+		{
+			"id": "f55a1687-6575-4788-b29a-f0b93c2c5084",
+			"key": "phonenumber",
+			"value": "Phone Number To be Called"
+		},
+		{
+			"id": "c2ea2b3b-ca62-43c9-be7a-715bd3d1309b",
+			"key": "agentsid",
+			"value": ""
+		},
+		{
+			"id": "f50fda6d-092d-4e21-8c40-3de7fbeb9582",
+			"key": "clientsid",
+			"value": ""
+		},
+		{
+			"id": "85fa35a6-6811-4336-a031-1af8dea8459d",
+			"key": "huntgroupsid",
+			"value": ""
+		},
+		{
+			"id": "8b5686ab-4934-4c8b-b5a2-3e3d92a04efb",
+			"key": "callerid",
+			"value": ""
+		},
+		{
+			"id": "1be27701-0563-4370-b853-bdebc2f5e78a",
+			"key": "defaultcountrysid",
+			"value": ""
+		},
+		{
+			"id": "19803a2e-d04a-45ec-9b75-b7e3ddcfacd9",
+			"key": "defaultcalleridcountrysid",
+			"value": ""
+		},
+		{
+			"id": "21de023b-d775-4beb-a7a0-645526f12a8f",
+			"key": "nlcruleset",
+			"value": ""
+		},
+		{
+			"id": "5b241f1e-25f0-4b3e-bd50-e9e4cbbca97f",
+			"key": "asmsessionsid",
+			"value": ""
+		},
+		{
+			"id": "1aa6d7ef-c358-4399-8548-90f54acd5e07",
+			"key": "sessionsid",
+			"value": ""
+		},
+		{
+			"id": "aef90360-7e56-4729-9f79-3b8de777bdad",
+			"key": "cellscrub",
+			"value": ""
+		},
+		{
+			"id": "9f37f5fa-5f1a-4337-8449-468241313b40",
+			"key": "callsid",
+			"value": ""
+		},
+		{
+			"id": "801656dc-ecdd-437f-8bcd-8a19c67a0a18",
+			"key": "taskgroupsid",
+			"value": ""
+		}
+	]
+}
