@@ -112432,6 +112432,11 @@ components:
             If no update_mask\n is provided it defaults to using all paths."
           format: field-mask
       description: UpdateFlagRequest is a request for updating a flag.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: Bearer
+      bearerFormat: JWT
 tags:
 - name: Acd
   description: "Service for interacting with TCN's Agent Call Distribution system.\n
@@ -112593,7 +112598,5 @@ servers:
   description: Server located in Australia
 - url: https://api.yul.tcn.com
   description: Server located in Canada
-- url: https://api.dev.tcn.com
-  description: Server located in Development
-- url: https://api.staging.tcn.com
-  description: Server located in Staging
+security:
+- bearerAuth: []
