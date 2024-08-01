@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Operator v1.8.12
+  title: Operator
   version: v1.8.12
 paths:
   /api/v0alpha/acd/acceptsecureformfield:
