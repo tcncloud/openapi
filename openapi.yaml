@@ -50759,11 +50759,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
 components:
-  securitySchemes:
-    bearerAuth:            # arbitrary name for the security scheme
-      type: http
-      scheme: bearer
-      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
   schemas:
     api.commons.ActionType:
       type: object
@@ -112602,6 +112597,3 @@ servers:
   description: Server located in Development
 - url: https://api.staging.tcn.com
   description: Server located in Staging
-
-security:
-- bearerAuth: []
