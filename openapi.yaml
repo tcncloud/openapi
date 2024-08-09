@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Operator
-  version: v1.8.12
+  version: v1.8.13
 paths:
   /api/v0alpha/acd/acceptsecureformfield:
     post:
@@ -20779,6 +20779,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/contactmanager/contactmanager/listcontactsbyentity:
+    post:
+      tags:
+      - ContactManager
+      description: '*
+
+        List contacts for entity'
+      operationId: ContactManager_ListContactsByEntity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.contactmanager.ListContactsByEntityRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.contactmanager.ListContactsByEntityResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /api/v1alpha1/delegateduser/create:
     post:
       tags:
@@ -21472,6 +21499,57 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.v1alpha1.exile.station.finvi.v1.PopAccountRes'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/explorer/explorer/listdatasourceschemas:
+    post:
+      tags:
+      - ExplorerService
+      description: ListDatasourceSchemas lists all accessible datasources and their
+        schemas.
+      operationId: ExplorerService_ListDatasourceSchemas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.explorer.ListDatasourceSchemasRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.explorer.ListDatasourceSchemasResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/explorer/explorer/query:
+    post:
+      tags:
+      - ExplorerService
+      description: Query queries a datasource.
+      operationId: ExplorerService_Query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.explorer.QueryRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.explorer.QueryResponse'
         default:
           description: Default error response
           content:
@@ -43452,15 +43530,17 @@ paths:
         then the related shift template for the shift instances will be returned in
         the shift template field.\n If @include_shift_segments is set to true then
         the related shift segments for the shift instances will be returned in the
-        shift segments field.\n If @include_scheduling_activity is set to true then
-        the related scheduling activity for the shift segment will be returned in
-        the scheduling activity field.\n @include_shift_segments must be true to take
-        effect.\n If @include_activity is set to true then the related non skill activity
-        for the scheduling activity will be returned in the scheduling\n activities
-        member non skill activity field. @include_scheduling_activity must be true
-        to take effect.\n Errors:\n   - grpc.Invalid: @shift_instance_sids in the
-        request are invalid.\n   - grpc.Internal: error occurs when listing the shift
-        instances or their shift segments."
+        shift segments field.\n If @include_shift_segment_call_stats is set to true
+        then the related shift segment call stats for the shift segments will be returned
+        in the call stats by skill collection field on the shift segments.\n If @include_scheduling_activity
+        is set to true then the related scheduling activity for the shift segment
+        will be returned in the scheduling activity field.\n @include_shift_segments
+        must be true to take effect.\n If @include_activity is set to true then the
+        related non skill activity for the scheduling activity will be returned in
+        the scheduling\n activities member non skill activity field. @include_scheduling_activity
+        must be true to take effect.\n Errors:\n   - grpc.Invalid: @shift_instance_sids
+        in the request are invalid.\n   - grpc.Internal: error occurs when listing
+        the shift instances or their shift segments."
       operationId: WFM_ListShiftInstancesBySid
       requestBody:
         content:
@@ -43503,6 +43583,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.v1alpha1.wfm.ListShiftInstanceSidsForAgentRes'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/listshiftinstancesidsforschedule:
+    post:
+      tags:
+      - WFM
+      description: "Lists the shift_instance_sids for the Shift Instances associated
+        with the given @datetime_range and @schedule_selector.\n If @node_selector
+        is set, only shifts sids related to the given @node_selector will be listed.\n
+        If @node_selector is not set, all shifts on the @schedule_selector may be
+        cleared, regardless of the node they are associated with.\n If @node_selector
+        is set, the @schedule_scenario_sid must be set to match @node_selector.\n
+        Errors:\n   - grpc.Invalid: the request data is invalid.\n   - grpc.Internal:
+        error occurs when getting the data."
+      operationId: WFM_ListShiftInstanceSidsForSchedule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.ListShiftInstanceSidsForScheduleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.ListShiftInstanceSidsForScheduleResponse'
         default:
           description: Default error response
           content:
@@ -49707,6 +49819,86 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /services/translations/v1alpha1/bulkdeletetranslations:
+    post:
+      tags:
+      - TranslationsService
+      description: "Bulk delete translations\n Required permissions:\n   - PERMISSION_CUSTOMER_SUPPORT\n
+        Errors:\n   - grpc.InvalidArgument: The request is not valid."
+      operationId: TranslationsService_BulkDeleteTranslations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/services.translations.v1alpha1.BulkDeleteTranslationsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/services.translations.v1alpha1.BulkDeleteTranslationsResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /services/translations/v1alpha1/disablecontext:
+    post:
+      tags:
+      - TranslationsService
+      description: "disable a context for LLM translations\n Required permissions:\n
+        \  - PERMISSION_CUSTOMER_SUPPORT\n Errors:\n   - grpc.InvalidArgument: The
+        request is not valid."
+      operationId: TranslationsService_DisableContext
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/services.translations.v1alpha1.DisableContextRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/services.translations.v1alpha1.DisableContextResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /services/translations/v1alpha1/enablecontext:
+    post:
+      tags:
+      - TranslationsService
+      description: "enable a context for LLM translations\n Required permissions:\n
+        \  - PERMISSION_CUSTOMER_SUPPORT\n Errors:\n   - grpc.InvalidArgument: The
+        request is not valid.\n   - grpc.NotFound: No context found"
+      operationId: TranslationsService_EnableContext
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/services.translations.v1alpha1.EnableContextRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/services.translations.v1alpha1.EnableContextResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /services/translations/v1alpha1/getsystemmessage:
     post:
       tags:
@@ -49970,6 +50162,210 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/services.translations.v1alpha1.UpdateTranslationResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcnapi/omni/projects/v1/org/{org}/region/{region}/projects:
+    get:
+      tags:
+      - Projects
+      description: Method to list projects
+      operationId: Projects_ListProjects
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: returned page
+        schema:
+          type: integer
+          format: int32
+      - name: pageToken
+        in: query
+        description: used to specify the page token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcnapi.omni.projects.v1.ListProjectsResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    post:
+      tags:
+      - Projects
+      description: Method to create a project
+      operationId: Projects_CreateProject
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcnapi.omni.projects.v1.Project'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcnapi.omni.projects.v1.Project'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcnapi/omni/projects/v1/org/{org}/region/{region}/projects/{project}:
+    get:
+      tags:
+      - Projects
+      description: Method to get a rpoject
+      operationId: Projects_GetProject
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: project
+        in: path
+        description: The project id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcnapi.omni.projects.v1.Project'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    delete:
+      tags:
+      - Projects
+      description: Method to delete a project
+      operationId: Projects_DeleteProject
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: project
+        in: path
+        description: The project id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcnapi.omni.projects.v1.Project'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    patch:
+      tags:
+      - Projects
+      description: Method to update a project
+      operationId: Projects_UpdateProject
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: project
+        in: path
+        description: The project id.
+        required: true
+        schema:
+          type: string
+      - name: updateMask
+        in: query
+        description: the update mask
+        schema:
+          type: string
+          format: field-mask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcnapi.omni.projects.v1.Project'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcnapi.omni.projects.v1.Project'
         default:
           description: Default error response
           content:
@@ -83357,6 +83753,21 @@ components:
             $ref: '#/components/schemas/api.v1alpha1.contactmanager.ContactManagerEntry'
       description: "List all Unencrypted Data. Encrypted Data would be sent On Double
         Click of the Record\n Seperate API to List All Encrypted Data"
+    api.v1alpha1.contactmanager.ListContactsByEntityRequest:
+      type: object
+      properties:
+        projectId:
+          type: string
+        entityId:
+          type: string
+    api.v1alpha1.contactmanager.ListContactsByEntityResponse:
+      type: object
+      properties:
+        contactManagerEntry:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.v1alpha1.contactmanager.ContactManagerEntry'
+          description: Contacts associated to the entity
     api.v1alpha1.delivery.AESEncryptionRef:
       type: object
       properties:
@@ -84152,6 +84563,134 @@ components:
           type: boolean
           description: "if true only job_id and async will be populated.\n all other
             data on the response will be sent as jsonl to the async handler"
+    api.v1alpha1.explorer.ListDatasourceSchemasRequest:
+      type: object
+      properties:
+        datasourceNames:
+          type: array
+          items:
+            type: string
+          description: datasource_names is a table name filter for the datasources
+            to list.
+        datasourceType:
+          type: integer
+          description: "datasource_type is the type of the datasource to list.\n If
+            not specified, all datasources will be listed."
+          format: enum
+      description: ListDatasourceSchemasRequest is the request to list datasource
+        schemas.
+    api.v1alpha1.explorer.ListDatasourceSchemasResponse:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.v1alpha1.explorer.Schema'
+          description: list of schemas
+      description: ListDatasourceSchemasResponse contains datasources and their schemas.
+    api.v1alpha1.explorer.Parameters:
+      type: object
+      properties:
+        parameters:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/api.v1alpha1.explorer.Parameters_Parameter'
+      description: Parameter is a parameter for a query.
+    api.v1alpha1.explorer.Parameters_Parameter:
+      type: object
+      properties:
+        value:
+          type: string
+        dataType:
+          type: string
+    api.v1alpha1.explorer.QueryRequest:
+      type: object
+      properties:
+        datasourceName:
+          type: string
+          description: datasource_name is the name of the datasource to query.
+        datasourceType:
+          type: integer
+          description: datasource_type is the type of the datasource to query.
+          format: enum
+        pipeline:
+          type: string
+          description: pipeline to be compiled to prql
+        prql:
+          type: string
+          description: prql query to execute
+        orgIds:
+          type: array
+          items:
+            type: string
+          description: org_id for ownership of the data
+        startTime:
+          type: string
+          description: start_time is the start time of the query.
+          format: date-time
+        endTime:
+          type: string
+          description: end_time is the end time of the query.
+          format: date-time
+        timezone:
+          type: string
+          description: "timezone is IESG timezone name\n this is how the timezone
+            is represented in the query"
+        pipelineParameters:
+          allOf:
+          - $ref: '#/components/schemas/api.v1alpha1.explorer.Parameters'
+          description: pipeline_parameters is the parameters for the pipeline.
+        uiTraceId:
+          type: string
+          description: ui_trace_id is the trace id of the query.
+        comment:
+          type: string
+          description: comment is the comment for the query.
+        format:
+          type: integer
+          description: format is the format of the result.
+          format: enum
+      description: QueryRequest is the request to query a datasource.
+    api.v1alpha1.explorer.QueryResponse:
+      type: object
+      properties:
+        resultUrl:
+          type: string
+          description: result_url is the URL to the result of the query.
+        resultSizeBytes:
+          type: string
+          description: result_size_bytes is the size of the result in bytes.
+      description: QueryResponse contains the result of a datasource query.
+    api.v1alpha1.explorer.Schema:
+      type: object
+      properties:
+        name:
+          type: string
+        datasourceType:
+          type: integer
+          format: enum
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.v1alpha1.explorer.SchemaField'
+        tableDescription:
+          type: string
+      description: Schema is a schema for a datasource.
+    api.v1alpha1.explorer.SchemaField:
+      type: object
+      properties:
+        name:
+          type: string
+        columnType:
+          type: integer
+          format: enum
+        isPrimaryKey:
+          type: boolean
+        isLowCardinality:
+          type: boolean
+        columnDescription:
+          type: string
+      description: SchemaField is a field in a schema.
     api.v1alpha1.fts.GetUploadFileUrlReq:
       type: object
       properties:
@@ -89428,6 +89967,9 @@ components:
           allOf:
           - $ref: '#/components/schemas/api.commons.LocalePreferences'
           description: The default locale preferences of the organization
+        billingId:
+          type: string
+          description: The billing ID of the organization the user belongs to.
       description: Response message for the GetUserSessionData rpc.
     api.v1alpha1.org.GetUserSessionDataResponse_User:
       type: object
@@ -96826,6 +97368,8 @@ components:
           items:
             type: string
           description: assignee list
+        contactEntryId:
+          type: string
       description: CreateTicketReq - Request for CreateTicket
     api.v1alpha1.tickets.CreateTicketRes:
       type: object
@@ -96864,6 +97408,8 @@ components:
         ticketCode:
           type: string
           description: ticket_code
+        contactEntryId:
+          type: string
       description: "EditMaskTicketReq - Request for EditMaskTicket\n EditTicketReq
         would be deprecated"
     api.v1alpha1.tickets.EditMaskTicketRes:
@@ -101992,6 +102538,15 @@ components:
           description: Count of FTE scheduled to be on the phone / productive for
             a specific interval / duration of time.
           format: float
+        achievedFteWithShrinkageApplied:
+          type: number
+          description: Number of achieved FTE's, minus shrinkage, in the interval.
+          format: float
+        productiveFteWithShrinkageApplied:
+          type: number
+          description: Count of FTE, minus shrinkage, scheduled to be on the phone
+            / productive / duration of time.
+          format: float
     api.v1alpha1.wfm.GenerateTourWeekPatternsReq:
       type: object
       properties:
@@ -103289,6 +103844,35 @@ components:
             type: string
           description: Requested shift instance sids.
       description: ListShiftInstanceSidsForAgent response RPC.
+    api.v1alpha1.wfm.ListShiftInstanceSidsForScheduleRequest:
+      type: object
+      properties:
+        scheduleSelector:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.ScheduleSelector'
+          description: Schedule to get the shift instance sids from.
+        datetimeRange:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.DatetimeRange'
+          description: The datetime range over which to get the shift instance sids.
+        nodeSelector:
+          allOf:
+          - $ref: '#/components/schemas/api.v1alpha1.wfm.ParentEntity'
+          description: Optional field, if left nil all shift sids matching the given
+            parameters will be included.
+        scheduleScenarioSid:
+          type: string
+          description: Only required if @node_selector is not nil.
+      description: Request message for the ListShiftInstanceSidsForSchedule RPC
+    api.v1alpha1.wfm.ListShiftInstanceSidsForScheduleResponse:
+      type: object
+      properties:
+        shiftInstanceSids:
+          type: array
+          items:
+            type: string
+          description: Requested shift instance sids.
+      description: ListShiftInstanceSidsForSchedule response RPC.
     api.v1alpha1.wfm.ListShiftInstancesBySidReq:
       type: object
       properties:
@@ -103316,6 +103900,11 @@ components:
           description: "Set to true to include non skill activity in each of the returned
             scheduling activities.\n Only effective when include_scheduling_activity
             and include_shift_segments are also set to true."
+        includeShiftSegmentCallStats:
+          type: boolean
+          description: "Set to true to include shift segment call stats in each of
+            the returned shift segments.\n Only effective when @include_shift_segments
+            is also set to true."
       description: Request message for the ListShiftInstancesBySid RPC
     api.v1alpha1.wfm.ListShiftInstancesBySidRes:
       type: object
@@ -104047,6 +104636,16 @@ components:
           description: Total count of FTE scheduled to be on the phone / productive
             for a specific interval / duration of time.
           format: float
+        totalAchievedFteWithShrinkageApplied:
+          type: number
+          description: The total FTE, minus shrinkage, the the schedule is likely
+            to address with the current shift instances.
+          format: float
+        totalProductiveFteWithShrinkageApplied:
+          type: number
+          description: Total count of FTE, minus shrinkage, scheduled to be on the
+            phone / productive / duration of time.
+          format: float
       description: "PerformanceMetricForSkillCollectionV2.\n Not a top-level entity:\n
         * No primary-key field.\n * No org_id field.\n * No rpc endpoints, part of
         PerformanceMetricV2 only."
@@ -104136,6 +104735,16 @@ components:
           type: number
           description: Total count of FTE scheduled to be on the phone / productive
             for a specific interval / duration of time.
+          format: float
+        totalAchievedFteWithShrinkageApplied:
+          type: number
+          description: The total FTE, minus shrinkage, the the schedule is likely
+            to address with the current shift instances.
+          format: float
+        totalProductiveFteWithShrinkageApplied:
+          type: number
+          description: Total count of FTE, minus shrinkage, scheduled to be on the
+            phone / productive / duration of time.
           format: float
       description: PerformanceMetricV2.
     api.v1alpha1.wfm.PlacementRule:
@@ -104607,6 +105216,9 @@ components:
           format: float
         name:
           type: string
+        rgbaColorId:
+          type: string
+          description: ID of the rgba color.
       description: An rgba color.
     api.v1alpha1.wfm.ScheduleScenario:
       type: object
@@ -107374,6 +107986,9 @@ components:
           format: date-time
         category:
           type: string
+        billingCategory:
+          type: integer
+          format: enum
     services.billing.entities.v1alpha4.CountryCodePrefix:
       type: object
       properties:
@@ -107562,6 +108177,8 @@ components:
         deleteTime:
           type: string
           format: date-time
+        billingTagId:
+          type: string
     services.billing.v1alpha1.CommitBillingPlanRequest:
       type: object
       properties:
@@ -109824,6 +110441,35 @@ components:
       properties:
         sipAccount:
           $ref: '#/components/schemas/services.pbx.v2.SIPAccount'
+    services.translations.v1alpha1.BulkDeleteTranslationsRequest:
+      type: object
+      properties:
+        translationIds:
+          type: array
+          items:
+            type: string
+      description: Req/Res for bulk deleting translations
+    services.translations.v1alpha1.BulkDeleteTranslationsResponse:
+      type: object
+      properties: {}
+    services.translations.v1alpha1.DisableContextRequest:
+      type: object
+      properties:
+        context:
+          type: string
+      description: Req/Res for disabling a context
+    services.translations.v1alpha1.DisableContextResponse:
+      type: object
+      properties: {}
+    services.translations.v1alpha1.EnableContextRequest:
+      type: object
+      properties:
+        context:
+          type: string
+      description: Req/Res for enabling a context
+    services.translations.v1alpha1.EnableContextResponse:
+      type: object
+      properties: {}
     services.translations.v1alpha1.GetSystemMessageRequest:
       type: object
       properties:
@@ -109851,6 +110497,11 @@ components:
           type: array
           items:
             type: string
+          description: This is still populated for backwards compatibility
+        localizationContexts:
+          type: array
+          items:
+            $ref: '#/components/schemas/services.translations.v1alpha1.LocalizationContext'
     services.translations.v1alpha1.ListLanguagesRequest:
       type: object
       properties: {}
@@ -109882,6 +110533,19 @@ components:
             $ref: '#/components/schemas/services.translations.v1alpha1.Translation'
       description: ListTranslationsResponse is the response message for the ListTranslations
         method.
+    services.translations.v1alpha1.LocalizationContext:
+      type: object
+      properties:
+        context:
+          type: string
+          description: The context.
+        systemMessage:
+          type: string
+          description: The system message.
+        enabled:
+          type: boolean
+          description: The enabled status of the context.
+      description: The core context object for localization
     services.translations.v1alpha1.LocalizationLanguage:
       type: object
       properties:
@@ -109972,6 +110636,10 @@ components:
         manualTranslation:
           type: string
           description: The manual translation if exixts.
+        createTime:
+          type: string
+          description: Creation time of the translation.
+          format: date-time
       description: Translation is the core entity of the translation service.
     services.translations.v1alpha1.TriggerLLMTranslationRequest:
       type: object
@@ -110021,6 +110689,44 @@ components:
           description: The updated translation.
       description: UpdateTranslationResponse is the response message for the UpdateTranslation
         method.
+    tcnapi.omni.projects.v1.ListProjectsResponse:
+      type: object
+      properties:
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcnapi.omni.projects.v1.Project'
+          description: the list of projects
+        nextPageToken:
+          type: string
+          description: the next page token
+      description: response used listing all projects
+    tcnapi.omni.projects.v1.Project:
+      required:
+      - title
+      - description
+      type: object
+      properties:
+        name:
+          type: string
+          description: project identifier
+        title:
+          type: string
+          description: project title
+        description:
+          type: string
+          description: project description
+        state:
+          readOnly: true
+          type: integer
+          description: project state
+          format: enum
+        createTime:
+          readOnly: true
+          type: string
+          description: creation date
+          format: date-time
+      description: Project -
     wfo.vanalytics.v2.AgentCallLog:
       type: object
       properties:
@@ -112489,6 +113195,8 @@ tags:
 - name: ExileCertificateManagerService
   description: ExileCertificateManagerService is the service for managing organization's
     exile ceritificate.
+- name: ExplorerService
+  description: ExplorerService is the service for the explorer API.
 - name: FTS
   description: ''
 - name: FtsApi
@@ -112535,6 +113243,8 @@ tags:
   description: ''
 - name: PortalManagerApi
   description: ''
+- name: Projects
+  description: Projects service is the public api for the omni/projects service.
 - name: Room303API
   description: ''
 - name: Scorecards
