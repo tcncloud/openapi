@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Operator
-  version: v1.8.13
+  version: v1.8.15
 paths:
   /api/v0alpha/acd/acceptsecureformfield:
     post:
@@ -24468,8 +24468,9 @@ paths:
     post:
       tags:
       - Org
-      description: CopyAgentTrigger copys an agent trigger to the given hunt group
-        in the same org.
+      description: "CopyAgentTrigger copys an agent trigger to the given hunt group
+        in the same org.\n DEPRECATED: Use services.org.hunt_groups.v1alpha1.CopyHuntGroupAgentTrigger
+        instead"
       operationId: Org_CopyAgentTrigger
       requestBody:
         content:
@@ -25063,8 +25064,9 @@ paths:
     post:
       tags:
       - Org
-      description: ListAgentTriggers returns a list of agent triggers for the given
-        hunt group.
+      description: "ListAgentTriggers returns a list of agent triggers for the given
+        hunt group.\n DEPRECATED: Use services.org.hunt_groups.v1alpha1.ListHuntGroupAgentTriggers
+        instead"
       operationId: Org_ListAgentTriggers
       requestBody:
         content:
@@ -25374,8 +25376,9 @@ paths:
     post:
       tags:
       - Org
-      description: UpdateAgentTriggers updates all agent triggers for the given hunt
-        group.
+      description: "UpdateAgentTriggers updates all agent triggers for the given hunt
+        group.\n DEPRECATED: Use services.org.hunt_groups.v1alpha1.UpdateHuntGroupAgentTriggers
+        instead"
       operationId: Org_UpdateAgentTriggers
       requestBody:
         content:
@@ -47848,6 +47851,65 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /services/billing/v1alpha4/clonebillingplan:
+    post:
+      tags:
+      - BillingService
+      description: "Clones a billing plan\n Required permissions:\n   CUSTOMER_SUPPORT\n
+        Errors:\n   - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
+        The request is invalid.\n   - grpc.NotFound: The billing plan was not found.\n
+        \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
+        \  - grpc.Unavailable: The operation is currently unavailable."
+      operationId: BillingService_CloneBillingPlan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/services.billing.v1alpha4.CloneBillingPlanRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/services.billing.v1alpha4.CloneBillingPlanResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /services/billing/v1alpha4/clonedefaultbillingplan:
+    post:
+      tags:
+      - BillingService
+      description: "Clones a default billing plan.\n Required permissions:\n   CUSTOMER_SUPPORT\n
+        \  TCN_BILLING_ADMIN\n Errors:\n   - grpc.Internal: An internal error occurred.\n
+        \  - grpc.InvalidArgument: The request is invalid.\n   - grpc.NotFound: The
+        billing plan was not found.\n   - grpc.PermissionDenied: The caller does not
+        have the required permissions.\n   - grpc.Unavailable: The operation is currently
+        unavailable."
+      operationId: BillingService_CloneDefaultBillingPlan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/services.billing.v1alpha4.CloneDefaultBillingPlanRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/services.billing.v1alpha4.CloneDefaultBillingPlanResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /services/billing/v1alpha4/createbillingplan:
     post:
       tags:
@@ -49243,10 +49305,91 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /services/org/huntgroups/v1alpha1/copyhuntgroupagenttrigger:
+    post:
+      tags:
+      - HuntGroupsService
+      description: CopyHuntGroupAgentTrigger copys an agent trigger to the given hunt
+        group in the same org.
+      operationId: HuntGroupsService_CopyHuntGroupAgentTrigger
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.CopyHuntGroupAgentTriggerRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.CopyHuntGroupAgentTriggerResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /services/org/huntgroups/v1alpha1/copyhuntgroupexilelink:
+    post:
+      tags:
+      - HuntGroupsService
+      description: "CopyHuntGroupExileLink copies an exile link from one hunt group
+        to another.\n It will create a new exile link in the destination hunt group
+        with the same\n settings/parameters as the source exile link."
+      operationId: HuntGroupsService_CopyHuntGroupExileLink
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.CopyHuntGroupExileLinkRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.CopyHuntGroupExileLinkResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /services/org/huntgroups/v1alpha1/listhuntgroupagenttriggers:
+    post:
+      tags:
+      - HuntGroupsService
+      description: ListHuntGroupAgentTriggers returns a list of agent triggers for
+        the given hunt group.
+      operationId: HuntGroupsService_ListHuntGroupAgentTriggers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.ListHuntGroupAgentTriggersRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.ListHuntGroupAgentTriggersResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /services/org/huntgroups/v1alpha1/listhuntgroupexilelinks:
     post:
       tags:
       - HuntGroupsService
+      description: ListHuntGroupExileLinks returns a list of Exile links for a given
+        hunt group.
       operationId: HuntGroupsService_ListHuntGroupExileLinks
       requestBody:
         content:
@@ -49261,6 +49404,60 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.ListHuntGroupExileLinksResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /services/org/huntgroups/v1alpha1/updatehuntgroupagenttriggers:
+    post:
+      tags:
+      - HuntGroupsService
+      description: UpdateHuntGroupAgentTriggers updates all agent triggers for the
+        given hunt group.
+      operationId: HuntGroupsService_UpdateHuntGroupAgentTriggers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.UpdateHuntGroupAgentTriggersRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.UpdateHuntGroupAgentTriggersResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /services/org/huntgroups/v1alpha1/updatehuntgroupexilelinks:
+    post:
+      tags:
+      - HuntGroupsService
+      description: "UpdateHuntGroupExileLinks updates the exile links for a hunt group.\n
+        It will create any new exile links that do not already exist in the hunt group,\n
+        update any existing exile links with the new settings/parameters, and\n delete
+        any exile links that are not in the request."
+      operationId: HuntGroupsService_UpdateHuntGroupExileLinks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.UpdateHuntGroupExileLinksRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.UpdateHuntGroupExileLinksResponse'
         default:
           description: Default error response
           content:
@@ -51794,6 +51991,10 @@ components:
         categoryType:
           type: integer
           format: enum
+        skillProfileGroupSids:
+          type: array
+          items:
+            type: string
       description: "Category wraps a set of skills (or labels).\n A scorecard can
         only be used to evaluate calls\n with the same skill(s) as its category."
     api.commons.ChatColorProperties:
@@ -54529,6 +54730,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/api.commons.Category'
+        focus:
+          type: integer
+          format: enum
       description: "Question is a question in the Question Library.\n It is not to
         be confused with ScorecardQuestion, which represents\n a question inside of
         a scorecard."
@@ -56357,6 +56561,8 @@ components:
           $ref: '#/components/schemas/api.commons.audit.BillingUpdateInvoiceEvent'
         billingUpdateRateDefinitionEvent:
           $ref: '#/components/schemas/api.commons.audit.BillingUpdateRateDefinitionEvent'
+        billingRatedItemsGeneratedEvent:
+          $ref: '#/components/schemas/api.commons.audit.BillingRatedItemsGeneratedEvent'
         deliveryFailureEvent:
           allOf:
           - $ref: '#/components/schemas/api.commons.audit.DeliveryFailureEvent'
@@ -56447,6 +56653,30 @@ components:
         userId:
           type: string
       description: BillingExportInvoiceEvent is fired when an invoice is exported
+    api.commons.audit.BillingRatedItemsGeneratedEvent:
+      type: object
+      properties:
+        ratedItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.commons.audit.BillingRatedItemsGeneratedEvent_RatedItem'
+    api.commons.audit.BillingRatedItemsGeneratedEvent_RatedItem:
+      type: object
+      properties:
+        ratedItemId:
+          type: string
+        billingCycle:
+          type: string
+        eventLogId:
+          type: string
+        moduleName:
+          type: string
+        orgId:
+          type: string
+        rateDefinitionId:
+          type: string
+        skuId:
+          type: string
     api.commons.audit.BillingUpdateBillingPlanEvent:
       type: object
       properties:
@@ -58591,70 +58821,22 @@ components:
     api.commons.integrations.ExecuteEzidebitSubmitCcPayments:
       type: object
       properties: {}
-    api.commons.integrations.ExecuteFinviCreateCustomer:
+    api.commons.integrations.ExecuteFinviExileCreatePayment:
       type: object
       properties: {}
-    api.commons.integrations.ExecuteFinviCreateTransactionAuth:
+    api.commons.integrations.ExecuteFinviExileExecuteLogic:
       type: object
       properties: {}
-    api.commons.integrations.ExecuteFinviCreateTransactionCapture:
+    api.commons.integrations.ExecuteFinviExilePopAccount:
       type: object
       properties: {}
-    api.commons.integrations.ExecuteFinviCreateTransactionCredit:
+    api.commons.integrations.ExecuteFinviExileQueryRecords:
       type: object
       properties: {}
-    api.commons.integrations.ExecuteFinviCreateTransactionRefund:
+    api.commons.integrations.ExecuteFinviExileReadFields:
       type: object
       properties: {}
-    api.commons.integrations.ExecuteFinviCreateTransactionSale:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviCreateTransactionValidate:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviProcessNewTransactionAuth:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviProcessNewTransactionCapture:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviProcessNewTransactionCredit:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviProcessNewTransactionRefund:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviProcessNewTransactionSale:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviProcessNewTransactionValidate:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviQueryCustomerDetails:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviQueryCustomerTokenDetails:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviQueryCustomerTransactions:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviQueryCustomers:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviQueryQueryCustomerTokens:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviQueryQueryTransactionDetails:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviQueryTransactions:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviRemoveCustomerToken:
-      type: object
-      properties: {}
-    api.commons.integrations.ExecuteFinviUpdateCustomer:
+    api.commons.integrations.ExecuteFinviExileWriteFields:
       type: object
       properties: {}
     api.commons.integrations.ExecuteFlow:
@@ -59090,50 +59272,18 @@ components:
           $ref: '#/components/schemas/api.commons.integrations.ExecutePaynsecondsTokenizeCard'
         sutherlandrevPaymentConnect:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteSutherlandrevPaymentConnect'
-        finviCreateCustomer:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviCreateCustomer'
-        finviQueryCustomerDetails:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviQueryCustomerDetails'
-        finviQueryCustomerTokenDetails:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviQueryCustomerTokenDetails'
-        finviQueryCustomerTokens:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviQueryQueryCustomerTokens'
-        finviQueryCustomerTransactions:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviQueryCustomerTransactions'
-        finviQueryCustomers:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviQueryCustomers'
-        finviQueryTransactionDetails:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviQueryQueryTransactionDetails'
-        finviQueryTransactions:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviQueryTransactions'
-        finviRemoveCustomerToken:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviRemoveCustomerToken'
-        finviUpdateCustomer:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviUpdateCustomer'
-        finviCreateTransactionAuth:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviCreateTransactionAuth'
-        finviCreateTransactionCapture:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviCreateTransactionCapture'
-        finviCreateTransactionCredit:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviCreateTransactionCredit'
-        finviCreateTransactionRefund:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviCreateTransactionRefund'
-        finviCreateTransactionSale:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviCreateTransactionSale'
-        finviCreateTransactionValidate:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviCreateTransactionValidate'
-        finviProcessNewTransactionAuth:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviProcessNewTransactionAuth'
-        finviProcessNewTransactionCapture:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviProcessNewTransactionCapture'
-        finviProcessNewTransactionCredit:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviProcessNewTransactionCredit'
-        finviProcessNewTransactionRefund:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviProcessNewTransactionRefund'
-        finviProcessNewTransactionSale:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviProcessNewTransactionSale'
-        finviProcessNewTransactionValidate:
-          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviProcessNewTransactionValidate'
+        finviExileQueryRecords:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviExileQueryRecords'
+        finviExileReadFields:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviExileReadFields'
+        finviExileWriteFields:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviExileWriteFields'
+        finviExileExecuteLogic:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviExileExecuteLogic'
+        finviExileCreatePayment:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviExileCreatePayment'
+        finviExilePopAccount:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteFinviExilePopAccount'
         navigaDtiCircCreatePayment:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteNavigaDTICircCreatePayment'
         navigaDtiCircChangeBilling:
@@ -59162,6 +59312,50 @@ components:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteNavigaDTICSStopInfo'
         navigaDtiCsStopTrans:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteNavigaDTICSStopTrans'
+        swervepayCreateCustomer:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayCreateCustomer'
+        swervepayQueryCustomerDetails:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayQueryCustomerDetails'
+        swervepayQueryCustomerTokenDetails:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayQueryCustomerTokenDetails'
+        swervepayQueryCustomerTokens:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayQueryQueryCustomerTokens'
+        swervepayQueryCustomerTransactions:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayQueryCustomerTransactions'
+        swervepayQueryCustomers:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayQueryCustomers'
+        swervepayQueryTransactionDetails:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayQueryQueryTransactionDetails'
+        swervepayQueryTransactions:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayQueryTransactions'
+        swervepayRemoveCustomerToken:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayRemoveCustomerToken'
+        swervepayUpdateCustomer:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayUpdateCustomer'
+        swervepayCreateTransactionAuth:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayCreateTransactionAuth'
+        swervepayCreateTransactionCapture:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayCreateTransactionCapture'
+        swervepayCreateTransactionCredit:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayCreateTransactionCredit'
+        swervepayCreateTransactionRefund:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayCreateTransactionRefund'
+        swervepayCreateTransactionSale:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayCreateTransactionSale'
+        swervepayCreateTransactionValidate:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayCreateTransactionValidate'
+        swervepayProcessNewTransactionAuth:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayProcessNewTransactionAuth'
+        swervepayProcessNewTransactionCapture:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayProcessNewTransactionCapture'
+        swervepayProcessNewTransactionCredit:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayProcessNewTransactionCredit'
+        swervepayProcessNewTransactionRefund:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayProcessNewTransactionRefund'
+        swervepayProcessNewTransactionSale:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayProcessNewTransactionSale'
+        swervepayProcessNewTransactionValidate:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayProcessNewTransactionValidate'
         debugEcho:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteDebugEcho'
         debugValidate:
@@ -59516,6 +59710,72 @@ components:
     api.commons.integrations.ExecuteSutherlandrevPaymentConnect:
       type: object
       properties: {}
+    api.commons.integrations.ExecuteSwervepayCreateCustomer:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayCreateTransactionAuth:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayCreateTransactionCapture:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayCreateTransactionCredit:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayCreateTransactionRefund:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayCreateTransactionSale:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayCreateTransactionValidate:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayProcessNewTransactionAuth:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayProcessNewTransactionCapture:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayProcessNewTransactionCredit:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayProcessNewTransactionRefund:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayProcessNewTransactionSale:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayProcessNewTransactionValidate:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayQueryCustomerDetails:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayQueryCustomerTokenDetails:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayQueryCustomerTransactions:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayQueryCustomers:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayQueryQueryCustomerTokens:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayQueryQueryTransactionDetails:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayQueryTransactions:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayRemoveCustomerToken:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteSwervepayUpdateCustomer:
+      type: object
+      properties: {}
     api.commons.integrations.ExecuteTrustcommerceAchSale:
       type: object
       properties: {}
@@ -59769,12 +60029,6 @@ components:
           description: "if true instead of using the account number uploaded to textpay,\n
             we send the payment with the account number returned on the invoice"
       description: payment flows
-    api.commons.integrations.PaymentFinviACH:
-      type: object
-      properties: {}
-    api.commons.integrations.PaymentFinviCC:
-      type: object
-      properties: {}
     api.commons.integrations.PaymentFlow:
       type: object
       properties:
@@ -59814,11 +60068,11 @@ components:
           $ref: '#/components/schemas/api.commons.integrations.PaymentStellaCc'
         paymentstellaEcheck:
           $ref: '#/components/schemas/api.commons.integrations.PaymentStellaECheck'
-        finviCc:
-          $ref: '#/components/schemas/api.commons.integrations.PaymentFinviCC'
-        finviAch:
+        swervePayCc:
+          $ref: '#/components/schemas/api.commons.integrations.PaymentSwervePayCC'
+        swervePayAch:
           allOf:
-          - $ref: '#/components/schemas/api.commons.integrations.PaymentFinviACH'
+          - $ref: '#/components/schemas/api.commons.integrations.PaymentSwervePayACH'
           description: Had to skip ID 20 here because it is already used for payment_fields
         paymentFields:
           type: array
@@ -59850,6 +60104,12 @@ components:
       type: object
       properties: {}
     api.commons.integrations.PaymentStellaECheck:
+      type: object
+      properties: {}
+    api.commons.integrations.PaymentSwervePayACH:
+      type: object
+      properties: {}
+    api.commons.integrations.PaymentSwervePayCC:
       type: object
       properties: {}
     api.commons.integrations.PaymentVisionACH:
@@ -60126,6 +60386,8 @@ components:
           type: boolean
           description: "Whether to use the scheduled callback for the trigger\n Used
             for agent status: Manual Dial Call"
+      description: 'DEPRECATED: Use services.org.hunt_groups.v1alpha1.AgentStatusOption
+        instead'
     api.commons.org.AgentTrigger:
       type: object
       properties:
@@ -60143,7 +60405,8 @@ components:
           allOf:
           - $ref: '#/components/schemas/api.commons.org.TriggerActionOption'
           description: The action option to use for the trigger
-      description: AgentTrigger is the entity for agent triggers.
+      description: "AgentTrigger is the entity for agent triggers.\n DEPRECATED: Use
+        services.org.hunt_groups.v1alpha1.AgentTrigger instead"
     api.commons.org.AuthConnectionSettings:
       type: object
       properties:
@@ -63006,6 +63269,8 @@ components:
           type: string
           description: "The sid of the integration link to execute when the trigger
             is activated\n Used for action: Execute Integration Link"
+      description: 'DEPRECATED: Use services.org.hunt_groups.v1alpha1.TriggerActionOption
+        instead'
     api.commons.org.TriggerCallTypes:
       type: object
       properties:
@@ -63021,7 +63286,8 @@ components:
         preview:
           type: boolean
           description: The call type for preview calls
-      description: TriggerCallTypes is the call types to use for the trigger
+      description: "TriggerCallTypes is the call types to use for the trigger\n DEPRECATED:
+        Use services.org.hunt_groups.v1alpha1.TriggerCallTypes instead"
     api.commons.org.TriggerPauseCode:
       type: object
       properties:
@@ -63033,7 +63299,8 @@ components:
           type: string
           description: "The custom pause code to use for the trigger\n It is name
             of a pause code from a pause code set"
-      description: TriggerPauseCode is the pause code to use for the trigger
+      description: "TriggerPauseCode is the pause code to use for the trigger\n DEPRECATED:
+        Use services.org.hunt_groups.v1alpha1.TriggerPauseCode instead"
     api.commons.org.Trust:
       type: object
       properties:
@@ -88001,13 +88268,15 @@ components:
           allOf:
           - $ref: '#/components/schemas/api.commons.org.AgentTrigger'
           description: The agent trigger to copy
-      description: CopyAgentTriggerRequest is the request message for the CopyAgentTrigger
-        RPC method.
+      description: "CopyAgentTriggerRequest is the request message for the CopyAgentTrigger
+        RPC method.\n DEPRECATED: Use services.org.hunt_groups.v1alpha1.CopyHuntGroupAgentTriggerRequest
+        instead"
     api.v1alpha1.org.CopyAgentTriggerResponse:
       type: object
       properties: {}
-      description: CopyAgentTriggerResponse is the response message for the CopyAgentTrigger
-        RPC method.
+      description: "CopyAgentTriggerResponse is the response message for the CopyAgentTrigger
+        RPC method.\n DEPRECATED: Use services.org.hunt_groups.v1alpha1.CopyHuntGroupAgentTriggerResponse
+        instead"
     api.v1alpha1.org.CopyDataDipTemplateRequest:
       type: object
       properties:
@@ -90234,8 +90503,9 @@ components:
         huntGroupSid:
           type: string
           description: The sid of the hunt group to get the triggers for
-      description: ListAgentTriggersRequest is the request message for the ListAgentTriggers
-        RPC method.
+      description: "ListAgentTriggersRequest is the request message for the ListAgentTriggers
+        RPC method.\n DEPRECATED: Use services.org.hunt_groups.v1alpha1.ListHuntGroupAgentTriggersRequest
+        instead"
     api.v1alpha1.org.ListAgentTriggersResponse:
       type: object
       properties:
@@ -90244,8 +90514,9 @@ components:
           items:
             $ref: '#/components/schemas/api.commons.org.AgentTrigger'
           description: The list of agent triggers for the hunt group
-      description: ListAgentTriggersResponse is the response message for the ListAgentTriggers
-        RPC method.
+      description: "ListAgentTriggersResponse is the response message for the ListAgentTriggers
+        RPC method.\n DEPRECATED: Use services.org.hunt_groups.v1alpha1.ListHuntGroupAgentTriggersResponse
+        instead"
     api.v1alpha1.org.ListAgentsRequest:
       type: object
       properties: {}
@@ -91710,13 +91981,15 @@ components:
           items:
             $ref: '#/components/schemas/api.commons.org.AgentTrigger'
           description: The list of agent triggers to update
-      description: UpdateAgentTriggersRequest is the request message for the UpdateAgentTriggers
-        RPC method.
+      description: "UpdateAgentTriggersRequest is the request message for the UpdateAgentTriggers
+        RPC method.\n DEPRECATED: Use services.org.hunt_groups.v1alpha1.UpdateHuntGroupAgentTriggersRequest
+        instead"
     api.v1alpha1.org.UpdateAgentTriggersResponse:
       type: object
       properties: {}
-      description: UpdateAgentTriggersResponse is the response message for the UpdateAgentTriggers
-        RPC method.
+      description: "UpdateAgentTriggersResponse is the response message for the UpdateAgentTriggers
+        RPC method.\n DEPRECATED: Use services.org.hunt_groups.v1alpha1.UpdateHuntGroupAgentTriggersResponse
+        instead"
     api.v1alpha1.org.UpdateAuthenticationPreferencesRequest:
       type: object
       properties:
@@ -108002,6 +108275,11 @@ components:
             type: string
           description: "The list of prefixes (if any) to match after successfully\n
             matching the country code."
+        matchingRuleId:
+          type: string
+          description: The id of the matching rule.
+        name:
+          type: string
     services.billing.entities.v1alpha4.Invoice:
       type: object
       properties:
@@ -108046,6 +108324,8 @@ components:
         updateTime:
           type: string
           format: date-time
+        countryCodePrefix:
+          $ref: '#/components/schemas/services.billing.entities.v1alpha4.CountryCodePrefix'
     services.billing.entities.v1alpha4.OmniSmsConfig:
       type: object
       properties:
@@ -109169,6 +109449,26 @@ components:
           type: array
           items:
             type: string
+    services.billing.v1alpha4.CloneBillingPlanRequest:
+      type: object
+      properties:
+        billingPlanId:
+          type: string
+    services.billing.v1alpha4.CloneBillingPlanResponse:
+      type: object
+      properties:
+        billingPlanId:
+          type: string
+    services.billing.v1alpha4.CloneDefaultBillingPlanRequest:
+      type: object
+      properties:
+        billingPlanId:
+          type: string
+    services.billing.v1alpha4.CloneDefaultBillingPlanResponse:
+      type: object
+      properties:
+        billingPlanId:
+          type: string
     services.billing.v1alpha4.CreateBillingPlanRequest:
       type: object
       properties:
@@ -110076,6 +110376,88 @@ components:
       properties: {}
       description: UpdateExileConfigurationResponse is the response to updating a
         exile configuration
+    services.org.hunt_groups.v1alpha1.AgentStatusOption:
+      type: object
+      properties:
+        agentStatus:
+          type: integer
+          description: The status of the agent on which the trigger is based
+          format: enum
+        duration:
+          type: string
+          description: "The duration of the trigger (in seconds)\n Used for agent
+            status: all but Logged In"
+        pauseCode:
+          allOf:
+          - $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.TriggerPauseCode'
+          description: "The pause code to use for the trigger\n Use pause code only
+            if either system_pause_code or custom_pause_code is set\n Used for agent
+            status: Paused"
+        callTypes:
+          allOf:
+          - $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.TriggerCallTypes'
+          description: "The call types to use for the trigger\n Used for agent status:
+            On Call, Wrap Up"
+        scheduledCallbackPresent:
+          type: boolean
+          description: "Whether to use the scheduled callback for the trigger\n Used
+            for agent status: Manual Dial Call"
+      description: AgentStatusOption is the status option to use for the trigger
+    services.org.hunt_groups.v1alpha1.AgentTrigger:
+      type: object
+      properties:
+        agentTriggerSid:
+          type: string
+          description: The sid of the agent trigger
+        description:
+          type: string
+          description: The description of the agent trigger
+        agentStatusOption:
+          allOf:
+          - $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.AgentStatusOption'
+          description: The agent status option to use for the trigger
+        triggerActionOption:
+          allOf:
+          - $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.TriggerActionOption'
+          description: The action option to use for the trigger
+      description: AgentTrigger is the entity for a hunt group agent trigger.
+    services.org.hunt_groups.v1alpha1.CopyHuntGroupAgentTriggerRequest:
+      type: object
+      properties:
+        fromHuntGroupSid:
+          type: string
+          description: The sid of the hunt group from which the trigger is copied
+        toHuntGroupSid:
+          type: string
+          description: The sid of the hunt group to which the trigger is copied
+        agentTrigger:
+          allOf:
+          - $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.AgentTrigger'
+          description: The agent trigger to copy
+      description: CopyHuntGroupAgentTriggerRequest is the request message for the
+        CopyHuntGroupAgentTrigger rpc.
+    services.org.hunt_groups.v1alpha1.CopyHuntGroupAgentTriggerResponse:
+      type: object
+      properties: {}
+      description: CopyHuntGroupAgentTriggerResponse is the response message for the
+        CopyHuntGroupAgentTrigger rpc.
+    services.org.hunt_groups.v1alpha1.CopyHuntGroupExileLinkRequest:
+      type: object
+      properties:
+        toHuntGroupSid:
+          type: string
+          description: The sid of the hunt group to copy the exile link to.
+        exileLink:
+          allOf:
+          - $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.ExileLink'
+          description: The exile link to copy from the source hunt group.
+      description: CopyHuntGroupExileLinkRequest is the request message for the CopyHuntGroupExileLink
+        rpc.
+    services.org.hunt_groups.v1alpha1.CopyHuntGroupExileLinkResponse:
+      type: object
+      properties: {}
+      description: CopyHuntGroupExileLinkResponse is the response message for the
+        CopyHuntGroupExileLink rpc.
     services.org.hunt_groups.v1alpha1.ExileLink:
       type: object
       properties:
@@ -110108,9 +110490,13 @@ components:
       type: object
       properties:
         recordId:
-          $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.ExileLinkParameter'
+          allOf:
+          - $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.ExileLinkParameter'
+          description: The record ID of the data.
         alternateId:
-          $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.ExileLinkParameter'
+          allOf:
+          - $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.ExileLinkParameter'
+          description: The alternate ID of the data.
       description: ExileLinkData to be passed to exile.
     services.org.hunt_groups.v1alpha1.ExileLinkParameter:
       type: object
@@ -110126,12 +110512,32 @@ components:
           description: The source type of the parameter.
           format: enum
       description: ExileLinkParameter describes the data or data source.
+    services.org.hunt_groups.v1alpha1.ListHuntGroupAgentTriggersRequest:
+      type: object
+      properties:
+        huntGroupSid:
+          type: string
+          description: The sid of the hunt group to list the triggers for
+      description: ListHuntGroupAgentTriggersRequest is the request message for the
+        ListHuntGroupAgentTriggers rpc.
+    services.org.hunt_groups.v1alpha1.ListHuntGroupAgentTriggersResponse:
+      type: object
+      properties:
+        agentTriggers:
+          type: array
+          items:
+            $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.AgentTrigger'
+          description: The list of agent triggers for the hunt group
+      description: ListHuntGroupAgentTriggersResponse is the response message for
+        the ListHuntGroupAgentTriggers rpc.
     services.org.hunt_groups.v1alpha1.ListHuntGroupExileLinksRequest:
       type: object
       properties:
         huntGroupSid:
           type: string
           description: The hunt group sid of the desired exile links
+      description: ListHuntGroupExileLinksRequest is the request for ListHuntGroupExileLinks
+        rpc.
     services.org.hunt_groups.v1alpha1.ListHuntGroupExileLinksResponse:
       type: object
       properties:
@@ -110140,6 +110546,103 @@ components:
           items:
             $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.ExileLink'
           description: The links for exile
+      description: ListHuntGroupExileLinksResponse is the response for ListHuntGroupExileLinks
+        rpc.
+    services.org.hunt_groups.v1alpha1.TriggerActionOption:
+      type: object
+      properties:
+        action:
+          type: integer
+          description: The action to take when the trigger is activated
+          format: enum
+        displayMessage:
+          type: string
+          description: "The message to be displayed when the trigger is activated\n
+            Used for action: Display Message"
+        advanceToStatus:
+          type: integer
+          description: "The status to advance to when the trigger is activated\n Used
+            for action: Advance Status\n Following are the valid status transitions:\n
+            Waiting -> Paused\n Paused -> Waiting\n On Call -> Wrap Up\n Preview Call
+            -> On Call, Waiting\n Manual Dial Call -> Waiting\n Wrap Up -> Waiting,
+            Paused"
+          format: enum
+        webLinkSid:
+          type: string
+          description: "The sid of the web link to execute when the trigger is activated\n
+            Used for action: Execute Web Link"
+        integrationLinkSid:
+          type: string
+          description: "The sid of the integration link to execute when the trigger
+            is activated\n Used for action: Execute Integration Link"
+        exileLinkSid:
+          type: string
+          description: "The sid of the exile link to execute when the trigger is activated\n
+            Used for action: Execute Exile Link"
+    services.org.hunt_groups.v1alpha1.TriggerCallTypes:
+      type: object
+      properties:
+        outbound:
+          type: boolean
+          description: The call type for outbound calls
+        inbound:
+          type: boolean
+          description: The call type for inbound calls
+        manual:
+          type: boolean
+          description: The call type for internal calls
+        preview:
+          type: boolean
+          description: The call type for preview calls
+      description: TriggerCallTypes is the call types to use for the trigger
+    services.org.hunt_groups.v1alpha1.TriggerPauseCode:
+      type: object
+      properties:
+        systemPauseCode:
+          type: integer
+          description: The system pause code to use for the trigger
+          format: enum
+        customPauseCode:
+          type: string
+          description: "The custom pause code to use for the trigger\n It is name
+            of a pause code from a pause code set"
+      description: TriggerPauseCode is the pause code to use for the trigger
+    services.org.hunt_groups.v1alpha1.UpdateHuntGroupAgentTriggersRequest:
+      type: object
+      properties:
+        huntGroupSid:
+          type: string
+          description: The sid of the hunt group to update the trigger for
+        agentTriggers:
+          type: array
+          items:
+            $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.AgentTrigger'
+          description: The list of agent triggers to update
+      description: UpdateHuntGroupAgentTriggersRequest is the request message for
+        the UpdateHuntGroupAgentTriggers rpc.
+    services.org.hunt_groups.v1alpha1.UpdateHuntGroupAgentTriggersResponse:
+      type: object
+      properties: {}
+      description: UpdateHuntGroupAgentTriggersResponse is the response message for
+        the UpdateHuntGroupAgentTriggers rpc.
+    services.org.hunt_groups.v1alpha1.UpdateHuntGroupExileLinksRequest:
+      type: object
+      properties:
+        huntGroupSid:
+          type: string
+          description: The sid of the hunt group to update the exile links for.
+        exileLinks:
+          type: array
+          items:
+            $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.ExileLink'
+          description: The list of exile links to update.
+      description: UpdateHuntGroupExileLinksRequest is the request message for the
+        UpdateHuntGroupExileLinks rpc.
+    services.org.hunt_groups.v1alpha1.UpdateHuntGroupExileLinksResponse:
+      type: object
+      properties: {}
+      description: UpdateHuntGroupExileLinksResponse is the response message for the
+        UpdateHuntGroupExileLinks RPC method.
     services.pbx.v1.AssignRandomExtensionRequest:
       type: object
       properties: {}
@@ -113206,7 +113709,8 @@ tags:
 - name: GhostNotifierApi
   description: ''
 - name: HuntGroupsService
-  description: HuntGroupsService
+  description: HuntGroupsService is the service for managing hunt groups and their
+    related entities.
 - name: IdpService
   description: ''
 - name: Insights
