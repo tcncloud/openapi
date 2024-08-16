@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Operator
-  version: v1.8.15
+  version: v1.8.16
 paths:
   /api/v0alpha/acd/acceptsecureformfield:
     post:
@@ -14990,6 +14990,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.v0alpha.GetLostPeerInfoRes'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v0alpha/p3api/getmailmerge:
+    post:
+      tags:
+      - P3Api
+      operationId: P3Api_GetMailMerge
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v0alpha.GetMailMergeReq'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v0alpha.GetMailMergeRes'
         default:
           description: Default error response
           content:
@@ -71281,6 +71305,60 @@ components:
         pbxExtensions:
           type: array
           items:
+            type: string
+    api.v0alpha.GetMailMergeReq:
+      type: object
+      properties:
+        clientSid:
+          type: string
+        agentSid:
+          type: string
+        data:
+          $ref: '#/components/schemas/api.v0alpha.MailMergeData'
+        huntGroupSid:
+          type: string
+    api.v0alpha.GetMailMergeRes:
+      type: object
+      properties:
+        agentInfo:
+          type: object
+          additionalProperties:
+            type: string
+        customData:
+          type: object
+          additionalProperties:
+            type: string
+        dataCollect:
+          type: object
+          additionalProperties:
+            type: string
+        dataDip:
+          type: object
+          additionalProperties:
+            type: string
+        ivr:
+          type: object
+          additionalProperties:
+            type: string
+        scheduledCall:
+          type: object
+          additionalProperties:
+            type: string
+        tts:
+          type: object
+          additionalProperties:
+            type: string
+        zipPhoneMetadata:
+          type: object
+          additionalProperties:
+            type: string
+        journeyRetrievedData:
+          type: object
+          additionalProperties:
+            type: string
+        integrationData:
+          type: object
+          additionalProperties:
             type: string
     api.v0alpha.GetMyUserDetailsRequest:
       type: object
