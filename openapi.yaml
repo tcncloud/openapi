@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Operator
-  version: v1.8.16
+  version: v1.8.17
 paths:
   /api/v0alpha/acd/acceptsecureformfield:
     post:
@@ -35347,6 +35347,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/scorecards/scorecards/createsmartquestion:
+    post:
+      tags:
+      - Scorecards
+      description: CreateSmartQuestion creates a scorecard smart question.
+      operationId: Scorecards_CreateSmartQuestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.scorecards.CreateSmartQuestionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.scorecards.CreateSmartQuestionResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /api/v1alpha1/scorecards/scorecards/deleteautoevaluation:
     post:
       tags:
@@ -40631,6 +40656,173 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/createadherenceagentrule:
+    post:
+      tags:
+      - WFM
+      description: "Creates the given adherence agent @rule for the org sending the
+        request.\n Errors:\n   - grpc.Invalid: the values on the given @rule are invalid.\n
+        \  - grpc.Internal: error occurs when creating the given @rule."
+      operationId: WFM_CreateAdherenceAgentRule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.CreateAdherenceAgentRuleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.CreateAdherenceAgentRuleResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/createadherenceagentruleclause:
+    post:
+      tags:
+      - WFM
+      description: "Creates the given adherence agent rule @clause for the org sending
+        the request.\n Errors:\n   - grpc.Invalid: the values on the given @clause
+        are invalid.\n   - grpc.Internal: error occurs when creating the given @clause.\n
+        \  - grpc.NotFound: agent rule with the @agent_rule_sid does not exist."
+      operationId: WFM_CreateAdherenceAgentRuleClause
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.CreateAdherenceAgentRuleClauseRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.CreateAdherenceAgentRuleClauseResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/createadherencedepartmentalrule:
+    post:
+      tags:
+      - WFM
+      description: "Creates the given adherence departmental @rule for the org sending
+        the request.\n Errors:\n   - grpc.Invalid: the values on the given @rule are
+        invalid.\n   - grpc.Internal: error occurs when creating the given @rule."
+      operationId: WFM_CreateAdherenceDepartmentalRule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.CreateAdherenceDepartmentalRuleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.CreateAdherenceDepartmentalRuleResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/createadherencedepartmentalruleclause:
+    post:
+      tags:
+      - WFM
+      description: "Creates the given adherence departmental rule @clause for the
+        org sending the request.\n Errors:\n   - grpc.Invalid: the values on the given
+        @clause are invalid.\n   - grpc.Internal: error occurs when creating the given
+        @clause.\n   - grpc.NotFound: departmental rule with the @departmetal_rule_sid
+        does not exist."
+      operationId: WFM_CreateAdherenceDepartmentalRuleClause
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.CreateAdherenceDepartmentalRuleClauseRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.CreateAdherenceDepartmentalRuleClauseResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/createadherencerulenotificationconfig:
+    post:
+      tags:
+      - WFM
+      description: "Creates the given adherence @notification_config for the org sending
+        the request.\n Errors:\n   - grpc.Invalid: the values on the given @notification_config
+        are invalid.\n   - grpc.Internal: error occurs when creating the given @notification_config."
+      operationId: WFM_CreateAdherenceRuleNotificationConfig
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.CreateAdherenceRuleNotificationConfigRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.CreateAdherenceRuleNotificationConfigResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/createadherencerulenotificationconfigentry:
+    post:
+      tags:
+      - WFM
+      description: "Creates the given adherence @notification_config_entry for the
+        org sending the request.\n Errors:\n   - grpc.Invalid: the values on the given
+        @notification_config_entry are invalid.\n   - grpc.Internal: error occurs
+        when creating the given @notification_config_entry.\n   - grpc.NotFound: notification
+        config with the @notification_config_sid does not exist."
+      operationId: WFM_CreateAdherenceRuleNotificationConfigEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.CreateAdherenceRuleNotificationConfigEntryRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.CreateAdherenceRuleNotificationConfigEntryResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /api/v1alpha1/wfm/createagentavailabilitypattern:
     post:
       tags:
@@ -40885,6 +41077,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.v1alpha1.wfm.CreateInactiveSkillProfileMappingRes'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/createinitialdemoactivities:
+    post:
+      tags:
+      - WFM
+      description: "Create an initial set of demo activities for the org sending the
+        requests.\n If any non skill activities already exist matching the names of
+        the demo non skill activities, a second copy will not be created.\n Required
+        permissions:\n   NONE\n Errors:\n   - grpc.Internal: error occurs when creating
+        the activities or checking if they already exist."
+      operationId: WFM_CreateInitialDemoActivities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.CreateInitialDemoActivitiesRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.CreateInitialDemoActivitiesResponse'
         default:
           description: Default error response
           content:
@@ -42369,10 +42590,10 @@ paths:
     post:
       tags:
       - WFM
-      description: "Gets the state of the cache for the given @org_id, and if the
-        cache's state is not_loaded, or loading_failed,\n it will start the loading
-        task before returning the current state.\n DEPRECATED as of Dec/13/2023 -
-        Use PerformInitialClientSetup instead.\n Errors:\n  -grpc.Internal: error
+      description: "Gets the state of the cache for the org sending the request, and
+        if the cache's state is not_loaded, or loading_failed,\n it will start the
+        loading task before returning the current state.\n DEPRECATED as of Dec/13/2023
+        - Use PerformInitialClientSetup instead.\n Errors:\n  -grpc.Internal: error
         occurs when getting the cache info."
       operationId: WFM_GetClientHistoryCacheInfo
       requestBody:
@@ -50389,22 +50610,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
-  /tcnapi/omni/projects/v1/org/{org}/region/{region}/projects:
+  /tcnapi/omni/projects/v1/regions/{region}/orgs/{org}/projects:
     get:
       tags:
       - Projects
       description: Method to list projects
       operationId: Projects_ListProjects
       parameters:
-      - name: org
-        in: path
-        description: The org id.
-        required: true
-        schema:
-          type: string
       - name: region
         in: path
         description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: org
+        in: path
+        description: The org id.
         required: true
         schema:
           type: string
@@ -50417,6 +50638,11 @@ paths:
       - name: pageToken
         in: query
         description: used to specify the page token
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: used to specify the filter
         schema:
           type: string
       responses:
@@ -50438,15 +50664,15 @@ paths:
       description: Method to create a project
       operationId: Projects_CreateProject
       parameters:
-      - name: org
-        in: path
-        description: The org id.
-        required: true
-        schema:
-          type: string
       - name: region
         in: path
         description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: org
+        in: path
+        description: The org id.
         required: true
         schema:
           type: string
@@ -50469,22 +50695,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
-  /tcnapi/omni/projects/v1/org/{org}/region/{region}/projects/{project}:
+  /tcnapi/omni/projects/v1/regions/{region}/orgs/{org}/projects/{project}:
     get:
       tags:
       - Projects
       description: Method to get a rpoject
       operationId: Projects_GetProject
       parameters:
-      - name: org
-        in: path
-        description: The org id.
-        required: true
-        schema:
-          type: string
       - name: region
         in: path
         description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: org
+        in: path
+        description: The org id.
         required: true
         schema:
           type: string
@@ -50513,15 +50739,15 @@ paths:
       description: Method to delete a project
       operationId: Projects_DeleteProject
       parameters:
-      - name: org
-        in: path
-        description: The org id.
-        required: true
-        schema:
-          type: string
       - name: region
         in: path
         description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: org
+        in: path
+        description: The org id.
         required: true
         schema:
           type: string
@@ -50550,15 +50776,15 @@ paths:
       description: Method to update a project
       operationId: Projects_UpdateProject
       parameters:
-      - name: org
-        in: path
-        description: The org id.
-        required: true
-        schema:
-          type: string
       - name: region
         in: path
         description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: org
+        in: path
+        description: The org id.
         required: true
         schema:
           type: string
@@ -51394,6 +51620,174 @@ components:
       properties:
         conversation:
           $ref: '#/components/schemas/api.commons.OmniConversation'
+    api.commons.AdherenceAgentRule:
+      type: object
+      properties:
+        adherenceAgentRuleId:
+          type: string
+          description: ID of this agent rule.
+        name:
+          type: string
+          description: Name of this agent rule.
+        selectedEntity:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.ConfigEntity'
+          description: "Config entity that the rule applies to, supported ones are:\n
+            CALL_CENTER_NODE, CLIENT_NODE, LOCATION_NODE, PROGRAM_NODE, AGENT_GROUP,
+            WFM_AGENT, SHIFT_TEMPLATE."
+        ruleRequirementType:
+          type: integer
+          description: Specifies the requirement type of this rule.
+          format: enum
+        adherenceRuleNotificationConfigId:
+          type: string
+          description: ID of the notification config that this rule will use/follow.
+      description: Represents an adherence agent rule.
+    api.commons.AdherenceAgentRuleAction:
+      type: object
+      properties:
+        actionType:
+          type: integer
+          description: Type of ths action.
+          format: enum
+      description: Represents a agent rule action.
+    api.commons.AdherenceAgentRuleClause:
+      type: object
+      properties:
+        adherenceAgentRuleClauseId:
+          type: string
+          description: ID of this agent rule clause.
+        adherenceAgentRuleId:
+          type: string
+          description: ID of the agent rule that this clause belongs to.
+        action:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.AdherenceAgentRuleAction'
+          description: Action that this agent rule clause evaluates.
+        condition:
+          type: integer
+          description: Condition that will be evaluated between the @action and the
+            @amount.
+          format: enum
+        amount:
+          type: integer
+          description: Amount to evaluate.
+          format: int32
+        unit:
+          type: integer
+          description: Unit that the @amount is on.
+          format: enum
+      description: Represents an adherence agent rule clause.
+    api.commons.AdherenceDepartmentalRule:
+      type: object
+      properties:
+        adherenceDepartmentalRuleId:
+          type: string
+          description: ID of this departmental rule.
+        name:
+          type: string
+          description: Name of this departmental rule.
+        selectedEntity:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.ConfigEntity'
+          description: "Config entity that the rule applies to, supported ones are:\n
+            CALL_CENTER_NODE, CLIENT_NODE, LOCATION_NODE, PROGRAM_NODE, SHIFT_TEMPLATE,
+            AGENT_GROUP."
+        ruleRequirementType:
+          type: integer
+          description: Specifies the requirement type of this rule.
+          format: enum
+        adherenceRuleNotificationConfigId:
+          type: string
+          description: ID of the notification config that this rule will use/follow.
+        ruleRange:
+          type: integer
+          description: Range that this rule will be applied at.
+          format: enum
+        customRange:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.DatetimeRange'
+          description: Custom date range to apply the rule, must only be set when
+            @rule_range is CUSTOM_DATE_RANGE.
+      description: Represents an adherence departmental rule.
+    api.commons.AdherenceDepartmentalRuleAction:
+      type: object
+      properties:
+        actionType:
+          type: integer
+          description: Type of ths action.
+          format: enum
+      description: Represents a departmental rule action.
+    api.commons.AdherenceDepartmentalRuleClause:
+      type: object
+      properties:
+        adherenceDepartmentalRuleClauseId:
+          type: string
+          description: ID of this departmental rule clause.
+        adherenceDepartmentalRuleId:
+          type: string
+          description: ID of the departmental rule that this clause belongs to.
+        action:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.AdherenceDepartmentalRuleAction'
+          description: Action that this departmental rule clause evaluates.
+        condition:
+          type: integer
+          description: Condition that will be evaluated between the @action and the
+            @amount.
+          format: enum
+        amount:
+          type: integer
+          description: Amount to evaluate.
+          format: int32
+        unit:
+          type: integer
+          description: Unit that the @amount is on.
+          format: enum
+        perAmount:
+          type: integer
+          description: "Optional amount to evaluate e.g:\n drops below <80%> calls
+            answered in <10> seconds will be - amount: 80, unit: percentage, per_amount:
+            10, per_unit: seconds."
+          format: int32
+        perUnit:
+          type: integer
+          description: Unit that the @per_amount is on, only used when the @per_amount
+            is set.
+          format: enum
+      description: Represents an adherence departmental rule clause.
+    api.commons.AdherenceRuleNotificationConfig:
+      type: object
+      properties:
+        adherenceRuleNotificationConfigId:
+          type: string
+          description: ID of the notification config.
+        name:
+          type: string
+          description: Name of the notification config.
+      description: Represents a configuration for adherence rule notifications.
+    api.commons.AdherenceRuleNotificationConfigEntry:
+      type: object
+      properties:
+        adherenceRuleNotificationConfigEntryId:
+          type: string
+          description: ID of the notification config entry.
+        adherenceRuleNotificationConfigId:
+          type: string
+          description: ID of the notification config that this entry belongs to.
+        recipientUserId:
+          type: string
+          description: ID of the user ID that will receive this notification.
+        notificationMedium:
+          type: integer
+          description: Medium to be used for deliving the notification.
+          format: enum
+        secondsToWaitForNoResponse:
+          type: integer
+          description: Number of seconds to wait to trigger this notification entry
+            after the rule that uses this config was violated.
+          format: int32
+      description: Represents a user entry for a notification.
     api.commons.AgentAlert:
       type: object
       properties:
@@ -52162,6 +52556,17 @@ components:
           description: "list of compliance rules ran in this version of the\n rule
             set."
       description: ComplianceRuleSet -
+    api.commons.ConfigEntity:
+      type: object
+      properties:
+        entitySid:
+          type: string
+          description: ID of the config entity.
+        entityType:
+          type: integer
+          description: Type of entity that the @entity_sid will reference.
+          format: enum
+      description: ID and type of a config entity.
     api.commons.ConfirmReplyComment:
       type: object
       properties:
@@ -55269,6 +55674,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/api.commons.AutoQuestion'
+        smartQuestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.commons.SmartQuestion'
       description: Section represents a section of a scorecard (template).
     api.commons.Selector:
       type: object
@@ -55549,6 +55958,45 @@ components:
           type: string
           description: The name.
       description: SlaConditions - Condition Fields for sla on a ticket
+    api.commons.SmartQuestion:
+      type: object
+      properties:
+        smartQuestionId:
+          type: string
+        scorecardId:
+          type: string
+        sectionId:
+          type: string
+        questionId:
+          type: string
+        description:
+          type: string
+        question:
+          type: string
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.commons.SmartQuestion_Answer'
+        focus:
+          type: integer
+          format: enum
+        sortOrder:
+          type: integer
+          format: int32
+      description: SmartQuestion represents a question inside of a smart scorecard.
+    api.commons.SmartQuestion_Answer:
+      type: object
+      properties:
+        answer:
+          type: string
+        points:
+          type: integer
+          format: int32
+        failType:
+          type: integer
+          format: enum
+      description: Answer represents a single answer, including the associated score
+        impact.
     api.commons.SmsNumber:
       type: object
       properties:
@@ -73842,6 +74290,10 @@ components:
           allOf:
           - $ref: '#/components/schemas/api.v0alpha.ListConversationsReq_ByAssignedUser'
           description: list conversations by assigned user
+        byConversationSids:
+          allOf:
+          - $ref: '#/components/schemas/api.v0alpha.ListConversationsReq_ByConversationSids'
+          description: list conversations by conversation sid
       description: ListConversationsReq - request to get conversations
     api.v0alpha.ListConversationsReq_ByAssignedUser:
       type: object
@@ -73865,6 +74317,23 @@ components:
           type: string
           description: Optional. When provided all other request fields are ignored.
       description: message filter to list conversations by assigned user
+    api.v0alpha.ListConversationsReq_ByConversationSids:
+      type: object
+      properties:
+        conversationSids:
+          type: array
+          items:
+            type: string
+          description: the conversation sid
+        pageSize:
+          type: integer
+          description: Optional. The number of listconversation to include in a single
+            response. When not provided this defaults to 100.
+          format: uint32
+        pageToken:
+          type: string
+          description: Optional. When provided all other request fields are ignored.
+      description: message filter to list conversations by conversation sids
     api.v0alpha.ListConversationsReq_ByTime:
       type: object
       properties:
@@ -85068,6 +85537,16 @@ components:
           - $ref: '#/components/schemas/api.v1alpha1.insights.FormatSeries'
           description: Series values for operation
       description: Message for ColumnOperation
+    api.v1alpha1.insights.ComponentAction:
+      type: object
+      properties:
+        componentName:
+          type: string
+        componentValue:
+          type: object
+          additionalProperties:
+            type: string
+      description: Message for Component Insight Contextual Action
     api.v1alpha1.insights.CreateInsightRequest:
       type: object
       properties:
@@ -85230,6 +85709,34 @@ components:
       description: "Insight is a data handling entity used to process data\n Insight
         can represent an object that belongs to the user\n Insight can represent an
         object inside the common lib"
+    api.v1alpha1.insights.InsightContextualAction:
+      type: object
+      properties:
+        type:
+          type: integer
+          description: Type of the contextual action
+          format: enum
+        link:
+          allOf:
+          - $ref: '#/components/schemas/api.v1alpha1.insights.LinkAction'
+          description: Link action
+        component:
+          allOf:
+          - $ref: '#/components/schemas/api.v1alpha1.insights.ComponentAction'
+          description: Component action
+      description: Message for Insight Contextual Action
+    api.v1alpha1.insights.LinkAction:
+      type: object
+      properties:
+        linkElements:
+          type: array
+          items:
+            type: string
+        componentValue:
+          type: object
+          additionalProperties:
+            type: string
+      description: Message for Link Insight Contextual Action
     api.v1alpha1.insights.ListInsightsRequest:
       type: object
       properties:
@@ -85391,6 +85898,10 @@ components:
           type: integer
           description: The sorting direction of the column
           format: enum
+        insightContextualAction:
+          allOf:
+          - $ref: '#/components/schemas/api.v1alpha1.insights.InsightContextualAction'
+          description: insight contextual actions
       description: Message for Table Column Configuration
     api.v1alpha1.insights.TableVisualization:
       type: object
@@ -96402,6 +96913,19 @@ components:
         section:
           $ref: '#/components/schemas/api.commons.Section'
       description: CreateSectionResponse returns the created section.
+    api.v1alpha1.scorecards.CreateSmartQuestionRequest:
+      type: object
+      properties:
+        smartQuestion:
+          $ref: '#/components/schemas/api.commons.SmartQuestion'
+      description: CreateSmartQuestionRequest is the request to create a new smart
+        question.
+    api.v1alpha1.scorecards.CreateSmartQuestionResponse:
+      type: object
+      properties:
+        smartQuestion:
+          $ref: '#/components/schemas/api.commons.SmartQuestion'
+      description: CreateSmartQuestionResponse returns the created smart question.
     api.v1alpha1.scorecards.DeleteAutoEvaluationByOrgIdRequest:
       type: object
       properties:
@@ -101765,6 +102289,98 @@ components:
       type: object
       properties: {}
       description: Response message for CopyWFMAgentMemberships RPC
+    api.v1alpha1.wfm.CreateAdherenceAgentRuleClauseRequest:
+      type: object
+      properties:
+        clause:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.AdherenceAgentRuleClause'
+          description: Agent rule clause to create for the org sending the request.
+      description: Request message for CreateAdherenceAgentRuleClause.
+    api.v1alpha1.wfm.CreateAdherenceAgentRuleClauseResponse:
+      type: object
+      properties:
+        adherenceAgentRuleClauseId:
+          type: string
+          description: ID of the created agent rule clause.
+      description: Response message for CreateAdherenceAgentRuleClause.
+    api.v1alpha1.wfm.CreateAdherenceAgentRuleRequest:
+      type: object
+      properties:
+        rule:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.AdherenceAgentRule'
+          description: Agent rule to create for the org sending the request.
+      description: Request message for CreateAdherenceAgentRule.
+    api.v1alpha1.wfm.CreateAdherenceAgentRuleResponse:
+      type: object
+      properties:
+        adherenceAgentRuleId:
+          type: string
+          description: ID of the created agent rule.
+      description: Response message for CreateAdherenceAgentRule.
+    api.v1alpha1.wfm.CreateAdherenceDepartmentalRuleClauseRequest:
+      type: object
+      properties:
+        clause:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.AdherenceDepartmentalRuleClause'
+          description: Departmental rule clause to create for the org sending the
+            request.
+      description: Request message for CreateAdherenceDepartmentalRuleClause.
+    api.v1alpha1.wfm.CreateAdherenceDepartmentalRuleClauseResponse:
+      type: object
+      properties:
+        adherenceDepartmentalRuleClauseId:
+          type: string
+          description: ID of the created departmental rule clause.
+      description: Response message for CreateAdherenceDepartmentalRuleClause.
+    api.v1alpha1.wfm.CreateAdherenceDepartmentalRuleRequest:
+      type: object
+      properties:
+        rule:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.AdherenceDepartmentalRule'
+          description: Departmental rule to create for the org sending the request.
+      description: Request message for CreateAdherenceDepartmentalRule.
+    api.v1alpha1.wfm.CreateAdherenceDepartmentalRuleResponse:
+      type: object
+      properties:
+        adherenceDepartmentalRuleId:
+          type: string
+          description: ID of the created departmental rule.
+      description: Response message for CreateAdherenceDepartmentalRule.
+    api.v1alpha1.wfm.CreateAdherenceRuleNotificationConfigEntryRequest:
+      type: object
+      properties:
+        notificationConfigEntry:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.AdherenceRuleNotificationConfigEntry'
+          description: Notification config entry to create for the org sending the
+            request.
+      description: Request message for CreateAdherenceRuleNotificationConfigEntry.
+    api.v1alpha1.wfm.CreateAdherenceRuleNotificationConfigEntryResponse:
+      type: object
+      properties:
+        adherenceRuleNotificationConfigEntryId:
+          type: string
+          description: ID of the created notification config entry.
+      description: Response message for CreateAdherenceRuleNotificationConfigEntry.
+    api.v1alpha1.wfm.CreateAdherenceRuleNotificationConfigRequest:
+      type: object
+      properties:
+        notificationConfig:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.AdherenceRuleNotificationConfig'
+          description: Notification config to create for the org sending the request.
+      description: Request message for CreateAdherenceRuleNotificationConfig.
+    api.v1alpha1.wfm.CreateAdherenceRuleNotificationConfigResponse:
+      type: object
+      properties:
+        adherenceRuleNotificationConfigId:
+          type: string
+          description: ID of the created notification config.
+      description: Response message for CreateAdherenceRuleNotificationConfig.
     api.v1alpha1.wfm.CreateAgentAvailabilityPatternReq:
       type: object
       properties:
@@ -101920,6 +102536,14 @@ components:
       properties: {}
       description: "Response message for the CreateInactiveSkillProfileMapping RPC.\n
         DEPRECATED as of Sep/27/2023 - Use skill profile groups instead."
+    api.v1alpha1.wfm.CreateInitialDemoActivitiesRequest:
+      type: object
+      properties: {}
+      description: Request message for the CreateInitialDemoActivities RPC.
+    api.v1alpha1.wfm.CreateInitialDemoActivitiesResponse:
+      type: object
+      properties: {}
+      description: Response message for the CreateInitialDemoActivities RPC.
     api.v1alpha1.wfm.CreateLocationNodeReq:
       type: object
       properties:
@@ -108386,6 +109010,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/services.billing.entities.v1alpha4.InvoiceColumn'
+    services.billing.entities.v1alpha4.MatchingConfig:
+      type: object
+      properties:
+        countryCodePrefix:
+          $ref: '#/components/schemas/services.billing.entities.v1alpha4.CountryCodePrefix'
+      description: MatchingConfig -
     services.billing.entities.v1alpha4.MatchingRule:
       type: object
       properties:
@@ -108402,6 +109032,8 @@ components:
         updateTime:
           type: string
           format: date-time
+        ruleConfig:
+          $ref: '#/components/schemas/services.billing.entities.v1alpha4.MatchingConfig'
         countryCodePrefix:
           $ref: '#/components/schemas/services.billing.entities.v1alpha4.CountryCodePrefix'
     services.billing.entities.v1alpha4.OmniSmsConfig:
@@ -109532,6 +110164,8 @@ components:
       properties:
         billingPlanId:
           type: string
+        title:
+          type: string
     services.billing.v1alpha4.CloneBillingPlanResponse:
       type: object
       properties:
@@ -109541,6 +110175,8 @@ components:
       type: object
       properties:
         billingPlanId:
+          type: string
+        title:
           type: string
     services.billing.v1alpha4.CloneDefaultBillingPlanResponse:
       type: object
@@ -110266,6 +110902,10 @@ components:
         encodedExileCertificate:
           type: string
           description: The base-64 encoded certificate that was created.
+        exileCertificate:
+          allOf:
+          - $ref: '#/components/schemas/services.org.exile_certificate_manager.v1alpha1.ExileCertificate'
+          description: The newly created exile certificate.
       description: CreateExileCertificateResponse is the response for creating a exile
         certificate.
     services.org.exile_certificate_manager.v1alpha1.CreateExileConfigurationRequest:
@@ -110292,7 +110932,12 @@ components:
       properties:
         exileConfigurationId:
           type: string
-          description: The id of the exile configuration that was created.
+          description: "The id of the exile configuration that was created.\n DEPRECATED:
+            Use exile_configuration instead."
+        exileConfiguration:
+          allOf:
+          - $ref: '#/components/schemas/services.org.exile_certificate_manager.v1alpha1.ExileConfiguration'
+          description: The newly created exile configuration.
       description: CreateExileConfigurationResponse is the response to creating a
         exile configuration
     services.org.exile_certificate_manager.v1alpha1.DeleteExileConfigurationRequest:
