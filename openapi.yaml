@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Operator
-  version: v1.8.17
+  version: v1.8.18
 paths:
   /api/v0alpha/acd/acceptsecureformfield:
     post:
@@ -35623,6 +35623,56 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/scorecards/scorecards/deletesmartevaluation:
+    post:
+      tags:
+      - Scorecards
+      description: DeleteSmartEvaluation deletes a smart evaluation
+      operationId: Scorecards_DeleteSmartEvaluation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.scorecards.DeleteSmartEvaluationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.scorecards.DeleteSmartEvaluationResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/scorecards/scorecards/deletesmartquestion:
+    post:
+      tags:
+      - Scorecards
+      description: DeleteSmartQuestion deletes a smart question.
+      operationId: Scorecards_DeleteSmartQuestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.scorecards.DeleteSmartQuestionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.scorecards.DeleteSmartQuestionResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /api/v1alpha1/scorecards/scorecards/getautoevaluation:
     post:
       tags:
@@ -35823,6 +35873,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/scorecards/scorecards/getsmartevaluation:
+    post:
+      tags:
+      - Scorecards
+      description: GetSmartEvaluation gets a smart evaluation
+      operationId: Scorecards_GetSmartEvaluation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.scorecards.GetSmartEvaluationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.scorecards.GetSmartEvaluationResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /api/v1alpha1/scorecards/scorecards/listautoevaluations:
     post:
       tags:
@@ -35967,6 +36042,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.v1alpha1.scorecards.ListSectionsResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/scorecards/scorecards/listsmartevaluations:
+    post:
+      tags:
+      - Scorecards
+      description: ListSmartEvaluations lists smart evaluations
+      operationId: Scorecards_ListSmartEvaluations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.scorecards.ListSmartEvaluationsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.scorecards.ListSmartEvaluationsResponse'
         default:
           description: Default error response
           content:
@@ -36292,6 +36392,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.v1alpha1.scorecards.UpdateSectionResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/scorecards/scorecards/updatesmartquestion:
+    post:
+      tags:
+      - Scorecards
+      description: UpdateSmartQuestion updates a smart question.
+      operationId: Scorecards_UpdateSmartQuestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.scorecards.UpdateSmartQuestionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.scorecards.UpdateSmartQuestionResponse'
         default:
           description: Default error response
           content:
@@ -53354,6 +53479,9 @@ components:
         failType:
           type: integer
           format: enum
+        answerPoints:
+          type: integer
+          format: int32
       description: Answer represents an answer option of an evaluation question
     api.commons.EvaluationSection:
       type: object
@@ -53770,15 +53898,25 @@ components:
         languageTag:
           type: string
           description: "Display language in Operator for users of the organization.\n
-            Must be a valid language tag supported in Operator.\n IETF BCP 47 - https://en.wikipedia.org/wiki/IETF_language_tag"
+            Must be a valid language tag supported in Operator.\n IETF BCP 47 - https://en.wikipedia.org/wiki/IETF_language_tag\n
+            DEPRECATED: use operator_display_language instead."
         useScriptDirectionRightToLeft:
           type: boolean
           description: "The direction of the script in Operator used in the organization.\n
-            By default, it is set to false to indicate left-to-right."
+            By default, it is set to false to indicate left-to-right.\n DEPRECATED:
+            use language_direction_preference instead."
         defaultCurrency:
           type: string
           description: "The default currency used in the organization.\n Must be a
             valid currency code supported in Operator.\n ISO 4217 - https://en.wikipedia.org/wiki/ISO_4217."
+        operatorDisplayLanguage:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.OperatorDisplayLanguage'
+          description: The display language in Operator for users of the organization.
+        operatorLanguageDirection:
+          type: integer
+          description: The direction of the language used in the organization.
+          format: enum
       description: LocalePreferences represents the organization's locale settings.
     api.commons.LocationExp:
       type: object
@@ -54861,6 +54999,18 @@ components:
           type: string
           description: primary asm session identifier
       description: OmniMessage payload for unassigning an agent(s)
+    api.commons.OperatorDisplayLanguage:
+      type: object
+      properties:
+        value:
+          type: string
+          description: "Display language in Operator for users of the organization.\n
+            If set, must be a valid language tag supported in Operator.\n IETF BCP
+            47 - https://en.wikipedia.org/wiki/IETF_language_tag"
+      description: "OperatorDisplayLanguage represents the language used in Operator.\n
+        - Organization Preferences: must be set to a valid language tag supported
+        in Operator.\n - User Preferences: If not set, the organization's default
+        language is used."
     api.commons.OptionTypes:
       type: object
       properties:
@@ -55624,6 +55774,9 @@ components:
         failType:
           type: integer
           format: enum
+        answerPoints:
+          type: integer
+          format: int32
       description: Answer are all the possible answers for a scorecard question.
     api.commons.ScorecardQuestion_MultiSelect:
       type: object
@@ -55958,6 +56111,98 @@ components:
           type: string
           description: The name.
       description: SlaConditions - Condition Fields for sla on a ticket
+    api.commons.SmartEvaluation:
+      type: object
+      properties:
+        smartEvaluationId:
+          type: string
+        scorecardId:
+          type: string
+        transcriptSid:
+          type: string
+        agentUserId:
+          type: string
+        score:
+          type: number
+          format: double
+        scoringVersion:
+          type: integer
+          format: int32
+        scorecardVersion:
+          type: integer
+          format: int32
+        completeTime:
+          type: string
+          format: date-time
+        deleteTime:
+          type: string
+          format: date-time
+        smartEvaluationSections:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.commons.SmartEvaluationSection'
+      description: SmartEvaluation represents an evaluated transcript using a smart
+        scorecard.
+    api.commons.SmartEvaluationQuestion:
+      type: object
+      properties:
+        smartQuestionId:
+          type: string
+        points:
+          type: integer
+          format: int32
+        possiblePoints:
+          type: integer
+          format: int32
+        answer:
+          $ref: '#/components/schemas/api.commons.SmartEvaluationQuestion_Answer'
+        createTime:
+          type: string
+          format: date-time
+        deleteTime:
+          type: string
+          format: date-time
+      description: SmartEvaluationQuestion represents the results of an evaluated
+        smart question.
+    api.commons.SmartEvaluationQuestion_Answer:
+      type: object
+      properties:
+        answer:
+          type: string
+        points:
+          type: integer
+          format: uint32
+        failType:
+          type: integer
+          format: enum
+        answerPoints:
+          type: integer
+          format: int32
+      description: Answer represents a single answer, including the associated score
+        impact.
+    api.commons.SmartEvaluationSection:
+      type: object
+      properties:
+        sectionId:
+          type: string
+        points:
+          type: integer
+          format: int32
+        possiblePoints:
+          type: integer
+          format: int32
+        createTime:
+          type: string
+          format: date-time
+        deleteTime:
+          type: string
+          format: date-time
+        smartEvaluationQuestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.commons.SmartEvaluationQuestion'
+      description: SmartEvaluationSection represents a section of a smart evaluation
+        containing question(s).
     api.commons.SmartQuestion:
       type: object
       properties:
@@ -60307,6 +60552,9 @@ components:
           - $ref: '#/components/schemas/api.commons.integrations.HelperText'
           description: the helper text of the field. This is the text that helps explain
             the label name
+        required:
+          type: boolean
+          description: if it needs to be filled out before run time
       description: "FieldDefinition defines a field name, and type that is used in
         integrations.\n This lets the UI make forms for the getting the field's value
         from the user"
@@ -68297,6 +68545,10 @@ components:
           allOf:
           - $ref: '#/components/schemas/api.commons.TimeZoneWrapper'
           description: User TimeZone with wrapper for nullable timezone
+        localePreferencesOverride:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.LocalePreferences'
+          description: The override for the users locale preferences
     api.v0alpha.CreateUserResponse:
       type: object
       properties:
@@ -81337,6 +81589,10 @@ components:
         email:
           type: string
           description: The users email
+        localePreferencesOverride:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.LocalePreferences'
+          description: The override for the users locale preferences
         fieldMask:
           type: string
           description: List of all fields being updated
@@ -81960,6 +82216,10 @@ components:
         email:
           type: string
           description: The users email
+        localePreferencesOverride:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.LocalePreferences'
+          description: The override for the users locale preferences
         fieldMask:
           type: string
           description: List of all fields being updated
@@ -82375,6 +82635,10 @@ components:
         emailVerified:
           type: boolean
           description: if the user's email is verified
+        localePreferencesOverride:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.LocalePreferences'
+          description: The override for the users locale preferences
         trusts:
           type: array
           items:
@@ -85706,6 +85970,9 @@ components:
           type: string
         standardInsight:
           type: boolean
+        datasourceType:
+          type: integer
+          format: enum
       description: "Insight is a data handling entity used to process data\n Insight
         can represent an object that belongs to the user\n Insight can represent an
         object inside the common lib"
@@ -89415,6 +89682,10 @@ components:
         huntGroupSid:
           type: string
           description: The hunt group that the created user will belong to.
+        localePreferencesOverride:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.LocalePreferences'
+          description: The override for the users locale preferences
       description: Request message for the CreateUser rpc.
     api.v1alpha1.org.CreateUserResponse:
       type: object
@@ -90481,6 +90752,10 @@ components:
         emailVerified:
           type: boolean
           description: if the user's email is verified
+        localePreferencesOverride:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.LocalePreferences'
+          description: The override for the users locale preferences
       description: Response message for GetUserByOrgId.
     api.v1alpha1.org.GetUserByOrgIdResponse_AgentProfileGroup:
       type: object
@@ -90767,6 +91042,10 @@ components:
         emailVerified:
           type: boolean
           description: if the user's email is verified
+        localePreferencesOverride:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.LocalePreferences'
+          description: The override for the users locale preferences
       description: Response message for GetUser.
     api.v1alpha1.org.GetUserResponse_AgentProfileGroup:
       type: object
@@ -90937,6 +91216,10 @@ components:
           type: string
           description: Timestamp of of when a user must reset their password before
           format: date-time
+        localePreferencesOverride:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.LocalePreferences'
+          description: The override for the users locale preferences
     api.v1alpha1.org.GetUserSubscriptionByUserIdRequest:
       type: object
       properties:
@@ -92984,6 +93267,10 @@ components:
           type: integer
           description: Default app the user starts on
           format: enum
+        localePreferencesOverride:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.LocalePreferences'
+          description: The override for the users locale preferences
         fieldMask:
           type: array
           items:
@@ -93323,6 +93610,10 @@ components:
           items:
             type: string
           description: A list of labels to assign to the user
+        localePreferencesOverride:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.LocalePreferences'
+          description: The override for the users locale preferences
         fieldMask:
           type: array
           items:
@@ -97081,6 +97372,30 @@ components:
         section:
           $ref: '#/components/schemas/api.commons.Section'
       description: DeleteSectionResponse returns the deleted section.
+    api.v1alpha1.scorecards.DeleteSmartEvaluationRequest:
+      type: object
+      properties:
+        smartEvaluationId:
+          type: string
+      description: DeleteSmartEvaluationRequest represents a request to delete a smart
+        evaluation.
+    api.v1alpha1.scorecards.DeleteSmartEvaluationResponse:
+      type: object
+      properties: {}
+      description: DeleteSmartEvaluationResponse represents a response to delete a
+        smart evaluation.
+    api.v1alpha1.scorecards.DeleteSmartQuestionRequest:
+      type: object
+      properties:
+        smartQuestionId:
+          type: string
+      description: DeleteSmartQuestionRequest is the request to delete a smart question.
+    api.v1alpha1.scorecards.DeleteSmartQuestionResponse:
+      type: object
+      properties:
+        smartQuestion:
+          $ref: '#/components/schemas/api.commons.SmartQuestion'
+      description: DeleteSmartQuestionResponse returns the deleted smart question.
     api.v1alpha1.scorecards.GetAutoEvaluationRequest:
       type: object
       properties:
@@ -97184,6 +97499,19 @@ components:
         section:
           $ref: '#/components/schemas/api.commons.Section'
       description: GetSectionResponse is the response to getting a section.
+    api.v1alpha1.scorecards.GetSmartEvaluationRequest:
+      type: object
+      properties:
+        smartEvaluationId:
+          type: string
+      description: GetSmartEvaluationRequest represents a request to get a smart evaluation.
+    api.v1alpha1.scorecards.GetSmartEvaluationResponse:
+      type: object
+      properties:
+        smartEvaluation:
+          $ref: '#/components/schemas/api.commons.SmartEvaluation'
+      description: GetSmartEvaluationResponse represents a response to get a smart
+        evaluation.
     api.v1alpha1.scorecards.ListAutoEvaluationsByOrgIdRequest:
       type: object
       properties:
@@ -97528,6 +97856,20 @@ components:
           items:
             $ref: '#/components/schemas/api.commons.Section'
       description: ListSectionsResponse returns a list of sections.
+    api.v1alpha1.scorecards.ListSmartEvaluationsRequest:
+      type: object
+      properties: {}
+      description: ListSmartEvaluationsRequest represents a request to list smart
+        evaluations.
+    api.v1alpha1.scorecards.ListSmartEvaluationsResponse:
+      type: object
+      properties:
+        smartEvaluations:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.commons.SmartEvaluation'
+      description: ListSmartEvaluationsResponse represents a response to list smart
+        evaluations.
     api.v1alpha1.scorecards.PreviewEvaluationScoreRequest:
       type: object
       properties:
@@ -97775,6 +98117,21 @@ components:
         section:
           $ref: '#/components/schemas/api.commons.Section'
       description: UpdateSectionResponse returns the updated section.
+    api.v1alpha1.scorecards.UpdateSmartQuestionRequest:
+      type: object
+      properties:
+        smartQuestion:
+          $ref: '#/components/schemas/api.commons.SmartQuestion'
+        updateMask:
+          type: string
+          format: field-mask
+      description: UpdateSmartQuestionRequest is the request to update a smart question.
+    api.v1alpha1.scorecards.UpdateSmartQuestionResponse:
+      type: object
+      properties:
+        smartQuestion:
+          $ref: '#/components/schemas/api.commons.SmartQuestion'
+      description: UpdateSmartQuestionResponse returns the updated smart question.
     api.v1alpha1.sentinel.LogEvent:
       type: object
       properties:
