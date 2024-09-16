@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Operator
-  version: v1.8.18
+  version: v1.8.20
 paths:
   /api/v0alpha/acd/acceptsecureformfield:
     post:
@@ -19138,6 +19138,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.v1alpha1.agenttraining.ListLearningOpportunitiesResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/agenttraining/agenttrainingservice/listmanagerdashboards:
+    post:
+      tags:
+      - AgentTrainingService
+      description: ListManagerDashboards lists manager dashboards.
+      operationId: AgentTrainingService_ListManagerDashboards
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.agenttraining.ListDashboardsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.agenttraining.ListDashboardsResponse'
         default:
           description: Default error response
           content:
@@ -43262,6 +43287,90 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/listadherenceagentrules:
+    post:
+      tags:
+      - WFM
+      description: "Gets all adherence agent @rules for the org sending the request.\n
+        Rules will include their respective clauses.\n Errors:\n   - grpc.Invalid:
+        the request arguments are invalid.\n   - grpc.Internal: error occurs when
+        getting the rules."
+      operationId: WFM_ListAdherenceAgentRules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.ListAdherenceAgentRulesRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.ListAdherenceAgentRulesResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/listadherencedepartmentalrules:
+    post:
+      tags:
+      - WFM
+      description: "Gets all adherence departmental @rules for the org sending the
+        request.\n Rules will include their respective clauses.\n Errors:\n   - grpc.Invalid:
+        the request arguments are invalid.\n   - grpc.Internal: error occurs when
+        getting the rules."
+      operationId: WFM_ListAdherenceDepartmentalRules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.ListAdherenceDepartmentalRulesRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.ListAdherenceDepartmentalRulesResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/listadherencerulenotificationconfigs:
+    post:
+      tags:
+      - WFM
+      description: "Gets all adherence rule @notification_configs for the org sending
+        the request.\n Configs will include their respective entries.\n Errors:\n
+        \  - grpc.Invalid: the request arguments are invalid.\n   - grpc.Internal:
+        error occurs when getting the notification configs."
+      operationId: WFM_ListAdherenceRuleNotificationConfigs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.ListAdherenceRuleNotificationConfigsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.ListAdherenceRuleNotificationConfigsResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /api/v1alpha1/wfm/listagentleavepetitions:
     post:
       tags:
@@ -51767,6 +51876,11 @@ components:
         adherenceRuleNotificationConfigId:
           type: string
           description: ID of the notification config that this rule will use/follow.
+        clauses:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.commons.AdherenceAgentRuleClause'
+          description: Clauses that belong to this rule. Only used by List methods.
       description: Represents an adherence agent rule.
     api.commons.AdherenceAgentRuleAction:
       type: object
@@ -51834,6 +51948,11 @@ components:
           - $ref: '#/components/schemas/api.commons.DatetimeRange'
           description: Custom date range to apply the rule, must only be set when
             @rule_range is CUSTOM_DATE_RANGE.
+        clauses:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.commons.AdherenceDepartmentalRule'
+          description: Clauses that belong to this rule. Only used by List methods.
       description: Represents an adherence departmental rule.
     api.commons.AdherenceDepartmentalRuleAction:
       type: object
@@ -51890,6 +52009,11 @@ components:
         name:
           type: string
           description: Name of the notification config.
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.commons.AdherenceRuleNotificationConfigEntry'
+          description: Entries that belong to this rule. Only used by List methods.
       description: Represents a configuration for adherence rule notifications.
     api.commons.AdherenceRuleNotificationConfigEntry:
       type: object
@@ -53863,6 +53987,8 @@ components:
         evaluationId:
           type: string
         autoEvaluationId:
+          type: string
+        smartEvaluationId:
           type: string
       description: LearningOpportunity represents a single learning opportunity entity.
     api.commons.ListTemplate:
@@ -57302,6 +57428,8 @@ components:
           $ref: '#/components/schemas/api.commons.audit.ContactManagerListUploadEvent'
         contactManagerKycVerificationEvent:
           $ref: '#/components/schemas/api.commons.audit.ContactManagerKycEvent'
+        contactManagerEntryDeleteEvent:
+          $ref: '#/components/schemas/api.commons.audit.ContactManagerDeleteEvent'
       description: This represents a generic audit event that is sent to the audit
         service
     api.commons.audit.BillingCommitBillingPlanEvent:
@@ -57435,12 +57563,15 @@ components:
         numbers database service
     api.commons.audit.ContactManagerDeleteEvent:
       type: object
-      properties: {}
+      properties:
+        deleteEvent:
+          $ref: '#/components/schemas/api.commons.audit.ContactManagerEntryEvent'
     api.commons.audit.ContactManagerEntryAddEvent:
       type: object
       properties:
         addEvent:
           $ref: '#/components/schemas/api.commons.audit.ContactManagerEntryEvent'
+      description: payload for CreateContactEntry(upload) and AddContactEntry
     api.commons.audit.ContactManagerEntryEditEvent:
       type: object
       properties:
@@ -57490,9 +57621,17 @@ components:
           type: string
         NumberOfFailedContacts:
           type: string
-      description: 'payload for contact list upload
-
-        payload for contact list upload'
+        NumberOfNewContacts:
+          type: string
+        NumberOfDuplicateContacts:
+          type: string
+        DeDupFieldType:
+          type: integer
+          format: enum
+        DeDupMergeStrategy:
+          type: integer
+          format: enum
+      description: payload for contact list upload
     api.commons.audit.DeliveryFailureEvent:
       type: object
       properties:
@@ -60639,6 +60778,16 @@ components:
           type: string
         value:
           type: string
+        validationType:
+          type: integer
+          description: 'what the field should validate as,
+
+            and how the front end should present the field to the user'
+          format: enum
+        format:
+          type: string
+          description: "The datetime format allowed to use for date types.\n if left
+            blank, a default set of format will be accepted"
     api.commons.integrations.InvoiceFlow:
       type: object
       properties:
@@ -76778,6 +76927,12 @@ components:
         total:
           type: string
           description: Specifies the total number of results
+        moreResults:
+          type: boolean
+          description: Whether or not there is another page of results
+        lastId:
+          type: string
+          description: The last entry ID in the most recently grabbed page of results
     api.v0alpha.PanelSource:
       type: object
       properties:
@@ -79396,6 +79551,9 @@ components:
         pageSize:
           type: string
           description: How many results to include in a page
+        lastId:
+          type: string
+          description: The last entry ID in the most recently returned page
     api.v0alpha.SearchConsentByContentReq:
       type: object
       properties:
@@ -85864,6 +86022,24 @@ components:
       type: object
       properties: {}
       description: Response for deleting an output configuration
+    api.v1alpha1.insights.DrillThroughAction:
+      type: object
+      properties:
+        insightResourceId:
+          type: string
+        drillThroughParameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.v1alpha1.insights.DrillThroughParameter'
+      description: Message for Drill Through Insight Contextual Action
+    api.v1alpha1.insights.DrillThroughParameter:
+      type: object
+      properties:
+        parameterName:
+          type: string
+        columnName:
+          type: string
+      description: Message for Drill Through
     api.v1alpha1.insights.FormatSeries:
       type: object
       properties:
@@ -85991,6 +86167,10 @@ components:
           allOf:
           - $ref: '#/components/schemas/api.v1alpha1.insights.ComponentAction'
           description: Component action
+        drillThrough:
+          allOf:
+          - $ref: '#/components/schemas/api.v1alpha1.insights.DrillThroughAction'
+          description: Drill through action
       description: Message for Insight Contextual Action
     api.v1alpha1.insights.LinkAction:
       type: object
@@ -97858,7 +98038,71 @@ components:
       description: ListSectionsResponse returns a list of sections.
     api.v1alpha1.scorecards.ListSmartEvaluationsRequest:
       type: object
-      properties: {}
+      properties:
+        orderBy:
+          type: string
+          description: "Optional. The order by which smart evaluations will be listed.
+            Follows sql\n order by syntax. Defaults to \"complete_time desc, smart_evaluation_id
+            desc\"."
+        pageSize:
+          type: integer
+          description: Optional - number of smart evaluations included in response.
+            Defaults to 500.
+          format: int32
+        pageToken:
+          type: string
+          description: Optional. The next_page_token returned from a previous List
+            request, if any.
+        returnFields:
+          type: string
+          description: "Required. Fields to return.\n\n Example selecting score, section
+            points, and question answer:\n {\n   paths: [\n     \"score\",\n     \"smart_evaluation_section.points\",\n
+            \    \"smart_evaluation_section.smart_evaluation_question.answer\"\n   ]\n
+            }"
+          format: field-mask
+        filter:
+          type: string
+          description: 'Optional. The standard list filter as described in https://google.aip.dev/160.
+
+            Multiple comparisons can be provided when separated with a logical AND
+
+            operator. Supported fields, operators and functions are listed below.
+
+
+            +----------------------------+-----------+-----------------+-----------+
+
+            |                      field |      type |       operators | functions
+            |
+
+            +----------------------------+-----------+-----------------+-----------+
+
+            |               scorecard_id |   integer |               = |       any
+            |
+
+            |                category_id |   integer |               = |       any
+            |
+
+            |              agent_user_id |    string |               = |       any
+            |
+
+            |             transcript_sid |   integer | =, >=, <=, >, < |           |
+
+            |              complete_time | timestamp | =, >=, <=, >, < |           |
+
+            +----------------------------+-----------+-----------------+-----------+
+
+
+            Examples:
+
+            transcript_sid >= 1
+
+
+            scorecard_id = 0 AND
+
+            agent_user_id = any("00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000001")
+            AND
+
+            complete_time >= ''2012-04-21T11:30:00-04:00'''
       description: ListSmartEvaluationsRequest represents a request to list smart
         evaluations.
     api.v1alpha1.scorecards.ListSmartEvaluationsResponse:
@@ -97868,6 +98112,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/api.commons.SmartEvaluation'
+        nextPageToken:
+          type: string
+          description: "Token to retrieve the next page, or empty if there are no\n
+            more entries in the list."
       description: ListSmartEvaluationsResponse represents a response to list smart
         evaluations.
     api.v1alpha1.scorecards.PreviewEvaluationScoreRequest:
@@ -104511,6 +104759,45 @@ components:
           description: Skill profile category that the interval belongs to.
       description: Message type specifying an interval of calls linked to a skill
         profile used for historical the forecaster
+    api.v1alpha1.wfm.ListAdherenceAgentRulesRequest:
+      type: object
+      properties: {}
+      description: Request message for ListAdherenceAgentRules.
+    api.v1alpha1.wfm.ListAdherenceAgentRulesResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.commons.AdherenceAgentRule'
+          description: Agent rules found for the org sending the request.
+      description: Response message for ListAdherenceAgentRules.
+    api.v1alpha1.wfm.ListAdherenceDepartmentalRulesRequest:
+      type: object
+      properties: {}
+      description: Request message for ListAdherenceDepartmentalRules.
+    api.v1alpha1.wfm.ListAdherenceDepartmentalRulesResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.commons.AdherenceDepartmentalRule'
+          description: Departmental rules found for the org sending the request.
+      description: Response message for ListAdherenceDepartmentalRules.
+    api.v1alpha1.wfm.ListAdherenceRuleNotificationConfigsRequest:
+      type: object
+      properties: {}
+      description: Request message for ListAdherenceRuleNotificationConfigs.
+    api.v1alpha1.wfm.ListAdherenceRuleNotificationConfigsResponse:
+      type: object
+      properties:
+        notificationConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.commons.AdherenceRuleNotificationConfig'
+          description: Notification configs found for the org sending the request.
+      description: Response message for ListAdherenceRuleNotificationConfigs.
     api.v1alpha1.wfm.ListAgentLeavePetitionsRequest:
       type: object
       properties:
