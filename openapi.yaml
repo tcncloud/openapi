@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Operator
-  version: v1.8.20
+  version: v1.8.21
 paths:
   /api/v0alpha/acd/acceptsecureformfield:
     post:
@@ -1351,6 +1351,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.v0alpha.UpdateAgentSkillsReply'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v0alpha/acd/validatefield:
+    post:
+      tags:
+      - Acd
+      operationId: Acd_ValidateField
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v0alpha.ValidateFieldReq'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v0alpha.ValidateFieldRes'
         default:
           description: Default error response
           content:
@@ -41954,6 +41978,95 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/deleteadherenceagentruleclause:
+    post:
+      tags:
+      - WFM
+      description: "Deletes the agent rule clause that has the given @adherence_agent_rule_clause_id
+        for the org sending the request.\n Errors:\n   - grpc.Invalid: the value of
+        the given @adherence_agent_rule_clause_id is invalid.\n   - grpc.Internal:
+        error occurs when deleting the given @adherence_agent_rule_clause_id.\n   -
+        grpc.NotFound: departmental rule with the @adherence_agent_rule_clause_id
+        does not exist."
+      operationId: WFM_DeleteAdherenceAgentRuleClause
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.DeleteAdherenceAgentRuleClauseRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.DeleteAdherenceAgentRuleClauseResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/deleteadherencedepartmentalruleclause:
+    post:
+      tags:
+      - WFM
+      description: "Deletes the departmental rule clause that has the given @adherence_departmental_rule_clause_id
+        for the org sending the request.\n Errors:\n   - grpc.Invalid: the value of
+        the given @adherence_departmental_rule_clause_id is invalid.\n   - grpc.Internal:
+        error occurs when deleting the given @adherence_departmental_rule_clause_id.\n
+        \  - grpc.NotFound: departmental rule with the @adherence_departmental_rule_clause_id
+        does not exist."
+      operationId: WFM_DeleteAdherenceDepartmentalRuleClause
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.DeleteAdherenceDepartmentalRuleClauseRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.DeleteAdherenceDepartmentalRuleClauseResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/deleteadherencerulenotificationconfigentry:
+    post:
+      tags:
+      - WFM
+      description: "Deletes the notification config entry that has the given @adherence_rule_notification_config_entry_id
+        for the org sending the request.\n Errors:\n   - grpc.Invalid: the given @adherence_rule_notification_config_entry_id
+        is invalid.\n   - grpc.Internal: error occurs when deleting the given @adherence_rule_notification_config_entry_id.\n
+        \  - grpc.NotFound: notification config with the @adherence_rule_notification_config_entry_id
+        does not exist."
+      operationId: WFM_DeleteAdherenceRuleNotificationConfigEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.DeleteAdherenceRuleNotificationConfigEntryRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.DeleteAdherenceRuleNotificationConfigEntryResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /api/v1alpha1/wfm/deleteagentavailabilitypattern:
     post:
       tags:
@@ -43171,6 +43284,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/gettimeoffschedulingactivity:
+    post:
+      tags:
+      - WFM
+      description: "Gets the time off scheduling activity for the org sending the
+        request.\n Required permissions:\n   NONE\n Errors:\n   -grpc.NotFound: the
+        time off scheduling activity for the org is not found.\n   -grpc.Internal:
+        error occurs when getting time off scheduling activity."
+      operationId: WFM_GetTimeOffSchedulingActivity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.GetTimeOffSchedulingActivityRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.GetTimeOffSchedulingActivityResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /api/v1alpha1/wfm/gettourpattern:
     post:
       tags:
@@ -43410,10 +43551,10 @@ paths:
       tags:
       - WFM
       description: "ListAgentScheduleGroups lists all schedulable agent groups for
-        the given @entity and @org_id, filled with @member_wfm_agents.\n The given
-        @entity must be either a Node or a ShiftTemplate.\n\n Errors:\n   - grpc.Invalid:
-        the request data is invalid.\n   - grpc.Internal: error occurs when getting
-        the agent groups."
+        the given @entity filled with @member_wfm_agents for the org sending the request.\n
+        The given @entity must be either a Node or a ShiftTemplate.\n\n Errors:\n
+        \  - grpc.Invalid: the request data is invalid.\n   - grpc.Internal: error
+        occurs when getting the agent groups."
       operationId: WFM_ListAgentScheduleGroups
       requestBody:
         content:
@@ -43862,6 +44003,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.v1alpha1.wfm.ListOpenDateRangesForNodeOpenTimesBitmapsResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/listpatternsforschedulingactivityclassifications:
+    post:
+      tags:
+      - WFM
+      description: "Lists the Open Time and Agent Availability patterns for the given
+        @parent_entity and @scheduling_activity_classifications for the org sending
+        the request.\n Required permissions:\n   NONE\n Errors:\n   - grpc.Invalid:
+        the arguments in the request are invalid.\n   - grpc.Internal: error occurs
+        getting the patterns or their scheduling activity sids."
+      operationId: WFM_ListPatternsForSchedulingActivityClassifications
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.ListPatternsForSchedulingActivityClassificationsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.ListPatternsForSchedulingActivityClassificationsResponse'
         default:
           description: Default error response
           content:
@@ -44990,6 +45160,186 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.v1alpha1.wfm.SwapShiftInstancesRes'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/updateadherenceagentrule:
+    post:
+      tags:
+      - WFM
+      description: "Updates the given adherence agent @rule for the org sending the
+        request.\n Fields that can be updated are: name, selected_entity_id, selected_entity_type,
+        rule_requirement_type, adherence_rule_notification_config_id.\n Errors:\n
+        \  - grpc.Invalid: the values on the given @rule are invalid.\n   - grpc.NotFound:
+        agent rule clause with @adherence_agent_rule_clause_id does not exist.\n   -
+        grpc.Internal: error occurs when updating the given @rule."
+      operationId: WFM_UpdateAdherenceAgentRule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.UpdateAdherenceAgentRuleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.UpdateAdherenceAgentRuleResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/updateadherenceagentruleclause:
+    post:
+      tags:
+      - WFM
+      description: "Updates the given adherence agent rule @clause for the org sending
+        the request.\n Fields that can be updated are: action_type, condition, amount,
+        unit.\n Errors:\n   - grpc.Invalid: the values on the given @clause are invalid.\n
+        \  - grpc.Internal: error occurs when updating the given @clause.\n   - grpc.NotFound:
+        agent rule with the with @adherence_agent_rule_clause_id does not exist to
+        update."
+      operationId: WFM_UpdateAdherenceAgentRuleClause
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.UpdateAdherenceAgentRuleClauseRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.UpdateAdherenceAgentRuleClauseResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/updateadherencedepartmentalrule:
+    post:
+      tags:
+      - WFM
+      description: "Updates the given adherence departmental @rule for the org sending
+        the request.\n Fields that can be updated are: name, selected_entity_id, selected_entity_type,
+        rule_requirement_type,\n rule_range, custom_range, adherence_rule_notification_config_id.\n
+        Errors:\n   - grpc.Invalid: the values on the given @rule are invalid.\n   -
+        grpc.NotFound: departmental rule clause with @adherence_departmental_rule_clause_id
+        does not exist.\n   - grpc.Internal: error occurs when updating the given
+        @rule."
+      operationId: WFM_UpdateAdherenceDepartmentalRule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.UpdateAdherenceDepartmentalRuleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.UpdateAdherenceDepartmentalRuleResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/updateadherencedepartmentalruleclause:
+    post:
+      tags:
+      - WFM
+      description: "Updates the given adherence departmental rule @clause for the
+        org sending the request.\n Fields that can be updated are: action_type, condition,
+        amount, unit, per_amount, per_unit.\n Errors:\n   - grpc.Invalid: the values
+        on the given @clause are invalid.\n   - grpc.Internal: error occurs when updating
+        the given @clause.\n   - grpc.NotFound: departmental rule with the with @adherence_departmental_rule_clause_id
+        does not exist to update."
+      operationId: WFM_UpdateAdherenceDepartmentalRuleClause
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.UpdateAdherenceDepartmentalRuleClauseRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.UpdateAdherenceDepartmentalRuleClauseResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/updateadherencerulenotificationconfig:
+    post:
+      tags:
+      - WFM
+      description: "Updates the given adherence @notification_config for the org sending
+        the request.\n Fields that can be updated are: name.\n Errors:\n   - grpc.Invalid:
+        the values on the given @notification_config are invalid.\n   - grpc.NotFound:
+        the given notification config is not found.\n   - grpc.Internal: error occurs
+        when updating the given @notification_config."
+      operationId: WFM_UpdateAdherenceRuleNotificationConfig
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.UpdateAdherenceRuleNotificationConfigRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.UpdateAdherenceRuleNotificationConfigResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /api/v1alpha1/wfm/updateadherencerulenotificationconfigentry:
+    post:
+      tags:
+      - WFM
+      description: "Updates the given adherence @notification_config_entry for the
+        org sending the request.\n Fields that can be updated are: recipient_user_id,
+        notification_medium, seconds_to_wait_for_no_response.\n Errors:\n   - grpc.Invalid:
+        the values on the given @notification_config_entry are invalid.\n   - grpc.NotFound:
+        the given notification config entry is not found.\n   - grpc.Internal: error
+        occurs when updating the given @notification_config_entry."
+      operationId: WFM_UpdateAdherenceRuleNotificationConfigEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1alpha1.wfm.UpdateAdherenceRuleNotificationConfigEntryRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1alpha1.wfm.UpdateAdherenceRuleNotificationConfigEntryResponse'
         default:
           description: Default error response
           content:
@@ -49784,6 +50134,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /services/org/huntgroups/v1alpha1/admincopyhuntgrouptoorganization:
+    post:
+      tags:
+      - HuntGroupsService
+      description: "AdminCopyHuntGroupToOrganization copies a hunt group to a different
+        organization.\n This will create a new hunt group in the destination organization
+        with the same\n settings/parameters and all associated data (skill, call-queue
+        config) as the source hunt group."
+      operationId: HuntGroupsService_AdminCopyHuntGroupToOrganization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.AdminCopyHuntGroupToOrganizationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/services.org.hunt_groups.v1alpha1.AdminCopyHuntGroupToOrganizationResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /services/org/huntgroups/v1alpha1/copyhuntgroupagenttrigger:
     post:
       tags:
@@ -51876,7 +52254,7 @@ components:
         adherenceRuleNotificationConfigId:
           type: string
           description: ID of the notification config that this rule will use/follow.
-        clauses:
+        ruleClauses:
           type: array
           items:
             $ref: '#/components/schemas/api.commons.AdherenceAgentRuleClause'
@@ -51948,10 +52326,10 @@ components:
           - $ref: '#/components/schemas/api.commons.DatetimeRange'
           description: Custom date range to apply the rule, must only be set when
             @rule_range is CUSTOM_DATE_RANGE.
-        clauses:
+        ruleClauses:
           type: array
           items:
-            $ref: '#/components/schemas/api.commons.AdherenceDepartmentalRule'
+            $ref: '#/components/schemas/api.commons.AdherenceDepartmentalRuleClause'
           description: Clauses that belong to this rule. Only used by List methods.
       description: Represents an adherence departmental rule.
     api.commons.AdherenceDepartmentalRuleAction:
@@ -53946,6 +54324,13 @@ components:
           type: string
       description: "wraps int64 values so they can be null, but also adds the JS_STRING\n
         tag so that data isn't lost when using snowflake ids"
+    api.commons.InvalidScrubListEntry:
+      type: object
+      properties:
+        entry:
+          type: string
+        errorMessage:
+          type: string
     api.commons.KeepAlive:
       type: object
       properties: {}
@@ -59021,7 +59406,30 @@ components:
       properties:
         transcriptSid:
           type: string
+        call:
+          $ref: '#/components/schemas/api.commons.audit.VanaCreateTranscriptEvent_Call'
+        sms:
+          $ref: '#/components/schemas/api.commons.audit.VanaCreateTranscriptEvent_Sms'
       description: VanaCreateTranscriptEvent represents a newly created transcript.
+    api.commons.audit.VanaCreateTranscriptEvent_Call:
+      type: object
+      properties:
+        callSid:
+          type: string
+        callType:
+          type: integer
+          format: enum
+        talkTime:
+          pattern: ^-?(?:0|[1-9][0-9]{0,11})(?:\.[0-9]{1,9})?s$
+          type: string
+        audioTime:
+          pattern: ^-?(?:0|[1-9][0-9]{0,11})(?:\.[0-9]{1,9})?s$
+          type: string
+    api.commons.audit.VanaCreateTranscriptEvent_Sms:
+      type: object
+      properties:
+        conversationSid:
+          type: string
     api.commons.audit.VanaFlagEvent:
       type: object
       properties:
@@ -59986,6 +60394,10 @@ components:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteNtvbVacationStop'
         ntvbAuthtest:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteNtvbAuthtest'
+        ntvbCompletePendingOrder:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteNtvbCompletePendingOrder'
+        ntvbPlaceOrder:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteNtvbPlaceOrder'
         elavonCreditCardSale:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteElavonCreditCardSale'
         elavonAddRecurring:
@@ -60116,6 +60528,8 @@ components:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteNewzwareVacationUpdate'
         newzwarePhoneLookupMulti:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteNewzwarePhoneLookupMulti'
+        newzwareSubscriptionRestart:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteNewzwareSubscriptionRestart'
         priocommerceAchPayment:
           $ref: '#/components/schemas/api.commons.integrations.ExecutePriocommerceAchPayment'
         priocommerceCcPayment:
@@ -60212,6 +60626,20 @@ components:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayProcessNewTransactionSale'
         swervepayProcessNewTransactionValidate:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteSwervepayProcessNewTransactionValidate'
+        veradigmGetLocations:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmGetLocations'
+        veradigmGetPatientAccountBalance:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmGetPatientAccountBalance'
+        veradigmGetPayments:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmGetPayments'
+        veradigmGetPlacesOfService:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmGetPlacesOfService'
+        veradigmSavePaymentTransaction:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmSavePaymentTransaction'
+        veradigmSaveRefundTransaction:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmSaveRefundTransaction'
+        veradigmSaveVoucherPayment:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmSaveVoucherPayment'
         debugEcho:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteDebugEcho'
         debugValidate:
@@ -60401,6 +60829,9 @@ components:
     api.commons.integrations.ExecuteNewzwarePhoneLookupMulti:
       type: object
       properties: {}
+    api.commons.integrations.ExecuteNewzwareSubscriptionRestart:
+      type: object
+      properties: {}
     api.commons.integrations.ExecuteNewzwareVacationRestart:
       type: object
       properties: {}
@@ -60408,6 +60839,9 @@ components:
       type: object
       properties: {}
     api.commons.integrations.ExecuteNtvbAuthtest:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteNtvbCompletePendingOrder:
       type: object
       properties: {}
     api.commons.integrations.ExecuteNtvbCreditMissedDelivery:
@@ -60423,6 +60857,9 @@ components:
       type: object
       properties: {}
     api.commons.integrations.ExecuteNtvbMissedDelivery:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteNtvbPlaceOrder:
       type: object
       properties: {}
     api.commons.integrations.ExecuteNtvbRemoveAutorenewal:
@@ -60651,6 +61088,27 @@ components:
       type: object
       properties: {}
     api.commons.integrations.ExecuteVantivCreditSale:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmGetLocations:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmGetPatientAccountBalance:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmGetPayments:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmGetPlacesOfService:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmSavePaymentTransaction:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmSaveRefundTransaction:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmSaveVoucherPayment:
       type: object
       properties: {}
     api.commons.integrations.FieldDefinition:
@@ -79454,6 +79912,12 @@ components:
           type: array
           items:
             type: string
+        totalInvalid:
+          type: string
+        invalidList:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.commons.InvalidScrubListEntry'
     api.v0alpha.ScrubListsAutoAdd:
       type: object
       properties:
@@ -82864,6 +83328,23 @@ components:
           description: "Optional.\n If set, user will be notified in the room specificed.\n
             If not set the message will be sent in the default\n system room."
       description: '-------------------- Deliver Methods --------------------'
+    api.v0alpha.ValidateFieldReq:
+      type: object
+      properties:
+        voiceSessionSid:
+          type: string
+        validationType:
+          type: integer
+          format: enum
+        fieldName:
+          type: string
+    api.v0alpha.ValidateFieldRes:
+      type: object
+      properties:
+        valid:
+          type: boolean
+        reason:
+          type: string
     api.v0alpha.Verbiage:
       type: object
       properties:
@@ -87936,6 +88417,11 @@ components:
           items:
             $ref: '#/components/schemas/api.v1alpha1.integrations.Condition'
           description: can be left nil, used for verification requests
+        callSid:
+          type: string
+        callType:
+          type: integer
+          format: enum
     api.v1alpha1.integrations.ProcessRes:
       type: object
       properties:
@@ -87985,6 +88471,11 @@ components:
             $ref: '#/components/schemas/api.v1alpha1.integrations.Value'
           description: "params are what the user fills out before it is processed.\n
             It will be merged with plugin instance data and potentially link data"
+        callSid:
+          type: string
+        callType:
+          type: integer
+          format: enum
     api.v1alpha1.integrations.ProcessWorkflowRes:
       type: object
       properties:
@@ -103672,6 +104163,39 @@ components:
           items:
             $ref: '#/components/schemas/api.v1alpha1.wfm.WeekMap_WeekMapDOW'
           description: Days of the week that the week map has.
+    api.v1alpha1.wfm.DeleteAdherenceAgentRuleClauseRequest:
+      type: object
+      properties:
+        adherenceAgentRuleClauseId:
+          type: string
+          description: ID of the agent rule clause to delete.
+      description: Request message for DeleteAdherenceAgentRuleClause.
+    api.v1alpha1.wfm.DeleteAdherenceAgentRuleClauseResponse:
+      type: object
+      properties: {}
+      description: Response message for DeleteAdherenceAgentRuleClause.
+    api.v1alpha1.wfm.DeleteAdherenceDepartmentalRuleClauseRequest:
+      type: object
+      properties:
+        adherenceDepartmentalRuleClauseId:
+          type: string
+          description: ID of the departmental rule clause to delete.
+      description: Request message for DeleteAdherenceDepartmentalRuleClause.
+    api.v1alpha1.wfm.DeleteAdherenceDepartmentalRuleClauseResponse:
+      type: object
+      properties: {}
+      description: Response message for DeleteAdherenceDepartmentalRuleClause.
+    api.v1alpha1.wfm.DeleteAdherenceRuleNotificationConfigEntryRequest:
+      type: object
+      properties:
+        adherenceRuleNotificationConfigEntryId:
+          type: string
+          description: ID of the notification config entry to delete.
+      description: Request message for DeleteAdherenceRuleNotificationConfigEntry.
+    api.v1alpha1.wfm.DeleteAdherenceRuleNotificationConfigEntryResponse:
+      type: object
+      properties: {}
+      description: Response message for DeleteAdherenceRuleNotificationConfigEntry.
     api.v1alpha1.wfm.DeleteAgentAvailabilityPatternReq:
       type: object
       properties:
@@ -104626,6 +105150,18 @@ components:
           description: number of skill profiles that the org has.
           format: int32
       description: Response message for the GetSkillProfilesCount RPC
+    api.v1alpha1.wfm.GetTimeOffSchedulingActivityRequest:
+      type: object
+      properties: {}
+      description: Request message for the GetTimeOffSchedulingActivity RPC
+    api.v1alpha1.wfm.GetTimeOffSchedulingActivityResponse:
+      type: object
+      properties:
+        schedulingActivity:
+          allOf:
+          - $ref: '#/components/schemas/api.v1alpha1.wfm.SchedulingActivity'
+          description: The time off scheduling activity
+      description: Response message for the GetTimeOffSchedulingActivity RPC
     api.v1alpha1.wfm.GetTourPatternDiagnosticsReq:
       type: object
       properties:
@@ -105336,6 +105872,34 @@ components:
             @datetime_range.
       description: Request message for the ListOpenDateRangesForNodeOpenTimesBitmaps
         RPC
+    api.v1alpha1.wfm.ListPatternsForSchedulingActivityClassificationsRequest:
+      type: object
+      properties:
+        parentEntity:
+          allOf:
+          - $ref: '#/components/schemas/api.v1alpha1.wfm.ParentEntity'
+          description: Entity to list the the patterns for.
+        schedulingActivityClassifications:
+          type: array
+          items:
+            type: integer
+            format: enum
+          description: Scheduling Activity Classifications to get patterns for.
+      description: Request message for the ListPatternsForSchedulingActivityClassifications
+        RPC
+    api.v1alpha1.wfm.ListPatternsForSchedulingActivityClassificationsResponse:
+      type: object
+      properties:
+        openTimesPatterns:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.v1alpha1.wfm.OpenTimesPattern'
+          description: The requested open times patterns.
+        agentAvailabilityPatterns:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.v1alpha1.wfm.AgentAvailabilityPattern'
+          description: The requested agent availability patterns.
     api.v1alpha1.wfm.ListProgramNodesBySidReq:
       type: object
       properties:
@@ -107512,6 +108076,78 @@ components:
             $ref: '#/components/schemas/api.v1alpha1.wfm.TourShiftInstanceConfig'
           description: The tour shift instance configs associated with @tour_week_pattern_sid.
       description: Represents a TourWeekPattern
+    api.v1alpha1.wfm.UpdateAdherenceAgentRuleClauseRequest:
+      type: object
+      properties:
+        clause:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.AdherenceAgentRuleClause'
+          description: Agent rule clause to update.
+      description: Request message for UpdateAdherenceAgentRuleClause.
+    api.v1alpha1.wfm.UpdateAdherenceAgentRuleClauseResponse:
+      type: object
+      properties: {}
+      description: Response message for UpdateAdherenceAgentRuleClause.
+    api.v1alpha1.wfm.UpdateAdherenceAgentRuleRequest:
+      type: object
+      properties:
+        rule:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.AdherenceAgentRule'
+          description: Agent rule to update.
+      description: Request message for UpdateAdherenceAgentRule.
+    api.v1alpha1.wfm.UpdateAdherenceAgentRuleResponse:
+      type: object
+      properties: {}
+      description: Response message for UpdateAdherenceAgentRule.
+    api.v1alpha1.wfm.UpdateAdherenceDepartmentalRuleClauseRequest:
+      type: object
+      properties:
+        clause:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.AdherenceDepartmentalRuleClause'
+          description: Departmental rule clause to update.
+      description: Request message for UpdateAdherenceDepartmentalRuleClause.
+    api.v1alpha1.wfm.UpdateAdherenceDepartmentalRuleClauseResponse:
+      type: object
+      properties: {}
+      description: Response message for UpdateAdherenceDepartmentalRuleClause.
+    api.v1alpha1.wfm.UpdateAdherenceDepartmentalRuleRequest:
+      type: object
+      properties:
+        rule:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.AdherenceDepartmentalRule'
+          description: Departmental rule to update.
+      description: Request message for UpdateAdherenceDepartmentalRule.
+    api.v1alpha1.wfm.UpdateAdherenceDepartmentalRuleResponse:
+      type: object
+      properties: {}
+      description: Response message for UpdateAdherenceDepartmentalRule.
+    api.v1alpha1.wfm.UpdateAdherenceRuleNotificationConfigEntryRequest:
+      type: object
+      properties:
+        notificationConfigEntry:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.AdherenceRuleNotificationConfigEntry'
+          description: Notification config entry to update.
+      description: Request message for UpdateAdherenceRuleNotificationConfigEntry.
+    api.v1alpha1.wfm.UpdateAdherenceRuleNotificationConfigEntryResponse:
+      type: object
+      properties: {}
+      description: Response message for UpdateAdherenceRuleNotificationConfigEntry.
+    api.v1alpha1.wfm.UpdateAdherenceRuleNotificationConfigRequest:
+      type: object
+      properties:
+        notificationConfig:
+          allOf:
+          - $ref: '#/components/schemas/api.commons.AdherenceRuleNotificationConfig'
+          description: Notification config to update.
+      description: Request message for UpdateAdherenceRuleNotificationConfig.
+    api.v1alpha1.wfm.UpdateAdherenceRuleNotificationConfigResponse:
+      type: object
+      properties: {}
+      description: Response message for UpdateAdherenceRuleNotificationConfig.
     api.v1alpha1.wfm.UpdateAgentAvailabilityPatternReq:
       type: object
       properties:
@@ -109787,6 +110423,12 @@ components:
           description: "data management (10000 - 19999)\n compliance (10000 - 10999)"
         dataManagementComplianceComplianceRndQueryCached:
           $ref: '#/components/schemas/services.billing.entities.v1alpha4.BasicConfig'
+        workforceEngagementWorkforceOptimizationVoiceAnalyticsCallTranscripts:
+          allOf:
+          - $ref: '#/components/schemas/services.billing.entities.v1alpha4.BasicConfig'
+          description: vanalytics (20000 - 21000)
+        workforceEngagementWorkforceOptimizationVoiceAnalyticsAccumulatedCallTranscripts:
+          $ref: '#/components/schemas/services.billing.entities.v1alpha4.BasicConfig'
     services.billing.entities.v1alpha4.RateDefinition:
       type: object
       properties:
@@ -111743,6 +112385,30 @@ components:
       properties: {}
       description: UpdateExileConfigurationResponse is the response to updating a
         exile configuration
+    services.org.hunt_groups.v1alpha1.AdminCopyHuntGroupToOrganizationRequest:
+      type: object
+      properties:
+        fromOrganizationId:
+          type: string
+          description: The id of the source organization where the hunt group is copied
+            from.
+        toOrganizationId:
+          type: string
+          description: The id of the destination organization where the hunt group
+            is copied to.
+        huntGroupSid:
+          type: string
+          description: The sid of the hunt group to copy.
+        newHuntGroupName:
+          type: string
+          description: The name of the new hunt group.
+      description: AdminCopyHuntGroupToOrganizationRequest is the request message
+        for the AdminCopyHuntGroupToOrganization rpc.
+    services.org.hunt_groups.v1alpha1.AdminCopyHuntGroupToOrganizationResponse:
+      type: object
+      properties: {}
+      description: AdminCopyHuntGroupToOrganizationResponse is the response message
+        for the AdminCopyHuntGroupToOrganization rpc.
     services.org.hunt_groups.v1alpha1.AgentStatusOption:
       type: object
       properties:
