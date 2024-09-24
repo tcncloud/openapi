@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Operator
-  version: v1.8.21
+  version: v1.8.22
 paths:
   /api/v0alpha/acd/acceptsecureformfield:
     post:
@@ -56242,6 +56242,11 @@ components:
         updatedAt:
           type: string
           format: date-time
+        channels:
+          type: array
+          items:
+            type: integer
+            format: enum
       description: "Scorecard represents a scorecard (template).\n A scorecard can
         be used to score a call."
     api.commons.ScorecardQuestion:
@@ -60640,6 +60645,24 @@ components:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmSaveRefundTransaction'
         veradigmSaveVoucherPayment:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmSaveVoucherPayment'
+        veradigmPracticeManagementGetToken:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmPracticeManagementGetToken'
+        veradigmPracticeManagementGetUserAuthentication:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmPracticeManagementGetUserAuthentication'
+        veradigmPracticeManagementGetLocations:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmPracticeManagementGetLocations'
+        veradigmPracticeManagementGetPatientAccountBalance:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmPracticeManagementGetPatientAccountBalance'
+        veradigmPracticeManagementGetPayments:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmPracticeManagementGetPayments'
+        veradigmPracticeManagementGetPlacesOfService:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmPracticeManagementGetPlacesOfService'
+        veradigmPracticeManagementSavePaymentTransaction:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmPracticeManagementSavePaymentTransaction'
+        veradigmPracticeManagementSaveRefundTransaction:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmPracticeManagementSaveRefundTransaction'
+        veradigmPracticeManagementSaveVoucherPayment:
+          $ref: '#/components/schemas/api.commons.integrations.ExecuteVeradigmPracticeManagementSaveVoucherPayment'
         debugEcho:
           $ref: '#/components/schemas/api.commons.integrations.ExecuteDebugEcho'
         debugValidate:
@@ -61102,6 +61125,33 @@ components:
     api.commons.integrations.ExecuteVeradigmGetPlacesOfService:
       type: object
       properties: {}
+    api.commons.integrations.ExecuteVeradigmPracticeManagementGetLocations:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmPracticeManagementGetPatientAccountBalance:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmPracticeManagementGetPayments:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmPracticeManagementGetPlacesOfService:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmPracticeManagementGetToken:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmPracticeManagementGetUserAuthentication:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmPracticeManagementSavePaymentTransaction:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmPracticeManagementSaveRefundTransaction:
+      type: object
+      properties: {}
+    api.commons.integrations.ExecuteVeradigmPracticeManagementSaveVoucherPayment:
+      type: object
+      properties: {}
     api.commons.integrations.ExecuteVeradigmSavePaymentTransaction:
       type: object
       properties: {}
@@ -61445,6 +61495,32 @@ components:
     api.commons.integrations.PaymentVisionCC:
       type: object
       properties: {}
+    api.commons.integrations.Receipt:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.commons.integrations.ReceiptField'
+    api.commons.integrations.ReceiptField:
+      type: object
+      properties:
+        name:
+          type: string
+        displayName:
+          type: string
+        value:
+          type: string
+        validationType:
+          type: integer
+          description: 'what the field should validate as,
+
+            and how the front end should present the field to the user'
+          format: enum
+        format:
+          type: string
+          description: "The datetime format allowed to use for date types.\n if left
+            blank, a default set of format will be accepted"
     api.commons.integrations.VerificationAuthorizeNetCustomerProfile:
       type: object
       properties: {}
@@ -86439,6 +86515,10 @@ components:
           allOf:
           - $ref: '#/components/schemas/api.v1alpha1.insights.FormatSeries'
           description: Series values for operation
+        padOperation:
+          allOf:
+          - $ref: '#/components/schemas/api.v1alpha1.insights.PadOperation'
+          description: Pad operation
       description: Message for ColumnOperation
     api.v1alpha1.insights.ComponentAction:
       type: object
@@ -86764,6 +86844,20 @@ components:
           - $ref: '#/components/schemas/api.v1alpha1.insights.TableVisualization'
           description: Table visualization data for the output configuration
       description: Output configuration provides formatting options in post processing
+    api.v1alpha1.insights.PadOperation:
+      type: object
+      properties:
+        padCharacter:
+          type: string
+          description: Character to pad the string with
+        padLeft:
+          type: boolean
+          description: Flag to pad before or after the string
+        padSize:
+          type: integer
+          description: Size of the padding
+          format: int32
+      description: PadOperation contains padding details
     api.v1alpha1.insights.PublishInsightRequest:
       type: object
       properties:
@@ -88566,6 +88660,8 @@ components:
       properties:
         invoiceTemplate:
           $ref: '#/components/schemas/api.commons.integrations.Invoices'
+        receiptTemplate:
+          $ref: '#/components/schemas/api.commons.integrations.Receipt'
       description: "template is a container for the different template types on each
         flow.\n each flow definition can have 0-1 templates. Right now we only have
         Templates\n on invoice flows, but that might not always be the case."
@@ -91891,6 +91987,10 @@ components:
           allOf:
           - $ref: '#/components/schemas/api.commons.LocalePreferences'
           description: The override for the users locale preferences
+        accessTokenExpiration:
+          type: string
+          description: The access token expiration time for the user.
+          format: date-time
     api.v1alpha1.org.GetUserSubscriptionByUserIdRequest:
       type: object
       properties:
@@ -112299,10 +112399,7 @@ components:
           format: enum
         parameters:
           type: string
-          description: "The parameters of the exile configuration\n This is a JSON
-            string with the following information:\n   1. Database Host\n   2. Database
-            URL\n   3. Database Port\n   4. Database Username\n   5. Database Password\n
-            \  6. Max Number Connections\n   7. Max Number Exile Jobs"
+          description: The parameters of the exile configuration (JSON string)
       description: ExileConfiguration contains the organization's exile configuration
         for its certificates.
     services.org.exile_certificate_manager.v1alpha1.ListExileCertificatesRequest:
