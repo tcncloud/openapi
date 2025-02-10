@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: TCN Operator API
-  version: v1.0.12
+  version: v1.0.13
   description: TCN Operator API
 paths:
   /tcn/bi/dashboards/v1alpha1/default:loadDefaultDashboard:
@@ -5941,6 +5941,57 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/organizations/v1alpha1/organizations:archiveOrganization:
+    post:
+      tags:
+      - OrganizationsService
+      description: Archives an organization. An archived organization effectively
+        disappears, but isn't deleted.
+      operationId: OrganizationsService_ArchiveOrganization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.org.organizations.v1alpha1.ArchiveOrganizationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.organizations.v1alpha1.ArchiveOrganizationResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/organizations/v1alpha1/organizations:unArchiveOrganization:
+    post:
+      tags:
+      - OrganizationsService
+      description: Restores an archived organization.
+      operationId: OrganizationsService_UnArchiveOrganization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.org.organizations.v1alpha1.UnArchiveOrganizationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.organizations.v1alpha1.UnArchiveOrganizationResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /tcn/org/preferences/v1alpha1/orgs/{org}/adminClientPreferences/{adminClientPreference}:
     get:
       tags:
@@ -7802,6 +7853,118 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.org.tokens.v1alpha1.APIToken'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/users/v1alpha1/orgs/{org}/users:
+    get:
+      tags:
+      - UsersService
+      description: Method to list users
+      operationId: UsersService_ListUsers
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: returned page
+        schema:
+          type: integer
+          format: int32
+      - name: pageToken
+        in: query
+        description: Use to specify the page token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.users.v1alpha1.ListUsersResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/users/v1alpha1/orgs/{org}/users/{user}:
+    get:
+      tags:
+      - UsersService
+      description: Method to get a user
+      operationId: UsersService_GetUser
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: path
+        description: The user id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.users.v1alpha1.User'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    patch:
+      tags:
+      - UsersService
+      description: Method to update a user
+      operationId: UsersService_UpdateUser
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: path
+        description: The user id.
+        required: true
+        schema:
+          type: string
+      - name: updateMask
+        in: query
+        description: update mask
+        schema:
+          type: string
+          format: field-mask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.org.users.v1alpha1.User'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.users.v1alpha1.User'
         default:
           description: Default error response
           content:
@@ -12324,6 +12487,19 @@ components:
           type: string
           description: next page token
       description: response message ListIdpClientsResponse
+    tcn.org.organizations.v1alpha1.ArchiveOrganizationRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of the organization
+      description: The request for api.v0alpha.ArchiveOrganization
+    tcn.org.organizations.v1alpha1.ArchiveOrganizationResponse:
+      type: object
+      properties: {}
+      description: The response for api.v0alpha.ArchiveOrganization
     tcn.org.organizations.v1alpha1.ListOrganizationsResponse:
       type: object
       properties:
@@ -12411,6 +12587,19 @@ components:
             for the organization.\n This represent the string value of the api.commons.Country
             enum."
       description: Organization contains the basic properties for an organization.
+    tcn.org.organizations.v1alpha1.UnArchiveOrganizationRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of the organization
+      description: The request for api.v0alpha.UnArchiveOrganization
+    tcn.org.organizations.v1alpha1.UnArchiveOrganizationResponse:
+      type: object
+      properties: {}
+      description: The response for api.v0alpha.UnArchiveOrganization
     tcn.org.preferences.v1alpha1.AdminClientPreferences:
       required:
       - useReservedCarrier
@@ -13761,6 +13950,7 @@ components:
           type: string
           description: User the token is associated with
         username:
+          readOnly: true
           type: string
           description: Usernme of the user
         permissions:
@@ -13848,6 +14038,149 @@ components:
           type: string
           description: The API token to revoke.
       description: Request to revoke a API token
+    tcn.org.users.v1alpha1.ListUsersResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.users.v1alpha1.User'
+          description: users
+        nextPageToken:
+          type: string
+          description: next page token
+      description: response message ListUsersResponse
+    tcn.org.users.v1alpha1.User:
+      required:
+      - username
+      - p3PermissionGroupId
+      - partnerAgentId
+      - regionSidMap
+      - defaultRegion
+      - email
+      - loginDisabled
+      - callerIds
+      - linkbackNumbers
+      - givenName
+      - familyName
+      - passwordResetRequired
+      - connectionId
+      - timeZoneOverride
+      - defaultApplication
+      - userCallerId
+      - agentProfileGroupId
+      - agent
+      - accountOwner
+      - mfaDeadlineTime
+      - passwordResetTime
+      type: object
+      properties:
+        name:
+          type: string
+          description: name identifier for an organization
+        username:
+          type: string
+          description: The Username of the user.
+        p3PermissionGroupId:
+          type: string
+          description: The ID of the p3 permission group the user has.
+        partnerAgentId:
+          type: string
+          description: The User's partner agent id.
+        regionSidMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/tcn.org.users.v1alpha1.User_RegionSids'
+          description: The user's regional sids. The key of the map is a region id.
+        defaultRegion:
+          type: string
+          description: region_id of a the user's default region
+        email:
+          type: string
+          description: The User's email.
+        loginDisabled:
+          type: boolean
+          description: Whether or not the user is disabled.
+        callerIds:
+          type: array
+          items:
+            type: string
+          description: login preferences
+        linkbackNumbers:
+          type: array
+          items:
+            type: string
+          description: a users array of linkback numbers
+        givenName:
+          type: string
+          description: The user's first/given name.
+        familyName:
+          type: string
+          description: The user's last/family name.
+        createTime:
+          readOnly: true
+          type: string
+          description: The date/time the user was created.
+          format: date-time
+        updateTime:
+          readOnly: true
+          type: string
+          description: The date/time the user was last updated.
+          format: date-time
+        passwordResetRequired:
+          type: boolean
+          description: Whether or not the user must reset their password on next login.
+        connectionId:
+          type: string
+          description: "connection id is the id of the auth connection that the\n
+            user is coming from if it is a delgated user. If the user\n is not delgated
+            this will be nil."
+        timeZoneOverride:
+          type: string
+          description: User TimeZone with wrapper for nullable timezone
+        defaultApplication:
+          type: integer
+          description: "UserSettings\n default_app for a user"
+          format: enum
+        userCallerId:
+          type: string
+          description: User caller id
+        agentProfileGroupId:
+          type: string
+          description: users assigned agent profile group
+        agent:
+          type: boolean
+          description: a bool signalling whether or not the user is also an agent
+        accountOwner:
+          type: boolean
+          description: a bool to determine whether or not user is account owner
+        mfaDeadlineTime:
+          type: string
+          description: Timestamp beyond which the user is required to have multi factor
+            authentication set up
+          format: date-time
+        passwordResetTime:
+          type: string
+          description: Timestamp of of when a user must reset their password before
+          format: date-time
+      description: User contains the basic properties for a user.
+    tcn.org.users.v1alpha1.User_RegionSids:
+      required:
+      - loginSid
+      - agentSid
+      - clientSid
+      type: object
+      properties:
+        loginSid:
+          type: string
+          description: The login sid for the region.
+        agentSid:
+          type: string
+          description: THe agent sid for the region.
+        clientSid:
+          type: string
+          description: THe client sid for the region.
+      description: The entity object used in the region_sid_map.
     tcn.tickets.ticket.v1alpha1.ActionType:
       required:
       - value
@@ -14452,6 +14785,8 @@ tags:
 - name: UnsubscribeLinkService
   description: UnsubscribeLinks service is the public api for the omni/unsubscribelinks
     service.
+- name: UsersService
+  description: UsersService
 - name: VerifiedEmailService
   description: VerifiedEmailService is the public api for the omni/verifiedEmails
     service.
