@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: TCN Operator API
-  version: v1.0.13
+  version: v1.0.14
   description: TCN Operator API
 paths:
   /tcn/bi/dashboards/v1alpha1/default:loadDefaultDashboard:
@@ -7361,6 +7361,122 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/preferences/v1alpha1/orgs/{org}/voiceAnalyticsPreferences:
+    get:
+      tags:
+      - PreferencesService
+      description: ListVoiceAnalyticsPreferences returns the voice analytics preferences
+        in the current region.
+      operationId: PreferencesService_ListVoiceAnalyticsPreferences
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: The maximum number of preferences to return
+        schema:
+          type: integer
+          format: int32
+      - name: pageToken
+        in: query
+        description: "A page token, received from a previous `ListVoiceAnalyticsPreferences`
+          call.\n Provide this to retrieve the subsequent page.\n When paginating,
+          all other parameters provided to `ListVoiceAnalyticsPreferences` must match\n
+          the call that provided the page token."
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.ListVoiceAnalyticsPreferencesResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/preferences/v1alpha1/orgs/{org}/voiceAnalyticsPreferences/{voiceAnalyticsPreference}:
+    get:
+      tags:
+      - PreferencesService
+      description: GetVoiceAnalyticsPreferences returns the voice analytics preferences.
+      operationId: PreferencesService_GetVoiceAnalyticsPreferences
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: voiceAnalyticsPreference
+        in: path
+        description: The voiceAnalyticsPreference id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.VoiceAnalyticsPreferences'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    patch:
+      tags:
+      - PreferencesService
+      description: UpdateVoiceAnalyticsPreferences updates the voice analytics preferences.
+      operationId: PreferencesService_UpdateVoiceAnalyticsPreferences
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: voiceAnalyticsPreference
+        in: path
+        description: The voiceAnalyticsPreference id.
+        required: true
+        schema:
+          type: string
+      - name: updateMask
+        in: query
+        description: The list of fields to update
+        schema:
+          type: string
+          format: field-mask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.VoiceAnalyticsPreferences'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.VoiceAnalyticsPreferences'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /tcn/org/preferences/v1alpha1/orgs/{org}/webhookPreferences/{webhookPreference}:
     get:
       tags:
@@ -9731,45 +9847,12 @@ components:
           format: date-time
       description: CannedMessageGroup -
     tcn.omni.cannedmessage.v1alpha1.CannedMessage_Attachment:
-      required:
-      - title
-      - fileType
-      - fileSize
-      - filePath
       type: object
       properties:
         name:
           readOnly: true
           type: string
           description: primary key for an attachment
-        title:
-          type: string
-          description: attachment file name
-        fileType:
-          type: string
-          description: attachment file type
-        fileSize:
-          type: string
-          description: attachment file size
-        filePath:
-          type: string
-          description: attachment file path
-        downloadUri:
-          readOnly: true
-          type: string
-          description: download attachment file url
-        tempId:
-          type: string
-          description: temp id
-        contentId:
-          type: string
-          description: Optional. the id of the attachment in text if inline
-        width:
-          type: string
-          description: Optional. the width of the inline attachment
-        height:
-          type: string
-          description: Optional. the height of the inline attachment
       description: Attachment - lets remove this ASAP
     tcn.omni.cannedmessage.v1alpha1.ListCannedMessageGroupsResponse:
       type: object
@@ -13546,6 +13629,20 @@ components:
           description: Preview-dial call type.
       description: IncludedCallTypes represents the call types that are enabled in
         the agents dashboard.
+    tcn.org.preferences.v1alpha1.ListVoiceAnalyticsPreferencesResponse:
+      type: object
+      properties:
+        voiceAnalyticsPreferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.VoiceAnalyticsPreferences'
+          description: The list of voice analytics preferences.
+        nextPageToken:
+          type: string
+          description: "A token that can be sent as `page_token` to retrieve the next
+            page.\n If this field is omitted, there are no subsequent pages."
+      description: ListVoiceAnalyticsPreferencesResponse is the response message for
+        ListVoiceAnalyticsPreferences.
     tcn.org.preferences.v1alpha1.OrganizationPreferences:
       required:
       - defaultCountry
@@ -13724,6 +13821,46 @@ components:
             $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.FileNameSegment'
           description: Combined call types (inbound, manual, and outbound)
       description: Call recordings file name convention (for *.zip)
+    tcn.org.preferences.v1alpha1.RedactRule:
+      required:
+      - kind
+      - type
+      - minConsecutive
+      - slop
+      type: object
+      properties:
+        kind:
+          type: integer
+          description: RedactionKind is the kind of redaction to be applied.
+          format: enum
+        type:
+          type: integer
+          description: RedactionType is the type of redaction to be applied.
+          format: enum
+        minConsecutive:
+          type: integer
+          description: "When value is non zero only numbers composed of at least\n
+            `min_consecutive` digits will be redacted. For example, when the\n transcript
+            contains the number `one two three four five six`\n redaction will not
+            occur when `min_consecutive` is greater than 6.\n This was documented
+            as OPTIONAL in the legacy code."
+          format: int32
+        maxConsecutive:
+          type: integer
+          description: "Optional. When value is non zero only numbers composed of
+            at most\n `max_consecutive` digits will be redacted. For example, when
+            the\n transcript contains the number `one two three four five six`\n redaction
+            will not occur when `max_consecutive` is less than 6.\n This only applies
+            when `REDACTION_TYPE_RANGE` is selected."
+          format: int32
+        slop:
+          type: integer
+          description: "slop is the number of extra words that can be in between digits
+            and\n still count as a number. For example: slop of 2 with min_consecutive\n
+            3 would allow \"one uh two and three\" to count as a number.\n Slop value
+            must be between 0 and 5 inclusive."
+          format: int32
+      description: RedactRule is the redaction rule to be applied.
     tcn.org.preferences.v1alpha1.ReportFilter:
       type: object
       properties:
@@ -13859,6 +13996,63 @@ components:
           format: enum
       description: ScorecardsPreferences represents the preferences for the score
         card.
+    tcn.org.preferences.v1alpha1.VoiceAnalyticsPreferences:
+      required:
+      - enabled
+      - notification
+      type: object
+      properties:
+        name:
+          type: string
+          description: name is the identifier of the voice analytics preferences
+        enabled:
+          type: boolean
+          description: "When enabled call recordings will be transcribed and archived\n
+            by localmixer in voice analytics.\n This was documented as OPTIONAL in
+            the legacy code."
+        silenceThreshold:
+          type: integer
+          description: "Minimum milliseconds of silence to occur before considered
+            to\n be silence by voice analytics.\n The value must be between 0 and
+            1000000."
+          format: int32
+        talkOverlapThreshold:
+          type: integer
+          description: "Minimum milliseconds of talk over to occur before considered
+            to\n be talk over by voice analytics.\n The value must be between 0 and
+            1000000.\n Previously named 'talk_over_threshold' - changed to follow
+            the Google AIP standard."
+          format: int32
+        redactAllOrdinal:
+          type: boolean
+          description: "Redaction settings\n\n When enabled, the voice analytics will
+            redact all the ordinal numbers."
+        redactAllCardinal:
+          type: boolean
+          description: When enabled, the voice analytics will redact all the cardinal
+            numbers.
+        useCardinalRules:
+          type: boolean
+          description: When enabled, the voice analytics uses the cardinal rules for
+            redacting the cardinal numbers.
+        cardinalRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.RedactRule'
+          description: The cardinal rules to be used for redacting the cardinal numbers.
+        notification:
+          allOf:
+          - $ref: '#/components/schemas/tcn.org.type.v1alpha1.CronExpression'
+          description: "Notification settings\n\n Flagging transcript notification
+            preferences.\n This was documented as OPTIONAL in the legacy code.\n It
+            defaults to every 15 minutes when not specified.\n Previously named 'notify',
+            and it was of type string - changed to follow the Google AIP standard."
+        regionId:
+          type: string
+          description: The region where the organization the voice analytics preferences
+            belong to is located.
+      description: VoiceAnalyticsPreferences represents the preferences for voice
+        analytics configurations.
     tcn.org.preferences.v1alpha1.WebhookPreferences:
       required:
       - pushUrlsEnabled
@@ -14038,6 +14232,54 @@ components:
           type: string
           description: The API token to revoke.
       description: Request to revoke a API token
+    tcn.org.type.v1alpha1.CronExpression:
+      required:
+      - minutes
+      - hours
+      - monthDay
+      - month
+      - weekDay
+      type: object
+      properties:
+        secondsSchedule:
+          type: string
+          description: "Seconds (0-59). Optional: Default is \"0\".\n Example: \"30\"
+            for the 30th second of the minute."
+        minutes:
+          type: string
+          description: "Minutes (0-59). Specifies the minute of the hour.\n Example:
+            \"0\" for the start of the hour, \"30\" for the 30th minute."
+        hours:
+          type: string
+          description: "Hours (0-23). Specifies the hour of the day.\n Example: \"15\"
+            for 3 PM, \"0\" for midnight."
+        monthDay:
+          type: string
+          description: "Day of the month (1-31). Specifies the day of the month.\n
+            Example: \"1\" for the 1st day of the month, \"*\" for any day."
+        month:
+          type: string
+          description: "Month (1-12). Specifies the month of the year.\n Example:
+            \"1\" for January, \"12\" for December, \"*\" for any month."
+        weekDay:
+          type: string
+          description: "Day of the week (0-7, where 0 and 7 both represent Sunday).\n
+            Specifies the day of the week.\n Example: \"1\" for Monday, \"5\" for
+            Friday, \"*\" for any day of the week."
+        year:
+          type: string
+          description: "Year (optional). Specifies the year.\n Example: \"2002-2005\"
+            for all years between 2002 and 2005, \"*\" for any year."
+        frequency:
+          type: integer
+          description: "CronFrequency (optional). Specifies the frequency of the cron
+            job.\n Example: \"DAILY\" for a daily cron job."
+          format: enum
+      description: "CronExpression is a message for the cron expression of a report.\n
+        Common symbols used in cron expressions:\n (asterisk) * : Matches any value.\n
+        (comma)    , : Specifies a list of values (e.g., 1,3,5).\n (hyphen)   - :
+        Specifies a range of values (e.g., 1-5).\n (slash)    / : Specifies increments
+        (e.g., */5 for every 5 minutes)."
     tcn.org.users.v1alpha1.ListUsersResponse:
       type: object
       properties:
