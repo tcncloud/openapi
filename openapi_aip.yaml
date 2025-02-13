@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: TCN Operator API
-  version: v1.0.14
+  version: v1.0.15
   description: TCN Operator API
 paths:
   /tcn/bi/dashboards/v1alpha1/default:loadDefaultDashboard:
@@ -1707,44 +1707,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
-  /tcn/omni/conversations/v1alpha1/orgs/{org}/conversations/{conversation}/assignments/{assignment}:
-    get:
-      tags:
-      - ConversationService
-      description: Method to get conversation assignment
-      operationId: ConversationService_GetAssignment
-      parameters:
-      - name: org
-        in: path
-        description: The org id.
-        required: true
-        schema:
-          type: string
-      - name: conversation
-        in: path
-        description: The conversation id.
-        required: true
-        schema:
-          type: string
-      - name: assignment
-        in: path
-        description: The assignment id.
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.Assignment'
-        default:
-          description: Default error response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/google.rpc.Status'
   /tcn/omni/conversations/v1alpha1/orgs/{org}/conversations/{conversation}/collectedData:
     get:
       tags:
@@ -1919,12 +1881,9 @@ paths:
     post:
       tags:
       - ConversationService
-      description: "UpsertMetadata inserts a new metadata for a conversation when
-        it doesn't exist,\n or updates it if it does.\n (-- api-linter: core::0136::response-message-name=disabled\n
-        \    aip.dev/not-precedent: we need this to pass linter I didn't want to change
-        this. --)\n (-- api-linter: core::0136::http-uri-suffix=disabled\n     aip.dev/not-precedent:
-        \ we need this to pass linter I didn't want to change this. --)"
-      operationId: ConversationService_UpsertMetadata
+      description: "CreateMetadata inserts a new metadata for a conversation when
+        it doesn't exist,\n or updates it if it does."
+      operationId: ConversationService_CreateMetadata
       parameters:
       - name: org
         in: path
@@ -1989,6 +1948,300 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.Metadata'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/omni/conversations/v1alpha1/orgs/{org}/conversations/{conversation}/metadata:batchCreate:
+    post:
+      tags:
+      - ConversationService
+      description: "BatchCreateMetadata inserts a new metadata for a conversation
+        when it doesn't exist,\n or updates it if it does."
+      operationId: ConversationService_BatchCreateMetadata
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: conversation
+        in: path
+        description: The conversation id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.BatchCreateMetadataRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.BatchCreateMetadataResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/omni/conversations/v1alpha1/orgs/{org}/conversations/{conversation}/users/{user}/assignments/{assignment}:
+    get:
+      tags:
+      - ConversationService
+      description: Method to get conversation assignment
+      operationId: ConversationService_GetAssignment
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: conversation
+        in: path
+        description: The conversation id.
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: path
+        description: The user id.
+        required: true
+        schema:
+          type: string
+      - name: assignment
+        in: path
+        description: The assignment id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.Assignment'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  ? /tcn/omni/conversations/v1alpha1/orgs/{org}/conversations/{conversation}/users/{user}/assignments/{assignment}/assignmentMetadata
+  : get:
+      tags:
+      - ConversationService
+      description: ListAssignmentMetadata retrieves metadata for a conversation.
+      operationId: ConversationService_ListAssignmentMetadata
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: conversation
+        in: path
+        description: The conversation id.
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: path
+        description: The user id.
+        required: true
+        schema:
+          type: string
+      - name: assignment
+        in: path
+        description: The assignment id.
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: returned page
+        schema:
+          type: integer
+          format: int32
+      - name: pageToken
+        in: query
+        description: used to specify the page token
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: used to specify the filter
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.ListAssignmentMetadataResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    post:
+      tags:
+      - ConversationService
+      description: "CreateAssignmentMetadata inserts a new metadata for a conversation
+        when it doesn't exist,\n or updates it if it does."
+      operationId: ConversationService_CreateAssignmentMetadata
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: conversation
+        in: path
+        description: The conversation id.
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: path
+        description: The user id.
+        required: true
+        schema:
+          type: string
+      - name: assignment
+        in: path
+        description: The assignment id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.AssignmentMetadata'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.AssignmentMetadata'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  ? /tcn/omni/conversations/v1alpha1/orgs/{org}/conversations/{conversation}/users/{user}/assignments/{assignment}/assignmentMetadata/{assignmentMetadata}
+  : get:
+      tags:
+      - ConversationService
+      description: GetAssignmentMetadata retrieves metadata for a conversation.
+      operationId: ConversationService_GetAssignmentMetadata
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: conversation
+        in: path
+        description: The conversation id.
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: path
+        description: The user id.
+        required: true
+        schema:
+          type: string
+      - name: assignment
+        in: path
+        description: The assignment id.
+        required: true
+        schema:
+          type: string
+      - name: assignmentMetadata
+        in: path
+        description: The assignmentMetadata id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.AssignmentMetadata'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  ? /tcn/omni/conversations/v1alpha1/orgs/{org}/conversations/{conversation}/users/{user}/assignments/{assignment}/assignmentMetadata:batchCreate
+  : post:
+      tags:
+      - ConversationService
+      description: "BatchCreateAssignmentMetadata inserts a new metadata for a conversation
+        when it doesn't exist,\n or updates it if it does."
+      operationId: ConversationService_BatchCreateAssignmentMetadata
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: conversation
+        in: path
+        description: The conversation id.
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: path
+        description: The user id.
+        required: true
+        schema:
+          type: string
+      - name: assignment
+        in: path
+        description: The assignment id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.BatchCreateAssignmentMetadataRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.BatchCreateAssignmentMetadataResponse'
         default:
           description: Default error response
           content:
@@ -2170,6 +2423,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.omni.disposition.v1alpha1.Disposition'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/omni/eventlog/v1alpha1:processOmniEventLog:
+    post:
+      tags:
+      - EventlogService
+      description: Process an Omni Event Log
+      operationId: EventlogService_ProcessOmniEventLog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.omni.eventlog.v1alpha1.ProcessOmniEventLogRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.omni.eventlog.v1alpha1.ProcessOmniEventLogResponse'
         default:
           description: Default error response
           content:
@@ -5824,21 +6102,32 @@ paths:
       tags:
       - OrganizationsService
       description: "(-- api-linter: core::0132::method-signature=disabled\n     aip.dev/not-precedent:
-        We need to do this because organizations is a top level resource with no parent.
-        Leaving empty signature is specified in google AIP-132. --)\n (-- api-linter:
+        We need to do this because organizations is a top level resource with no parent.\n
+        \    Leaving empty signature is specified in google AIP-132. --)\n (-- api-linter:
         core::0132::http-uri-parent=disabled\n     aip.dev/not-precedent: We need
-        to do this because there is no parent. --)\n Method to list organizations"
+        to do this because there is no parent. --)\n ListOrganizations is a method
+        to list organizations."
       operationId: OrganizationsService_ListOrganizations
       parameters:
       - name: pageSize
         in: query
-        description: returned page
+        description: "The maximum number of organizations to return.\n If unspecified,
+          at most 50 organizations will be returned.\n The maximum value is 1000;
+          values above 1000 will be coerced to 1000."
         schema:
           type: integer
           format: int32
       - name: pageToken
         in: query
-        description: Use to specify the page token
+        description: "A page token, received from a previous `ListOrganizations` call.\n
+          Provide this to retrieve the subsequent page.\n When paginating, all other
+          parameters provided to `ListOrganizations` must match\n the call that provided
+          the page token."
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: The filter to apply to list results.
         schema:
           type: string
       responses:
@@ -5857,8 +6146,21 @@ paths:
     post:
       tags:
       - OrganizationsService
-      description: Method to create an organization
+      description: "(-- api-linter: core::0133::method-signature=disabled\n     aip.dev/not-precedent:
+        We need to pass the allowed countries in the request\n     to create an organization.
+        And it will be stored in the Organization Preferences. --)\n CreateOrganization
+        is a method to create an organization."
       operationId: OrganizationsService_CreateOrganization
+      parameters:
+      - name: allowedCountries
+        in: query
+        description: "Allowed countries is the list of allowed countries preference
+          for the organization.\n This represent the string value of the api.commons.Country
+          enum.\n This will be stored in the Organization Preferences."
+        schema:
+          type: array
+          items:
+            type: string
       requestBody:
         content:
           application/json:
@@ -5882,7 +6184,7 @@ paths:
     get:
       tags:
       - OrganizationsService
-      description: Method to get an Organization
+      description: GetOrganization is a method to get an organization.
       operationId: OrganizationsService_GetOrganization
       parameters:
       - name: organization
@@ -5907,7 +6209,7 @@ paths:
     patch:
       tags:
       - OrganizationsService
-      description: Method to update
+      description: UpdateOrganization is a method to update an organization.
       operationId: OrganizationsService_UpdateOrganization
       parameters:
       - name: organization
@@ -5918,7 +6220,7 @@ paths:
           type: string
       - name: updateMask
         in: query
-        description: update mask
+        description: The field mask to apply to the organization.
         schema:
           type: string
           format: field-mask
@@ -5941,12 +6243,66 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/organizations/v1alpha1/organizations/{organization}/lastScheduledDate:
+    get:
+      tags:
+      - OrganizationsService
+      description: GetLastScheduledDate is a method to get the last scheduled date
+        for an organization.
+      operationId: OrganizationsService_GetLastScheduledDate
+      parameters:
+      - name: organization
+        in: path
+        description: The organization id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.organizations.v1alpha1.LastScheduledDate'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/organizations/v1alpha1/organizations/{organization}:streamOwnedOrganizations:
+    get:
+      tags:
+      - OrganizationsService
+      description: StreamOwnedOrganizations is a method to list all organizations
+        under the p3 hierarchy.
+      operationId: OrganizationsService_StreamOwnedOrganizations
+      parameters:
+      - name: organization
+        in: path
+        description: The organization id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.organizations.v1alpha1.StreamOwnedOrganizationsResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /tcn/org/organizations/v1alpha1/organizations:archiveOrganization:
     post:
       tags:
       - OrganizationsService
-      description: Archives an organization. An archived organization effectively
-        disappears, but isn't deleted.
+      description: "ArchiveOrganization is a method to archive an organization.\n
+        An archived organization effectively disappears, but isn't deleted."
       operationId: OrganizationsService_ArchiveOrganization
       requestBody:
         content:
@@ -5971,7 +6327,7 @@ paths:
     post:
       tags:
       - OrganizationsService
-      description: Restores an archived organization.
+      description: UnArchiveOrganization is a method to restore an archived organization.
       operationId: OrganizationsService_UnArchiveOrganization
       requestBody:
         content:
@@ -8006,6 +8362,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.org.users.v1alpha1.ListUsersResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    post:
+      tags:
+      - UsersService
+      description: "(-- api-linter: core::0133::method-signature=disabled\n     aip.dev/not-precedent:
+        The password of the user is required\n --)\n Method to create an user"
+      operationId: UsersService_CreateUser
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        description: password for new user
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.org.users.v1alpha1.User'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.users.v1alpha1.User'
         default:
           description: Default error response
           content:
@@ -10133,7 +10526,6 @@ components:
       required:
       - isActive
       - assignmentType
-      - user
       type: object
       properties:
         name:
@@ -10157,26 +10549,163 @@ components:
           description: date assignment was last modified
           format: date-time
         user:
+          readOnly: true
           allOf:
           - $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.Assignment_User'
-          description: user assigned to the conversation
+          description: user data
         asmSessionSid:
           type: string
           description: asm session sid
       description: represents a conversation assignment
-    tcn.omni.conversation.v1alpha1.Assignment_User:
+    tcn.omni.conversation.v1alpha1.AssignmentMetadata:
       required:
-      - name
+      - value
       type: object
       properties:
         name:
           type: string
-          description: the assigned user's identifier
+          description: the metadata identifier
+        createTime:
+          readOnly: true
+          type: string
+          description: the time the metadata was created
+          format: date-time
+        updateTime:
+          readOnly: true
+          type: string
+          description: the time the metadata was last updated
+          format: date-time
+        title:
+          type: integer
+          description: "the metadata title\n Title must be provided, including AGENT_RESPONSE_TIME
+            (0) as a valid value."
+          format: enum
+        value:
+          allOf:
+          - $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.AssignmentMetadata_Value'
+          description: the metadata value
+      description: AssignmentMetadata represents system generated metadata for a conversation.
+    tcn.omni.conversation.v1alpha1.AssignmentMetadata_DurationValue:
+      required:
+      - startTime
+      type: object
+      properties:
+        startTime:
+          type: string
+          description: the time the duration started
+          format: date-time
+        endTime:
+          type: string
+          description: the time the duration ended (if unset, still in progress)
+          format: date-time
+        duration:
+          pattern: ^-?(?:0|[1-9][0-9]{0,11})(?:\.[0-9]{1,9})?s$
+          type: string
+          description: the duration of the time range (won't be set until end_time
+            is set)
+      description: "DurationValue is a value representing a total duration for a\n
+        time range."
+    tcn.omni.conversation.v1alpha1.AssignmentMetadata_TimeAggregateValue:
+      required:
+      - instancesCount
+      - totalDuration
+      - averageDuration
+      - lastInstanceStartTime
+      type: object
+      properties:
+        instancesCount:
+          type: string
+          description: the number of time instances aggregated
+        totalDuration:
+          pattern: ^-?(?:0|[1-9][0-9]{0,11})(?:\.[0-9]{1,9})?s$
+          type: string
+          description: the total duration (sum) of all time instances
+        averageDuration:
+          pattern: ^-?(?:0|[1-9][0-9]{0,11})(?:\.[0-9]{1,9})?s$
+          type: string
+          description: the average duration of all time instances
+        lastInstanceStartTime:
+          type: string
+          description: the time the last insance had started
+          format: date-time
+      description: "TimeAggregateValue is a value representing an aggregate of\n time
+        based data (e.g. total time spent in a conversation, etc.)"
+    tcn.omni.conversation.v1alpha1.AssignmentMetadata_Value:
+      type: object
+      properties:
+        timeAggregate:
+          allOf:
+          - $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.AssignmentMetadata_TimeAggregateValue'
+          description: aggregate of time instances
+        duration:
+          allOf:
+          - $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.AssignmentMetadata_DurationValue'
+          description: duration value
+      description: Value represents the value of the metadata.
+    tcn.omni.conversation.v1alpha1.Assignment_User:
+      type: object
+      properties:
         username:
           readOnly: true
           type: string
           description: the assigned user's name
       description: metadata details related to the conversation assignment
+    tcn.omni.conversation.v1alpha1.BatchCreateAssignmentMetadataRequest:
+      required:
+      - parent
+      - requests
+      type: object
+      properties:
+        parent:
+          type: string
+          description: the parent of this assignment_metadata
+        requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.CreateAssignmentMetadataRequest'
+          description: "the assignment_metadata to create\n (-- api-linter: core::0233::request-requests-field=disabled\n
+            \    aip.dev/not-precedent: This is not assignmentMetadatum. --)"
+      description: BatchCreateAssignmentMetadataRequest is a request to update or
+        insert a new assignment_metadata.
+    tcn.omni.conversation.v1alpha1.BatchCreateAssignmentMetadataResponse:
+      type: object
+      properties:
+        assignmentMetadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.AssignmentMetadata'
+          description: assignment_metadata to created
+      description: "BatchCreateAssignmentMetadataResponse is a response to update
+        or insert a new assignment_metadata.\n (-- api-linter: core::0233::response-resource-field=disabled\n
+        \    aip.dev/not-precedent: The field is not assignmentMetadatum. --)"
+    tcn.omni.conversation.v1alpha1.BatchCreateMetadataRequest:
+      required:
+      - parent
+      - requests
+      type: object
+      properties:
+        parent:
+          type: string
+          description: the parent of this metadata
+        requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.CreateMetadataRequest'
+          description: "the metadata to create\n (-- api-linter: core::0233::request-requests-field=disabled\n
+            \    aip.dev/not-precedent: This is not metadatum. --)"
+      description: BatchCreateMetadataRequest is a request to update or insert a new
+        metadata.
+    tcn.omni.conversation.v1alpha1.BatchCreateMetadataResponse:
+      type: object
+      properties:
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.Metadata'
+          description: metadata to created
+      description: "BatchCreateMetadataResponse is a response to update or insert
+        a new metadata.\n (-- api-linter: core::0233::response-resource-field=disabled\n
+        \    aip.dev/not-precedent: The field is not metadatum. --)"
     tcn.omni.conversation.v1alpha1.CollectedData:
       required:
       - title
@@ -10341,6 +10870,48 @@ components:
           type: string
           description: flow id
       description: metadata details related to the conversation
+    tcn.omni.conversation.v1alpha1.CreateAssignmentMetadataRequest:
+      required:
+      - parent
+      - assignmentMetadata
+      type: object
+      properties:
+        parent:
+          type: string
+          description: the parent of this assignment_metadata
+        assignmentMetadata:
+          allOf:
+          - $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.AssignmentMetadata'
+          description: the assignment_metadata to create
+      description: CreateAssignmentMetadataRequest is a request to update or insert
+        a new assignment_metadata.
+    tcn.omni.conversation.v1alpha1.CreateMetadataRequest:
+      required:
+      - parent
+      - metadata
+      type: object
+      properties:
+        parent:
+          type: string
+          description: the parent of this metadata
+        metadata:
+          allOf:
+          - $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.Metadata'
+          description: the metadata to create
+      description: CreateMetadataRequest is a request to update or insert a new metadata.
+    tcn.omni.conversation.v1alpha1.ListAssignmentMetadataResponse:
+      type: object
+      properties:
+        assignmentMetadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.AssignmentMetadata'
+          description: the listed metadata
+        nextPageToken:
+          type: string
+          description: next page token
+      description: ListAssignmentMetadataResponse is a response to list conversation
+        assignment_metadata.
     tcn.omni.conversation.v1alpha1.ListAssignmentsResponse:
       type: object
       properties:
@@ -10553,6 +11124,20 @@ components:
           type: string
           description: next page token
       description: response for list dispositions
+    tcn.omni.eventlog.v1alpha1.ProcessOmniEventLogRequest:
+      required:
+      - event
+      type: object
+      properties:
+        event:
+          type: string
+          description: the event data to be processed
+          format: bytes
+      description: ProcessOmniEventLogRequest -
+    tcn.omni.eventlog.v1alpha1.ProcessOmniEventLogResponse:
+      type: object
+      properties: {}
+      description: ProcessOmniEventLogResponse -
     tcn.omni.message.v1alpha1.ListMessagesResponse:
       type: object
       properties:
@@ -12577,12 +13162,21 @@ components:
       properties:
         name:
           type: string
-          description: name of the organization
-      description: The request for api.v0alpha.ArchiveOrganization
+          description: The identifier of the organization to archive.
+      description: ArchiveOrganizationRequest is the request message for ArchiveOrganization
     tcn.org.organizations.v1alpha1.ArchiveOrganizationResponse:
       type: object
       properties: {}
-      description: The response for api.v0alpha.ArchiveOrganization
+      description: ArchiveOrganizationResponse is the response message for ArchiveOrganization
+    tcn.org.organizations.v1alpha1.LastScheduledDate:
+      type: object
+      properties:
+        lastScheduledTime:
+          type: string
+          description: "last scheduled outbound broadcast (a hold over from Backoffice)\n
+            Named last_scheduled_time to follow the AIP convention."
+          format: date-time
+      description: LastScheduledDate is the response message for GetLastScheduledDate.
     tcn.org.organizations.v1alpha1.ListOrganizationsResponse:
       type: object
       properties:
@@ -12590,18 +13184,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tcn.org.organizations.v1alpha1.Organization'
-          description: organizations
+          description: The list of organizations.
         nextPageToken:
           type: string
-          description: next page token
-      description: response message ListOrganizationsResponse
+          description: "A token, which can be sent as `page_token` to retrieve the
+            next page.\n If this field is omitted, there are no subsequent pages."
+      description: ListOrganizationsResponse is the response message for ListOrganizations.
     tcn.org.organizations.v1alpha1.Organization:
       required:
       - displayName
+      - backofficeTheme
       - crmId
       - timeZone
       - p3OwnerId
-      - allowedCountries
       type: object
       properties:
         name:
@@ -12637,6 +13232,7 @@ components:
           description: organization back-office theme
           format: enum
         archived:
+          readOnly: true
           type: boolean
           description: Archived specifies this organization as no longer active.
         crmId:
@@ -12644,7 +13240,8 @@ components:
           description: Salesforce ID used for integrations.
         timeZone:
           type: string
-          description: organization time zone
+          description: "organization time zone\n This represents the string value
+            of the api.commons.TimeZone enum."
         callbacksServiceId:
           readOnly: true
           type: string
@@ -12662,14 +13259,16 @@ components:
           type: string
           description: last_updated_date
           format: date-time
-        allowedCountries:
+      description: Organization contains the basic properties for an organization.
+    tcn.org.organizations.v1alpha1.StreamOwnedOrganizationsResponse:
+      type: object
+      properties:
+        organizations:
           type: array
           items:
-            type: string
-          description: "Allowed countries is the list of allowed countries preference
-            for the organization.\n This represent the string value of the api.commons.Country
-            enum."
-      description: Organization contains the basic properties for an organization.
+            $ref: '#/components/schemas/tcn.org.organizations.v1alpha1.Organization'
+          description: The list of organizations owned by the parent organization.
+      description: StreamOwnedOrganizationsResponse is the response message for StreamOwnedOrganizations.
     tcn.org.organizations.v1alpha1.UnArchiveOrganizationRequest:
       required:
       - name
@@ -12677,12 +13276,12 @@ components:
       properties:
         name:
           type: string
-          description: name of the organization
-      description: The request for api.v0alpha.UnArchiveOrganization
+          description: The identifier of the organization to unarchive.
+      description: UnArchiveOrganizationRequest is the request message for UnArchiveOrganization
     tcn.org.organizations.v1alpha1.UnArchiveOrganizationResponse:
       type: object
       properties: {}
-      description: The response for api.v0alpha.UnArchiveOrganization
+      description: UnArchiveOrganizationResponse is the response message for UnArchiveOrganization
     tcn.org.preferences.v1alpha1.AdminClientPreferences:
       required:
       - useReservedCarrier
@@ -14295,26 +14894,12 @@ components:
     tcn.org.users.v1alpha1.User:
       required:
       - username
-      - p3PermissionGroupId
-      - partnerAgentId
-      - regionSidMap
       - defaultRegion
       - email
-      - loginDisabled
-      - callerIds
-      - linkbackNumbers
       - givenName
       - familyName
-      - passwordResetRequired
-      - connectionId
-      - timeZoneOverride
       - defaultApplication
-      - userCallerId
-      - agentProfileGroupId
-      - agent
-      - accountOwner
-      - mfaDeadlineTime
-      - passwordResetTime
+      - permissionGroups
       type: object
       properties:
         name:
@@ -14323,13 +14908,15 @@ components:
         username:
           type: string
           description: The Username of the user.
-        p3PermissionGroupId:
-          type: string
+        p3PermissionGroup:
+          allOf:
+          - $ref: '#/components/schemas/tcn.org.users.v1alpha1.User_P3PermissionGroup'
           description: The ID of the p3 permission group the user has.
         partnerAgentId:
           type: string
           description: The User's partner agent id.
         regionSidMap:
+          readOnly: true
           type: object
           additionalProperties:
             $ref: '#/components/schemas/tcn.org.users.v1alpha1.User_RegionSids'
@@ -14340,7 +14927,12 @@ components:
         email:
           type: string
           description: The User's email.
+        emailVerified:
+          readOnly: true
+          type: boolean
+          description: if the users email is verified
         loginDisabled:
+          readOnly: true
           type: boolean
           description: Whether or not the user is disabled.
         callerIds:
@@ -14372,10 +14964,15 @@ components:
         passwordResetRequired:
           type: boolean
           description: Whether or not the user must reset their password on next login.
+        lastPasswordResetTime:
+          readOnly: true
+          type: string
+          description: The time of the user's latest password reset
+          format: date-time
         connectionId:
           type: string
           description: "connection id is the id of the auth connection that the\n
-            user is coming from if it is a delgated user. If the user\n is not delgated
+            user is coming from if it is a delegated user. If the user\n is not delgated
             this will be nil."
         timeZoneOverride:
           type: string
@@ -14391,38 +14988,113 @@ components:
           type: string
           description: users assigned agent profile group
         agent:
+          readOnly: true
           type: boolean
           description: a bool signalling whether or not the user is also an agent
         accountOwner:
+          readOnly: true
           type: boolean
           description: a bool to determine whether or not user is account owner
+        whitelistedIps:
+          type: array
+          items:
+            type: string
+          description: Whitelisted IPs for the user
         mfaDeadlineTime:
+          readOnly: true
           type: string
-          description: Timestamp beyond which the user is required to have multi factor
-            authentication set up
+          description: "Timestamp beyond which the user is required to have multi
+            factor authentication set up\n Only populated when getting user session
+            data"
           format: date-time
-        passwordResetTime:
+        passwordResetDeadlineTime:
+          readOnly: true
           type: string
           description: Timestamp of of when a user must reset their password before
           format: date-time
+        permissionGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.users.v1alpha1.User_PermissionGroup'
+          description: The permission groups that the new user will have.
+        huntGroup:
+          allOf:
+          - $ref: '#/components/schemas/tcn.org.users.v1alpha1.User_HuntGroup'
+          description: The hunt group that the user belongs to.
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.users.v1alpha1.User_Skill'
+          description: A list of the skills associated with the user
       description: User contains the basic properties for a user.
-    tcn.org.users.v1alpha1.User_RegionSids:
+    tcn.org.users.v1alpha1.User_HuntGroup:
       required:
-      - loginSid
-      - agentSid
-      - clientSid
+      - huntGroupSid
+      type: object
+      properties:
+        huntGroupSid:
+          type: string
+          description: The sid of the hunt group the agent is assigned to
+        huntGroupDisplayName:
+          readOnly: true
+          type: string
+          description: The name of the hunt group the agent is assigned to
+      description: Object to contain the hunt group fields
+    tcn.org.users.v1alpha1.User_P3PermissionGroup:
+      required:
+      - p3PermissionGroupId
+      type: object
+      properties:
+        p3PermissionGroupId:
+          type: string
+          description: Unique id for this p3 permission group.
+        p3PermissionGroupDisplayName:
+          readOnly: true
+          type: string
+          description: Name to identify by.
+      description: P3PermissionGroup defines the p3 permission group entity.
+    tcn.org.users.v1alpha1.User_PermissionGroup:
+      required:
+      - permissionGroupId
+      type: object
+      properties:
+        permissionGroupId:
+          type: string
+          description: Unique id for this permission group.
+        permissionGroupDisplayName:
+          readOnly: true
+          type: string
+          description: Name to identify by.
+      description: PermissionGroup defines the permission group entity.
+    tcn.org.users.v1alpha1.User_RegionSids:
       type: object
       properties:
         loginSid:
+          readOnly: true
           type: string
           description: The login sid for the region.
         agentSid:
+          readOnly: true
           type: string
           description: THe agent sid for the region.
         clientSid:
+          readOnly: true
           type: string
           description: THe client sid for the region.
       description: The entity object used in the region_sid_map.
+    tcn.org.users.v1alpha1.User_Skill:
+      required:
+      - skillSid
+      type: object
+      properties:
+        skillSid:
+          type: string
+          description: The sid of the skill
+        skillDisplayName:
+          readOnly: true
+          type: string
+          description: The name of the skill
+      description: Object to contain the skill name and id
     tcn.tickets.ticket.v1alpha1.ActionType:
       required:
       - value
@@ -14982,6 +15654,8 @@ tags:
   description: Dispositions service is the public api for the omni/dispositions service.
 - name: EventService
   description: EventService -
+- name: EventlogService
+  description: Eventlog Service -
 - name: ExilesService
   description: ExilesService
 - name: IdpClientService
@@ -14998,7 +15672,8 @@ tags:
 - name: OauthService
   description: OAuth service is the public api for the omni/oauthConfig service.
 - name: OrganizationsService
-  description: OrganizationsService
+  description: OrganizationsService is the service that provides methods to manage
+    organizations.
 - name: PreferencesService
   description: "(-- api-linter: core::0121::resource-must-support-list=disabled\n
     \    aip.dev/not-precedent: PreferencesService doesn't support list calls. --)\n
