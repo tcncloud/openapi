@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: TCN Operator API
-  version: v1.0.15
+  version: v1.0.16
   description: TCN Operator API
 paths:
   /tcn/bi/dashboards/v1alpha1/default:loadDefaultDashboard:
@@ -6348,6 +6348,177 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/permissions/v1alpha1/orgs/{org}/permissionGroups:
+    get:
+      tags:
+      - PermissionsService
+      description: Method to list permission groups
+      operationId: PermissionsService_ListPermissionGroups
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: The maximum number of permission groups to return.
+        schema:
+          type: integer
+          format: int32
+      - name: pageToken
+        in: query
+        description: The page token to use for the next request.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.permissions.v1alpha1.ListPermissionGroupsResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    post:
+      tags:
+      - PermissionsService
+      description: Method to create a permission group
+      operationId: PermissionsService_CreatePermissionGroup
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.org.permissions.v1alpha1.PermissionGroup'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.permissions.v1alpha1.PermissionGroup'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/permissions/v1alpha1/orgs/{org}/permissionGroups/{permissionGroup}:
+    get:
+      tags:
+      - PermissionsService
+      description: Method to get a permission group
+      operationId: PermissionsService_GetPermissionGroup
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: permissionGroup
+        in: path
+        description: The permissionGroup id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.permissions.v1alpha1.PermissionGroup'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    delete:
+      tags:
+      - PermissionsService
+      description: Method to delete a permission group
+      operationId: PermissionsService_DeletePermissionGroup
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: permissionGroup
+        in: path
+        description: The permissionGroup id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content: {}
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    patch:
+      tags:
+      - PermissionsService
+      description: Method to update a permission group
+      operationId: PermissionsService_UpdatePermissionGroup
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: permissionGroup
+        in: path
+        description: The permissionGroup id.
+        required: true
+        schema:
+          type: string
+      - name: updateMask
+        in: query
+        description: The update mask.
+        schema:
+          type: string
+          format: field-mask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.org.permissions.v1alpha1.PermissionGroup'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.permissions.v1alpha1.PermissionGroup'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /tcn/org/preferences/v1alpha1/orgs/{org}/adminClientPreferences/{adminClientPreference}:
     get:
       tags:
@@ -8480,6 +8651,56 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/users/v1alpha1/users:archiveUser:
+    post:
+      tags:
+      - UsersService
+      description: Archives a user effectively disappears, but isn't deleted.
+      operationId: UsersService_ArchiveUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.org.users.v1alpha1.ArchiveUserRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.users.v1alpha1.ArchiveUserResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/users/v1alpha1/users:unArchiveUser:
+    post:
+      tags:
+      - UsersService
+      description: Restores an archived User.
+      operationId: UsersService_UnArchiveUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.org.users.v1alpha1.UnArchiveUserRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.users.v1alpha1.UnArchiveUserResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /tcn/tickets/ticket/v1alpha1/orgs/{org}:
     get:
       tags:
@@ -10240,12 +10461,45 @@ components:
           format: date-time
       description: CannedMessageGroup -
     tcn.omni.cannedmessage.v1alpha1.CannedMessage_Attachment:
+      required:
+      - title
+      - fileType
+      - fileSize
+      - filePath
       type: object
       properties:
         name:
           readOnly: true
           type: string
           description: primary key for an attachment
+        title:
+          type: string
+          description: attachment file name
+        fileType:
+          type: string
+          description: attachment file type
+        fileSize:
+          type: string
+          description: attachment file size
+        filePath:
+          type: string
+          description: attachment file path
+        downloadUri:
+          readOnly: true
+          type: string
+          description: download attachment file url
+        tempId:
+          type: string
+          description: temp id
+        contentId:
+          type: string
+          description: Optional. the id of the attachment in text if inline
+        width:
+          type: string
+          description: Optional. the width of the inline attachment
+        height:
+          type: string
+          description: Optional. the height of the inline attachment
       description: Attachment - lets remove this ASAP
     tcn.omni.cannedmessage.v1alpha1.ListCannedMessageGroupsResponse:
       type: object
@@ -13282,6 +13536,61 @@ components:
       type: object
       properties: {}
       description: UnArchiveOrganizationResponse is the response message for UnArchiveOrganization
+    tcn.org.permissions.v1alpha1.ListPermissionGroupsResponse:
+      type: object
+      properties:
+        permissionGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.permissions.v1alpha1.PermissionGroup'
+          description: The permission groups.
+        nextPageToken:
+          type: string
+          description: The next page token.
+      description: ListPermissionGroupsResponse is the response for the ListPermissionGroups
+        method.
+    tcn.org.permissions.v1alpha1.PermissionGroup:
+      required:
+      - displayName
+      - permissions
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the permission group.
+        displayName:
+          type: string
+          description: The display name of the permission group.
+        description:
+          type: string
+          description: The description of the permission group.
+        permissions:
+          type: array
+          items:
+            type: integer
+            format: enum
+          description: The permissions in the permission group.
+        labels:
+          type: array
+          items:
+            type: string
+          description: The labels assigned to the permission group.
+        readOnly:
+          readOnly: true
+          type: boolean
+          description: Read only flag for the permission group to restrict modification.
+        createTime:
+          readOnly: true
+          type: string
+          description: The date/time the permission group was created.
+          format: date-time
+        updateTime:
+          readOnly: true
+          type: string
+          description: The date/time the permission group was last updated.
+          format: date-time
+      description: PermissionGroup contains the basic properties for a permission
+        group.
     tcn.org.preferences.v1alpha1.AdminClientPreferences:
       required:
       - useReservedCarrier
@@ -14879,6 +15188,19 @@ components:
         (comma)    , : Specifies a list of values (e.g., 1,3,5).\n (hyphen)   - :
         Specifies a range of values (e.g., 1-5).\n (slash)    / : Specifies increments
         (e.g., */5 for every 5 minutes)."
+    tcn.org.users.v1alpha1.ArchiveUserRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of the user
+      description: The request for ArchiveUser
+    tcn.org.users.v1alpha1.ArchiveUserResponse:
+      type: object
+      properties: {}
+      description: The response for ArchiveUser
     tcn.org.users.v1alpha1.ListUsersResponse:
       type: object
       properties:
@@ -14891,6 +15213,19 @@ components:
           type: string
           description: next page token
       description: response message ListUsersResponse
+    tcn.org.users.v1alpha1.UnArchiveUserRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of the user
+      description: The request for UnArchiveUser
+    tcn.org.users.v1alpha1.UnArchiveUserResponse:
+      type: object
+      properties: {}
+      description: The response for UnArchiveUser
     tcn.org.users.v1alpha1.User:
       required:
       - username
@@ -15674,6 +16009,8 @@ tags:
 - name: OrganizationsService
   description: OrganizationsService is the service that provides methods to manage
     organizations.
+- name: PermissionsService
+  description: PermissionsService is the service for managing permissions.
 - name: PreferencesService
   description: "(-- api-linter: core::0121::resource-must-support-list=disabled\n
     \    aip.dev/not-precedent: PreferencesService doesn't support list calls. --)\n
