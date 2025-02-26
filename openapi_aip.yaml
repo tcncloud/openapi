@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: TCN Operator API
-  version: v1.0.16
+  version: v1.0.17
   description: TCN Operator API
 paths:
   /tcn/bi/dashboards/v1alpha1/default:loadDefaultDashboard:
@@ -1137,11 +1137,6 @@ paths:
         in: path
         description: The org id.
         required: true
-        schema:
-          type: string
-      - name: complianceConfigId
-        in: query
-        description: the complianceConfig id
         schema:
           type: string
       requestBody:
@@ -2818,6 +2813,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.omni.project.v1alpha1.Project'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/omni/sendgrid/v1alpha1:performSendgridAccountChecks:
+    post:
+      tags:
+      - SendgridService
+      description: Perform sendgrid account checks
+      operationId: SendgridService_PerformSendgridAccountChecks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.omni.sendgrid.v1alpha1.PerformSendgridAccountChecksRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.omni.sendgrid.v1alpha1.PerformSendgridAccountChecksResponse'
         default:
           description: Default error response
           content:
@@ -10067,7 +10087,7 @@ components:
       - title
       - fileType
       - fileSize
-      - filePath
+      - tempId
       type: object
       properties:
         name:
@@ -10083,6 +10103,7 @@ components:
           type: string
           description: attachment file size
         filePath:
+          readOnly: true
           type: string
           description: attachment file path
         downloadUri:
@@ -10100,6 +10121,7 @@ components:
           description: time when the attachment was last modified
           format: date-time
         tempId:
+          writeOnly: true
           type: string
           description: temp id
         contentId:
@@ -10581,14 +10603,6 @@ components:
           description: next page token
       description: response message ListChatWidgetsResponse
     tcn.omni.compliance.v1alpha1.ComplianceConfig:
-      required:
-      - optin
-      - optout
-      - help
-      - info
-      - scrubListId
-      - ruleSetId
-      - channelType
       type: object
       properties:
         name:
@@ -10631,7 +10645,6 @@ components:
       required:
       - keywords
       - confirmationMessage
-      - isFuzzyMatch
       type: object
       properties:
         keywords:
@@ -10906,7 +10919,6 @@ components:
       description: metadata details related to the conversation assignment
     tcn.omni.conversation.v1alpha1.BatchCreateAssignmentMetadataRequest:
       required:
-      - parent
       - requests
       type: object
       properties:
@@ -10934,7 +10946,6 @@ components:
         \    aip.dev/not-precedent: The field is not assignmentMetadatum. --)"
     tcn.omni.conversation.v1alpha1.BatchCreateMetadataRequest:
       required:
-      - parent
       - requests
       type: object
       properties:
@@ -11380,13 +11391,33 @@ components:
       description: response for list dispositions
     tcn.omni.eventlog.v1alpha1.ProcessOmniEventLogRequest:
       required:
+      - orgId
       - event
+      - eventType
       type: object
       properties:
+        orgId:
+          type: string
+          description: the org id associated
         event:
           type: string
-          description: the event data to be processed
-          format: bytes
+          description: the actual event
+        eventType:
+          type: integer
+          description: the type of the event
+          format: int32
+        conversationSid:
+          type: string
+          description: the conversation sid associated with the event
+        primaryUserId:
+          type: string
+          description: the primary user id associated with the event
+        secondaryUserId:
+          type: string
+          description: the secondary user id associated with the event
+        primaryAsmSessionSid:
+          type: string
+          description: the primary asm session sid associated with the event
       description: ProcessOmniEventLogRequest -
     tcn.omni.eventlog.v1alpha1.ProcessOmniEventLogResponse:
       type: object
@@ -11849,6 +11880,19 @@ components:
             type: string
           description: The compliance config
       description: Project -
+    tcn.omni.sendgrid.v1alpha1.PerformSendgridAccountChecksRequest:
+      required:
+      - orgId
+      type: object
+      properties:
+        orgId:
+          type: string
+          description: the organization identifier
+      description: PerformSendgridAccountChecksRequest -
+    tcn.omni.sendgrid.v1alpha1.PerformSendgridAccountChecksResponse:
+      type: object
+      properties: {}
+      description: PerformSendgridAccountChecksResponse -
     tcn.omni.signature.v1alpha1.ListSignaturesResponse:
       type: object
       properties:
@@ -16024,6 +16068,12 @@ tags:
 - name: RejectionsService
   description: "RejectionService\n (-- api-linter: core::0121::resource-must-support-get=disabled\n
     \    aip.dev/not-precedent: We do not need a get method --)"
+- name: SendgridService
+  description: "Sendgrid Service will make sure all the account settings are valid
+    defined by PerformSendgridAccountChecksRequest message.\n The method will return
+    a PerformSendgridAccountChecksResponse message/entity that will\n return empty
+    or error depending on the result after verifying account settings with sendgrid
+    for this client"
 - name: SignatureService
   description: Signatures service is the public api for the omni/signatures service.
 - name: SkillsService
