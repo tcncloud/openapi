@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: TCN Operator API
-  version: v1.0.17
+  version: v1.0.18
   description: TCN Operator API
 paths:
   /tcn/bi/dashboards/v1alpha1/default:loadDefaultDashboard:
@@ -6392,6 +6392,11 @@ paths:
         description: The page token to use for the next request.
         schema:
           type: string
+      - name: filter
+        in: query
+        description: The filter to apply to list results.
+        schema:
+          type: string
       responses:
         '200':
           description: OK
@@ -8526,7 +8531,7 @@ paths:
     get:
       tags:
       - UsersService
-      description: Method to list users
+      description: ListUsers is a method to list users.
       operationId: UsersService_ListUsers
       parameters:
       - name: org
@@ -8537,13 +8542,22 @@ paths:
           type: string
       - name: pageSize
         in: query
-        description: returned page
+        description: "The maximum number of users to return.\n If unspecified, at
+          most 50 users will be returned.\n The maximum value is 1000; values above
+          1000 will be coerced to 1000."
         schema:
           type: integer
           format: int32
       - name: pageToken
         in: query
-        description: Use to specify the page token
+        description: "A page token, received from a previous `ListUsers` call.\n Provide
+          this to retrieve the subsequent page.\n When paginating, all other parameters
+          provided to `ListUsers` must match\n the call that provided the page token."
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: The filter to apply to list results.
         schema:
           type: string
       responses:
@@ -15252,11 +15266,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tcn.org.users.v1alpha1.User'
-          description: users
+          description: The list of users.
         nextPageToken:
           type: string
-          description: next page token
-      description: response message ListUsersResponse
+          description: "A token, which can be sent as `page_token` to retrieve the
+            next page.\n If this field is omitted, there are no subsequent pages."
+      description: ListUsersResponse is the response message for ListUsers.
     tcn.org.users.v1alpha1.UnArchiveUserRequest:
       required:
       - name
