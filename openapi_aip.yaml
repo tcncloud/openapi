@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: TCN Operator API
-  version: v1.0.18
+  version: v1.0.21
   description: TCN Operator API
 paths:
   /tcn/bi/dashboards/v1alpha1/default:loadDefaultDashboard:
@@ -1543,6 +1543,80 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.omni.connectedinbox.v1alpha1.TestConnectedInboxResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/omni/contactlist/v1alpha1/orgs/{org}/contactLists:
+    get:
+      tags:
+      - ContactListService
+      description: ListContactLists - retrieves all the contact lists
+      operationId: ContactListService_ListContactLists
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: returned page
+        schema:
+          type: integer
+          format: int32
+      - name: pageToken
+        in: query
+        description: used to specify the page token
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: used to specify the filter
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.omni.contactlist.v1alpha1.ListContactListsResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/omni/contactlist/v1alpha1/orgs/{org}/contactLists/{contactList}:
+    get:
+      tags:
+      - ContactListService
+      description: GetContactList - retrieves contact list
+      operationId: ContactListService_GetContactList
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: contactList
+        in: path
+        description: The contactList id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.omni.contactlist.v1alpha1.ContactList'
         default:
           description: Default error response
           content:
@@ -3166,6 +3240,99 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.omni.task.v1alpha1.Task'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/omni/taskcounts/v1alpha1/orgs/{org}/projects/{project}/campaigns/{campaign}/taskCounts:
+    get:
+      tags:
+      - TaskCountsService
+      description: method to list taskcounts
+      operationId: TaskCountsService_ListTaskCounts
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: project
+        in: path
+        description: The project id.
+        required: true
+        schema:
+          type: string
+      - name: campaign
+        in: path
+        description: The campaign id.
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: page size
+        schema:
+          type: integer
+          format: int32
+      - name: pageToken
+        in: query
+        description: page token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.omni.taskcounts.v1alpha1.ListTaskCountsResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/omni/taskcounts/v1alpha1/orgs/{org}/projects/{project}/campaigns/{campaign}/taskCounts/{taskCount}:
+    get:
+      tags:
+      - TaskCountsService
+      description: method to get taskcounts
+      operationId: TaskCountsService_GetTaskCounts
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: project
+        in: path
+        description: The project id.
+        required: true
+        schema:
+          type: string
+      - name: campaign
+        in: path
+        description: The campaign id.
+        required: true
+        schema:
+          type: string
+      - name: taskCount
+        in: path
+        description: The taskCount id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.omni.taskcounts.v1alpha1.TaskCounts'
         default:
           description: Default error response
           content:
@@ -9711,6 +9878,217 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/wfo/scorecards/v1alpha1/orgs/{org}/regions/{region}/categories:
+    get:
+      tags:
+      - ScorecardsService
+      description: ListCategories returns a list of categories.
+      operationId: ScorecardsService_ListCategories
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of categories to return.
+        schema:
+          type: integer
+          format: int32
+      - name: pageToken
+        in: query
+        description: Token for retreiving the next page of results.
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: Filter for categories.
+        schema:
+          type: string
+      - name: orderBy
+        in: query
+        description: Sort order for categories.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.wfo.scorecards.v1alpha1.ListCategoriesResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    post:
+      tags:
+      - ScorecardsService
+      description: CreateCategory creates a category.
+      operationId: ScorecardsService_CreateCategory
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.wfo.scorecards.v1alpha1.Category'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.wfo.scorecards.v1alpha1.Category'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/wfo/scorecards/v1alpha1/orgs/{org}/regions/{region}/categories/{category}:
+    get:
+      tags:
+      - ScorecardsService
+      description: GetCategory returns a category.
+      operationId: ScorecardsService_GetCategory
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: category
+        in: path
+        description: The category id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.wfo.scorecards.v1alpha1.Category'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    delete:
+      tags:
+      - ScorecardsService
+      description: DeleteCategory deletes a category.
+      operationId: ScorecardsService_DeleteCategory
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: category
+        in: path
+        description: The category id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content: {}
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    patch:
+      tags:
+      - ScorecardsService
+      description: UpdateCategory updates a category.
+      operationId: ScorecardsService_UpdateCategory
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: category
+        in: path
+        description: The category id.
+        required: true
+        schema:
+          type: string
+      - name: updateMask
+        in: query
+        description: Update mask for the category.
+        schema:
+          type: string
+          format: field-mask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.wfo.scorecards.v1alpha1.Category'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.wfo.scorecards.v1alpha1.Category'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /tcn/wfo/vana/v1alpha1/orgs/{org}/regions/{region}/zones/{zone}/recordings/{recording}:generateRecordingDownloadUri:
     post:
       tags:
@@ -10803,6 +11181,58 @@ components:
       type: object
       properties: {}
       description: response message TestConnectedInboxResponse
+    tcn.omni.contactlist.v1alpha1.ContactList:
+      required:
+      - title
+      - description
+      - fieldNames
+      - projectSid
+      - entryCount
+      type: object
+      properties:
+        name:
+          type: string
+          description: the unique identifier of the contact list
+        title:
+          type: string
+          description: the contact list title identifier
+        description:
+          type: string
+          description: the contact list description identifier
+        fieldNames:
+          type: array
+          items:
+            type: string
+          description: list of field names
+        projectSid:
+          type: string
+          description: identifier of associated project sid
+        createTime:
+          readOnly: true
+          type: string
+          description: created date
+          format: date-time
+        updateTime:
+          readOnly: true
+          type: string
+          description: updated date
+          format: date-time
+        entryCount:
+          type: string
+          description: entry count details for the metadata
+      description: ContactList is the public api for the omni/contactlist
+    tcn.omni.contactlist.v1alpha1.ListContactListsResponse:
+      type: object
+      properties:
+        contactLists:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.omni.contactlist.v1alpha1.ContactList'
+          description: the listed contact lists
+        nextPageToken:
+          type: string
+          description: next page token
+      description: ListContactListsResponse - result to listing contact lists
     tcn.omni.conversation.v1alpha1.Assignment:
       required:
       - isActive
@@ -11865,7 +12295,6 @@ components:
     tcn.omni.project.v1alpha1.Project:
       required:
       - title
-      - description
       - complianceConfig
       type: object
       properties:
@@ -12248,6 +12677,46 @@ components:
           type: string
           description: scrub list id the task uses
       description: TaskHistory -
+    tcn.omni.taskcounts.v1alpha1.ListTaskCountsResponse:
+      type: object
+      properties:
+        taskCounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.omni.taskcounts.v1alpha1.TaskCounts'
+          description: list of taskcounts
+        nextPageToken:
+          type: string
+          description: next page token
+      description: response message ListTaskCountsResponse
+    tcn.omni.taskcounts.v1alpha1.TaskCounts:
+      type: object
+      properties:
+        name:
+          type: string
+          description: the TaskCounts identifier
+        totalTaskCount:
+          readOnly: true
+          type: string
+          description: the total number of tasks created by an outbound module
+        completedTaskCount:
+          readOnly: true
+          type: string
+          description: the total number of tasks that have successfully completed
+            for an outbound module
+        pendingTaskCount:
+          readOnly: true
+          type: string
+          description: the number of tasks pending
+        failedTaskCount:
+          readOnly: true
+          type: string
+          description: the number of tasks that failed
+        canceledTaskCount:
+          readOnly: true
+          type: string
+          description: the number of tasks that are canceled
+      description: TaskCounts - task counts for a campaign module
     tcn.omni.type.SLATimeouts:
       type: object
       properties:
@@ -15914,6 +16383,77 @@ components:
           description: Span - In minutes,hour,day,week,month,year
           format: enum
       description: TimeSpan
+    tcn.wfo.scorecards.v1alpha1.Category:
+      required:
+      - title
+      - categoryType
+      type: object
+      properties:
+        name:
+          type: string
+          description: "Name of the category.\n Format is `orgs/{org_id}/regions/{region_id}/categories/{category_id}`"
+        author:
+          readOnly: true
+          allOf:
+          - $ref: '#/components/schemas/tcn.wfo.scorecards.v1alpha1.Category_User'
+          description: User that created the category.
+        title:
+          type: string
+          description: The title of the category.
+        description:
+          type: string
+          description: The description of the category.
+        createTime:
+          readOnly: true
+          type: string
+          description: Time the category was created.
+          format: date-time
+        deleteTime:
+          readOnly: true
+          type: string
+          description: Time the category was deleted.
+          format: date-time
+        categoryType:
+          type: integer
+          description: Category types specifies the type of category (SKILLED | DEFAULT)
+          format: enum
+        skillProfiles:
+          type: array
+          items:
+            type: string
+          description: List of skill profile sids
+        skillProfileGroups:
+          type: array
+          items:
+            type: string
+          description: List of skill profiles group sids
+      description: "Category wraps a set of skills (or labels).\n A scorecard will
+        filter what to evaluate\n based on the category."
+    tcn.wfo.scorecards.v1alpha1.Category_User:
+      required:
+      - user
+      type: object
+      properties:
+        user:
+          type: string
+          description: user is the user id
+        fullname:
+          readOnly: true
+          type: string
+          description: fullname is the user's full name
+      description: "User represents a user\n the data we want to display."
+    tcn.wfo.scorecards.v1alpha1.ListCategoriesResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.wfo.scorecards.v1alpha1.Category'
+          description: List of categories returned.
+        nextPageToken:
+          type: string
+          description: Token for retreiving the next page of results.
+      description: ListCategoriesResponse returns a list of categories.
     tcn.wfo.vana.v1alpha1.GenerateRecordingDownloadUriRequest:
       required:
       - recording
@@ -16040,6 +16580,8 @@ tags:
 - name: ConnectedInboxService
   description: ConnectedInboxService is the public api for the omni/connectedInbox
     service.
+- name: ContactListService
+  description: ContactListService is the public api for the omni/contactlist service.
 - name: ConversationService
   description: Conversation service is the public api for the omni/conversation service.
 - name: DashboardsService
@@ -16083,6 +16625,8 @@ tags:
 - name: RejectionsService
   description: "RejectionService\n (-- api-linter: core::0121::resource-must-support-get=disabled\n
     \    aip.dev/not-precedent: We do not need a get method --)"
+- name: ScorecardsService
+  description: ScorecardsService provides methods to manage scorecards
 - name: SendgridService
   description: "Sendgrid Service will make sure all the account settings are valid
     defined by PerformSendgridAccountChecksRequest message.\n The method will return
@@ -16095,6 +16639,8 @@ tags:
   description: SkillsService
 - name: SmsNumberService
   description: SmsNumberService is the public api for the omni/smsnumber service.
+- name: TaskCountsService
+  description: TaskCountsService is the public api for the omni/taskcounts service.
 - name: TaskService
   description: TaskService is the public api for the omni/task service.
 - name: TicketService
