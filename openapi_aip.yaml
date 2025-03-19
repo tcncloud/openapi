@@ -1,9 +1,536 @@
 openapi: 3.0.3
 info:
   title: TCN Operator API
-  version: v1.0.21
+  version: v1.0.22
   description: TCN Operator API
 paths:
+  /tcn/bi/businessIntelligence/v1alpha1/orgs/{org}/regions/{region}/applications/{application}/applicationDashboards:
+    get:
+      tags:
+      - BusinessIntelligenceService
+      description: ListApplicationDashboards lists applications and assigned dashboards.
+      operationId: BusinessIntelligenceService_ListApplicationDashboards
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: application
+        in: path
+        description: The application id.
+        required: true
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: filter
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: page size
+        schema:
+          type: integer
+          format: int32
+      - name: pageToken
+        in: query
+        description: page token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ListApplicationDashboardsResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    post:
+      tags:
+      - BusinessIntelligenceService
+      description: CreateApplicationDashboard assigns a dashboard to an application.
+      operationId: BusinessIntelligenceService_CreateApplicationDashboard
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: application
+        in: path
+        description: The application id.
+        required: true
+        schema:
+          type: string
+      - name: applicationDashboardId
+        in: query
+        description: id to create
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ApplicationDashboard'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ApplicationDashboard'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  ? /tcn/bi/businessIntelligence/v1alpha1/orgs/{org}/regions/{region}/applications/{application}/applicationDashboards/{applicationDashboard}
+  : get:
+      tags:
+      - BusinessIntelligenceService
+      description: GetApplicationDashboard gets a dashboard assigned to an application.
+      operationId: BusinessIntelligenceService_GetApplicationDashboard
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: application
+        in: path
+        description: The application id.
+        required: true
+        schema:
+          type: string
+      - name: applicationDashboard
+        in: path
+        description: The applicationDashboard id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ApplicationDashboard'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    delete:
+      tags:
+      - BusinessIntelligenceService
+      description: DeleteApplicationDashboard deletes a dashboard assigned to an application.
+      operationId: BusinessIntelligenceService_DeleteApplicationDashboard
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: application
+        in: path
+        description: The application id.
+        required: true
+        schema:
+          type: string
+      - name: applicationDashboard
+        in: path
+        description: The applicationDashboard id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content: {}
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/bi/businessIntelligence/v1alpha1/orgs/{org}/regions/{region}/dashboards:
+    get:
+      tags:
+      - BusinessIntelligenceService
+      description: ListDashboards lists dashboards.
+      operationId: BusinessIntelligenceService_ListDashboards
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: "The maximum number of books to return. The service may return
+          fewer than\n this value.\n If unspecified, at most 50 dashboards will be
+          returned.\n The maximum value is 1000; values above 1000 will be coerced
+          to 1000."
+        schema:
+          type: integer
+          format: int32
+      - name: pageToken
+        in: query
+        description: "A page token, received from a previous `ListDashboards` call.\n
+          Provide this to retrieve the subsequent page."
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ListDashboardsResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    post:
+      tags:
+      - BusinessIntelligenceService
+      description: CreateDashboard creates a new dashboard.
+      operationId: BusinessIntelligenceService_CreateDashboard
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: dashboardId
+        in: query
+        description: The dashboard id to create.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Dashboard'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Dashboard'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/bi/businessIntelligence/v1alpha1/orgs/{org}/regions/{region}/dashboards/{dashboard}:
+    get:
+      tags:
+      - BusinessIntelligenceService
+      description: GetDashboard gets a dashboard.
+      operationId: BusinessIntelligenceService_GetDashboard
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: dashboard
+        in: path
+        description: The dashboard id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Dashboard'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    delete:
+      tags:
+      - BusinessIntelligenceService
+      description: DeleteDashboard deletes a dashboard.
+      operationId: BusinessIntelligenceService_DeleteDashboard
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: dashboard
+        in: path
+        description: The dashboard id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content: {}
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    patch:
+      tags:
+      - BusinessIntelligenceService
+      description: UpdateDashboard updates a dashboard.
+      operationId: BusinessIntelligenceService_UpdateDashboard
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: dashboard
+        in: path
+        description: The dashboard id.
+        required: true
+        schema:
+          type: string
+      - name: updateMask
+        in: query
+        description: Required. The update mask to apply to the dashboard.
+        schema:
+          type: string
+          format: field-mask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Dashboard'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Dashboard'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/bi/businessIntelligence/v1alpha1/orgs/{org}/regions/{region}/dashboards/{dashboard}:publish:
+    post:
+      tags:
+      - BusinessIntelligenceService
+      description: PublishDashboard publishes a dashboard.
+      operationId: BusinessIntelligenceService_PublishDashboard
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: dashboard
+        in: path
+        description: The dashboard id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.PublishDashboardRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.PublishDashboardResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/bi/businessIntelligence/v1alpha1/orgs/{org}/regions/{region}/users/{user}/defaultDashboard:
+    get:
+      tags:
+      - BusinessIntelligenceService
+      description: Gets the default dashboard for a user.
+      operationId: BusinessIntelligenceService_GetDefaultDashboard
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: path
+        description: The user id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.DefaultDashboard'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/bi/businessIntelligence/v1alpha1/orgs/{org}/regions/{region}/users/{user}/defaultDashboard:upsert:
+    post:
+      tags:
+      - BusinessIntelligenceService
+      description: Creates or updates the default dashboard for a user.
+      operationId: BusinessIntelligenceService_UpsertDefaultDashboard
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: path
+        description: The user id.
+        required: true
+        schema:
+          type: string
+      - name: defaultDashboardId
+        in: query
+        description: id to create
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.DefaultDashboard'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.UpsertDefaultDashboardResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /tcn/bi/dashboards/v1alpha1/default:loadDefaultDashboard:
     get:
       tags:
@@ -6078,6 +6605,221 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/huntgroups/v1alpha1/orgs/{org}/regions/{region}/complianceMetadataScripts:
+    get:
+      tags:
+      - HuntgroupsService
+      description: Method to list compliance metadata scripts.
+      operationId: HuntgroupsService_ListComplianceMetadataScripts
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: "The maximum number of scripts to return.\n If not specified,
+          at most 50 scripts will be returned.\n The maximum value is 1000.  Values
+          above this will return 1000."
+        schema:
+          type: integer
+          format: int32
+      - name: pageToken
+        in: query
+        description: "A page token to indicate which page to return.\n A token for
+          the next page is returned with each request.\n To request a subsequent page,
+          all parameters except the token must remain the same."
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: The filter to limit the list results.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ListComplianceMetadataScriptsResponse'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    post:
+      tags:
+      - HuntgroupsService
+      description: Method to create a script.
+      operationId: HuntgroupsService_CreateComplianceMetadataScript
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: complianceMetadataScriptId
+        in: query
+        description: ID of script to create.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ComplianceMetadataScript'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ComplianceMetadataScript'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/huntgroups/v1alpha1/orgs/{org}/regions/{region}/complianceMetadataScripts/{complianceMetadataScript}:
+    get:
+      tags:
+      - HuntgroupsService
+      description: Method to get a Compliance Metadata Script.
+      operationId: HuntgroupsService_GetComplianceMetadataScript
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: complianceMetadataScript
+        in: path
+        description: The complianceMetadataScript id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ComplianceMetadataScript'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    delete:
+      tags:
+      - HuntgroupsService
+      description: Method to delete a script.
+      operationId: HuntgroupsService_DeleteComplianceMetadataScript
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: complianceMetadataScript
+        in: path
+        description: The complianceMetadataScript id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content: {}
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    patch:
+      tags:
+      - HuntgroupsService
+      description: Method to update Compliance Metadata Script.
+      operationId: HuntgroupsService_UpdateComplianceMetadataScript
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: complianceMetadataScript
+        in: path
+        description: The complianceMetadataScript id.
+        required: true
+        schema:
+          type: string
+      - name: updateMask
+        in: query
+        description: Update mask
+        schema:
+          type: string
+          format: field-mask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ComplianceMetadataScript'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ComplianceMetadataScript'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /tcn/org/idp/v1alpha1/regions/{region}/orgs/{org}/idpClients:
     get:
       tags:
@@ -8902,6 +9644,95 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/ruleengine/ruleset/v1alpha1/orgs/{org}/eventMetadata:
+    get:
+      tags:
+      - RuleEngineService
+      description: GetEventMetadata gets the event metadata
+      operationId: RuleEngineService_GetEventMetadata
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1alpha1.EventMetadata'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/ruleengine/ruleset/v1alpha1/orgs/{org}/ruleSet:
+    get:
+      tags:
+      - RuleEngineService
+      description: GetRuleSet gets the rule set
+      operationId: RuleEngineService_GetRuleSet
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1alpha1.RuleSet'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+    patch:
+      tags:
+      - RuleEngineService
+      description: UpdateRuleSet updates the rule set
+      operationId: RuleEngineService_UpdateRuleSet
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: updateMask
+        in: query
+        description: The field mask to apply to the rule set.
+        schema:
+          type: string
+          format: field-mask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1alpha1.RuleSet'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1alpha1.RuleSet'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /tcn/tickets/ticket/v1alpha1/orgs/{org}:
     get:
       tags:
@@ -10275,6 +11106,169 @@ components:
             `nanos`=-750,000,000."
           format: int32
       description: Represents an amount of money with its currency type.
+    tcn.bi.businessIntelligence.v1alpha1.ApplicationDashboard:
+      required:
+      - dashboardId
+      type: object
+      properties:
+        name:
+          type: string
+          description: application dashboard identifier
+        dashboardId:
+          type: string
+          description: dashboard identifier
+      description: ApplicationDashboard is a bi resource to display dashboard within
+        an application.
+    tcn.bi.businessIntelligence.v1alpha1.Dashboard:
+      required:
+      - title
+      type: object
+      properties:
+        name:
+          type: string
+          description: dashboard identifier
+        title:
+          type: string
+          description: dashboard title
+        description:
+          type: string
+          description: description of the dashboard
+        serializedConfig:
+          type: string
+          description: serialized configuration ui uses to render the dashboard
+        panels:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Dashboard_DashboardPanel'
+          description: dashboard panels
+        isStandard:
+          readOnly: true
+          type: boolean
+          description: flag to indicate if dashboard is standard
+        createTime:
+          readOnly: true
+          type: string
+          description: creation date
+          format: date-time
+        updateTime:
+          readOnly: true
+          type: string
+          description: last update date
+          format: date-time
+      description: Dashboard is a bi resource to display insights.
+    tcn.bi.businessIntelligence.v1alpha1.Dashboard_DashboardPanel:
+      required:
+      - rowLength
+      - columnLength
+      - rowStart
+      - columnStart
+      - insightId
+      - insightOutputConfigId
+      type: object
+      properties:
+        rowLength:
+          type: string
+          description: height of panel
+        columnLength:
+          type: string
+          description: length of panel
+        rowStart:
+          type: string
+          description: absolute x position of panel
+        columnStart:
+          type: string
+          description: absoulute y position of panel
+        insightId:
+          type: string
+          description: insight identifier
+        insightOutputConfigId:
+          type: string
+          description: insight output configuration identifier
+      description: dashboard panels
+    tcn.bi.businessIntelligence.v1alpha1.DefaultDashboard:
+      required:
+      - dashboardId
+      - userId
+      type: object
+      properties:
+        name:
+          type: string
+          description: default dashboard identifier
+        dashboardId:
+          type: string
+          description: dashboard identifier
+        userId:
+          type: string
+          description: user identifier
+      description: DefaultDashboard is a bi resource that represents the default dashboard
+        for a user.
+    tcn.bi.businessIntelligence.v1alpha1.ListApplicationDashboardsResponse:
+      type: object
+      properties:
+        applicationDashboards:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ApplicationDashboard'
+          description: list of application dashboards
+        nextPageToken:
+          type: string
+          description: next page token
+      description: ListApplicationDashboardsResponse used in ListApplicationDashboards
+        rpc
+    tcn.bi.businessIntelligence.v1alpha1.ListDashboardsResponse:
+      type: object
+      properties:
+        dashboards:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Dashboard'
+          description: The list of dashboards.
+        nextPageToken:
+          type: string
+          description: The next page token.
+      description: Response to list dashboards.
+    tcn.bi.businessIntelligence.v1alpha1.ListDefaultDashboardsResponse:
+      type: object
+      properties:
+        defaultDashboards:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.DefaultDashboard'
+          description: default dashboards
+        nextPageToken:
+          type: string
+          description: next page token
+      description: ListDefaultDashboardsResponse lists default dashboards for users
+    tcn.bi.businessIntelligence.v1alpha1.PublishDashboardRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Required. The name of the dashboard to publish.
+        destinationStandardDashboardId:
+          type: string
+          description: Optional. The destination standard dashboard id to publish
+            over.
+      description: Request to publish a dashboard.
+    tcn.bi.businessIntelligence.v1alpha1.PublishDashboardResponse:
+      type: object
+      properties:
+        dashboard:
+          allOf:
+          - $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Dashboard'
+          description: The published dashboard.
+      description: Response to publish a dashboard.
+    tcn.bi.businessIntelligence.v1alpha1.UpsertDefaultDashboardResponse:
+      type: object
+      properties:
+        defaultDashboard:
+          allOf:
+          - $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.DefaultDashboard'
+          description: upserted default dashboard
+      description: UpsertDefaultDashboardResponse response for upserting a default
+        dashboard
     tcn.bi.dashboards.v1alpha1.Dashboard:
       required:
       - title
@@ -13893,6 +14887,67 @@ components:
           type: string
           description: encoded certificate
       description: RotateExileCertificateResponse
+    tcn.org.huntgroups.v1alpha1.ComplianceMetadataScript:
+      required:
+      - displayName
+      - scriptFields
+      type: object
+      properties:
+        name:
+          type: string
+          description: complianceMetadataScript identifier
+        displayName:
+          type: string
+          description: Script display name
+        description:
+          type: string
+          description: Script description
+        scriptFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ComplianceMetadataScript_ComplianceMetadataField'
+          description: Metadata fields to be used as inputs on the agent screen.
+      description: ComplianceMetadataScript are for agent added call metadata.
+    tcn.org.huntgroups.v1alpha1.ComplianceMetadataScript_ComplianceMetadataField:
+      required:
+      - fieldDefinitionId
+      - required
+      - inputValidation
+      - inputType
+      type: object
+      properties:
+        fieldDefinitionId:
+          type: string
+          description: The ID of a field definition (CFD).
+        required:
+          type: boolean
+          description: Whether the agent must provide input.
+        inputValidation:
+          type: integer
+          description: Type of validation to use on input entered.
+          format: enum
+        inputType:
+          type: integer
+          description: Input type or form component type, such as text box.
+          format: enum
+        responseEvaluatorId:
+          type: string
+          description: The ID of a ResponseEvaluator, used only for RegEx validation.
+      description: ComplianceMetadataField describes field definition, input and validation
+        attributes.
+    tcn.org.huntgroups.v1alpha1.ListComplianceMetadataScriptsResponse:
+      type: object
+      properties:
+        complianceMetadataScripts:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ComplianceMetadataScript'
+          description: The list of scripts.
+        nextPageToken:
+          type: string
+          description: "Token to specify the next page in subsequent page requests.\n
+            If this field is empty, there are no subsequent pages."
+      description: ListComplianceMetadataScriptResponse
     tcn.org.idp.v1alpha1.IdpClient:
       required:
       - redirectUris
@@ -15958,6 +17013,97 @@ components:
           type: string
           description: The name of the skill
       description: Object to contain the skill name and id
+    tcn.ruleengine.ruleset.v1alpha1.Action:
+      required:
+      - name
+      - alias
+      - params
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the action
+        alias:
+          type: string
+          description: The alias name of the action
+        params:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1alpha1.Param'
+          description: The list of parameters of the action
+      description: Action -
+    tcn.ruleengine.ruleset.v1alpha1.EventMetadata:
+      required:
+      - body
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the metadata
+        body:
+          type: string
+          description: The body of the metadata
+      description: EventMetadata -
+    tcn.ruleengine.ruleset.v1alpha1.Param:
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the parameter
+        value:
+          type: string
+          description: The value of the parameter
+      description: Param -
+    tcn.ruleengine.ruleset.v1alpha1.Rule:
+      required:
+      - name
+      - desc
+      - when
+      - conditions
+      - actions
+      - isActive
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the rule
+        desc:
+          type: string
+          description: The description of the rule
+        when:
+          type: string
+          description: JSON format of the when trigger
+        conditions:
+          type: array
+          items:
+            type: string
+          description: JSON list of conditions
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1alpha1.Action'
+          description: The set of actions of the rule
+        isActive:
+          type: boolean
+          description: The state of the rule
+      description: Rule -
+    tcn.ruleengine.ruleset.v1alpha1.RuleSet:
+      required:
+      - rules
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name is the identifier for a rule set
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1alpha1.Rule'
+          description: The set of rules
+      description: RuleSet -
     tcn.tickets.ticket.v1alpha1.ActionType:
       required:
       - value
@@ -16568,6 +17714,8 @@ tags:
   description: BillingPlanService manages billing plans.
 - name: BillingTagService
   description: BillingTagService manages billing tags.
+- name: BusinessIntelligenceService
+  description: BusinessIntelligenceService defines the api for business intelligence.
 - name: CampaignService
   description: Campaigns service is the public api for the omni/campaigns service.
 - name: CannedMessageService
@@ -16594,6 +17742,8 @@ tags:
   description: Eventlog Service -
 - name: ExilesService
   description: ExilesService
+- name: HuntgroupsService
+  description: HuntgroupsService
 - name: IdpClientService
   description: IdpClientService
 - name: InvoiceService
@@ -16625,6 +17775,8 @@ tags:
 - name: RejectionsService
   description: "RejectionService\n (-- api-linter: core::0121::resource-must-support-get=disabled\n
     \    aip.dev/not-precedent: We do not need a get method --)"
+- name: RuleEngineService
+  description: RuleEngineService is the public API for the ruleengine/ruleset service.
 - name: ScorecardsService
   description: ScorecardsService provides methods to manage scorecards
 - name: SendgridService
