@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: TCN Operator API
-  version: v1.0.22
+  version: v1.0.23
   description: TCN Operator API
 paths:
   /tcn/bi/businessIntelligence/v1alpha1/orgs/{org}/regions/{region}/applications/{application}/applicationDashboards:
@@ -14907,6 +14907,16 @@ components:
           items:
             $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ComplianceMetadataScript_ComplianceMetadataField'
           description: Metadata fields to be used as inputs on the agent screen.
+        createTime:
+          readOnly: true
+          type: string
+          description: The time the script was created.
+          format: date-time
+        updateTime:
+          readOnly: true
+          type: string
+          description: The time the script was last updated.
+          format: date-time
       description: ComplianceMetadataScript are for agent added call metadata.
     tcn.org.huntgroups.v1alpha1.ComplianceMetadataScript_ComplianceMetadataField:
       required:
