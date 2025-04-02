@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: TCN Operator API
-  version: v1.0.23
+  version: v1.0.25
   description: TCN Operator API
 paths:
   /tcn/bi/businessIntelligence/v1alpha1/orgs/{org}/regions/{region}/applications/{application}/applicationDashboards:
@@ -3726,6 +3726,11 @@ paths:
       - name: filter
         in: query
         description: filter
+        schema:
+          type: string
+      - name: orderBy
+        in: query
+        description: order by
         schema:
           type: string
       responses:
@@ -9315,6 +9320,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/tokens/v1alpha1/orgs/{org}/apiTokens/{apiToken}:authenticate:
+    post:
+      tags:
+      - TokensService
+      description: Authenticates an API token
+      operationId: TokensService_AuthenticateAPIToken
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: apiToken
+        in: path
+        description: The apiToken id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.org.tokens.v1alpha1.AuthenticateAPITokenRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.tokens.v1alpha1.APIToken'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
   /tcn/org/tokens/v1alpha1/orgs/{org}/apiTokens/{apiToken}:generate:
     post:
       tags:
@@ -9430,6 +9473,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.org.tokens.v1alpha1.APIToken'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
+  /tcn/org/tokens/v1alpha1/orgs/{org}/apiTokens/{apiToken}:sendExpirationReminders:
+    post:
+      tags:
+      - TokensService
+      description: "Sends reminders to users to create new API tokens\n\n (-- api-linter:
+        core::0136::request-message-name=disabled\n     api-linter: core::0136::response-message-name=disabled
+        --)"
+      operationId: TokensService_SendAPITokenExpirationReminders
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: apiToken
+        in: path
+        description: The apiToken id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json: {}
+        required: true
+      responses:
+        '200':
+          description: OK
+          content: {}
         default:
           description: Default error response
           content:
@@ -16680,6 +16758,15 @@ components:
         We need to do this because apiToken is more readable than aPIToken. --)\n\n
         APIToken is the message for a user's personal access token with associated\n
         permissions."
+    tcn.org.tokens.v1alpha1.AuthenticateAPITokenRequest:
+      required:
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          description: The name of the API token that was used
+      description: Request to authenticate an API token
     tcn.org.tokens.v1alpha1.GenerateAPITokenResponse:
       type: object
       properties:
