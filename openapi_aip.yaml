@@ -5001,7 +5001,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.omni.whatsappnumber.v1alpha1.WhatsAppNumber'
-  /tcn/org/agentProfileGroups/v1alpha1/{name=regions/*/orgs/*/agentProfileGroups/*}:
+  /tcn/org/agentProfileGroups/v1alpha1/{name=orgs/*/agentProfileGroups/*}:
     get:
       tags:
       - tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService
@@ -5058,7 +5058,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.protobuf.Empty'
-  /tcn/org/agentProfileGroups/v1alpha1/{parent=regions/*/orgs/*}/agentProfileGroups:
+  /tcn/org/agentProfileGroups/v1alpha1/{parent=orgs/*}/agentProfileGroups:
     get:
       tags:
       - tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService
@@ -5138,7 +5138,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroup'
-  /tcn/org/agentProfileGroups/v1alpha1/{agent_profile_group.name=regions/*/orgs/*/agentProfileGroups/*}:
+  /tcn/org/agentProfileGroups/v1alpha1/{agent_profile_group.name=orgs/*/agentProfileGroups/*}:
     patch:
       tags:
       - tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService
@@ -5174,7 +5174,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroup'
-  /tcn/org/agentProfileGroups/v1alpha1/{name=regions/*/orgs/*/agentProfileGroups/*}:assign:
+  /tcn/org/agentProfileGroups/v1alpha1/{name=orgs/*/agentProfileGroups/*}:assign:
     post:
       tags:
       - tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService
@@ -15415,11 +15415,13 @@ components:
         api_key_primary:
           type: string
           title: api_key_primary
-          description: the primary api key used by the chat widget
+          description: (IMMUTABLE) (OPTIONAL) the primary api key used by the chat
+            widget
         api_key_secondary:
           type: string
           title: api_key_secondary
-          description: the secondary api key used by the chat widget
+          description: (IMMUTABLE) (OPTIONAL) the secondary api key used by the chat
+            widget
         time_zone:
           type: string
           title: time_zone
@@ -15450,8 +15452,6 @@ components:
       - color_properties
       - header_text
       - subheader_text
-      - api_key_primary
-      - api_key_secondary
       - time_zone
       - operating_hours
       additionalProperties: false
