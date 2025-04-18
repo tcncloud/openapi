@@ -6,10 +6,10 @@ paths:
   /tcn/bi/businessIntelligence/v1alpha1/{name=orgs/*/regions/*/dashboards/*}:publish:
     post:
       tags:
-      - tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService
+      - BusinessIntelligenceService
       summary: PublishDashboard
       description: PublishDashboard publishes a dashboard.
-      operationId: tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService.PublishDashboard
+      operationId: BusinessIntelligenceService_PublishDashboard
       parameters:
       - name: name
         in: path
@@ -31,8 +31,6 @@ paths:
                   description: (OPTIONAL) Optional. The destination standard dashboard
                     id to publish over.
               title: PublishDashboardRequest
-              required:
-              - name
               additionalProperties: false
               description: Request to publish a dashboard.
         required: true
@@ -52,10 +50,10 @@ paths:
   /tcn/bi/businessIntelligence/v1alpha1/{parent=orgs/*/regions/*/users/*}/defaultDashboard:upsert:
     post:
       tags:
-      - tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService
+      - BusinessIntelligenceService
       summary: UpsertDefaultDashboard
       description: Creates or updates the default dashboard for a user.
-      operationId: tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService.UpsertDefaultDashboard
+      operationId: BusinessIntelligenceService_UpsertDefaultDashboard
       parameters:
       - name: parent
         in: path
@@ -87,10 +85,10 @@ paths:
   /tcn/bi/businessIntelligence/v1alpha1/{parent=orgs/*/regions/*/users/*}/defaultDashboard:
     get:
       tags:
-      - tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService
+      - BusinessIntelligenceService
       summary: ListDefaultDashboards
       description: Lists default dashboards for users.
-      operationId: tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService.ListDefaultDashboards
+      operationId: BusinessIntelligenceService_ListDefaultDashboards
       parameters:
       - name: parent
         in: path
@@ -137,10 +135,10 @@ paths:
   /tcn/bi/businessIntelligence/v1alpha1/{name=orgs/*/regions/*/users/*/defaultDashboard}:
     get:
       tags:
-      - tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService
+      - BusinessIntelligenceService
       summary: GetDefaultDashboard
       description: Gets the default dashboard for a user.
-      operationId: tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService.GetDefaultDashboard
+      operationId: BusinessIntelligenceService_GetDefaultDashboard
       parameters:
       - name: name
         in: path
@@ -165,10 +163,10 @@ paths:
   /tcn/bi/businessIntelligence/v1alpha1/{parent=orgs/*/regions/*}/dashboards:
     get:
       tags:
-      - tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService
+      - BusinessIntelligenceService
       summary: ListDashboards
       description: ListDashboards lists dashboards.
-      operationId: tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService.ListDashboards
+      operationId: BusinessIntelligenceService_ListDashboards
       parameters:
       - name: parent
         in: path
@@ -215,10 +213,10 @@ paths:
                 $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ListDashboardsResponse'
     post:
       tags:
-      - tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService
+      - BusinessIntelligenceService
       summary: CreateDashboard
       description: CreateDashboard creates a new dashboard.
-      operationId: tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService.CreateDashboard
+      operationId: BusinessIntelligenceService_CreateDashboard
       parameters:
       - name: parent
         in: path
@@ -250,10 +248,10 @@ paths:
   /tcn/bi/businessIntelligence/v1alpha1/{dashboard.name=orgs/*/regions/*/dashboards/*}:
     patch:
       tags:
-      - tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService
+      - BusinessIntelligenceService
       summary: UpdateDashboard
       description: UpdateDashboard updates a dashboard.
-      operationId: tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService.UpdateDashboard
+      operationId: BusinessIntelligenceService_UpdateDashboard
       parameters:
       - name: dashboard.name
         in: path
@@ -285,10 +283,10 @@ paths:
   /tcn/bi/businessIntelligence/v1alpha1/{name=orgs/*/regions/*/dashboards/*}:
     get:
       tags:
-      - tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService
+      - BusinessIntelligenceService
       summary: GetDashboard
       description: GetDashboard gets a dashboard.
-      operationId: tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService.GetDashboard
+      operationId: BusinessIntelligenceService_GetDashboard
       parameters:
       - name: name
         in: path
@@ -312,10 +310,10 @@ paths:
                 $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Dashboard'
     delete:
       tags:
-      - tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService
+      - BusinessIntelligenceService
       summary: DeleteDashboard
       description: DeleteDashboard deletes a dashboard.
-      operationId: tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService.DeleteDashboard
+      operationId: BusinessIntelligenceService_DeleteDashboard
       parameters:
       - name: name
         in: path
@@ -340,10 +338,10 @@ paths:
   /tcn/bi/businessIntelligence/v1alpha1/{parent=orgs/*/regions/*/applications/*}/applicationDashboards:
     get:
       tags:
-      - tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService
+      - BusinessIntelligenceService
       summary: ListApplicationDashboards
       description: ListApplicationDashboards lists applications and assigned dashboards.
-      operationId: tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService.ListApplicationDashboards
+      operationId: BusinessIntelligenceService_ListApplicationDashboards
       parameters:
       - name: parent
         in: path
@@ -389,10 +387,10 @@ paths:
                 $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ListApplicationDashboardsResponse'
     post:
       tags:
-      - tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService
+      - BusinessIntelligenceService
       summary: CreateApplicationDashboard
       description: CreateApplicationDashboard assigns a dashboard to an application.
-      operationId: tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService.CreateApplicationDashboard
+      operationId: BusinessIntelligenceService_CreateApplicationDashboard
       parameters:
       - name: parent
         in: path
@@ -424,10 +422,10 @@ paths:
   /tcn/bi/businessIntelligence/v1alpha1/{name=orgs/*/regions/*/applications/*/applicationDashboards/*}:
     get:
       tags:
-      - tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService
+      - BusinessIntelligenceService
       summary: GetApplicationDashboard
       description: GetApplicationDashboard gets a dashboard assigned to an application.
-      operationId: tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService.GetApplicationDashboard
+      operationId: BusinessIntelligenceService_GetApplicationDashboard
       parameters:
       - name: name
         in: path
@@ -451,10 +449,10 @@ paths:
                 $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ApplicationDashboard'
     delete:
       tags:
-      - tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService
+      - BusinessIntelligenceService
       summary: DeleteApplicationDashboard
       description: DeleteApplicationDashboard deletes a dashboard assigned to an application.
-      operationId: tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService.DeleteApplicationDashboard
+      operationId: BusinessIntelligenceService_DeleteApplicationDashboard
       parameters:
       - name: name
         in: path
@@ -479,10 +477,10 @@ paths:
   /tcn/bi/dashboards/v1alpha1/{parent=orgs/*/regions/*}/dashboards:
     get:
       tags:
-      - tcn.bi.dashboards.v1alpha1.DashboardsService
+      - DashboardsService
       summary: ListDashboards
       description: ListDashboards lists dashboards.
-      operationId: tcn.bi.dashboards.v1alpha1.DashboardsService.ListDashboards
+      operationId: DashboardsService_ListDashboards
       parameters:
       - name: parent
         in: path
@@ -530,10 +528,10 @@ paths:
                 $ref: '#/components/schemas/tcn.bi.dashboards.v1alpha1.ListDashboardsResponse'
     post:
       tags:
-      - tcn.bi.dashboards.v1alpha1.DashboardsService
+      - DashboardsService
       summary: CreateDashboard
       description: CreateDashboard creates a new dashboard.
-      operationId: tcn.bi.dashboards.v1alpha1.DashboardsService.CreateDashboard
+      operationId: DashboardsService_CreateDashboard
       parameters:
       - name: parent
         in: path
@@ -567,10 +565,10 @@ paths:
   /tcn/bi/dashboards/v1alpha1/{dashboard.name=orgs/*/regions/*/dashboards/*}:
     patch:
       tags:
-      - tcn.bi.dashboards.v1alpha1.DashboardsService
+      - DashboardsService
       summary: UpdateDashboard
       description: UpdateDashboard updates a dashboard.
-      operationId: tcn.bi.dashboards.v1alpha1.DashboardsService.UpdateDashboard
+      operationId: DashboardsService_UpdateDashboard
       parameters:
       - name: dashboard.name
         in: path
@@ -603,10 +601,10 @@ paths:
   /tcn/bi/dashboards/v1alpha1/{name=orgs/*/regions/*/dashboards/*}:
     get:
       tags:
-      - tcn.bi.dashboards.v1alpha1.DashboardsService
+      - DashboardsService
       summary: GetDashboard
       description: GetDashboard gets a dashboard.
-      operationId: tcn.bi.dashboards.v1alpha1.DashboardsService.GetDashboard
+      operationId: DashboardsService_GetDashboard
       parameters:
       - name: name
         in: path
@@ -631,10 +629,10 @@ paths:
                 $ref: '#/components/schemas/tcn.bi.dashboards.v1alpha1.Dashboard'
     delete:
       tags:
-      - tcn.bi.dashboards.v1alpha1.DashboardsService
+      - DashboardsService
       summary: DeleteDashboard
       description: DeleteDashboard deletes a dashboard.
-      operationId: tcn.bi.dashboards.v1alpha1.DashboardsService.DeleteDashboard
+      operationId: DashboardsService_DeleteDashboard
       parameters:
       - name: name
         in: path
@@ -660,10 +658,10 @@ paths:
   /tcn/bi/dashboards/v1alpha1/{name=orgs/*/regions/*/dashboard/*}:publish:
     post:
       tags:
-      - tcn.bi.dashboards.v1alpha1.DashboardsService
+      - DashboardsService
       summary: PublishDashboard
       description: PublishDashboard publishes a dashboard.
-      operationId: tcn.bi.dashboards.v1alpha1.DashboardsService.PublishDashboard
+      operationId: DashboardsService_PublishDashboard
       parameters:
       - name: name
         in: path
@@ -689,10 +687,10 @@ paths:
   /tcn/bi/dashboards/v1alpha1/default:markDefaultDashboard:
     post:
       tags:
-      - tcn.bi.dashboards.v1alpha1.DashboardsService
+      - DashboardsService
       summary: MarkDefaultDashboard
       description: Sets a dashboard as the user's default
-      operationId: tcn.bi.dashboards.v1alpha1.DashboardsService.MarkDefaultDashboard
+      operationId: DashboardsService_MarkDefaultDashboard
       requestBody:
         content:
           application/json:
@@ -715,10 +713,10 @@ paths:
   /tcn/bi/dashboards/v1alpha1/default:loadDefaultDashboard:
     get:
       tags:
-      - tcn.bi.dashboards.v1alpha1.DashboardsService
+      - DashboardsService
       summary: LoadDefaultDashboard
       description: LoadDefaultDashboard gets the user's default dashboard.
-      operationId: tcn.bi.dashboards.v1alpha1.DashboardsService.LoadDefaultDashboard
+      operationId: DashboardsService_LoadDefaultDashboard
       responses:
         default:
           description: Error
@@ -735,10 +733,10 @@ paths:
   /tcn/delivery/credential/v1alpha1/{parent=orgs/*}/credentials:
     post:
       tags:
-      - tcn.delivery.credential.v1alpha1.CredentialService
+      - CredentialService
       summary: CreateCredential
       description: create credential
-      operationId: tcn.delivery.credential.v1alpha1.CredentialService.CreateCredential
+      operationId: CredentialService_CreateCredential
       parameters:
       - name: parent
         in: path
@@ -772,10 +770,10 @@ paths:
   /tcn/delivery/credential/v1alpha1/{name=orgs/*/credentials/*}:
     get:
       tags:
-      - tcn.delivery.credential.v1alpha1.CredentialService
+      - CredentialService
       summary: GetCredential
       description: get credential
-      operationId: tcn.delivery.credential.v1alpha1.CredentialService.GetCredential
+      operationId: CredentialService_GetCredential
       parameters:
       - name: name
         in: path
@@ -800,10 +798,10 @@ paths:
                 $ref: '#/components/schemas/tcn.delivery.credential.v1alpha1.Credential'
     delete:
       tags:
-      - tcn.delivery.credential.v1alpha1.CredentialService
+      - CredentialService
       summary: DeleteCredential
       description: delete credential
-      operationId: tcn.delivery.credential.v1alpha1.CredentialService.DeleteCredential
+      operationId: CredentialService_DeleteCredential
       parameters:
       - name: name
         in: path
@@ -829,10 +827,10 @@ paths:
   /tcn/delivery/credential/v1alpha1/{credential.name=orgs/*/credentials/*}:
     patch:
       tags:
-      - tcn.delivery.credential.v1alpha1.CredentialService
+      - CredentialService
       summary: UpdateCredential
       description: update credential
-      operationId: tcn.delivery.credential.v1alpha1.CredentialService.UpdateCredential
+      operationId: CredentialService_UpdateCredential
       parameters:
       - name: credential.name
         in: path
@@ -865,10 +863,10 @@ paths:
   /tcn/delivery/credential/v1alpha1/{parent=orgs/*/credentials}:
     get:
       tags:
-      - tcn.delivery.credential.v1alpha1.CredentialService
+      - CredentialService
       summary: ListCredentials
       description: list credentials
-      operationId: tcn.delivery.credential.v1alpha1.CredentialService.ListCredentials
+      operationId: CredentialService_ListCredentials
       parameters:
       - name: parent
         in: path
@@ -909,10 +907,10 @@ paths:
   /tcn/delivery/encryption/v1alpha1/{parent=orgs/*}/encryptions:
     get:
       tags:
-      - tcn.delivery.encryption.v1alpha1.EncryptionService
+      - EncryptionService
       summary: ListEncryptions
       description: list encryptions
-      operationId: tcn.delivery.encryption.v1alpha1.EncryptionService.ListEncryptions
+      operationId: EncryptionService_ListEncryptions
       parameters:
       - name: parent
         in: path
@@ -952,10 +950,10 @@ paths:
                 $ref: '#/components/schemas/tcn.delivery.encryption.v1alpha1.ListEncryptionsResponse'
     post:
       tags:
-      - tcn.delivery.encryption.v1alpha1.EncryptionService
+      - EncryptionService
       summary: CreateEncryption
       description: create an encryption
-      operationId: tcn.delivery.encryption.v1alpha1.EncryptionService.CreateEncryption
+      operationId: EncryptionService_CreateEncryption
       parameters:
       - name: parent
         in: path
@@ -989,10 +987,10 @@ paths:
   /tcn/delivery/encryption/v1alpha1/{name=orgs/*/encryptions/*}:
     get:
       tags:
-      - tcn.delivery.encryption.v1alpha1.EncryptionService
+      - EncryptionService
       summary: GetEncryption
       description: get an encryption
-      operationId: tcn.delivery.encryption.v1alpha1.EncryptionService.GetEncryption
+      operationId: EncryptionService_GetEncryption
       parameters:
       - name: name
         in: path
@@ -1017,10 +1015,10 @@ paths:
                 $ref: '#/components/schemas/tcn.delivery.encryption.v1alpha1.Encryption'
     delete:
       tags:
-      - tcn.delivery.encryption.v1alpha1.EncryptionService
+      - EncryptionService
       summary: DeleteEncryption
       description: delete an encryption
-      operationId: tcn.delivery.encryption.v1alpha1.EncryptionService.DeleteEncryption
+      operationId: EncryptionService_DeleteEncryption
       parameters:
       - name: name
         in: path
@@ -1046,10 +1044,10 @@ paths:
   /tcn/delivery/encryption/v1alpha1/{encryption.name=orgs/*/encryption/*}:
     patch:
       tags:
-      - tcn.delivery.encryption.v1alpha1.EncryptionService
+      - EncryptionService
       summary: UpdateEncryption
       description: update an encryption
-      operationId: tcn.delivery.encryption.v1alpha1.EncryptionService.UpdateEncryption
+      operationId: EncryptionService_UpdateEncryption
       parameters:
       - name: encryption.name
         in: path
@@ -1082,10 +1080,10 @@ paths:
   /tcn/delivery/transportschema/v1alpha1/{parent=orgs/*}/transportSchemas:
     post:
       tags:
-      - tcn.delivery.transport.v1alpha1.TransportSchemaService
+      - TransportSchemaService
       summary: CreateTransportSchema
       description: create transport schema
-      operationId: tcn.delivery.transport.v1alpha1.TransportSchemaService.CreateTransportSchema
+      operationId: TransportSchemaService_CreateTransportSchema
       parameters:
       - name: parent
         in: path
@@ -1119,11 +1117,11 @@ paths:
   /tcn/delivery/transportschema/v1alpha1/{name=orgs/*/transportSchemas/*}:
     get:
       tags:
-      - tcn.delivery.transport.v1alpha1.TransportSchemaService
-      - tcn.delivery.transport.v1alpha1.TransportSchemaService
+      - TransportSchemaService
+      - TransportSchemaService
       summary: GetTransaction
       description: get transactions
-      operationId: tcn.delivery.transport.v1alpha1.TransportSchemaService.GetTransportSchema
+      operationId: TransportSchemaService_GetTransportSchema
       parameters:
       - name: name
         in: path
@@ -1157,10 +1155,10 @@ paths:
   /tcn/delivery/transportschema/v1alpha1/{transport_schema.name=orgs/*/transportSchemas/*}:
     patch:
       tags:
-      - tcn.delivery.transport.v1alpha1.TransportSchemaService
+      - TransportSchemaService
       summary: UpdateTransportSchema
       description: update transport schema
-      operationId: tcn.delivery.transport.v1alpha1.TransportSchemaService.UpdateTransportSchema
+      operationId: TransportSchemaService_UpdateTransportSchema
       parameters:
       - name: transport_schema.name
         in: path
@@ -1193,10 +1191,10 @@ paths:
   /tcn/delivery/transportschema/v1alpha1/{name=orgs/*/transportSchema/*}:
     delete:
       tags:
-      - tcn.delivery.transport.v1alpha1.TransportSchemaService
+      - TransportSchemaService
       summary: DeleteTransportSchema
       description: delete transport schema
-      operationId: tcn.delivery.transport.v1alpha1.TransportSchemaService.DeleteTransportSchema
+      operationId: TransportSchemaService_DeleteTransportSchema
       parameters:
       - name: name
         in: path
@@ -1222,10 +1220,10 @@ paths:
   /tcn/delivery/transportschema/v1alpha1/{parent=orgs/*/transportSchemas/credential/*}:
     get:
       tags:
-      - tcn.delivery.transport.v1alpha1.TransportSchemaService
+      - TransportSchemaService
       summary: ListTransportSchemas
       description: list transport schemas
-      operationId: tcn.delivery.transport.v1alpha1.TransportSchemaService.ListTransportSchemas
+      operationId: TransportSchemaService_ListTransportSchemas
       parameters:
       - name: parent
         in: path
@@ -1266,10 +1264,10 @@ paths:
   /tcn/delivery/transportschema/v1alpha1/{name=orgs/*/transportSchemas/*}:validate:
     get:
       tags:
-      - tcn.delivery.transport.v1alpha1.TransportSchemaService
+      - TransportSchemaService
       summary: ValidateTransportSchema
       description: send a test outbound delivery
-      operationId: tcn.delivery.transport.v1alpha1.TransportSchemaService.ValidateTransportSchema
+      operationId: TransportSchemaService_ValidateTransportSchema
       parameters:
       - name: name
         in: path
@@ -1295,10 +1293,10 @@ paths:
   /tcn/delivery/transportschema/v1alpha1/{parent=orgs/*}/smsNumbers:
     get:
       tags:
-      - tcn.delivery.transport.v1alpha1.TransportSchemaService
+      - TransportSchemaService
       summary: ListSMSNumbers
       description: list sms numbers
-      operationId: tcn.delivery.transport.v1alpha1.TransportSchemaService.ListSMSNumbers
+      operationId: TransportSchemaService_ListSMSNumbers
       parameters:
       - name: parent
         in: path
@@ -1339,10 +1337,10 @@ paths:
   /tcn/delivery/transportschema/v1alpha1/{parent=orgs/*/transportSchema/*}:
     get:
       tags:
-      - tcn.delivery.transport.v1alpha1.TransportSchemaService
+      - TransportSchemaService
       summary: ListTransactions
       description: list transactions
-      operationId: tcn.delivery.transport.v1alpha1.TransportSchemaService.ListTransactions
+      operationId: TransportSchemaService_ListTransactions
       parameters:
       - name: parent
         in: path
@@ -1383,10 +1381,10 @@ paths:
   /tcn/journey/project/v1alpha1/{parent=orgs/*/collection/*}/jobs:
     get:
       tags:
-      - tcn.journey.jobs.v1alpha1.JobsService
+      - JobsService
       summary: ListJobs
       description: ListJobs
-      operationId: tcn.journey.jobs.v1alpha1.JobsService.ListJobs
+      operationId: JobsService_ListJobs
       parameters:
       - name: parent
         in: path
@@ -1427,10 +1425,10 @@ paths:
   /tcn/journey/jobs/v1alpha1/{parent=orgs/*}/jobs:
     post:
       tags:
-      - tcn.journey.jobs.v1alpha1.JobsService
+      - JobsService
       summary: CreateJob
       description: CreateJob
-      operationId: tcn.journey.jobs.v1alpha1.JobsService.CreateJob
+      operationId: JobsService_CreateJob
       parameters:
       - name: parent
         in: path
@@ -1464,10 +1462,10 @@ paths:
   /tcn/journey/project/v1alpha1/{parent=orgs/*/collection/*/source/*/job/*/record/*}/rejections:
     get:
       tags:
-      - tcn.journey.rejection.v1alpha1.RejectionsService
+      - RejectionsService
       summary: ListRejections
       description: Method to list skill groups
-      operationId: tcn.journey.rejection.v1alpha1.RejectionsService.ListRejections
+      operationId: RejectionsService_ListRejections
       parameters:
       - name: parent
         in: path
@@ -1508,10 +1506,10 @@ paths:
   /tcn/omni/attachment/v1alpha1/{parent=orgs/*}/attachments:
     post:
       tags:
-      - tcn.omni.attachment.v1alpha1.AttachmentService
+      - AttachmentService
       summary: CreateAttachment
       description: Method to create attachments -
-      operationId: tcn.omni.attachment.v1alpha1.AttachmentService.CreateAttachment
+      operationId: AttachmentService_CreateAttachment
       parameters:
       - name: parent
         in: path
@@ -1545,10 +1543,10 @@ paths:
   /tcn/omni/attachments/v1alpha1/{parent=orgs/*}/attachments:
     get:
       tags:
-      - tcn.omni.attachment.v1alpha1.AttachmentService
+      - AttachmentService
       summary: ListAttachments
       description: Method to list attachments
-      operationId: tcn.omni.attachment.v1alpha1.AttachmentService.ListAttachments
+      operationId: AttachmentService_ListAttachments
       parameters:
       - name: parent
         in: path
@@ -1596,10 +1594,10 @@ paths:
   /tcn/omni/attachments/v1alpha1/{name=orgs/*/attachments/*}:
     get:
       tags:
-      - tcn.omni.attachment.v1alpha1.AttachmentService
+      - AttachmentService
       summary: GetAttachment
       description: Method to get attachment
-      operationId: tcn.omni.attachment.v1alpha1.AttachmentService.GetAttachment
+      operationId: AttachmentService_GetAttachment
       parameters:
       - name: name
         in: path
@@ -1625,10 +1623,10 @@ paths:
   /tcn/omni/campaigns/v1alpha1/{parent=orgs/*}/campaigns:
     get:
       tags:
-      - tcn.omni.campaign.v1alpha1.CampaignService
+      - CampaignService
       summary: ListCampaigns
       description: Method to list campaigns
-      operationId: tcn.omni.campaign.v1alpha1.CampaignService.ListCampaigns
+      operationId: CampaignService_ListCampaigns
       parameters:
       - name: parent
         in: path
@@ -1676,10 +1674,10 @@ paths:
   /tcn/omni/campaigns/v1alpha1/{name=orgs/*/campaigns/*}:
     get:
       tags:
-      - tcn.omni.campaign.v1alpha1.CampaignService
+      - CampaignService
       summary: GetCampaign
       description: Method to get campaign
-      operationId: tcn.omni.campaign.v1alpha1.CampaignService.GetCampaign
+      operationId: CampaignService_GetCampaign
       parameters:
       - name: name
         in: path
@@ -1705,10 +1703,10 @@ paths:
   /tcn/omni/cannedmessage/v1alpha1/{parent=orgs/*/cannedMessageGroups/*}/cannedMessages:
     get:
       tags:
-      - tcn.omni.cannedmessage.v1alpha1.CannedMessageService
+      - CannedMessageService
       summary: ListCannedMessages
       description: ListCannedMessages -
-      operationId: tcn.omni.cannedmessage.v1alpha1.CannedMessageService.ListCannedMessages
+      operationId: CannedMessageService_ListCannedMessages
       parameters:
       - name: parent
         in: path
@@ -1755,10 +1753,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.cannedmessage.v1alpha1.ListCannedMessagesResponse'
     post:
       tags:
-      - tcn.omni.cannedmessage.v1alpha1.CannedMessageService
+      - CannedMessageService
       summary: CreateCannedMessage
       description: CreateCannedMessage -
-      operationId: tcn.omni.cannedmessage.v1alpha1.CannedMessageService.CreateCannedMessage
+      operationId: CannedMessageService_CreateCannedMessage
       parameters:
       - name: parent
         in: path
@@ -1792,10 +1790,10 @@ paths:
   /tcn/omni/cannedmessage/v1alpha1/{name=orgs/*/cannedMessageGroups/*/cannedMessages/*}:
     get:
       tags:
-      - tcn.omni.cannedmessage.v1alpha1.CannedMessageService
+      - CannedMessageService
       summary: GetCannedMessage
       description: GetCannedMessage -
-      operationId: tcn.omni.cannedmessage.v1alpha1.CannedMessageService.GetCannedMessage
+      operationId: CannedMessageService_GetCannedMessage
       parameters:
       - name: name
         in: path
@@ -1820,10 +1818,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.cannedmessage.v1alpha1.CannedMessage'
     delete:
       tags:
-      - tcn.omni.cannedmessage.v1alpha1.CannedMessageService
+      - CannedMessageService
       summary: DeleteCannedMessage
       description: DeleteCannedMessage -
-      operationId: tcn.omni.cannedmessage.v1alpha1.CannedMessageService.DeleteCannedMessage
+      operationId: CannedMessageService_DeleteCannedMessage
       parameters:
       - name: name
         in: path
@@ -1849,10 +1847,10 @@ paths:
   /tcn/omni/cannedmessage/v1alpha1/{canned_message.name=orgs/*/cannedMessageGroups/*/cannedMessages/*}:
     patch:
       tags:
-      - tcn.omni.cannedmessage.v1alpha1.CannedMessageService
+      - CannedMessageService
       summary: UpdateCannedMessage
       description: UpdateCannedMessage -
-      operationId: tcn.omni.cannedmessage.v1alpha1.CannedMessageService.UpdateCannedMessage
+      operationId: CannedMessageService_UpdateCannedMessage
       parameters:
       - name: canned_message.name
         in: path
@@ -1885,10 +1883,10 @@ paths:
   /tcn/omni/cannedmessage/v1alpha1/{parent=orgs/*}/cannedMessageGroups:
     get:
       tags:
-      - tcn.omni.cannedmessage.v1alpha1.CannedMessageService
+      - CannedMessageService
       summary: ListCannedMessageGroups
       description: ListCannedMessageGroups
-      operationId: tcn.omni.cannedmessage.v1alpha1.CannedMessageService.ListCannedMessageGroups
+      operationId: CannedMessageService_ListCannedMessageGroups
       parameters:
       - name: parent
         in: path
@@ -1935,10 +1933,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.cannedmessage.v1alpha1.ListCannedMessageGroupsResponse'
     post:
       tags:
-      - tcn.omni.cannedmessage.v1alpha1.CannedMessageService
+      - CannedMessageService
       summary: CreateCannedMessageGroup
       description: CreateCannedMessageGroup
-      operationId: tcn.omni.cannedmessage.v1alpha1.CannedMessageService.CreateCannedMessageGroup
+      operationId: CannedMessageService_CreateCannedMessageGroup
       parameters:
       - name: parent
         in: path
@@ -1972,10 +1970,10 @@ paths:
   /tcn/omni/cannedmessage/v1alpha1/{name=orgs/*/cannedMessageGroups/*}:
     get:
       tags:
-      - tcn.omni.cannedmessage.v1alpha1.CannedMessageService
+      - CannedMessageService
       summary: GetCannedMessageGroup
       description: GetCannedMessageGroup
-      operationId: tcn.omni.cannedmessage.v1alpha1.CannedMessageService.GetCannedMessageGroup
+      operationId: CannedMessageService_GetCannedMessageGroup
       parameters:
       - name: name
         in: path
@@ -2000,10 +1998,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.cannedmessage.v1alpha1.CannedMessageGroup'
     delete:
       tags:
-      - tcn.omni.cannedmessage.v1alpha1.CannedMessageService
+      - CannedMessageService
       summary: DeleteCannedMessageGroup
       description: DeleteCannedMessageGroup
-      operationId: tcn.omni.cannedmessage.v1alpha1.CannedMessageService.DeleteCannedMessageGroup
+      operationId: CannedMessageService_DeleteCannedMessageGroup
       parameters:
       - name: name
         in: path
@@ -2036,10 +2034,10 @@ paths:
   /tcn/omni/cannedmessage/v1alpha1/{canned_message_group.name=orgs/*/cannedMessageGroups/*}:
     patch:
       tags:
-      - tcn.omni.cannedmessage.v1alpha1.CannedMessageService
+      - CannedMessageService
       summary: UpdateCannedMessageGroup
       description: UpdateCannedMessageGroup
-      operationId: tcn.omni.cannedmessage.v1alpha1.CannedMessageService.UpdateCannedMessageGroup
+      operationId: CannedMessageService_UpdateCannedMessageGroup
       parameters:
       - name: canned_message_group.name
         in: path
@@ -2072,10 +2070,10 @@ paths:
   /tcn/omni/chatwidget/v1alpha1/{parent=orgs/*}/chatWidgets:
     get:
       tags:
-      - tcn.omni.chatwidget.v1alpha1.ChatWidgetService
+      - ChatWidgetService
       summary: ListChatWidgets
       description: method to list chat widgets
-      operationId: tcn.omni.chatwidget.v1alpha1.ChatWidgetService.ListChatWidgets
+      operationId: ChatWidgetService_ListChatWidgets
       parameters:
       - name: parent
         in: path
@@ -2122,10 +2120,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.chatwidget.v1alpha1.ListChatWidgetsResponse'
     post:
       tags:
-      - tcn.omni.chatwidget.v1alpha1.ChatWidgetService
+      - ChatWidgetService
       summary: CreateChatWidget
       description: method to create a chat widget
-      operationId: tcn.omni.chatwidget.v1alpha1.ChatWidgetService.CreateChatWidget
+      operationId: ChatWidgetService_CreateChatWidget
       parameters:
       - name: parent
         in: path
@@ -2159,10 +2157,10 @@ paths:
   /tcn/omni/chatwidget/v1alpha1/{name=orgs/*/chatWidgets/*}:
     get:
       tags:
-      - tcn.omni.chatwidget.v1alpha1.ChatWidgetService
+      - ChatWidgetService
       summary: GetChatWidget
       description: method to get a chat widget
-      operationId: tcn.omni.chatwidget.v1alpha1.ChatWidgetService.GetChatWidget
+      operationId: ChatWidgetService_GetChatWidget
       parameters:
       - name: name
         in: path
@@ -2187,10 +2185,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.chatwidget.v1alpha1.ChatWidget'
     delete:
       tags:
-      - tcn.omni.chatwidget.v1alpha1.ChatWidgetService
+      - ChatWidgetService
       summary: DeleteChatWidget
       description: method to delete a chat widget
-      operationId: tcn.omni.chatwidget.v1alpha1.ChatWidgetService.DeleteChatWidget
+      operationId: ChatWidgetService_DeleteChatWidget
       parameters:
       - name: name
         in: path
@@ -2216,10 +2214,10 @@ paths:
   /tcn/omni/chatwidget/v1alpha1/{chat_widget.name=orgs/*/chatWidgets/*}:
     patch:
       tags:
-      - tcn.omni.chatwidget.v1alpha1.ChatWidgetService
+      - ChatWidgetService
       summary: UpdateChatWidget
       description: method to update a chat widget
-      operationId: tcn.omni.chatwidget.v1alpha1.ChatWidgetService.UpdateChatWidget
+      operationId: ChatWidgetService_UpdateChatWidget
       parameters:
       - name: chat_widget.name
         in: path
@@ -2252,10 +2250,10 @@ paths:
   /tcn/omni/compliance/v1alpha1/{parent=orgs/*}/complianceConfigs:
     get:
       tags:
-      - tcn.omni.compliance.v1alpha1.ComplianceService
+      - ComplianceService
       summary: ListComplianceConfigs
       description: Method to list complianceConfigs
-      operationId: tcn.omni.compliance.v1alpha1.ComplianceService.ListComplianceConfigs
+      operationId: ComplianceService_ListComplianceConfigs
       parameters:
       - name: parent
         in: path
@@ -2302,10 +2300,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.compliance.v1alpha1.ListComplianceConfigsResponse'
     post:
       tags:
-      - tcn.omni.compliance.v1alpha1.ComplianceService
+      - ComplianceService
       summary: CreateComplianceConfig
       description: Method to create complianceConfig
-      operationId: tcn.omni.compliance.v1alpha1.ComplianceService.CreateComplianceConfig
+      operationId: ComplianceService_CreateComplianceConfig
       parameters:
       - name: parent
         in: path
@@ -2339,10 +2337,10 @@ paths:
   /tcn/omni/compliance/v1alpha1/{name=orgs/*/complianceConfigs/*}:
     get:
       tags:
-      - tcn.omni.compliance.v1alpha1.ComplianceService
+      - ComplianceService
       summary: GetComplianceConfig
       description: Method to get complianceConfig
-      operationId: tcn.omni.compliance.v1alpha1.ComplianceService.GetComplianceConfig
+      operationId: ComplianceService_GetComplianceConfig
       parameters:
       - name: name
         in: path
@@ -2368,10 +2366,10 @@ paths:
   /tcn/omni/connectedinbox/v1alpha1/{parent=orgs/*}/connectedInboxes:
     get:
       tags:
-      - tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService
+      - ConnectedInboxService
       summary: ListConnectedInboxes
       description: method to list connected inbox
-      operationId: tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService.ListConnectedInboxes
+      operationId: ConnectedInboxService_ListConnectedInboxes
       parameters:
       - name: parent
         in: path
@@ -2418,10 +2416,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.connectedinbox.v1alpha1.ListConnectedInboxesResponse'
     post:
       tags:
-      - tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService
+      - ConnectedInboxService
       summary: CreateConnectedInbox
       description: method to create a connected inbox
-      operationId: tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService.CreateConnectedInbox
+      operationId: ConnectedInboxService_CreateConnectedInbox
       parameters:
       - name: parent
         in: path
@@ -2455,10 +2453,10 @@ paths:
   /tcn/omni/connectedinbox/v1alpha1/{name=orgs/*/connectedInboxes/*}:
     get:
       tags:
-      - tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService
+      - ConnectedInboxService
       summary: GetConnectedInbox
       description: method to get connected inbox
-      operationId: tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService.GetConnectedInbox
+      operationId: ConnectedInboxService_GetConnectedInbox
       parameters:
       - name: name
         in: path
@@ -2483,10 +2481,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.connectedinbox.v1alpha1.ConnectedInbox'
     delete:
       tags:
-      - tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService
+      - ConnectedInboxService
       summary: DeleteConnectedInbox
       description: method to delete a connected inbox
-      operationId: tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService.DeleteConnectedInbox
+      operationId: ConnectedInboxService_DeleteConnectedInbox
       parameters:
       - name: name
         in: path
@@ -2512,10 +2510,10 @@ paths:
   /tcn/omni/connectedinbox/v1alpha1/{connected_inbox.name=orgs/*/connectedInboxes/*}:
     patch:
       tags:
-      - tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService
+      - ConnectedInboxService
       summary: UpdateConnectedInbox
       description: method to update a connected inbox
-      operationId: tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService.UpdateConnectedInbox
+      operationId: ConnectedInboxService_UpdateConnectedInbox
       parameters:
       - name: connected_inbox.name
         in: path
@@ -2548,10 +2546,10 @@ paths:
   /tcn/omni/connectedinbox/v1alpha1/{name=orgs/*/connectedInboxes/*}:describe:
     get:
       tags:
-      - tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService
+      - ConnectedInboxService
       summary: DescribeConnectedInboxCredentials
       description: method to describe the connected inbox email salt and password
-      operationId: tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService.DescribeConnectedInboxCredentials
+      operationId: ConnectedInboxService_DescribeConnectedInboxCredentials
       parameters:
       - name: name
         in: path
@@ -2577,10 +2575,10 @@ paths:
   /tcn/omni/connectedinbox/v1alpha1/{name=orgs/*/connectedInboxes/*}:test:
     get:
       tags:
-      - tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService
+      - ConnectedInboxService
       summary: TestConnectedInbox
       description: method to test the connected inbox
-      operationId: tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService.TestConnectedInbox
+      operationId: ConnectedInboxService_TestConnectedInbox
       parameters:
       - name: name
         in: path
@@ -2775,10 +2773,10 @@ paths:
   /tcn/omni/contactlist/v1alpha1/{parent=orgs/*}/contactLists:
     get:
       tags:
-      - tcn.omni.contactlist.v1alpha1.ContactListService
+      - ContactListService
       summary: ListContactLists
       description: ListContactLists - retrieves all the contact lists
-      operationId: tcn.omni.contactlist.v1alpha1.ContactListService.ListContactLists
+      operationId: ContactListService_ListContactLists
       parameters:
       - name: parent
         in: path
@@ -2826,10 +2824,10 @@ paths:
   /tcn/omni/contactlist/v1alpha1/{name=orgs/*/contactLists/*}:
     get:
       tags:
-      - tcn.omni.contactlist.v1alpha1.ContactListService
+      - ContactListService
       summary: GetContactList
       description: GetContactList - retrieves contact list
-      operationId: tcn.omni.contactlist.v1alpha1.ContactListService.GetContactList
+      operationId: ContactListService_GetContactList
       parameters:
       - name: name
         in: path
@@ -2855,10 +2853,10 @@ paths:
   /tcn/omni/conversations/v1alpha1/{parent=orgs/*}/conversations:
     get:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: ListConversations
       description: Method to list conversations
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.ListConversations
+      operationId: ConversationService_ListConversations
       parameters:
       - name: parent
         in: path
@@ -2905,10 +2903,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.ListConversationsResponse'
     post:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: CreateConversation
       description: CreateConversation creates a new conversation for an ORG.
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.CreateConversation
+      operationId: ConversationService_CreateConversation
       parameters:
       - name: parent
         in: path
@@ -2942,10 +2940,10 @@ paths:
   /tcn/omni/conversations/v1alpha1/{name=orgs/*/conversations/*}:
     get:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: GetConversation
       description: Method to get conversation
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.GetConversation
+      operationId: ConversationService_GetConversation
       parameters:
       - name: name
         in: path
@@ -2971,10 +2969,10 @@ paths:
   /tcn/omni/conversations/v1alpha1/{parent=orgs/*/conversations/*}/collectedData:
     get:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: ListCollectedData
       description: Method to list collected data
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.ListCollectedData
+      operationId: ConversationService_ListCollectedData
       parameters:
       - name: parent
         in: path
@@ -3021,10 +3019,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.ListCollectedDataResponse'
     post:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: CreateCollectedData
       description: Method to create collected data
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.CreateCollectedData
+      operationId: ConversationService_CreateCollectedData
       parameters:
       - name: parent
         in: path
@@ -3058,10 +3056,10 @@ paths:
   /tcn/omni/conversations/v1alpha1/{name=orgs/*/conversations/*/collectedData/*}:
     get:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: GetCollectedData
       description: Method to get collected data
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.GetCollectedData
+      operationId: ConversationService_GetCollectedData
       parameters:
       - name: name
         in: path
@@ -3087,10 +3085,10 @@ paths:
   /tcn/omni/conversations/v1alpha1/{name=orgs/*/conversations/*/users/*/assignments/*}:
     get:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: GetAssignment
       description: Method to get conversation assignment
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.GetAssignment
+      operationId: ConversationService_GetAssignment
       parameters:
       - name: name
         in: path
@@ -3116,10 +3114,10 @@ paths:
   /tcn/omni/conversations/v1alpha1/{parent=orgs/*/conversations/*}/assignments:
     get:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: ListAssignments
       description: Method to list conversation assignments
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.ListAssignments
+      operationId: ConversationService_ListAssignments
       parameters:
       - name: parent
         in: path
@@ -3167,10 +3165,10 @@ paths:
   /tcn/omni/conversations/v1alpha1/{parent=orgs/*/conversations/*}/metadata:
     get:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: ListMetadata
       description: ListMetadata retrieves metadata for a conversation.
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.ListMetadata
+      operationId: ConversationService_ListMetadata
       parameters:
       - name: parent
         in: path
@@ -3217,11 +3215,11 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.ListMetadataResponse'
     post:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: CreateMetadata
       description: "CreateMetadata inserts a new metadata for a conversation when
         it doesn't exist,\n or updates it if it does."
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.CreateMetadata
+      operationId: ConversationService_CreateMetadata
       parameters:
       - name: parent
         in: path
@@ -3255,11 +3253,11 @@ paths:
   /tcn/omni/conversations/v1alpha1/{parent=orgs/*/conversations/*}/metadata:batchCreate:
     post:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: BatchCreateMetadata
       description: "BatchCreateMetadata inserts a new metadata for a conversation
         when it doesn't exist,\n or updates it if it does."
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.BatchCreateMetadata
+      operationId: ConversationService_BatchCreateMetadata
       parameters:
       - name: parent
         in: path
@@ -3305,10 +3303,10 @@ paths:
   /tcn/omni/conversations/v1alpha1/{name=orgs/*/conversations/*/metadata/*}:
     get:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: GetMetadata
       description: GetMetadata retrieves metadata for a conversation.
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.GetMetadata
+      operationId: ConversationService_GetMetadata
       parameters:
       - name: name
         in: path
@@ -3334,10 +3332,10 @@ paths:
   /tcn/omni/conversations/v1alpha1/{parent=orgs/*/conversations/*/users/*/assignments/*}/assignmentMetadata:
     get:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: ListAssignmentMetadata
       description: ListAssignmentMetadata retrieves metadata for a conversation.
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.ListAssignmentMetadata
+      operationId: ConversationService_ListAssignmentMetadata
       parameters:
       - name: parent
         in: path
@@ -3384,11 +3382,11 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.conversation.v1alpha1.ListAssignmentMetadataResponse'
     post:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: CreateAssignmentMetadata
       description: "CreateAssignmentMetadata inserts a new metadata for a conversation
         when it doesn't exist,\n or updates it if it does."
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.CreateAssignmentMetadata
+      operationId: ConversationService_CreateAssignmentMetadata
       parameters:
       - name: parent
         in: path
@@ -3422,11 +3420,11 @@ paths:
   /tcn/omni/conversations/v1alpha1/{parent=orgs/*/conversations/*/users/*/assignments/*}/assignmentMetadata:batchCreate:
     post:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: BatchCreateAssignmentMetadata
       description: "BatchCreateAssignmentMetadata inserts a new metadata for a conversation
         when it doesn't exist,\n or updates it if it does."
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.BatchCreateAssignmentMetadata
+      operationId: ConversationService_BatchCreateAssignmentMetadata
       parameters:
       - name: parent
         in: path
@@ -3473,10 +3471,10 @@ paths:
   /tcn/omni/conversations/v1alpha1/{name=orgs/*/conversations/*/users/*/assignments/*/assignmentMetadata/*}:
     get:
       tags:
-      - tcn.omni.conversation.v1alpha1.ConversationService
+      - ConversationService
       summary: GetAssignmentMetadata
       description: GetAssignmentMetadata retrieves metadata for a conversation.
-      operationId: tcn.omni.conversation.v1alpha1.ConversationService.GetAssignmentMetadata
+      operationId: ConversationService_GetAssignmentMetadata
       parameters:
       - name: name
         in: path
@@ -3502,10 +3500,10 @@ paths:
   /tcn/omni/dispositions/v1alpha1/{parent=orgs/*}/dispositions:
     get:
       tags:
-      - tcn.omni.disposition.v1alpha1.DispositionService
+      - DispositionService
       summary: ListDispositions
       description: Method to list dispositions
-      operationId: tcn.omni.disposition.v1alpha1.DispositionService.ListDispositions
+      operationId: DispositionService_ListDispositions
       parameters:
       - name: parent
         in: path
@@ -3553,10 +3551,10 @@ paths:
   /tcn/omni/dispositions/v1alpha1/{name=orgs/*/dispositions/*}:
     get:
       tags:
-      - tcn.omni.disposition.v1alpha1.DispositionService
+      - DispositionService
       summary: GetDisposition
       description: Method to get disposition
-      operationId: tcn.omni.disposition.v1alpha1.DispositionService.GetDisposition
+      operationId: DispositionService_GetDisposition
       parameters:
       - name: name
         in: path
@@ -3582,10 +3580,10 @@ paths:
   /tcn/omni/disposition/v1alpha1/{parent=orgs/*}/dispositions:
     post:
       tags:
-      - tcn.omni.disposition.v1alpha1.DispositionService
+      - DispositionService
       summary: CreateDisposition
       description: Method to create disposition
-      operationId: tcn.omni.disposition.v1alpha1.DispositionService.CreateDisposition
+      operationId: DispositionService_CreateDisposition
       parameters:
       - name: parent
         in: path
@@ -3619,10 +3617,10 @@ paths:
   /tcn/omni/disposition/v1alpha1/{disposition.name=orgs/*/dispositions/*}:
     patch:
       tags:
-      - tcn.omni.disposition.v1alpha1.DispositionService
+      - DispositionService
       summary: UpdateDisposition
       description: method to update a disposition
-      operationId: tcn.omni.disposition.v1alpha1.DispositionService.UpdateDisposition
+      operationId: DispositionService_UpdateDisposition
       parameters:
       - name: disposition.name
         in: path
@@ -3655,10 +3653,10 @@ paths:
   /tcn/omni/disposition/v1alpha1/{name=orgs/*/dispositions/*}:
     delete:
       tags:
-      - tcn.omni.disposition.v1alpha1.DispositionService
+      - DispositionService
       summary: DeleteDisposition
       description: method to delete a disposition
-      operationId: tcn.omni.disposition.v1alpha1.DispositionService.DeleteDisposition
+      operationId: DispositionService_DeleteDisposition
       parameters:
       - name: name
         in: path
@@ -3684,10 +3682,10 @@ paths:
   /tcn/omni/eventlog/v1alpha1:processOmniEventLog:
     post:
       tags:
-      - tcn.omni.eventlog.v1alpha1.EventlogService
+      - EventlogService
       summary: ProcessOmniEventLog
       description: Process an Omni Event Log
-      operationId: tcn.omni.eventlog.v1alpha1.EventlogService.ProcessOmniEventLog
+      operationId: EventlogService_ProcessOmniEventLog
       requestBody:
         content:
           application/json:
@@ -3710,10 +3708,10 @@ paths:
   /tcn/omni/message/v1alpha1/{parent=orgs/*}/messages:
     get:
       tags:
-      - tcn.omni.message.v1alpha1.MessageService
+      - MessageService
       summary: ListMessages
       description: method to list messages
-      operationId: tcn.omni.message.v1alpha1.MessageService.ListMessages
+      operationId: MessageService_ListMessages
       parameters:
       - name: parent
         in: path
@@ -3761,10 +3759,10 @@ paths:
   /tcn/omni/message/v1alpha1/{name=orgs/*/messages/*}:
     get:
       tags:
-      - tcn.omni.message.v1alpha1.MessageService
+      - MessageService
       summary: GetMessage
       description: method to get message
-      operationId: tcn.omni.message.v1alpha1.MessageService.GetMessage
+      operationId: MessageService_GetMessage
       parameters:
       - name: name
         in: path
@@ -3790,10 +3788,10 @@ paths:
   /tcn/omni/oauth/v1alpha1/{parent=orgs/*}/oauthConfigs:
     get:
       tags:
-      - tcn.omni.oauth.v1alpha1.OauthService
+      - OauthService
       summary: ListOauthConfigs
       description: Method to list oauthConfigs
-      operationId: tcn.omni.oauth.v1alpha1.OauthService.ListOauthConfigs
+      operationId: OauthService_ListOauthConfigs
       parameters:
       - name: parent
         in: path
@@ -3841,10 +3839,10 @@ paths:
   /tcn/omni/oauth/v1alpha1/{name=orgs/*/oauthConfigs/*}:
     get:
       tags:
-      - tcn.omni.oauth.v1alpha1.OauthService
+      - OauthService
       summary: GetOauthConfig
       description: Method to get oauthConfig
-      operationId: tcn.omni.oauth.v1alpha1.OauthService.GetOauthConfig
+      operationId: OauthService_GetOauthConfig
       parameters:
       - name: name
         in: path
@@ -3870,10 +3868,10 @@ paths:
   /tcn/omni/oauth/v1alpha1/{oauth_config.name=orgs/*/oauthConfigs/*}:
     patch:
       tags:
-      - tcn.omni.oauth.v1alpha1.OauthService
+      - OauthService
       summary: UpdateOauthConfig
       description: method to update an oauth config
-      operationId: tcn.omni.oauth.v1alpha1.OauthService.UpdateOauthConfig
+      operationId: OauthService_UpdateOauthConfig
       parameters:
       - name: oauth_config.name
         in: path
@@ -3906,10 +3904,10 @@ paths:
   /tcn/omni/project/v1alpha1/{parent=orgs/*}/projects:
     get:
       tags:
-      - tcn.omni.project.v1alpha1.ProjectService
+      - ProjectService
       summary: ListProjects
       description: Method to list projects
-      operationId: tcn.omni.project.v1alpha1.ProjectService.ListProjects
+      operationId: ProjectService_ListProjects
       parameters:
       - name: parent
         in: path
@@ -3956,10 +3954,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.project.v1alpha1.ListProjectsResponse'
     post:
       tags:
-      - tcn.omni.project.v1alpha1.ProjectService
+      - ProjectService
       summary: CreateProject
       description: Method to create a project
-      operationId: tcn.omni.project.v1alpha1.ProjectService.CreateProject
+      operationId: ProjectService_CreateProject
       parameters:
       - name: parent
         in: path
@@ -3993,10 +3991,10 @@ paths:
   /tcn/omni/project/v1alpha1/{name=orgs/*/projects/*}:
     get:
       tags:
-      - tcn.omni.project.v1alpha1.ProjectService
+      - ProjectService
       summary: GetProject
       description: Method to get a rpoject
-      operationId: tcn.omni.project.v1alpha1.ProjectService.GetProject
+      operationId: ProjectService_GetProject
       parameters:
       - name: name
         in: path
@@ -4021,10 +4019,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.project.v1alpha1.Project'
     delete:
       tags:
-      - tcn.omni.project.v1alpha1.ProjectService
+      - ProjectService
       summary: DeleteProject
       description: Method to delete a project
-      operationId: tcn.omni.project.v1alpha1.ProjectService.DeleteProject
+      operationId: ProjectService_DeleteProject
       parameters:
       - name: name
         in: path
@@ -4050,10 +4048,10 @@ paths:
   /tcn/omni/project/v1alpha1/{project.name=orgs/*/projects/*}:
     patch:
       tags:
-      - tcn.omni.project.v1alpha1.ProjectService
+      - ProjectService
       summary: UpdateProject
       description: Method to update a project
-      operationId: tcn.omni.project.v1alpha1.ProjectService.UpdateProject
+      operationId: ProjectService_UpdateProject
       parameters:
       - name: project.name
         in: path
@@ -4086,10 +4084,10 @@ paths:
   /tcn/omni/sendgrid/v1alpha1:performSendgridAccountChecks:
     post:
       tags:
-      - tcn.omni.sendgrid.v1alpha1.SendgridService
+      - SendgridService
       summary: PerformSendgridAccountChecks
       description: Perform sendgrid account checks
-      operationId: tcn.omni.sendgrid.v1alpha1.SendgridService.PerformSendgridAccountChecks
+      operationId: SendgridService_PerformSendgridAccountChecks
       requestBody:
         content:
           application/json:
@@ -4112,10 +4110,10 @@ paths:
   /tcn/omni/signatures/v1alpha1/{parent=orgs/*}/signatures:
     get:
       tags:
-      - tcn.omni.signature.v1alpha1.SignatureService
+      - SignatureService
       summary: ListSignatures
       description: Method to list signatures
-      operationId: tcn.omni.signature.v1alpha1.SignatureService.ListSignatures
+      operationId: SignatureService_ListSignatures
       parameters:
       - name: parent
         in: path
@@ -4162,10 +4160,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.signature.v1alpha1.ListSignaturesResponse'
     post:
       tags:
-      - tcn.omni.signature.v1alpha1.SignatureService
+      - SignatureService
       summary: CreateSignature
       description: Method to create a signature
-      operationId: tcn.omni.signature.v1alpha1.SignatureService.CreateSignature
+      operationId: SignatureService_CreateSignature
       parameters:
       - name: parent
         in: path
@@ -4199,10 +4197,10 @@ paths:
   /tcn/omni/signatures/v1alpha1/{name=orgs/*/signatures/*}:
     get:
       tags:
-      - tcn.omni.signature.v1alpha1.SignatureService
+      - SignatureService
       summary: GetSignature
       description: Method to get signature
-      operationId: tcn.omni.signature.v1alpha1.SignatureService.GetSignature
+      operationId: SignatureService_GetSignature
       parameters:
       - name: name
         in: path
@@ -4228,10 +4226,10 @@ paths:
   /tcn/omni/signature/v1alpha1/{signature.name=orgs/*/signatures/*}:
     patch:
       tags:
-      - tcn.omni.signature.v1alpha1.SignatureService
+      - SignatureService
       summary: UpdateSignature
       description: Method to update a signature
-      operationId: tcn.omni.signature.v1alpha1.SignatureService.UpdateSignature
+      operationId: SignatureService_UpdateSignature
       parameters:
       - name: signature.name
         in: path
@@ -4264,10 +4262,10 @@ paths:
   /tcn/omni/signature/v1alpha1/{name=orgs/*/signatures/*}:
     delete:
       tags:
-      - tcn.omni.signature.v1alpha1.SignatureService
+      - SignatureService
       summary: DeleteSignature
       description: Method to delete a signature
-      operationId: tcn.omni.signature.v1alpha1.SignatureService.DeleteSignature
+      operationId: SignatureService_DeleteSignature
       parameters:
       - name: name
         in: path
@@ -4293,10 +4291,10 @@ paths:
   /tcn/omni/smsnumber/v1alpha1/{parent=orgs/*}/smsNumbers:
     get:
       tags:
-      - tcn.omni.smsnumber.v1alpha1.SmsNumberService
+      - SmsNumberService
       summary: ListSmsNumbers
       description: method to list sms number
-      operationId: tcn.omni.smsnumber.v1alpha1.SmsNumberService.ListSmsNumbers
+      operationId: SmsNumberService_ListSmsNumbers
       parameters:
       - name: parent
         in: path
@@ -4344,10 +4342,10 @@ paths:
   /tcn/omni/smsnumber/v1alpha1/{name=orgs/*/smsNumbers/*}:
     get:
       tags:
-      - tcn.omni.smsnumber.v1alpha1.SmsNumberService
+      - SmsNumberService
       summary: GetSmsNumber
       description: method to get sms number
-      operationId: tcn.omni.smsnumber.v1alpha1.SmsNumberService.GetSmsNumber
+      operationId: SmsNumberService_GetSmsNumber
       parameters:
       - name: name
         in: path
@@ -4373,10 +4371,10 @@ paths:
   /tcn/omni/task/v1alpha1/{parent=orgs/*}/tasks:
     get:
       tags:
-      - tcn.omni.task.v1alpha1.TaskService
+      - TaskService
       summary: ListTasks
       description: method to list tasks
-      operationId: tcn.omni.task.v1alpha1.TaskService.ListTasks
+      operationId: TaskService_ListTasks
       parameters:
       - name: parent
         in: path
@@ -4431,10 +4429,10 @@ paths:
   /tcn/omni/task/v1alpha1/{name=orgs/*/tasks/*}:
     get:
       tags:
-      - tcn.omni.task.v1alpha1.TaskService
+      - TaskService
       summary: GetTask
       description: method to get task
-      operationId: tcn.omni.task.v1alpha1.TaskService.GetTask
+      operationId: TaskService_GetTask
       parameters:
       - name: name
         in: path
@@ -4460,10 +4458,10 @@ paths:
   /tcn/omni/taskcounts/v1alpha1/{parent=orgs/*/projects/*/campaigns/*}/taskCounts:
     get:
       tags:
-      - tcn.omni.taskcounts.v1alpha1.TaskCountsService
+      - TaskCountsService
       summary: ListTaskCounts
       description: method to list taskcounts
-      operationId: tcn.omni.taskcounts.v1alpha1.TaskCountsService.ListTaskCounts
+      operationId: TaskCountsService_ListTaskCounts
       parameters:
       - name: parent
         in: path
@@ -4504,10 +4502,10 @@ paths:
   /tcn/omni/taskcounts/v1alpha1/{name=orgs/*/projects/*/campaigns/*/taskCounts/*}:
     get:
       tags:
-      - tcn.omni.taskcounts.v1alpha1.TaskCountsService
+      - TaskCountsService
       summary: GetTaskCounts
       description: method to get taskcounts
-      operationId: tcn.omni.taskcounts.v1alpha1.TaskCountsService.GetTaskCounts
+      operationId: TaskCountsService_GetTaskCounts
       parameters:
       - name: name
         in: path
@@ -4533,10 +4531,10 @@ paths:
   /tcn/omni/unsubscribelinks/v1alpha1/{parent=orgs/*}/unsubscribeLinks:
     get:
       tags:
-      - tcn.omni.unsubscribelink.v1alpha1.UnsubscribeLinkService
+      - UnsubscribeLinkService
       summary: ListUnsubscribeLinks
       description: Method to list unsubscribe links
-      operationId: tcn.omni.unsubscribelink.v1alpha1.UnsubscribeLinkService.ListUnsubscribeLinks
+      operationId: UnsubscribeLinkService_ListUnsubscribeLinks
       parameters:
       - name: parent
         in: path
@@ -4583,10 +4581,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.unsubscribelink.v1alpha1.ListUnsubscribeLinksResponse'
     post:
       tags:
-      - tcn.omni.unsubscribelink.v1alpha1.UnsubscribeLinkService
+      - UnsubscribeLinkService
       summary: CreateUnsubscribeLink
       description: Method to create unsubscribe link
-      operationId: tcn.omni.unsubscribelink.v1alpha1.UnsubscribeLinkService.CreateUnsubscribeLink
+      operationId: UnsubscribeLinkService_CreateUnsubscribeLink
       parameters:
       - name: parent
         in: path
@@ -4620,10 +4618,10 @@ paths:
   /tcn/omni/unsubscribelinks/v1alpha1/{name=orgs/*/unsubscribeLinks/*}:
     get:
       tags:
-      - tcn.omni.unsubscribelink.v1alpha1.UnsubscribeLinkService
+      - UnsubscribeLinkService
       summary: GetUnsubscribeLink
       description: Method to get unsubscribe link
-      operationId: tcn.omni.unsubscribelink.v1alpha1.UnsubscribeLinkService.GetUnsubscribeLink
+      operationId: UnsubscribeLinkService_GetUnsubscribeLink
       parameters:
       - name: name
         in: path
@@ -4648,10 +4646,10 @@ paths:
                 $ref: '#/components/schemas/tcn.omni.unsubscribelink.v1alpha1.UnsubscribeLink'
     delete:
       tags:
-      - tcn.omni.unsubscribelink.v1alpha1.UnsubscribeLinkService
+      - UnsubscribeLinkService
       summary: DeleteUnsubscribeLink
       description: Method to delete unsubscribe link
-      operationId: tcn.omni.unsubscribelink.v1alpha1.UnsubscribeLinkService.DeleteUnsubscribeLink
+      operationId: UnsubscribeLinkService_DeleteUnsubscribeLink
       parameters:
       - name: name
         in: path
@@ -4677,10 +4675,10 @@ paths:
   /tcn/omni/unsubscribelinks/v1alpha1/{unsubscribe_link.name=orgs/*/unsubscribeLinks/*}:
     patch:
       tags:
-      - tcn.omni.unsubscribelink.v1alpha1.UnsubscribeLinkService
+      - UnsubscribeLinkService
       summary: UpdateUnsubscribeLink
       description: Method to update unsubscribe link
-      operationId: tcn.omni.unsubscribelink.v1alpha1.UnsubscribeLinkService.UpdateUnsubscribeLink
+      operationId: UnsubscribeLinkService_UpdateUnsubscribeLink
       parameters:
       - name: unsubscribe_link.name
         in: path
@@ -4713,10 +4711,10 @@ paths:
   /tcn/omni/verifiedemail/v1alpha1/{parent=orgs/*}/verifiedEmails:
     get:
       tags:
-      - tcn.omni.verifiedemail.v1alpha1.VerifiedEmailService
+      - VerifiedEmailService
       summary: ListVerifiedEmails
       description: method to list verified email
-      operationId: tcn.omni.verifiedemail.v1alpha1.VerifiedEmailService.ListVerifiedEmails
+      operationId: VerifiedEmailService_ListVerifiedEmails
       parameters:
       - name: parent
         in: path
@@ -4764,10 +4762,10 @@ paths:
   /tcn/omni/verifiedemail/v1alpha1/{name=orgs/*/verifiedEmails/*}:
     get:
       tags:
-      - tcn.omni.verifiedemail.v1alpha1.VerifiedEmailService
+      - VerifiedEmailService
       summary: GetVerifiedEmail
       description: method to get verified email
-      operationId: tcn.omni.verifiedemail.v1alpha1.VerifiedEmailService.GetVerifiedEmail
+      operationId: VerifiedEmailService_GetVerifiedEmail
       parameters:
       - name: name
         in: path
@@ -4793,10 +4791,10 @@ paths:
   /tcn/omni/verifiedemail/v1alpha/{parent=orgs/*}/verifiedEmails:
     post:
       tags:
-      - tcn.omni.verifiedemail.v1alpha1.VerifiedEmailService
+      - VerifiedEmailService
       summary: CreateVerifiedEmail
       description: Method to create a verified email
-      operationId: tcn.omni.verifiedemail.v1alpha1.VerifiedEmailService.CreateVerifiedEmail
+      operationId: VerifiedEmailService_CreateVerifiedEmail
       parameters:
       - name: parent
         in: path
@@ -4830,10 +4828,10 @@ paths:
   /tcn/omni/verifiedemail/v1alpha1/{verified_email.name=orgs/*/verifiedEmails/*}:
     patch:
       tags:
-      - tcn.omni.verifiedemail.v1alpha1.VerifiedEmailService
+      - VerifiedEmailService
       summary: UpdateVerifiedEmail
       description: method to update verified email
-      operationId: tcn.omni.verifiedemail.v1alpha1.VerifiedEmailService.UpdateVerifiedEmail
+      operationId: VerifiedEmailService_UpdateVerifiedEmail
       parameters:
       - name: verified_email.name
         in: path
@@ -4866,10 +4864,10 @@ paths:
   /tcn/omni/verifiedemail/v1alpha/{name=orgs/*/verifiedEmails/*}:
     delete:
       tags:
-      - tcn.omni.verifiedemail.v1alpha1.VerifiedEmailService
+      - VerifiedEmailService
       summary: DeleteVerifiedEmail
       description: method to delete verified email
-      operationId: tcn.omni.verifiedemail.v1alpha1.VerifiedEmailService.DeleteVerifiedEmail
+      operationId: VerifiedEmailService_DeleteVerifiedEmail
       parameters:
       - name: name
         in: path
@@ -4895,10 +4893,10 @@ paths:
   /tcn/omni/verifiedemail/v1alpha1/{name=orgs/*/verifiedEmails/*}:resend:
     get:
       tags:
-      - tcn.omni.verifiedemail.v1alpha1.VerifiedEmailService
+      - VerifiedEmailService
       summary: ResendVerifiedEmail
       description: method to resend the verification email
-      operationId: tcn.omni.verifiedemail.v1alpha1.VerifiedEmailService.ResendVerifiedEmail
+      operationId: VerifiedEmailService_ResendVerifiedEmail
       parameters:
       - name: name
         in: path
@@ -4924,10 +4922,10 @@ paths:
   /tcn/omni/whatsappnumber/v1alpha1/{parent=orgs/*}/whatsAppNumbers:
     get:
       tags:
-      - tcn.omni.whatsappnumber.v1alpha1.WhatsAppNumberService
+      - WhatsAppNumberService
       summary: ListWhatsAppNumbers
       description: method to list whatsApp number
-      operationId: tcn.omni.whatsappnumber.v1alpha1.WhatsAppNumberService.ListWhatsAppNumbers
+      operationId: WhatsAppNumberService_ListWhatsAppNumbers
       parameters:
       - name: parent
         in: path
@@ -4975,10 +4973,10 @@ paths:
   /tcn/omni/whatsappnumber/v1alpha1/{name=orgs/*/whatsAppNumbers/*}:
     get:
       tags:
-      - tcn.omni.whatsappnumber.v1alpha1.WhatsAppNumberService
+      - WhatsAppNumberService
       summary: GetWhatsAppNumber
       description: method to get whatsApp number
-      operationId: tcn.omni.whatsappnumber.v1alpha1.WhatsAppNumberService.GetWhatsAppNumber
+      operationId: WhatsAppNumberService_GetWhatsAppNumber
       parameters:
       - name: name
         in: path
@@ -5004,10 +5002,10 @@ paths:
   /tcn/org/agentProfileGroups/v1alpha1/{name=orgs/*/agentProfileGroups/*}:
     get:
       tags:
-      - tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService
+      - AgentProfileGroupsService
       summary: GetAgentProfileGroup
       description: Method to get an agent profile group
-      operationId: tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService.GetAgentProfileGroup
+      operationId: AgentProfileGroupsService_GetAgentProfileGroup
       parameters:
       - name: name
         in: path
@@ -5032,10 +5030,10 @@ paths:
                 $ref: '#/components/schemas/tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroup'
     delete:
       tags:
-      - tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService
+      - AgentProfileGroupsService
       summary: DeleteAgentProfileGroup
       description: Method to delete an agent profile group
-      operationId: tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService.DeleteAgentProfileGroup
+      operationId: AgentProfileGroupsService_DeleteAgentProfileGroup
       parameters:
       - name: name
         in: path
@@ -5061,10 +5059,10 @@ paths:
   /tcn/org/agentProfileGroups/v1alpha1/{parent=orgs/*}/agentProfileGroups:
     get:
       tags:
-      - tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService
+      - AgentProfileGroupsService
       summary: ListAgentProfileGroups
       description: Method to list agent profile groups
-      operationId: tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService.ListAgentProfileGroups
+      operationId: AgentProfileGroupsService_ListAgentProfileGroups
       parameters:
       - name: parent
         in: path
@@ -5104,10 +5102,10 @@ paths:
                 $ref: '#/components/schemas/tcn.org.agentprofilegroups.v1alpha1.ListAgentProfileGroupsResponse'
     post:
       tags:
-      - tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService
+      - AgentProfileGroupsService
       summary: CreateAgentProfileGroup
       description: Method to create an agent profile group
-      operationId: tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService.CreateAgentProfileGroup
+      operationId: AgentProfileGroupsService_CreateAgentProfileGroup
       parameters:
       - name: parent
         in: path
@@ -5141,10 +5139,10 @@ paths:
   /tcn/org/agentProfileGroups/v1alpha1/{agent_profile_group.name=orgs/*/agentProfileGroups/*}:
     patch:
       tags:
-      - tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService
+      - AgentProfileGroupsService
       summary: UpdateAgentProfileGroup
       description: Method to update an agent profile group
-      operationId: tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService.UpdateAgentProfileGroup
+      operationId: AgentProfileGroupsService_UpdateAgentProfileGroup
       parameters:
       - name: agent_profile_group.name
         in: path
@@ -5177,10 +5175,10 @@ paths:
   /tcn/org/agentProfileGroups/v1alpha1/{name=orgs/*/agentProfileGroups/*}:assign:
     post:
       tags:
-      - tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService
+      - AgentProfileGroupsService
       summary: AssignAgentProfileGroup
       description: Method to Assign an agent profile group to one or more users
-      operationId: tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService.AssignAgentProfileGroup
+      operationId: AgentProfileGroupsService_AssignAgentProfileGroup
       parameters:
       - name: name
         in: path
@@ -5204,7 +5202,6 @@ paths:
                   description: users to assign the agent profile group
               title: AssignAgentProfileGroupRequest
               required:
-              - name
               - user_ids
               additionalProperties: false
               description: request message AssignAgentProfileGroupRequest
@@ -5225,7 +5222,7 @@ paths:
   /tcn/org/billing/billingplan/v1alpha5/{name=orgs/*/billingPlans/*}:apply:
     post:
       tags:
-      - tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+      - BillingPlanService
       summary: ApplyBillingPlanDraft
       description: "ApplyBillingPlanDraft applies an ORG billing plan draft to a billing
         cycle, making a new active ORG billing\n plan for the cycle using the draft
@@ -5234,7 +5231,7 @@ paths:
         \  - grpc.NotFound: The draft billing plan was not found.\n   - grpc.PermissionDenied:
         The caller does not have the required permissions.\n   - grpc.Unavailable:
         The operation is currently unavailable."
-      operationId: tcn.org.billing.billingplan.v1alpha5.BillingPlanService.ApplyBillingPlanDraft
+      operationId: BillingPlanService_ApplyBillingPlanDraft
       parameters:
       - name: name
         in: path
@@ -5256,8 +5253,6 @@ paths:
                     become active, or null to apply immediately
                   $ref: '#/components/schemas/google.type.Date'
               title: ApplyBillingPlanDraftRequest
-              required:
-              - name
               additionalProperties: false
               description: ApplyBillingPlanDraftRequest -
         required: true
@@ -5277,7 +5272,7 @@ paths:
   /tcn/org/billing/billingplan/v1alpha5/{name=defaultBillingPlans/*}:apply:
     post:
       tags:
-      - tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+      - BillingPlanService
       summary: ApplyDefaultBillingPlanDraft
       description: "ApplyDefaultBillingPlanDraft applies a default billing plan draft
         to a billing cycle, making a new active\n default billing plan for the cycle
@@ -5287,7 +5282,7 @@ paths:
         or the plan is not a draft.\n   - grpc.NotFound: The draft billing plan was
         not found.\n   - grpc.PermissionDenied: The caller does not have the required
         permissions.\n   - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.billingplan.v1alpha5.BillingPlanService.ApplyDefaultBillingPlanDraft
+      operationId: BillingPlanService_ApplyDefaultBillingPlanDraft
       parameters:
       - name: name
         in: path
@@ -5309,8 +5304,6 @@ paths:
                     become active
                   $ref: '#/components/schemas/google.type.Date'
               title: ApplyDefaultBillingPlanDraftRequest
-              required:
-              - name
               additionalProperties: false
               description: ApplyDefaultBillingPlanDraftRequest -
         required: true
@@ -5330,7 +5323,7 @@ paths:
   /tcn/org/billing/billingplan/v1alpha5/{name=orgs/*/billingPlans/*}:copy:
     post:
       tags:
-      - tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+      - BillingPlanService
       summary: CopyBillingPlan
       description: "CopyBillingPlan creates a duplicate of an ORG billing plan.\n
         Errors:\n   - grpc.AlreadyExits: A billing plan with the same title already
@@ -5338,7 +5331,7 @@ paths:
         The request is invalid.\n   - grpc.NotFound: The billing plan was not found.\n
         \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.billingplan.v1alpha5.BillingPlanService.CopyBillingPlan
+      operationId: BillingPlanService_CopyBillingPlan
       parameters:
       - name: name
         in: path
@@ -5360,7 +5353,6 @@ paths:
                   description: the title of the billing plan being created.
               title: CopyBillingPlanRequest
               required:
-              - name
               - title
               additionalProperties: false
               description: CopyBillingPlanRequest -
@@ -5381,7 +5373,7 @@ paths:
   /tcn/org/billing/billingplan/v1alpha5/{name=defaultBillingPlans/*}:copy:
     post:
       tags:
-      - tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+      - BillingPlanService
       summary: CopyDefaultBillingPlan
       description: "CopyDefaultBillingPlan creates a duplicate of a default billing
         plan.\n Errors:\n   - grpc.AlreadyExits: A billing plan with the same title
@@ -5389,7 +5381,7 @@ paths:
         The request is invalid.\n   - grpc.NotFound: The billing plan was not found.\n
         \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.billingplan.v1alpha5.BillingPlanService.CopyDefaultBillingPlan
+      operationId: BillingPlanService_CopyDefaultBillingPlan
       parameters:
       - name: name
         in: path
@@ -5411,7 +5403,6 @@ paths:
                   description: the title of the billing plan being created.
               title: CopyDefaultBillingPlanRequest
               required:
-              - name
               - title
               additionalProperties: false
               description: CopyDefaultBillingPlanRequest -
@@ -5432,7 +5423,7 @@ paths:
   /tcn/org/billing/billingplan/v1alpha5/{parent=orgs/*}/billingPlans:
     post:
       tags:
-      - tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+      - BillingPlanService
       summary: CreateBillingPlan
       description: "CreateBillingPlan creates a new ORG billing plan draft using the
         currently active ORG billing plan\n as the template (if available). If no
@@ -5443,7 +5434,7 @@ paths:
         occurred.\n   - grpc.InvalidArgument: The request is invalid.\n   - grpc.PermissionDenied:
         The caller does not have the required permissions.\n   - grpc.Unavailable:
         The operation is currently unavailable."
-      operationId: tcn.org.billing.billingplan.v1alpha5.BillingPlanService.CreateBillingPlan
+      operationId: BillingPlanService_CreateBillingPlan
       parameters:
       - name: parent
         in: path
@@ -5479,14 +5470,14 @@ paths:
   /tcn/org/billing/billingplan/v1alpha5/defaultBillingPlans:
     get:
       tags:
-      - tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+      - BillingPlanService
       summary: ListDefaultBillingPlans
       description: "ListDefaultBillingPlans lists default billing plans.\n Errors:\n
         \  - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
         The request is invalid.\n   - grpc.PermissionDenied: The caller does not have
         the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.billingplan.v1alpha5.BillingPlanService.ListDefaultBillingPlans
+      operationId: BillingPlanService_ListDefaultBillingPlans
       parameters:
       - name: page_size
         in: query
@@ -5536,7 +5527,7 @@ paths:
                 $ref: '#/components/schemas/tcn.org.billing.billingplan.v1alpha5.ListDefaultBillingPlansResponse'
     post:
       tags:
-      - tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+      - BillingPlanService
       summary: CreateDefaultBillingPlan
       description: "CreateDefaultBillingPlan creates a new default billing plan draft
         using the currently active default\n billing plan as the template (if available).
@@ -5546,7 +5537,7 @@ paths:
         grpc.InvalidArgument: The request is invalid.\n   - grpc.PermissionDenied:
         The caller does not have the required permissions.\n   - grpc.Unavailable:
         The operation is currently unavailable."
-      operationId: tcn.org.billing.billingplan.v1alpha5.BillingPlanService.CreateDefaultBillingPlan
+      operationId: BillingPlanService_CreateDefaultBillingPlan
       requestBody:
         description: the default billing plan to create.
         content:
@@ -5571,14 +5562,14 @@ paths:
   /tcn/org/billing/billingplan/v1alpha5/{name=orgs/*/billingPlans/*}:
     get:
       tags:
-      - tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+      - BillingPlanService
       summary: GetBillingPlan
       description: "GetBillingPlan gets an ORG billing plan.\n Errors:\n   - grpc.Internal:
         An internal error occurred.\n   - grpc.InvalidArgument: The request is invalid.\n
         \  - grpc.NotFound: The billing plan was not found.\n   - grpc.PermissionDenied:
         The caller does not have the required permissions.\n   - grpc.Unavailable:
         The operation is currently unavailable."
-      operationId: tcn.org.billing.billingplan.v1alpha5.BillingPlanService.GetBillingPlan
+      operationId: BillingPlanService_GetBillingPlan
       parameters:
       - name: name
         in: path
@@ -5603,7 +5594,7 @@ paths:
                 $ref: '#/components/schemas/tcn.org.billing.billingplan.v1alpha5.BillingPlan'
     delete:
       tags:
-      - tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+      - BillingPlanService
       summary: DeleteBillingPlan
       description: "DeleteBillingPlan deletes an ORG billing plan draft.\n Errors:\n
         \  - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
@@ -5611,7 +5602,7 @@ paths:
         billing plan was not found.\n   - grpc.PermissionDenied: The caller does not
         have the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.billingplan.v1alpha5.BillingPlanService.DeleteBillingPlan
+      operationId: BillingPlanService_DeleteBillingPlan
       parameters:
       - name: name
         in: path
@@ -5646,14 +5637,14 @@ paths:
   /tcn/org/billing/billingplan/v1alpha5/{name=defaultBillingPlans/*}:
     get:
       tags:
-      - tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+      - BillingPlanService
       summary: GetDefaultBillingPlan
       description: "GetDefaultBillingPlan gets a default billing plan.\n Errors:\n
         \  - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
         The request is invalid.\n   - grpc.NotFound: The billing plan was not found.\n
         \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.billingplan.v1alpha5.BillingPlanService.GetDefaultBillingPlan
+      operationId: BillingPlanService_GetDefaultBillingPlan
       parameters:
       - name: name
         in: path
@@ -5678,7 +5669,7 @@ paths:
                 $ref: '#/components/schemas/tcn.org.billing.billingplan.v1alpha5.DefaultBillingPlan'
     delete:
       tags:
-      - tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+      - BillingPlanService
       summary: DeleteDefaultBillingPlan
       description: "DeleteDefaultBillingPlan deletes a default billing plan draft.\n
         Errors:\n   - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
@@ -5686,7 +5677,7 @@ paths:
         billing plan was not found.\n   - grpc.PermissionDenied: The caller does not
         have the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.billingplan.v1alpha5.BillingPlanService.DeleteDefaultBillingPlan
+      operationId: BillingPlanService_DeleteDefaultBillingPlan
       parameters:
       - name: name
         in: path
@@ -5721,13 +5712,13 @@ paths:
   /tcn/org/billing/billingplan/v1alpha5/{parent=org/*}/billingPlans:
     get:
       tags:
-      - tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+      - BillingPlanService
       summary: ListBillingPlans
       description: "ListBillingPlans lists ORG billing plans.\n Errors:\n   - grpc.Internal:
         An internal error occurred.\n   - grpc.InvalidArgument: The request is invalid.\n
         \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.billingplan.v1alpha5.BillingPlanService.ListBillingPlans
+      operationId: BillingPlanService_ListBillingPlans
       parameters:
       - name: parent
         in: path
@@ -5786,7 +5777,7 @@ paths:
   /tcn/org/billing/billingplan/v1alpha5/{billing_plan.name=orgs/*/billingPlans/*}:
     patch:
       tags:
-      - tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+      - BillingPlanService
       summary: UpdateBillingPlan
       description: "UpdateBillingPlan updates an ORG billing plan draft.\n Errors:\n
         \  - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
@@ -5794,7 +5785,7 @@ paths:
         billing plan was not found.\n   - grpc.PermissionDenied: The caller does not
         have the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.billingplan.v1alpha5.BillingPlanService.UpdateBillingPlan
+      operationId: BillingPlanService_UpdateBillingPlan
       parameters:
       - name: billing_plan.name
         in: path
@@ -5827,7 +5818,7 @@ paths:
   /tcn/org/billing/billingplan/v1alpha5/{default_billing_plan.name=defaultBillingPlans/*}:
     patch:
       tags:
-      - tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+      - BillingPlanService
       summary: UpdateDefaultBillingPlan
       description: "UpdateDefaultBillingPlan updates a default billing plan draft.\n
         Errors:\n   - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
@@ -5835,7 +5826,7 @@ paths:
         billing plan was not found.\n   - grpc.PermissionDenied: The caller does not
         have the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.billingplan.v1alpha5.BillingPlanService.UpdateDefaultBillingPlan
+      operationId: BillingPlanService_UpdateDefaultBillingPlan
       parameters:
       - name: default_billing_plan.name
         in: path
@@ -5868,7 +5859,7 @@ paths:
   /tcn/org/billing/billingtag/v1alpha5/billingTags:batchCreate:
     post:
       tags:
-      - tcn.org.billing.billingtag.v1alpha5.BillingTagService
+      - BillingTagService
       summary: BatchCreateBillingTags
       description: "BatchCreateBillingTags creates new billing tags.\n Errors:\n   -
         grpc.AlreadyExits: A billing tag with the same title already exists.\n   -
@@ -5876,7 +5867,7 @@ paths:
         request is invalid.\n   - grpc.PermissionDenied: The caller does not have
         the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.billingtag.v1alpha5.BillingTagService.BatchCreateBillingTags
+      operationId: BillingTagService_BatchCreateBillingTags
       requestBody:
         content:
           application/json:
@@ -5899,13 +5890,13 @@ paths:
   /tcn/org/billing/billingtag/v1alpha5/billingTags:
     get:
       tags:
-      - tcn.org.billing.billingtag.v1alpha5.BillingTagService
+      - BillingTagService
       summary: ListBillingTags
       description: "ListBillingTags lists billing tags.\n Errors:\n   - grpc.Internal:
         An internal error occurred.\n   - grpc.InvalidArgument: The request is invalid.\n
         \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.billingtag.v1alpha5.BillingTagService.ListBillingTags
+      operationId: BillingTagService_ListBillingTags
       parameters:
       - name: page_size
         in: query
@@ -5955,14 +5946,14 @@ paths:
                 $ref: '#/components/schemas/tcn.org.billing.billingtag.v1alpha5.ListBillingTagsResponse'
     post:
       tags:
-      - tcn.org.billing.billingtag.v1alpha5.BillingTagService
+      - BillingTagService
       summary: CreateBillingTag
       description: "CreateBillingTag creates a new billing tag.\n Errors:\n   - grpc.AlreadyExits:
         A billing tag with the same title already exists.\n   - grpc.Internal: An
         internal error occurred.\n   - grpc.InvalidArgument: The request is invalid.\n
         \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.billingtag.v1alpha5.BillingTagService.CreateBillingTag
+      operationId: BillingTagService_CreateBillingTag
       requestBody:
         description: the billing tag to create.
         content:
@@ -5987,14 +5978,14 @@ paths:
   /tcn/org/billing/billingtag/v1alpha5/{name=billingTags/*}:
     get:
       tags:
-      - tcn.org.billing.billingtag.v1alpha5.BillingTagService
+      - BillingTagService
       summary: GetBillingTag
       description: "GetBillingTag gets a billing tag.\n Errors:\n   - grpc.Internal:
         An internal error occurred.\n   - grpc.InvalidArgument: The request is invalid.\n
         \  - grpc.NotFound: The billing tag does not exist.\n   - grpc.PermissionDenied:
         The caller does not have the required permissions.\n   - grpc.Unavailable:
         The operation is currently unavailable."
-      operationId: tcn.org.billing.billingtag.v1alpha5.BillingTagService.GetBillingTag
+      operationId: BillingTagService_GetBillingTag
       parameters:
       - name: name
         in: path
@@ -6020,14 +6011,14 @@ paths:
   /tcn/org/billing/events/v1alpha5/processEventsJobs:
     get:
       tags:
-      - tcn.org.billing.event.v1alpha5.EventService
+      - EventService
       summary: ListProcessEventsJobs
       description: "ListProcessEventsJobs lists ProcessEventsJobs.\n Errors:\n   -
         grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument: The
         request is invalid.\n   - grpc.PermissionDenied: The caller does not have
         the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.event.v1alpha5.EventService.ListProcessEventsJobs
+      operationId: EventService_ListProcessEventsJobs
       parameters:
       - name: page_size
         in: query
@@ -6077,14 +6068,14 @@ paths:
                 $ref: '#/components/schemas/tcn.org.billing.event.v1alpha5.ListProcessEventsJobsResponse'
     post:
       tags:
-      - tcn.org.billing.event.v1alpha5.EventService
+      - EventService
       summary: CreateProcessEventsJob
       description: "CreateProcessEventsJob creates a new ProcessEventsJob.\n Errors:\n
         \  - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
         The request is invalid.\n   - grpc.PermissionDenied: The caller does not have
         the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.event.v1alpha5.EventService.CreateProcessEventsJob
+      operationId: EventService_CreateProcessEventsJob
       requestBody:
         description: the process events job to be created.
         content:
@@ -6109,14 +6100,14 @@ paths:
   /tcn/org/billing/events/v1alpha5/{name=processEventsJobs/*}:
     get:
       tags:
-      - tcn.org.billing.event.v1alpha5.EventService
+      - EventService
       summary: GetProcessEventsJob
       description: "GetProcessEventsJob gets a ProcessEventsJob.\n Errors:\n   - grpc.Internal:
         An internal error occurred.\n   - grpc.InvalidArgument: The request is invalid.\n
         \  - grpc.NotFound: The job does not exist.\n   - grpc.PermissionDenied: The
         caller does not have the required permissions.\n   - grpc.Unavailable: The
         operation is currently unavailable."
-      operationId: tcn.org.billing.event.v1alpha5.EventService.GetProcessEventsJob
+      operationId: EventService_GetProcessEventsJob
       parameters:
       - name: name
         in: path
@@ -6143,14 +6134,14 @@ paths:
                 $ref: '#/components/schemas/tcn.org.billing.event.v1alpha5.ProcessEventsJob'
     delete:
       tags:
-      - tcn.org.billing.event.v1alpha5.EventService
+      - EventService
       summary: DeleteProcessEventsJob
       description: "DeleteProcessEventsJob deletes a ProcessEventsJob.\n Errors:\n
         \  - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
         The request is invalid.\n   - grpc.NotFound: The job does not exist.\n   -
         grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.event.v1alpha5.EventService.DeleteProcessEventsJob
+      operationId: EventService_DeleteProcessEventsJob
       parameters:
       - name: name
         in: path
@@ -6195,14 +6186,14 @@ paths:
   /tcn/org/billing/events/v1alpha5/{name=processEventsJobs/*}:run:
     post:
       tags:
-      - tcn.org.billing.event.v1alpha5.EventService
+      - EventService
       summary: RunProcessEventsJob
       description: "RunProcessEventsJob runs a ProcessEventsJob.\n Errors:\n   - grpc.Internal:
         An internal error occurred.\n   - grpc.InvalidArgument: The request is invalid.\n
         \  - grpc.NotFound: The job does not exist.\n   - grpc.PermissionDenied: The
         caller does not have the required permissions.\n   - grpc.Unavailable: The
         operation is currently unavailable."
-      operationId: tcn.org.billing.event.v1alpha5.EventService.RunProcessEventsJob
+      operationId: EventService_RunProcessEventsJob
       parameters:
       - name: name
         in: path
@@ -6228,10 +6219,10 @@ paths:
   /tcn/org/billing/invoice/v1alpha5:generateInvoice:
     post:
       tags:
-      - tcn.org.billing.invoice.v1alpha5.InvoiceService
+      - InvoiceService
       summary: GenerateInvoice
       description: Generates an invoice for a billing cycle.
-      operationId: tcn.org.billing.invoice.v1alpha5.InvoiceService.GenerateInvoice
+      operationId: InvoiceService_GenerateInvoice
       requestBody:
         content:
           application/json:
@@ -6254,14 +6245,14 @@ paths:
   /tcn/org/billing/matchingrule/v1alpha5/{parent=defaultBillingPlans/*}/draftMatchingRules:batchDelete:
     post:
       tags:
-      - tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService
+      - MatchingRuleService
       summary: BatchDeleteDraftMatchingRules
       description: "BatchDeleteDraftMatchingRules deletes multiple draft MatchingRules.\n
         Errors:\n   - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
         The request is invalid.\n   - grpc.NotFound: The matching rules were not found.\n
         \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService.BatchDeleteDraftMatchingRules
+      operationId: MatchingRuleService_BatchDeleteDraftMatchingRules
       parameters:
       - name: parent
         in: path
@@ -6314,14 +6305,14 @@ paths:
   /tcn/org/billing/matchingrule/v1alpha5/{parent=defaultBillingPlans/*}/draftMatchingRules:
     get:
       tags:
-      - tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService
+      - MatchingRuleService
       summary: ListDraftMatchingRules
       description: "ListDraftMatchingRules lists draft MatchingRules.\n Errors:\n
         \  - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
         The request is invalid.\n   - grpc.PermissionDenied: The caller does not have
         the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService.ListDraftMatchingRules
+      operationId: MatchingRuleService_ListDraftMatchingRules
       parameters:
       - name: parent
         in: path
@@ -6381,7 +6372,7 @@ paths:
                 $ref: '#/components/schemas/tcn.org.billing.matchingrule.v1alpha5.ListDraftMatchingRulesResponse'
     post:
       tags:
-      - tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService
+      - MatchingRuleService
       summary: CreateDraftMatchingRule
       description: "CreateDraftMatchingRule creates a new draft MatchingRule.\n Errors:\n
         \  - grpc.AlreadyExits: A matching rule with the same configuration already
@@ -6389,7 +6380,7 @@ paths:
         The request is invalid.\n   - grpc.PermissionDenied: The caller does not have
         the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService.CreateDraftMatchingRule
+      operationId: MatchingRuleService_CreateDraftMatchingRule
       parameters:
       - name: parent
         in: path
@@ -6423,14 +6414,14 @@ paths:
   /tcn/org/billing/matchingrule/v1alpha5/{name=defaultBillingPlans/*/draftMatchingRules/*}:
     get:
       tags:
-      - tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService
+      - MatchingRuleService
       summary: GetDraftMatchingRule
       description: "GetDraftMatchingRule gets a draft MatchingRule.\n Errors:\n   -
         grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument: The
         request is invalid.\n   - grpc.NotFound: The matching rule was not found.\n
         \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService.GetDraftMatchingRule
+      operationId: MatchingRuleService_GetDraftMatchingRule
       parameters:
       - name: name
         in: path
@@ -6457,14 +6448,14 @@ paths:
                 $ref: '#/components/schemas/tcn.org.billing.matchingrule.v1alpha5.DraftMatchingRule'
     delete:
       tags:
-      - tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService
+      - MatchingRuleService
       summary: DeleteDraftMatchingRule
       description: "DeleteDraftMatchingRule deletes a draft MatchingRule.\n Errors:\n
         \  - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
         The request is invalid.\n   - grpc.NotFound: The matching rule was not found.\n
         \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService.DeleteDraftMatchingRule
+      operationId: MatchingRuleService_DeleteDraftMatchingRule
       parameters:
       - name: name
         in: path
@@ -6499,14 +6490,14 @@ paths:
   /tcn/org/billing/matchingrule/v1alpha5/{name=orgs/*/billingPlans/*/draftMatchingRules/*}:
     get:
       tags:
-      - tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService
+      - MatchingRuleService
       summary: GetDraftMatchingRule
       description: "GetDraftMatchingRule gets a draft MatchingRule.\n Errors:\n   -
         grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument: The
         request is invalid.\n   - grpc.NotFound: The matching rule was not found.\n
         \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService.GetDraftMatchingRule
+      operationId: MatchingRuleService_GetDraftMatchingRule2
       parameters:
       - name: name
         in: path
@@ -6534,14 +6525,14 @@ paths:
   /tcn/org/billing/matchingrule/v1alpha5/{name=matchingRules/*}:
     get:
       tags:
-      - tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService
+      - MatchingRuleService
       summary: GetMatchingRule
       description: "GetMatchingRule gets a MatchingRule.\n Errors:\n   - grpc.Internal:
         An internal error occurred.\n   - grpc.InvalidArgument: The request is invalid.\n
         \  - grpc.NotFound: The matching rule was not found.\n   - grpc.PermissionDenied:
         The caller does not have the required permissions.\n   - grpc.Unavailable:
         The operation is currently unavailable."
-      operationId: tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService.GetMatchingRule
+      operationId: MatchingRuleService_GetMatchingRule
       parameters:
       - name: name
         in: path
@@ -6567,14 +6558,14 @@ paths:
   /tcn/org/billing/matchingrule/v1alpha5/{parent=orgs/*/billingPlans/*}/draftMatchingRules:
     get:
       tags:
-      - tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService
+      - MatchingRuleService
       summary: ListDraftMatchingRules
       description: "ListDraftMatchingRules lists draft MatchingRules.\n Errors:\n
         \  - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
         The request is invalid.\n   - grpc.PermissionDenied: The caller does not have
         the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService.ListDraftMatchingRules
+      operationId: MatchingRuleService_ListDraftMatchingRules2
       parameters:
       - name: parent
         in: path
@@ -6635,13 +6626,13 @@ paths:
   /tcn/org/billing/matchingrule/v1alpha5/matchingRules:
     get:
       tags:
-      - tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService
+      - MatchingRuleService
       summary: ListMatchingRules
       description: "ListMatchingRules lists MatchingRules.\n Errors:\n   - grpc.Internal:
         An internal error occurred.\n   - grpc.InvalidArgument: The request is invalid.\n
         \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService.ListMatchingRules
+      operationId: MatchingRuleService_ListMatchingRules
       parameters:
       - name: page_size
         in: query
@@ -6692,7 +6683,7 @@ paths:
   /tcn/org/billing/matchingrule/v1alpha5/{draft_matching_rule.name=defaultBillingPlans/*/matchingRules/*}:
     patch:
       tags:
-      - tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService
+      - MatchingRuleService
       summary: UpdateDraftMatchingRule
       description: "UpdateDraftMatchingRule updates a draft MatchingRule.\n Errors:\n
         \  - grpc.AlreadyExists: A matching rule with the same configuration already
@@ -6700,7 +6691,7 @@ paths:
         The request is invalid.\n   - grpc.NotFound: The matching rule was not found.\n
         \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService.UpdateDraftMatchingRule
+      operationId: MatchingRuleService_UpdateDraftMatchingRule
       parameters:
       - name: draft_matching_rule.name
         in: path
@@ -6733,7 +6724,7 @@ paths:
   /tcn/org/billing/ratedefinition/v1alpha5/{parent=defaultBillingPlans/*}/defaultRateDefinitions:batchCreate:
     post:
       tags:
-      - tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService
+      - RateDefinitionService
       summary: BatchCreateDefaultRateDefinitions
       description: "BatchCreateDefaultRateDefinitions creates multiple default draft
         rate definitions.\n Errors:\n   - grpc.AlreadyExists: A rate already exists
@@ -6742,7 +6733,7 @@ paths:
         billing plan was not found.\n   - grpc.PermissionDenied: The caller does not
         have the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService.BatchCreateDefaultRateDefinitions
+      operationId: RateDefinitionService_BatchCreateDefaultRateDefinitions
       parameters:
       - name: parent
         in: path
@@ -6789,7 +6780,7 @@ paths:
   /tcn/org/billing/ratedefinition/v1alpha5/{parent=defaultBillingPlans/*}/defaultRateDefinitions:batchDelete:
     post:
       tags:
-      - tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService
+      - RateDefinitionService
       summary: BatchDeleteDefaultRateDefinitions
       description: "BatchDeleteDefaultRateDefinitions deletes multiple default draft
         rate definitions.\n Errors:\n   - grpc.Internal: An internal error occurred.\n
@@ -6797,7 +6788,7 @@ paths:
         rates were not found.\n   - grpc.PermissionDenied: The caller does not have
         the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService.BatchDeleteDefaultRateDefinitions
+      operationId: RateDefinitionService_BatchDeleteDefaultRateDefinitions
       parameters:
       - name: parent
         in: path
@@ -6851,7 +6842,7 @@ paths:
   /tcn/org/billing/ratedefinition/v1alpha5/{parent=orgs/*/billingPlans/*}/rateDefinitions:batchReset:
     post:
       tags:
-      - tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService
+      - RateDefinitionService
       summary: BatchResetRateDefinitions
       description: "BatchResetRateDefinitions resets multiple draft rate definitions
         to their respective default rate definition value.\n Errors:\n   - grpc.Internal:
@@ -6859,7 +6850,7 @@ paths:
         \  - grpc.NotFound: The rates were not found.\n   - grpc.PermissionDenied:
         The caller does not have the required permissions.\n   - grpc.Unavailable:
         The operation is currently unavailable."
-      operationId: tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService.BatchResetRateDefinitions
+      operationId: RateDefinitionService_BatchResetRateDefinitions
       parameters:
       - name: parent
         in: path
@@ -6913,14 +6904,14 @@ paths:
   /tcn/org/billing/ratedefinition/v1alpha5/{parent=defaultBillingPlans/*}/defaultRateDefinitions:
     get:
       tags:
-      - tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService
+      - RateDefinitionService
       summary: ListDefaultRateDefinitions
       description: "ListDefaultRateDefinitions lists default rate definitions.\n Errors:\n
         \  - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
         The request is invalid.\n   - grpc.PermissionDenied: The caller does not have
         the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService.ListDefaultRateDefinitions
+      operationId: RateDefinitionService_ListDefaultRateDefinitions
       parameters:
       - name: parent
         in: path
@@ -6973,7 +6964,7 @@ paths:
                 $ref: '#/components/schemas/tcn.org.billing.ratedefinition.v1alpha5.ListDefaultRateDefinitionsResponse'
     post:
       tags:
-      - tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService
+      - RateDefinitionService
       summary: CreateDefaultRateDefinition
       description: "CreateDefaultRateDefinition creates a new default draft rate definition.\n
         Errors:\n   - grpc.AlreadyExists: A rate already exists for the specified
@@ -6981,7 +6972,7 @@ paths:
         The request is invalid.\n   - grpc.NotFound: The billing plan was not found.\n
         \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService.CreateDefaultRateDefinition
+      operationId: RateDefinitionService_CreateDefaultRateDefinition
       parameters:
       - name: parent
         in: path
@@ -7017,14 +7008,14 @@ paths:
   /tcn/org/billing/ratedefinition/v1alpha5/{name=defaultBillingPlans/*/defaultRateDefinitions/*}:
     get:
       tags:
-      - tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService
+      - RateDefinitionService
       summary: GetDefaultRateDefinition
       description: "GetDefaultRateDefinition gets a default rate definition.\n Errors:\n
         \  - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
         The request is invalid.\n   - grpc.NotFound: The rate was not found.\n   -
         grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService.GetDefaultRateDefinition
+      operationId: RateDefinitionService_GetDefaultRateDefinition
       parameters:
       - name: name
         in: path
@@ -7050,14 +7041,14 @@ paths:
                 $ref: '#/components/schemas/tcn.org.billing.ratedefinition.v1alpha5.DefaultRateDefinition'
     delete:
       tags:
-      - tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService
+      - RateDefinitionService
       summary: DeleteDefaultRateDefinition
       description: "DeleteDefaultRateDefinition deletes a default draft rate definition.\n
         Errors:\n   - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
         The request is invalid.\n   - grpc.NotFound: The rate was not found.\n   -
         grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService.DeleteDefaultRateDefinition
+      operationId: RateDefinitionService_DeleteDefaultRateDefinition
       parameters:
       - name: name
         in: path
@@ -7094,14 +7085,14 @@ paths:
   /tcn/org/billing/ratedefinition/v1alpha5/{name=orgs/*/billingPlans/*/rateDefinitions/*}:
     get:
       tags:
-      - tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService
+      - RateDefinitionService
       summary: GetRateDefinition
       description: "GetRateDefinition gets a rate definition.\n Errors:\n   - grpc.Internal:
         An internal error occurred.\n   - grpc.InvalidArgument: The request is invalid.\n
         \  - grpc.NotFound: The rate was not found.\n   - grpc.PermissionDenied: The
         caller does not have the required permissions.\n   - grpc.Unavailable: The
         operation is currently unavailable."
-      operationId: tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService.GetRateDefinition
+      operationId: RateDefinitionService_GetRateDefinition
       parameters:
       - name: name
         in: path
@@ -7127,13 +7118,13 @@ paths:
   /tcn/org/billing/ratedefinition/v1alpha5/{parent=orgs/*/billingPlans/*}/rateDefinitions:
     get:
       tags:
-      - tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService
+      - RateDefinitionService
       summary: ListRateDefinitions
       description: "ListRateDefinitions lists rate definitions.\n Errors:\n   - grpc.Internal:
         An internal error occurred.\n   - grpc.InvalidArgument: The request is invalid.\n
         \  - grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService.ListRateDefinitions
+      operationId: RateDefinitionService_ListRateDefinitions
       parameters:
       - name: parent
         in: path
@@ -7186,7 +7177,7 @@ paths:
   /tcn/org/billing/ratedefinition/v1alpha5/{name=orgs/*/billingPlans/*/rateDefinitions/*}:reset:
     post:
       tags:
-      - tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService
+      - RateDefinitionService
       summary: ResetRateDefinition
       description: "ResetRateDefinition resets a draft rate definition to the default
         rate definition value.\n Errors:\n   - grpc.Internal: An internal error occurred.\n
@@ -7194,7 +7185,7 @@ paths:
         rate was not found.\n   - grpc.PermissionDenied: The caller does not have
         the required permissions.\n   - grpc.Unavailable: The operation is currently
         unavailable."
-      operationId: tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService.ResetRateDefinition
+      operationId: RateDefinitionService_ResetRateDefinition
       parameters:
       - name: name
         in: path
@@ -7217,8 +7208,6 @@ paths:
                     is missing, the request will succeed\n but no action will be taken
                     on the server."
               title: ResetRateDefinitionRequest
-              required:
-              - name
               additionalProperties: false
               description: ResetRateDefinitionRequest -
         required: true
@@ -7238,14 +7227,14 @@ paths:
   /tcn/org/billing/ratedefinition/v1alpha5/{default_rate_definition.name=defaultBillingPlans/*/defaultRateDefinitions/*}:
     patch:
       tags:
-      - tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService
+      - RateDefinitionService
       summary: UpdateDefaultRateDefinition
       description: "UpdateDefaultRateDefinition updates a default draft rate definition.\n
         Errors:\n   - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
         The request is invalid.\n   - grpc.NotFound: The rate was not found.\n   -
         grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService.UpdateDefaultRateDefinition
+      operationId: RateDefinitionService_UpdateDefaultRateDefinition
       parameters:
       - name: default_rate_definition.name
         in: path
@@ -7278,14 +7267,14 @@ paths:
   /tcn/org/billing/ratedefinition/v1alpha5/{rate_definition.name=orgs/*/billingPlans/*/rateDefinitions/*}:
     patch:
       tags:
-      - tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService
+      - RateDefinitionService
       summary: UpdateRateDefinition
       description: "UpdateRateDefinition updates a draft rate definition.\n Errors:\n
         \  - grpc.Internal: An internal error occurred.\n   - grpc.InvalidArgument:
         The request is invalid.\n   - grpc.NotFound: The rate was not found.\n   -
         grpc.PermissionDenied: The caller does not have the required permissions.\n
         \  - grpc.Unavailable: The operation is currently unavailable."
-      operationId: tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService.UpdateRateDefinition
+      operationId: RateDefinitionService_UpdateRateDefinition
       parameters:
       - name: rate_definition.name
         in: path
@@ -7318,10 +7307,10 @@ paths:
   /tcn/org/exiles/v1alpha1/{parent=regions/*/orgs/*}/exileCertificates:
     get:
       tags:
-      - tcn.org.exiles.v1alpha1.ExilesService
+      - ExilesService
       summary: ListExileCertificates
       description: Method to list exile certificates
-      operationId: tcn.org.exiles.v1alpha1.ExilesService.ListExileCertificates
+      operationId: ExilesService_ListExileCertificates
       parameters:
       - name: parent
         in: path
@@ -7361,11 +7350,11 @@ paths:
                 $ref: '#/components/schemas/tcn.org.exiles.v1alpha1.ListExileCertificatesResponse'
     post:
       tags:
-      - tcn.org.exiles.v1alpha1.ExilesService
+      - ExilesService
       summary: CreateExileCertificate
       description: "CreateExileCertificate creates a new TLS certificate and\n returns
         the exile ceritificate for the current organization."
-      operationId: tcn.org.exiles.v1alpha1.ExilesService.CreateExileCertificate
+      operationId: ExilesService_CreateExileCertificate
       parameters:
       - name: parent
         in: path
@@ -7399,10 +7388,10 @@ paths:
   /tcn/org/exiles/v1alpha1/{name=regions/*/orgs/*/exileCertificates/*}:
     get:
       tags:
-      - tcn.org.exiles.v1alpha1.ExilesService
+      - ExilesService
       summary: GetExileCertificate
       description: Method to get an exile certificate
-      operationId: tcn.org.exiles.v1alpha1.ExilesService.GetExileCertificate
+      operationId: ExilesService_GetExileCertificate
       parameters:
       - name: name
         in: path
@@ -7428,11 +7417,11 @@ paths:
   /tcn/org/exiles/v1alpha1/{parent=regions/*/orgs/*/exileCertificates/*}:
     post:
       tags:
-      - tcn.org.exiles.v1alpha1.ExilesService
-      - tcn.org.exiles.v1alpha1.ExilesService
+      - ExilesService
+      - ExilesService
       summary: RotateExileCertificate
       description: RotateExileCertificate rotates the certificate info
-      operationId: tcn.org.exiles.v1alpha1.ExilesService.RevokeExileCertificate
+      operationId: ExilesService_RevokeExileCertificate
       responses:
         default:
           description: Error
@@ -7449,10 +7438,10 @@ paths:
   /tcn/org/huntgroups/v1alpha1/{name=orgs/*/regions/*/complianceMetadataScripts/*}:
     get:
       tags:
-      - tcn.org.huntgroups.v1alpha1.HuntgroupsService
+      - HuntgroupsService
       summary: GetComplianceMetadataScript
       description: Method to get a Compliance Metadata Script.
-      operationId: tcn.org.huntgroups.v1alpha1.HuntgroupsService.GetComplianceMetadataScript
+      operationId: HuntgroupsService_GetComplianceMetadataScript
       parameters:
       - name: name
         in: path
@@ -7477,10 +7466,10 @@ paths:
                 $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ComplianceMetadataScript'
     delete:
       tags:
-      - tcn.org.huntgroups.v1alpha1.HuntgroupsService
+      - HuntgroupsService
       summary: DeleteComplianceMetadataScript
       description: Method to delete a script.
-      operationId: tcn.org.huntgroups.v1alpha1.HuntgroupsService.DeleteComplianceMetadataScript
+      operationId: HuntgroupsService_DeleteComplianceMetadataScript
       parameters:
       - name: name
         in: path
@@ -7506,10 +7495,10 @@ paths:
   /tcn/org/huntgroups/v1alpha1/{compliance_metadata_script.name=orgs/*/regions/*/complianceMetadataScripts/*}:
     patch:
       tags:
-      - tcn.org.huntgroups.v1alpha1.HuntgroupsService
+      - HuntgroupsService
       summary: UpdateComplianceMetadataScript
       description: Method to update Compliance Metadata Script.
-      operationId: tcn.org.huntgroups.v1alpha1.HuntgroupsService.UpdateComplianceMetadataScript
+      operationId: HuntgroupsService_UpdateComplianceMetadataScript
       parameters:
       - name: compliance_metadata_script.name
         in: path
@@ -7542,10 +7531,10 @@ paths:
   /tcn/org/huntgroups/v1alpha1/{parent=orgs/*/regions/*}/complianceMetadataScripts:
     get:
       tags:
-      - tcn.org.huntgroups.v1alpha1.HuntgroupsService
+      - HuntgroupsService
       summary: ListComplianceMetadataScripts
       description: Method to list compliance metadata scripts.
-      operationId: tcn.org.huntgroups.v1alpha1.HuntgroupsService.ListComplianceMetadataScripts
+      operationId: HuntgroupsService_ListComplianceMetadataScripts
       parameters:
       - name: parent
         in: path
@@ -7600,10 +7589,10 @@ paths:
                 $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ListComplianceMetadataScriptsResponse'
     post:
       tags:
-      - tcn.org.huntgroups.v1alpha1.HuntgroupsService
+      - HuntgroupsService
       summary: CreateComplianceMetadataScript
       description: Method to create a script.
-      operationId: tcn.org.huntgroups.v1alpha1.HuntgroupsService.CreateComplianceMetadataScript
+      operationId: HuntgroupsService_CreateComplianceMetadataScript
       parameters:
       - name: parent
         in: path
@@ -7637,10 +7626,10 @@ paths:
   /tcn/org/idp/v1alpha1/{name=regions/*/orgs/*/idpClients/*}:
     get:
       tags:
-      - tcn.org.idp.v1alpha1.IdpClientService
+      - IdpClientService
       summary: GetIdpClient
       description: Method to get an IdpClient
-      operationId: tcn.org.idp.v1alpha1.IdpClientService.GetIdpClient
+      operationId: IdpClientService_GetIdpClient
       parameters:
       - name: name
         in: path
@@ -7665,10 +7654,10 @@ paths:
                 $ref: '#/components/schemas/tcn.org.idp.v1alpha1.IdpClient'
     delete:
       tags:
-      - tcn.org.idp.v1alpha1.IdpClientService
+      - IdpClientService
       summary: DeleteIdpClient
       description: Method for deleting a idpClient
-      operationId: tcn.org.idp.v1alpha1.IdpClientService.DeleteIdpClient
+      operationId: IdpClientService_DeleteIdpClient
       parameters:
       - name: name
         in: path
@@ -7694,10 +7683,10 @@ paths:
   /tcn/org/idp/v1alpha1/{parent=regions/*/orgs/*}/idpClients:
     get:
       tags:
-      - tcn.org.idp.v1alpha1.IdpClientService
+      - IdpClientService
       summary: ListIdpClients
       description: Method to list idpClients
-      operationId: tcn.org.idp.v1alpha1.IdpClientService.ListIdpClients
+      operationId: IdpClientService_ListIdpClients
       parameters:
       - name: parent
         in: path
@@ -7737,10 +7726,10 @@ paths:
                 $ref: '#/components/schemas/tcn.org.idp.v1alpha1.ListIdpClientsResponse'
     post:
       tags:
-      - tcn.org.idp.v1alpha1.IdpClientService
+      - IdpClientService
       summary: CreateIdpClient
       description: Method for creating a idpClient
-      operationId: tcn.org.idp.v1alpha1.IdpClientService.CreateIdpClient
+      operationId: IdpClientService_CreateIdpClient
       parameters:
       - name: parent
         in: path
@@ -7774,10 +7763,10 @@ paths:
   /tcn/org/idp/v1alpha1/{idp_client.name=regions/*/orgs/*/idpClients/*}:
     patch:
       tags:
-      - tcn.org.idp.v1alpha1.IdpClientService
+      - IdpClientService
       summary: UpdateIdpClient
       description: Method for updating a idpClient
-      operationId: tcn.org.idp.v1alpha1.IdpClientService.UpdateIdpClient
+      operationId: IdpClientService_UpdateIdpClient
       parameters:
       - name: idp_client.name
         in: path
@@ -7810,10 +7799,10 @@ paths:
   /tcn/org/organizations/v1alpha1/{name=organizations/*}:
     get:
       tags:
-      - tcn.org.organizations.v1alpha1.OrganizationsService
+      - OrganizationsService
       summary: GetOrganization
       description: GetOrganization is a method to get an organization.
-      operationId: tcn.org.organizations.v1alpha1.OrganizationsService.GetOrganization
+      operationId: OrganizationsService_GetOrganization
       parameters:
       - name: name
         in: path
@@ -7839,10 +7828,10 @@ paths:
   /tcn/org/organizations/v1alpha1/{organization.name=organizations/*}:
     patch:
       tags:
-      - tcn.org.organizations.v1alpha1.OrganizationsService
+      - OrganizationsService
       summary: UpdateOrganization
       description: UpdateOrganization is a method to update an organization.
-      operationId: tcn.org.organizations.v1alpha1.OrganizationsService.UpdateOrganization
+      operationId: OrganizationsService_UpdateOrganization
       parameters:
       - name: organization.name
         in: path
@@ -7875,7 +7864,7 @@ paths:
   /tcn/org/organizations/v1alpha1/organizations:
     get:
       tags:
-      - tcn.org.organizations.v1alpha1.OrganizationsService
+      - OrganizationsService
       summary: ListOrganizations
       description: "(-- api-linter: core::0132::method-signature=disabled\n     aip.dev/not-precedent:
         We need to do this because organizations is a top level resource with no parent.\n
@@ -7883,7 +7872,7 @@ paths:
         core::0132::http-uri-parent=disabled\n     aip.dev/not-precedent: We need
         to do this because there is no parent. --)\n ListOrganizations is a method
         to list organizations."
-      operationId: tcn.org.organizations.v1alpha1.OrganizationsService.ListOrganizations
+      operationId: OrganizationsService_ListOrganizations
       parameters:
       - name: page_size
         in: query
@@ -7932,13 +7921,13 @@ paths:
                 $ref: '#/components/schemas/tcn.org.organizations.v1alpha1.ListOrganizationsResponse'
     post:
       tags:
-      - tcn.org.organizations.v1alpha1.OrganizationsService
+      - OrganizationsService
       summary: CreateOrganization
       description: "(-- api-linter: core::0133::method-signature=disabled\n     aip.dev/not-precedent:
         We need to pass the allowed countries in the request\n     to create an organization.
         And it will be stored in the Organization Preferences. --)\n CreateOrganization
         is a method to create an organization."
-      operationId: tcn.org.organizations.v1alpha1.OrganizationsService.CreateOrganization
+      operationId: OrganizationsService_CreateOrganization
       requestBody:
         description: The organization to create.
         content:
@@ -7963,11 +7952,11 @@ paths:
   /tcn/org/organizations/v1alpha1/organizations:archiveOrganization:
     post:
       tags:
-      - tcn.org.organizations.v1alpha1.OrganizationsService
+      - OrganizationsService
       summary: ArchiveOrganization
       description: "ArchiveOrganization is a method to archive an organization.\n
         An archived organization effectively disappears, but isn't deleted."
-      operationId: tcn.org.organizations.v1alpha1.OrganizationsService.ArchiveOrganization
+      operationId: OrganizationsService_ArchiveOrganization
       requestBody:
         content:
           application/json:
@@ -7990,10 +7979,10 @@ paths:
   /tcn/org/organizations/v1alpha1/organizations:unArchiveOrganization:
     post:
       tags:
-      - tcn.org.organizations.v1alpha1.OrganizationsService
+      - OrganizationsService
       summary: UnArchiveOrganization
       description: UnArchiveOrganization is a method to restore an archived organization.
-      operationId: tcn.org.organizations.v1alpha1.OrganizationsService.UnArchiveOrganization
+      operationId: OrganizationsService_UnArchiveOrganization
       requestBody:
         content:
           application/json:
@@ -8016,11 +8005,11 @@ paths:
   /tcn/org/organizations/v1alpha1/{name=organizations/*}/lastScheduledDate:
     get:
       tags:
-      - tcn.org.organizations.v1alpha1.OrganizationsService
+      - OrganizationsService
       summary: GetLastScheduledDate
       description: GetLastScheduledDate is a method to get the last scheduled date
         for an organization.
-      operationId: tcn.org.organizations.v1alpha1.OrganizationsService.GetLastScheduledDate
+      operationId: OrganizationsService_GetLastScheduledDate
       parameters:
       - name: name
         in: path
@@ -8048,11 +8037,11 @@ paths:
   /tcn/org/organizations/v1alpha1/{name=organizations/*}:streamOwnedOrganizations:
     get:
       tags:
-      - tcn.org.organizations.v1alpha1.OrganizationsService
+      - OrganizationsService
       summary: StreamOwnedOrganizations
       description: StreamOwnedOrganizations is a method to list all organizations
         under the p3 hierarchy.
-      operationId: tcn.org.organizations.v1alpha1.OrganizationsService.StreamOwnedOrganizations
+      operationId: OrganizationsService_StreamOwnedOrganizations
       parameters:
       - name: name
         in: path
@@ -8080,10 +8069,10 @@ paths:
   /tcn/org/permissions/v1alpha1/{name=orgs/*/permissionGroups/*}:
     get:
       tags:
-      - tcn.org.permissions.v1alpha1.PermissionsService
+      - PermissionsService
       summary: GetPermissionGroup
       description: Method to get a permission group
-      operationId: tcn.org.permissions.v1alpha1.PermissionsService.GetPermissionGroup
+      operationId: PermissionsService_GetPermissionGroup
       parameters:
       - name: name
         in: path
@@ -8108,10 +8097,10 @@ paths:
                 $ref: '#/components/schemas/tcn.org.permissions.v1alpha1.PermissionGroup'
     delete:
       tags:
-      - tcn.org.permissions.v1alpha1.PermissionsService
+      - PermissionsService
       summary: DeletePermissionGroup
       description: Method to delete a permission group
-      operationId: tcn.org.permissions.v1alpha1.PermissionsService.DeletePermissionGroup
+      operationId: PermissionsService_DeletePermissionGroup
       parameters:
       - name: name
         in: path
@@ -8137,10 +8126,10 @@ paths:
   /tcn/org/permissions/v1alpha1/{parent=orgs/*/permissionGroups}:
     get:
       tags:
-      - tcn.org.permissions.v1alpha1.PermissionsService
+      - PermissionsService
       summary: ListPermissionGroups
       description: Method to list permission groups
-      operationId: tcn.org.permissions.v1alpha1.PermissionsService.ListPermissionGroups
+      operationId: PermissionsService_ListPermissionGroups
       parameters:
       - name: parent
         in: path
@@ -8188,10 +8177,10 @@ paths:
   /tcn/org/permissions/v1alpha1/{parent=orgs/*}/permissionGroups:
     post:
       tags:
-      - tcn.org.permissions.v1alpha1.PermissionsService
+      - PermissionsService
       summary: CreatePermissionGroup
       description: Method to create a permission group
-      operationId: tcn.org.permissions.v1alpha1.PermissionsService.CreatePermissionGroup
+      operationId: PermissionsService_CreatePermissionGroup
       parameters:
       - name: parent
         in: path
@@ -8225,10 +8214,10 @@ paths:
   /tcn/org/permissions/v1alpha1/{permission_group.name=orgs/*/permissionGroups/*}:
     patch:
       tags:
-      - tcn.org.permissions.v1alpha1.PermissionsService
+      - PermissionsService
       summary: UpdatePermissionGroup
       description: Method to update a permission group
-      operationId: tcn.org.permissions.v1alpha1.PermissionsService.UpdatePermissionGroup
+      operationId: PermissionsService_UpdatePermissionGroup
       parameters:
       - name: permission_group.name
         in: path
@@ -8261,11 +8250,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/adminClientPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetAdminClientPreferences
       description: GetAdminClientPreferences returns the admin client preferences
         for the organization.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetAdminClientPreferences
+      operationId: PreferencesService_GetAdminClientPreferences
       parameters:
       - name: name
         in: path
@@ -8291,11 +8280,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{admin_client_preferences.name=orgs/*/adminClientPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateAdminClientPreferences
       description: UpdateAdminClientPreferences updates the admin client preferences
         for the organization.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateAdminClientPreferences
+      operationId: PreferencesService_UpdateAdminClientPreferences
       parameters:
       - name: admin_client_preferences.name
         in: path
@@ -8328,10 +8317,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/agentPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetAgentPreferences
       description: "AgentPreferences\n\n Method to get the agent preferences"
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetAgentPreferences
+      operationId: PreferencesService_GetAgentPreferences
       parameters:
       - name: name
         in: path
@@ -8357,10 +8346,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{agent_preferences.name=orgs/*/agentPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateAgentPreferences
       description: Method to update agent preferences
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateAgentPreferences
+      operationId: PreferencesService_UpdateAgentPreferences
       parameters:
       - name: agent_preferences.name
         in: path
@@ -8393,10 +8382,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/agentQuickViewPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetAgentQuickViewPreferences
       description: Method to get the agent quick view preferences
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetAgentQuickViewPreferences
+      operationId: PreferencesService_GetAgentQuickViewPreferences
       parameters:
       - name: name
         in: path
@@ -8422,10 +8411,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{agent_quick_view_preferences.name=orgs/*/agentQuickViewPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateAgentQuickViewPreferences
       description: Method to update agent quick view preferences
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateAgentQuickViewPreferences
+      operationId: PreferencesService_UpdateAgentQuickViewPreferences
       parameters:
       - name: agent_quick_view_preferences.name
         in: path
@@ -8458,10 +8447,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/authenticationPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetAuthenticationPreferences
       description: Method to get the authentication preferences
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetAuthenticationPreferences
+      operationId: PreferencesService_GetAuthenticationPreferences
       parameters:
       - name: name
         in: path
@@ -8487,10 +8476,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{authentication_preferences.name=orgs/*/authenticationPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateAuthenticationPreferences
       description: Method to update authentication preferences
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateAuthenticationPreferences
+      operationId: PreferencesService_UpdateAuthenticationPreferences
       parameters:
       - name: authentication_preferences.name
         in: path
@@ -8523,10 +8512,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/broadcastPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetBroadcastPreferences
       description: Method to get the broadcast preferences
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetBroadcastPreferences
+      operationId: PreferencesService_GetBroadcastPreferences
       parameters:
       - name: name
         in: path
@@ -8552,10 +8541,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{broadcast_preferences.name=orgs/*/broadcastPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateBroadcastPreferences
       description: Method to update broadcast preferences
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateBroadcastPreferences
+      operationId: PreferencesService_UpdateBroadcastPreferences
       parameters:
       - name: broadcast_preferences.name
         in: path
@@ -8588,10 +8577,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/businessPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetBusinessPreferences
       description: Method to get the business preferences
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetBusinessPreferences
+      operationId: PreferencesService_GetBusinessPreferences
       parameters:
       - name: name
         in: path
@@ -8617,10 +8606,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{business_preferences.name=orgs/*/businessPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateBusinessPreferences
       description: Method to update business preferences
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateBusinessPreferences
+      operationId: PreferencesService_UpdateBusinessPreferences
       parameters:
       - name: business_preferences.name
         in: path
@@ -8653,11 +8642,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/compliancePreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetCompliancePreferences
       description: GetCompliancePreferences returns the compliance preferences for
         the organization.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetCompliancePreferences
+      operationId: PreferencesService_GetCompliancePreferences
       parameters:
       - name: name
         in: path
@@ -8683,11 +8672,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{compliance_preferences.name=orgs/*/compliancePreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateCompliancePreferences
       description: UpdateCompliancePreferences updates the compliance preferences
         for the organization.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateCompliancePreferences
+      operationId: PreferencesService_UpdateCompliancePreferences
       parameters:
       - name: compliance_preferences.name
         in: path
@@ -8720,10 +8709,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/contactPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetContactPreferences
       description: GetContactPreferences returns the contact preferences for the organization.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetContactPreferences
+      operationId: PreferencesService_GetContactPreferences
       parameters:
       - name: name
         in: path
@@ -8749,11 +8738,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{contact_preferences.name=orgs/*/contactPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateContactPreferences
       description: UpdateContactPreferences updates the contact preferences for the
         organization.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateContactPreferences
+      operationId: PreferencesService_UpdateContactPreferences
       parameters:
       - name: contact_preferences.name
         in: path
@@ -8786,11 +8775,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/dashboardGeneralPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetDashboardGeneralPreferences
       description: GetDashboardGeneralPreferences returns the dashboard general preferences
         for the organization.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetDashboardGeneralPreferences
+      operationId: PreferencesService_GetDashboardGeneralPreferences
       parameters:
       - name: name
         in: path
@@ -8816,11 +8805,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{dashboard_general_preferences.name=orgs/*/dashboardGeneralPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateDashboardGeneralPreferences
       description: UpdateDashboardGeneralPreferences updates the dashboard general
         preferences for the organization.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateDashboardGeneralPreferences
+      operationId: PreferencesService_UpdateDashboardGeneralPreferences
       parameters:
       - name: dashboard_general_preferences.name
         in: path
@@ -8853,11 +8842,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/dashboardQueuePreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetDashboardQueuePreferences
       description: GetDashboardQueuePreferences returns the dashboard queue preferences
         for the organization.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetDashboardQueuePreferences
+      operationId: PreferencesService_GetDashboardQueuePreferences
       parameters:
       - name: name
         in: path
@@ -8883,11 +8872,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{dashboard_queue_preferences.name=orgs/*/dashboardQueuePreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateDashboardQueuePreferences
       description: UpdateDashboardQueuePreferences updates the dashboard queue preferences
         for the organization.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateDashboardQueuePreferences
+      operationId: PreferencesService_UpdateDashboardQueuePreferences
       parameters:
       - name: dashboard_queue_preferences.name
         in: path
@@ -8920,11 +8909,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/emailSmsPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetEmailSmsPreferences
       description: GetEmailSmsPreferences returns the email sms preferences for the
         organization.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetEmailSmsPreferences
+      operationId: PreferencesService_GetEmailSmsPreferences
       parameters:
       - name: name
         in: path
@@ -8950,11 +8939,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{email_sms_preferences.name=orgs/*/emailSmsPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateEmailSmsPreferences
       description: UpdateEmailSmsPreferencesPreferences updates the email sms preferences
         for the organization.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateEmailSmsPreferences
+      operationId: PreferencesService_UpdateEmailSmsPreferences
       parameters:
       - name: email_sms_preferences.name
         in: path
@@ -8987,12 +8976,12 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/endOfDayPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetEndOfDayPreferences
       description: "(-- api-linter: core::0136::prepositions=disabled\n     aip.dev/not-precedent:
         We need to do this because the name of the preference. --)\n GetEndOfDayPreferences
         returns the end of day preferences for the organization."
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetEndOfDayPreferences
+      operationId: PreferencesService_GetEndOfDayPreferences
       parameters:
       - name: name
         in: path
@@ -9018,12 +9007,12 @@ paths:
   /tcn/org/preferences/v1alpha1/{end_of_day_preferences.name=orgs/*/endOfDayPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateEndOfDayPreferences
       description: "(-- api-linter: core::0136::prepositions=disabled\n     aip.dev/not-precedent:
         We need to do this because the name of the preference. --)\n UpdateEndOfDayPreferences
         updates the end of day preferences for the organization."
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateEndOfDayPreferences
+      operationId: PreferencesService_UpdateEndOfDayPreferences
       parameters:
       - name: end_of_day_preferences.name
         in: path
@@ -9056,10 +9045,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/organizationPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetOrganizationPreferences
       description: GetOrganizationPreferences returns the organization preferences.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetOrganizationPreferences
+      operationId: PreferencesService_GetOrganizationPreferences
       parameters:
       - name: name
         in: path
@@ -9085,10 +9074,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{organization_preferences.name=orgs/*/organizationPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateOrganizationPreferences
       description: UpdateOrganizationPreferences updates the organization preferences.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateOrganizationPreferences
+      operationId: PreferencesService_UpdateOrganizationPreferences
       parameters:
       - name: organization_preferences.name
         in: path
@@ -9121,10 +9110,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/phonePreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetPhonePreferences
       description: GetPhonePreferences returns the phone preferences.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetPhonePreferences
+      operationId: PreferencesService_GetPhonePreferences
       parameters:
       - name: name
         in: path
@@ -9150,10 +9139,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{phone_preferences.name=orgs/*/phonePreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdatePhonePreferences
       description: UpdatePhonePreferences updates the phone preferences.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdatePhonePreferences
+      operationId: PreferencesService_UpdatePhonePreferences
       parameters:
       - name: phone_preferences.name
         in: path
@@ -9186,10 +9175,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/recordingPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetRecordingPreferences
       description: GetRecordingPreferences returns all recording options for an org.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetRecordingPreferences
+      operationId: PreferencesService_GetRecordingPreferences
       parameters:
       - name: name
         in: path
@@ -9215,11 +9204,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{recording_preferences.name=orgs/*/recordPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateRecordingPreferences
       description: UpdateRecordingPreferences updates Recording preferences for an
         org.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateRecordingPreferences
+      operationId: PreferencesService_UpdateRecordingPreferences
       parameters:
       - name: recording_preferences.name
         in: path
@@ -9252,11 +9241,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/reportFilterPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetReportFilterPreferences
       description: GetReportFilterPreferences returns all report filter options for
         an org.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetReportFilterPreferences
+      operationId: PreferencesService_GetReportFilterPreferences
       parameters:
       - name: name
         in: path
@@ -9282,11 +9271,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{report_filter_preferences.name=orgs/*/reportFilterPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateReportFilterPreferences
       description: UpdateReportFilterPreferences updates report filter preferences
         for an org.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateReportFilterPreferences
+      operationId: PreferencesService_UpdateReportFilterPreferences
       parameters:
       - name: report_filter_preferences.name
         in: path
@@ -9319,10 +9308,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/schedulePreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetSchedulePreferences
       description: GetSchedulePreferences returns the schedule preferences.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetSchedulePreferences
+      operationId: PreferencesService_GetSchedulePreferences
       parameters:
       - name: name
         in: path
@@ -9348,10 +9337,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{schedule_preferences.name=orgs/*/schedulePreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateSchedulePreferences
       description: UpdateSchedulePreferences updates the schedule preferences.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateSchedulePreferences
+      operationId: PreferencesService_UpdateSchedulePreferences
       parameters:
       - name: schedule_preferences.name
         in: path
@@ -9384,10 +9373,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/scorecardsPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetScorecardsPreferences
       description: GetScorecardsPreferences returns the score card preferences.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetScorecardsPreferences
+      operationId: PreferencesService_GetScorecardsPreferences
       parameters:
       - name: name
         in: path
@@ -9413,10 +9402,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{scorecards_preferences.name=orgs/*/scorecardsPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateScorecardsPreferences
       description: UpdateScorecardsPreferences updates the score cards preferences.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateScorecardsPreferences
+      operationId: PreferencesService_UpdateScorecardsPreferences
       parameters:
       - name: scorecards_preferences.name
         in: path
@@ -9449,10 +9438,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/voiceAnalyticsPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetVoiceAnalyticsPreferences
       description: GetVoiceAnalyticsPreferences returns the voice analytics preferences.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetVoiceAnalyticsPreferences
+      operationId: PreferencesService_GetVoiceAnalyticsPreferences
       parameters:
       - name: name
         in: path
@@ -9478,10 +9467,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{voice_analytics_preferences.name=orgs/*/voiceAnalyticsPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateVoiceAnalyticsPreferences
       description: UpdateVoiceAnalyticsPreferences updates the voice analytics preferences.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateVoiceAnalyticsPreferences
+      operationId: PreferencesService_UpdateVoiceAnalyticsPreferences
       parameters:
       - name: voice_analytics_preferences.name
         in: path
@@ -9515,11 +9504,11 @@ paths:
   /tcn/org/preferences/v1alpha1/{parent=orgs/*}/voiceAnalyticsPreferences:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: ListVoiceAnalyticsPreferences
       description: ListVoiceAnalyticsPreferences returns the voice analytics preferences
         in the current region.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.ListVoiceAnalyticsPreferences
+      operationId: PreferencesService_ListVoiceAnalyticsPreferences
       parameters:
       - name: parent
         in: path
@@ -9566,10 +9555,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{name=orgs/*/webhookPreferences/*}:
     get:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: GetWebhookPreferences
       description: GetWebhookPreferences returns the webhook preferences.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.GetWebhookPreferences
+      operationId: PreferencesService_GetWebhookPreferences
       parameters:
       - name: name
         in: path
@@ -9595,10 +9584,10 @@ paths:
   /tcn/org/preferences/v1alpha1/{webhook_preferences.name=orgs/*/webhookPreferences/*}:
     patch:
       tags:
-      - tcn.org.preferences.v1alpha1.PreferencesService
+      - PreferencesService
       summary: UpdateWebhookPreferences
       description: UpdateWebhookPreferences updates the webhook preferences.
-      operationId: tcn.org.preferences.v1alpha1.PreferencesService.UpdateWebhookPreferences
+      operationId: PreferencesService_UpdateWebhookPreferences
       parameters:
       - name: webhook_preferences.name
         in: path
@@ -9631,10 +9620,10 @@ paths:
   /tcn/org/skills/v1alpha1/{parent=orgs/*}/skillgroups:
     get:
       tags:
-      - tcn.org.skills.v1alpha1.SkillsService
+      - SkillsService
       summary: ListSkillGroups
       description: Method to list skill groups
-      operationId: tcn.org.skills.v1alpha1.SkillsService.ListSkillGroups
+      operationId: SkillsService_ListSkillGroups
       parameters:
       - name: parent
         in: path
@@ -9682,10 +9671,10 @@ paths:
   /tcn/org/skills/v1alpha1/{name=orgs/*/skillGroups/*}:
     get:
       tags:
-      - tcn.org.skills.v1alpha1.SkillsService
+      - SkillsService
       summary: GetSkillGroup
       description: Method to get a skill group
-      operationId: tcn.org.skills.v1alpha1.SkillsService.GetSkillGroup
+      operationId: SkillsService_GetSkillGroup
       parameters:
       - name: name
         in: path
@@ -9710,10 +9699,10 @@ paths:
                 $ref: '#/components/schemas/tcn.org.skills.v1alpha1.SkillGroup'
     delete:
       tags:
-      - tcn.org.skills.v1alpha1.SkillsService
+      - SkillsService
       summary: DeleteSkillGroup
       description: Method to delete a skill group
-      operationId: tcn.org.skills.v1alpha1.SkillsService.DeleteSkillGroup
+      operationId: SkillsService_DeleteSkillGroup
       parameters:
       - name: name
         in: path
@@ -9739,10 +9728,10 @@ paths:
   /tcn/org/skills/v1alpha1/{parent=orgs/*}/skillGroups:
     post:
       tags:
-      - tcn.org.skills.v1alpha1.SkillsService
+      - SkillsService
       summary: CreateSkillGroup
       description: Method to create a skill group
-      operationId: tcn.org.skills.v1alpha1.SkillsService.CreateSkillGroup
+      operationId: SkillsService_CreateSkillGroup
       parameters:
       - name: parent
         in: path
@@ -9776,10 +9765,10 @@ paths:
   /tcn/org/skills/v1alpha1/{skill_group.name=orgs/*/skillGroups/*}:
     patch:
       tags:
-      - tcn.org.skills.v1alpha1.SkillsService
+      - SkillsService
       summary: UpdateSkillGroup
       description: Method to update a skill group
-      operationId: tcn.org.skills.v1alpha1.SkillsService.UpdateSkillGroup
+      operationId: SkillsService_UpdateSkillGroup
       parameters:
       - name: skill_group.name
         in: path
@@ -9812,11 +9801,11 @@ paths:
   /tcn/org/skills/v1alpha1/{name=orgs/*/skills/*}:removeSkillAllGroups:
     post:
       tags:
-      - tcn.org.skills.v1alpha1.SkillsService
+      - SkillsService
       summary: RemoveSkillAllGroups
       description: RemoveSkillAllGroups removes a skill from all skill groups which
         contain it.
-      operationId: tcn.org.skills.v1alpha1.SkillsService.RemoveSkillAllGroups
+      operationId: SkillsService_RemoveSkillAllGroups
       parameters:
       - name: name
         in: path
@@ -9842,10 +9831,10 @@ paths:
   /tcn/org/skills/v1alpha1/{name=orgs/*/skillGroups/*}:assign:
     post:
       tags:
-      - tcn.org.skills.v1alpha1.SkillsService
+      - SkillsService
       summary: AssignSkillGroup
       description: AssignSkillGroup assigns a user to the given skill group.
-      operationId: tcn.org.skills.v1alpha1.SkillsService.AssignSkillGroup
+      operationId: SkillsService_AssignSkillGroup
       requestBody:
         content:
           application/json:
@@ -9868,10 +9857,10 @@ paths:
   /tcn/org/skills/v1alpha1/{name=orgs/*/skillGroups/*}:revoke:
     post:
       tags:
-      - tcn.org.skills.v1alpha1.SkillsService
+      - SkillsService
       summary: RevokeSkillGroup
       description: RevokeSkillGroup revokes a user from the given skill group.
-      operationId: tcn.org.skills.v1alpha1.SkillsService.RevokeSkillGroup
+      operationId: SkillsService_RevokeSkillGroup
       requestBody:
         content:
           application/json:
@@ -9894,10 +9883,10 @@ paths:
   /tcn/org/skills/v1alpha1/{name=orgs/*/skillGroups/*}:addSkill:
     post:
       tags:
-      - tcn.org.skills.v1alpha1.SkillsService
+      - SkillsService
       summary: AddSkill
       description: AddSkill adds a skill to a skill group.
-      operationId: tcn.org.skills.v1alpha1.SkillsService.AddSkill
+      operationId: SkillsService_AddSkill
       parameters:
       - name: name
         in: path
@@ -9919,7 +9908,6 @@ paths:
                   $ref: '#/components/schemas/tcn.org.skills.v1alpha1.SkillGroup.SkillSet'
               title: AddSkillRequest
               required:
-              - name
               - skill_set
               additionalProperties: false
               description: Request message for the AddSkill rpc.
@@ -9940,10 +9928,10 @@ paths:
   /tcn/org/skills/v1alpha1/{name=orgs/*/skillGroups/*}:removeSkill:
     post:
       tags:
-      - tcn.org.skills.v1alpha1.SkillsService
+      - SkillsService
       summary: RemoveSkill
       description: RemoveSkill removes a skill from a skill group.
-      operationId: tcn.org.skills.v1alpha1.SkillsService.RemoveSkill
+      operationId: SkillsService_RemoveSkill
       parameters:
       - name: name
         in: path
@@ -9968,7 +9956,6 @@ paths:
                   description: The skill sid to remove from the skill group.
               title: RemoveSkillRequest
               required:
-              - name
               - skill_sid
               additionalProperties: false
               description: Request message for the RemoveSkill rpc.
@@ -9989,10 +9976,10 @@ paths:
   /tcn/org/tokens/v1alpha1/{parent=orgs/*}/apiTokens:
     get:
       tags:
-      - tcn.org.tokens.v1alpha1.TokensService
+      - TokensService
       summary: ListAPITokens
       description: Method to list API tokens
-      operationId: tcn.org.tokens.v1alpha1.TokensService.ListAPITokens
+      operationId: TokensService_ListAPITokens
       parameters:
       - name: parent
         in: path
@@ -10048,10 +10035,10 @@ paths:
   /tcn/org/tokens/v1alpha1/{name=orgs/*/apiTokens/*}:
     get:
       tags:
-      - tcn.org.tokens.v1alpha1.TokensService
+      - TokensService
       summary: GetAPIToken
       description: Method to get an API token
-      operationId: tcn.org.tokens.v1alpha1.TokensService.GetAPIToken
+      operationId: TokensService_GetAPIToken
       parameters:
       - name: name
         in: path
@@ -10077,10 +10064,10 @@ paths:
   /tcn/org/tokens/v1alpha1/{parent=orgs/*/apiTokens/*}:generate:
     post:
       tags:
-      - tcn.org.tokens.v1alpha1.TokensService
+      - TokensService
       summary: GenerateAPIToken
       description: Method to create an API token
-      operationId: tcn.org.tokens.v1alpha1.TokensService.GenerateAPIToken
+      operationId: TokensService_GenerateAPIToken
       parameters:
       - name: parent
         in: path
@@ -10114,10 +10101,10 @@ paths:
   /tcn/org/tokens/v1alpha1/{name=orgs/*/apiTokens/*}:revoke:
     post:
       tags:
-      - tcn.org.tokens.v1alpha1.TokensService
+      - TokensService
       summary: RevokeAPIToken
       description: Method to revoke an API token
-      operationId: tcn.org.tokens.v1alpha1.TokensService.RevokeAPIToken
+      operationId: TokensService_RevokeAPIToken
       parameters:
       - name: name
         in: path
@@ -10143,11 +10130,11 @@ paths:
   /tcn/org/tokens/v1alpha1/{name=orgs/*/apiTokens/*}:recordUse:
     post:
       tags:
-      - tcn.org.tokens.v1alpha1.TokensService
+      - TokensService
       summary: RecordAPITokenUse
       description: Records that an API token was used, updating its last use time
         to the current time
-      operationId: tcn.org.tokens.v1alpha1.TokensService.RecordAPITokenUse
+      operationId: TokensService_RecordAPITokenUse
       parameters:
       - name: name
         in: path
@@ -10173,13 +10160,13 @@ paths:
   /tcn/org/tokens/v1alpha1/keys:
     get:
       tags:
-      - tcn.org.tokens.v1alpha1.TokensService
+      - TokensService
       summary: ListKeys
       description: "Lists the jwks used for API token verification\n\n Disable list
         method lint rules, this isn't truly an AIP-132 'List' method in\n the sense
         that isn't explicitly associated with the resource itself.\n (-- api-linter:
         core::0132::request-message-name=disabled --)"
-      operationId: tcn.org.tokens.v1alpha1.TokensService.ListKeys
+      operationId: TokensService_ListKeys
       responses:
         default:
           description: Error
@@ -10196,12 +10183,12 @@ paths:
   /tcn/org/tokens/v1alpha1/{name=orgs/*/apiTokens/*}:sendExpirationReminders:
     post:
       tags:
-      - tcn.org.tokens.v1alpha1.TokensService
+      - TokensService
       summary: SendAPITokenExpirationReminders
       description: "Sends reminders to users to create new API tokens\n\n (-- api-linter:
         core::0136::request-message-name=disabled\n     api-linter: core::0136::response-message-name=disabled
         --)"
-      operationId: tcn.org.tokens.v1alpha1.TokensService.SendAPITokenExpirationReminders
+      operationId: TokensService_SendAPITokenExpirationReminders
       requestBody:
         content:
           application/json:
@@ -10224,11 +10211,11 @@ paths:
   /tcn/org/tokens/v1alpha1/{name=orgs/*/apiTokens/*}:authenticate:
     post:
       tags:
-      - tcn.org.tokens.v1alpha1.TokensService
+      - TokensService
       summary: AuthenticateAPIToken
       description: "Authenticates an API token\n\n (-- api-linter: core::0136::response-message-name=disabled
         --)"
-      operationId: tcn.org.tokens.v1alpha1.TokensService.AuthenticateAPIToken
+      operationId: TokensService_AuthenticateAPIToken
       requestBody:
         content:
           application/json:
@@ -10251,10 +10238,10 @@ paths:
   /tcn/org/users/v1alpha1/{name=orgs/*/users/*}:
     get:
       tags:
-      - tcn.org.users.v1alpha1.UsersService
+      - UsersService
       summary: GetUser
       description: Method to get a user
-      operationId: tcn.org.users.v1alpha1.UsersService.GetUser
+      operationId: UsersService_GetUser
       parameters:
       - name: name
         in: path
@@ -10280,10 +10267,10 @@ paths:
   /tcn/org/users/v1alpha1/{user.name=orgs/*/users/*}:
     patch:
       tags:
-      - tcn.org.users.v1alpha1.UsersService
+      - UsersService
       summary: UpdateUser
       description: Method to update a user
-      operationId: tcn.org.users.v1alpha1.UsersService.UpdateUser
+      operationId: UsersService_UpdateUser
       parameters:
       - name: user.name
         in: path
@@ -10316,10 +10303,10 @@ paths:
   /tcn/org/users/v1alpha1/{parent=orgs/*/users}:
     get:
       tags:
-      - tcn.org.users.v1alpha1.UsersService
+      - UsersService
       summary: ListUsers
       description: ListUsers is a method to list users.
-      operationId: tcn.org.users.v1alpha1.UsersService.ListUsers
+      operationId: UsersService_ListUsers
       parameters:
       - name: parent
         in: path
@@ -10376,10 +10363,10 @@ paths:
   /tcn/org/users/v1alpha1/users:archiveUser:
     post:
       tags:
-      - tcn.org.users.v1alpha1.UsersService
+      - UsersService
       summary: ArchiveUser
       description: Archives a user effectively disappears, but isn't deleted.
-      operationId: tcn.org.users.v1alpha1.UsersService.ArchiveUser
+      operationId: UsersService_ArchiveUser
       requestBody:
         content:
           application/json:
@@ -10402,10 +10389,10 @@ paths:
   /tcn/org/users/v1alpha1/users:unArchiveUser:
     post:
       tags:
-      - tcn.org.users.v1alpha1.UsersService
+      - UsersService
       summary: UnArchiveUser
       description: Restores an archived User.
-      operationId: tcn.org.users.v1alpha1.UsersService.UnArchiveUser
+      operationId: UsersService_UnArchiveUser
       requestBody:
         content:
           application/json:
@@ -10428,11 +10415,11 @@ paths:
   /tcn/org/users/v1alpha1/{parent=orgs/*}/users:
     post:
       tags:
-      - tcn.org.users.v1alpha1.UsersService
+      - UsersService
       summary: CreateUser
       description: "(-- api-linter: core::0133::method-signature=disabled\n     aip.dev/not-precedent:
         The password of the user is required\n --)\n Method to create an user"
-      operationId: tcn.org.users.v1alpha1.UsersService.CreateUser
+      operationId: UsersService_CreateUser
       parameters:
       - name: parent
         in: path
@@ -10466,10 +10453,10 @@ paths:
   /tcn/ruleengine/ruleset/v1alpha1/{name=orgs/*/ruleSet}:
     get:
       tags:
-      - tcn.ruleengine.ruleset.v1alpha1.RuleEngineService
+      - RuleEngineService
       summary: GetRuleSet
       description: GetRuleSet gets the rule set
-      operationId: tcn.ruleengine.ruleset.v1alpha1.RuleEngineService.GetRuleSet
+      operationId: RuleEngineService_GetRuleSet
       parameters:
       - name: name
         in: path
@@ -10495,10 +10482,10 @@ paths:
   /tcn/ruleengine/ruleset/v1alpha1/{rule_set.name=orgs/*/ruleSet}:
     patch:
       tags:
-      - tcn.ruleengine.ruleset.v1alpha1.RuleEngineService
+      - RuleEngineService
       summary: UpdateRuleSet
       description: UpdateRuleSet updates the rule set
-      operationId: tcn.ruleengine.ruleset.v1alpha1.RuleEngineService.UpdateRuleSet
+      operationId: RuleEngineService_UpdateRuleSet
       parameters:
       - name: rule_set.name
         in: path
@@ -10531,10 +10518,10 @@ paths:
   /tcn/ruleengine/ruleset/v1alpha1/{name=orgs/*}/eventMetadata:
     get:
       tags:
-      - tcn.ruleengine.ruleset.v1alpha1.RuleEngineService
+      - RuleEngineService
       summary: GetEventMetadata
       description: GetEventMetadata gets the event metadata
-      operationId: tcn.ruleengine.ruleset.v1alpha1.RuleEngineService.GetEventMetadata
+      operationId: RuleEngineService_GetEventMetadata
       parameters:
       - name: name
         in: path
@@ -10560,10 +10547,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{parent=orgs/*}/sla:
     post:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: CreateSla
       description: Method to create a Sla
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.CreateSla
+      operationId: TicketService_CreateSla
       parameters:
       - name: parent
         in: path
@@ -10597,10 +10584,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{parent=orgs/*}/slas:
     get:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: ListSlas
       description: Method to list Sla
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.ListSlas
+      operationId: TicketService_ListSlas
       parameters:
       - name: parent
         in: path
@@ -10648,10 +10635,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{name=orgs/*/slas/*}:
     get:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: GetSla
       description: Method to get a rpoject
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.GetSla
+      operationId: TicketService_GetSla
       parameters:
       - name: name
         in: path
@@ -10676,10 +10663,10 @@ paths:
                 $ref: '#/components/schemas/tcn.tickets.ticket.v1alpha1.Sla'
     delete:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: DeleteSla
       description: Method to delete a Sla
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.DeleteSla
+      operationId: TicketService_DeleteSla
       parameters:
       - name: name
         in: path
@@ -10705,10 +10692,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{sla.name=orgs/*/slas/*}:
     patch:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: UpdateSla
       description: Method to update a Sla
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.UpdateSla
+      operationId: TicketService_UpdateSla
       parameters:
       - name: sla.name
         in: path
@@ -10741,10 +10728,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{parent=orgs/*}/ticket:
     post:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: CreateTicket
       description: Public Method to create a ticket.
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.CreateTicket
+      operationId: TicketService_CreateTicket
       parameters:
       - name: parent
         in: path
@@ -10778,10 +10765,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{ticket.name=orgs/*/ticket/*}:
     patch:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: UpdateTicket
       description: Public Method to update a ticket.
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.UpdateTicket
+      operationId: TicketService_UpdateTicket
       parameters:
       - name: ticket.name
         in: path
@@ -10814,10 +10801,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{parent=orgs/*}/tickets:
     get:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: ListTickets
       description: Public method to list tickets
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.ListTickets
+      operationId: TicketService_ListTickets
       parameters:
       - name: parent
         in: path
@@ -10865,10 +10852,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{name=orgs/*/tickets/*}:close:
     get:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: CloseTicket
       description: Public Method to Close a ticket
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.CloseTicket
+      operationId: TicketService_CloseTicket
       parameters:
       - name: name
         in: path
@@ -10902,10 +10889,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{name=orgs/*/tickets/*}:
     get:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: GetTicket
       description: Public method to get ticket
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.GetTicket
+      operationId: TicketService_GetTicket
       parameters:
       - name: name
         in: path
@@ -10931,10 +10918,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{parent=orgs/*}/ticketAction:
     get:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: ListTicketActions
       description: Public method to list ticket_actions
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.ListTicketActions
+      operationId: TicketService_ListTicketActions
       parameters:
       - name: parent
         in: path
@@ -10981,10 +10968,10 @@ paths:
                 $ref: '#/components/schemas/tcn.tickets.ticket.v1alpha1.ListTicketActionsResponse'
     post:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: CreateTicketAction
       description: Public Method to create a ticket_action.
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.CreateTicketAction
+      operationId: TicketService_CreateTicketAction
       parameters:
       - name: parent
         in: path
@@ -11018,10 +11005,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{ticket_action.name=orgs/*/ticketAction/*}:
     patch:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: UpdateTicketAction
       description: Public Method to update a ticket_action.
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.UpdateTicketAction
+      operationId: TicketService_UpdateTicketAction
       parameters:
       - name: ticket_action.name
         in: path
@@ -11054,10 +11041,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{name=orgs/*/ticketActions/*}:close:
     get:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: CloseTicketAction
       description: Public Method to Close a ticket_action
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.CloseTicketAction
+      operationId: TicketService_CloseTicketAction
       parameters:
       - name: name
         in: path
@@ -11091,10 +11078,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{name=orgs/*/ticketActions/*}:
     get:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: GetTicketAction
       description: Public method to get ticket_action
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.GetTicketAction
+      operationId: TicketService_GetTicketAction
       parameters:
       - name: name
         in: path
@@ -11120,11 +11107,11 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{parent=orgs/*}/ticketTemplate:
     get:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: ListTicketTemplates
       description: "Public method to list ticket_templates\n (-- api-linter: core::0132::method-signature=disabled\n
         \    aip.dev/not-precedent: We need to do this because reasons. --)"
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.ListTicketTemplates
+      operationId: TicketService_ListTicketTemplates
       parameters:
       - name: parent
         in: path
@@ -11185,10 +11172,10 @@ paths:
                 $ref: '#/components/schemas/tcn.tickets.ticket.v1alpha1.ListTicketTemplatesResponse'
     post:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: CreateTicketTemplate
       description: Public Method to create a ticket_tempalte.
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.CreateTicketTemplate
+      operationId: TicketService_CreateTicketTemplate
       parameters:
       - name: parent
         in: path
@@ -11222,10 +11209,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{ticket_template.name=orgs/*/ticketTemplate/*}:
     patch:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: UpdateTicketTemplate
       description: Public Method to update a ticket_template.
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.UpdateTicketTemplate
+      operationId: TicketService_UpdateTicketTemplate
       parameters:
       - name: ticket_template.name
         in: path
@@ -11258,10 +11245,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{name=orgs/*/ticketTemplates/*}:
     get:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: GetTicketTemplate
       description: Public method to get ticket_template
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.GetTicketTemplate
+      operationId: TicketService_GetTicketTemplate
       parameters:
       - name: name
         in: path
@@ -11301,10 +11288,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{name=orgs/*/ticketTemplates/*}:assign:
     get:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: AssignTicketTemplate
       description: Public method to assign ticket_template
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.AssignTicketTemplate
+      operationId: TicketService_AssignTicketTemplate
       parameters:
       - name: name
         in: path
@@ -11340,11 +11327,11 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{parent=orgs/*}:
     get:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
+      - TicketService
       summary: ListSlaConditions
       description: Public method to list sla conditions
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.ListActions
+      operationId: TicketService_ListActions
       parameters:
       - name: parent
         in: path
@@ -11422,10 +11409,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{parent=orgs/*}/project:
     post:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: CreateProject
       description: Method to create a Project
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.CreateProject
+      operationId: TicketService_CreateProject
       parameters:
       - name: parent
         in: path
@@ -11459,10 +11446,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{parent=orgs/*}/projects:
     get:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: ListProjects
       description: Method to list Projects
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.ListProjects
+      operationId: TicketService_ListProjects
       parameters:
       - name: parent
         in: path
@@ -11510,10 +11497,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{name=orgs/*/projects/*}:
     get:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: GetProject
       description: Method to get a project
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.GetProject
+      operationId: TicketService_GetProject
       parameters:
       - name: name
         in: path
@@ -11538,10 +11525,10 @@ paths:
                 $ref: '#/components/schemas/tcn.tickets.ticket.v1alpha1.Project'
     delete:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: DeleteProject
       description: Method to delete a Project
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.DeleteProject
+      operationId: TicketService_DeleteProject
       parameters:
       - name: name
         in: path
@@ -11567,10 +11554,10 @@ paths:
   /tcn/tickets/ticket/v1alpha1/{project.name=orgs/*/projects/*}:
     patch:
       tags:
-      - tcn.tickets.ticket.v1alpha1.TicketService
+      - TicketService
       summary: UpdateProject
       description: Method to update a Project
-      operationId: tcn.tickets.ticket.v1alpha1.TicketService.UpdateProject
+      operationId: TicketService_UpdateProject
       parameters:
       - name: project.name
         in: path
@@ -11603,10 +11590,10 @@ paths:
   /tcn/wfo/scorecards/v1alpha1/{parent=orgs/*/regions/*}/categories:
     get:
       tags:
-      - tcn.wfo.scorecards.v1alpha1.ScorecardsService
+      - ScorecardsService
       summary: ListCategories
       description: ListCategories returns a list of categories.
-      operationId: tcn.wfo.scorecards.v1alpha1.ScorecardsService.ListCategories
+      operationId: ScorecardsService_ListCategories
       parameters:
       - name: parent
         in: path
@@ -11660,10 +11647,10 @@ paths:
                 $ref: '#/components/schemas/tcn.wfo.scorecards.v1alpha1.ListCategoriesResponse'
     post:
       tags:
-      - tcn.wfo.scorecards.v1alpha1.ScorecardsService
+      - ScorecardsService
       summary: CreateCategory
       description: CreateCategory creates a category.
-      operationId: tcn.wfo.scorecards.v1alpha1.ScorecardsService.CreateCategory
+      operationId: ScorecardsService_CreateCategory
       parameters:
       - name: parent
         in: path
@@ -11697,10 +11684,10 @@ paths:
   /tcn/wfo/scorecards/v1alpha1/{category.name=orgs/*/regions/*/categories/*}:
     patch:
       tags:
-      - tcn.wfo.scorecards.v1alpha1.ScorecardsService
+      - ScorecardsService
       summary: UpdateCategory
       description: UpdateCategory updates a category.
-      operationId: tcn.wfo.scorecards.v1alpha1.ScorecardsService.UpdateCategory
+      operationId: ScorecardsService_UpdateCategory
       parameters:
       - name: category.name
         in: path
@@ -11735,10 +11722,10 @@ paths:
   /tcn/wfo/scorecards/v1alpha1/{name=orgs/*/regions/*/categories/*}:
     get:
       tags:
-      - tcn.wfo.scorecards.v1alpha1.ScorecardsService
+      - ScorecardsService
       summary: GetCategory
       description: GetCategory returns a category.
-      operationId: tcn.wfo.scorecards.v1alpha1.ScorecardsService.GetCategory
+      operationId: ScorecardsService_GetCategory
       parameters:
       - name: name
         in: path
@@ -11763,10 +11750,10 @@ paths:
                 $ref: '#/components/schemas/tcn.wfo.scorecards.v1alpha1.Category'
     delete:
       tags:
-      - tcn.wfo.scorecards.v1alpha1.ScorecardsService
+      - ScorecardsService
       summary: DeleteCategory
       description: DeleteCategory deletes a category.
-      operationId: tcn.wfo.scorecards.v1alpha1.ScorecardsService.DeleteCategory
+      operationId: ScorecardsService_DeleteCategory
       parameters:
       - name: name
         in: path
@@ -11792,10 +11779,10 @@ paths:
   /tcn/wfo/vana/v1alpha1/{parent=orgs/*/regions/*/zones/*}/recordings:search:
     post:
       tags:
-      - tcn.wfo.vana.v1alpha1.RecordingService
+      - RecordingService
       summary: SearchRecordings
       description: Searches recordings.
-      operationId: tcn.wfo.vana.v1alpha1.RecordingService.SearchRecordings
+      operationId: RecordingService_SearchRecordings
       parameters:
       - name: parent
         in: path
@@ -11838,8 +11825,6 @@ paths:
                     read. Defaults to all fields.
                   $ref: '#/components/schemas/google.protobuf.FieldMask'
               title: SearchRecordingsRequest
-              required:
-              - parent
               additionalProperties: false
               description: The search recordings request.
         required: true
@@ -11859,10 +11844,10 @@ paths:
   /tcn/wfo/vana/v1alpha1/{recording=orgs/*/regions/*/zones/*/recordings/*}:generateRecordingDownloadUri:
     post:
       tags:
-      - tcn.wfo.vana.v1alpha1.RecordingService
+      - RecordingService
       summary: GenerateRecordingDownloadUri
       description: Generates a recording download URI.
-      operationId: tcn.wfo.vana.v1alpha1.RecordingService.GenerateRecordingDownloadUri
+      operationId: RecordingService_GenerateRecordingDownloadUri
       parameters:
       - name: recording
         in: path
@@ -11884,8 +11869,6 @@ paths:
                   description: (OPTIONAL) Optional. File type which can be wav or
                     mp3. Defaults to wav.
               title: GenerateRecordingDownloadUriRequest
-              required:
-              - recording
               additionalProperties: false
               description: The generate recording download uri request.
         required: true
@@ -27733,116 +27716,116 @@ components:
 security:
 - bearerAuth: []
 tags:
-- name: tcn.bi.businessIntelligence.v1alpha1.BusinessIntelligenceService
+- name: BusinessIntelligenceService
   description: BusinessIntelligenceService defines the api for business intelligence.
-- name: tcn.bi.dashboards.v1alpha1.DashboardsService
+- name: DashboardsService
   description: DashboardsService is the public API for the bi/dashboards service.
-- name: tcn.delivery.credential.v1alpha1.CredentialService
+- name: CredentialService
   description: delivery credential service
-- name: tcn.delivery.encryption.v1alpha1.EncryptionService
+- name: EncryptionService
   description: encryption service
-- name: tcn.delivery.transport.v1alpha1.TransportSchemaService
+- name: TransportSchemaService
   description: transport schema service
-- name: tcn.journey.jobs.v1alpha1.JobsService
+- name: JobsService
   description: "JobsService\n (-- api-linter: core::0121::resource-must-support-get=disabled\n
     \    aip.dev/not-precedent: dont need a get method --)"
-- name: tcn.journey.rejection.v1alpha1.RejectionsService
+- name: RejectionsService
   description: "RejectionService\n (-- api-linter: core::0121::resource-must-support-get=disabled\n
     \    aip.dev/not-precedent: We do not need a get method --)"
-- name: tcn.omni.attachment.v1alpha1.AttachmentService
+- name: AttachmentService
   description: Attachments service is the public api for the omni/attachments service.
-- name: tcn.omni.campaign.v1alpha1.CampaignService
+- name: CampaignService
   description: Campaigns service is the public api for the omni/campaigns service.
-- name: tcn.omni.cannedmessage.v1alpha1.CannedMessageService
+- name: CannedMessageService
   description: CannedMessageService -
-- name: tcn.omni.chatwidget.v1alpha1.ChatWidgetService
+- name: ChatWidgetService
   description: ChatWidgetService is the public api for the omni/chatwidgetdata service.
-- name: tcn.omni.compliance.v1alpha1.ComplianceService
+- name: ComplianceService
   description: Compliance service is the public api for the omni/complianceConfig
     service.
-- name: tcn.omni.connectedinbox.v1alpha1.ConnectedInboxService
+- name: ConnectedInboxService
   description: ConnectedInboxService is the public api for the omni/connectedInbox
     service.
-- name: tcn.omni.contactlist.v1alpha1.ContactListService
+- name: ContactListService
   description: ContactListService is the public api for the omni/contactlist service.
-- name: tcn.omni.conversation.v1alpha1.ConversationService
+- name: ConversationService
   description: Conversation service is the public api for the omni/conversation service.
-- name: tcn.omni.disposition.v1alpha1.DispositionService
+- name: DispositionService
   description: Dispositions service is the public api for the omni/dispositions service.
-- name: tcn.omni.eventlog.v1alpha1.EventlogService
+- name: EventlogService
   description: Eventlog Service -
-- name: tcn.omni.message.v1alpha1.MessageService
+- name: MessageService
   description: MessageService is the public api for the omni/message service.
-- name: tcn.omni.oauth.v1alpha1.OauthService
+- name: OauthService
   description: OAuth service is the public api for the omni/oauthConfig service.
-- name: tcn.omni.project.v1alpha1.ProjectService
+- name: ProjectService
   description: Projects service is the public api for the omni/projects service.
-- name: tcn.omni.sendgrid.v1alpha1.SendgridService
+- name: SendgridService
   description: "Sendgrid Service will make sure all the account settings are valid
     defined by PerformSendgridAccountChecksRequest message.\n The method will return
     a PerformSendgridAccountChecksResponse message/entity that will\n return empty
     or error depending on the result after verifying account settings with sendgrid
     for this client"
-- name: tcn.omni.signature.v1alpha1.SignatureService
+- name: SignatureService
   description: Signatures service is the public api for the omni/signatures service.
-- name: tcn.omni.smsnumber.v1alpha1.SmsNumberService
+- name: SmsNumberService
   description: SmsNumberService is the public api for the omni/smsnumber service.
-- name: tcn.omni.task.v1alpha1.TaskService
+- name: TaskService
   description: TaskService is the public api for the omni/task service.
-- name: tcn.omni.taskcounts.v1alpha1.TaskCountsService
+- name: TaskCountsService
   description: TaskCountsService is the public api for the omni/taskcounts service.
-- name: tcn.omni.unsubscribelink.v1alpha1.UnsubscribeLinkService
+- name: UnsubscribeLinkService
   description: UnsubscribeLinks service is the public api for the omni/unsubscribelinks
     service.
-- name: tcn.omni.verifiedemail.v1alpha1.VerifiedEmailService
+- name: VerifiedEmailService
   description: VerifiedEmailService is the public api for the omni/verifiedEmails
     service.
-- name: tcn.omni.whatsappnumber.v1alpha1.WhatsAppNumberService
+- name: WhatsAppNumberService
   description: WhatsAppNumberService is the public api for the omni/whatsappnumber
     service.
-- name: tcn.org.agentprofilegroups.v1alpha1.AgentProfileGroupsService
+- name: AgentProfileGroupsService
   description: AgentProfileGroupService
-- name: tcn.org.billing.billingplan.v1alpha5.BillingPlanService
+- name: BillingPlanService
   description: BillingPlanService manages billing plans.
-- name: tcn.org.billing.billingtag.v1alpha5.BillingTagService
+- name: BillingTagService
   description: BillingTagService manages billing tags.
-- name: tcn.org.billing.event.v1alpha5.EventService
+- name: EventService
   description: EventService -
-- name: tcn.org.billing.invoice.v1alpha5.InvoiceService
+- name: InvoiceService
   description: InvoiceService -
-- name: tcn.org.billing.matchingrule.v1alpha5.MatchingRuleService
+- name: MatchingRuleService
   description: MatchingRuleService -
-- name: tcn.org.billing.ratedefinition.v1alpha5.RateDefinitionService
+- name: RateDefinitionService
   description: RateDefinitionService -
-- name: tcn.org.exiles.v1alpha1.ExilesService
+- name: ExilesService
   description: ExilesService
-- name: tcn.org.huntgroups.v1alpha1.HuntgroupsService
+- name: HuntgroupsService
   description: HuntgroupsService
-- name: tcn.org.idp.v1alpha1.IdpClientService
+- name: IdpClientService
   description: IdpClientService
-- name: tcn.org.organizations.v1alpha1.OrganizationsService
+- name: OrganizationsService
   description: OrganizationsService is the service that provides methods to manage
     organizations.
-- name: tcn.org.permissions.v1alpha1.PermissionsService
+- name: PermissionsService
   description: PermissionsService is the service for managing permissions.
-- name: tcn.org.preferences.v1alpha1.PreferencesService
+- name: PreferencesService
   description: "(-- api-linter: core::0121::resource-must-support-list=disabled\n
     \    aip.dev/not-precedent: PreferencesService doesn't support list calls. --)\n
     PreferencesService is the service that provides and handles preferences/settings.
     AdminClientPreferences"
-- name: tcn.org.skills.v1alpha1.SkillsService
+- name: SkillsService
   description: SkillsService
-- name: tcn.org.tokens.v1alpha1.TokensService
+- name: TokensService
   description: TokensService
-- name: tcn.org.users.v1alpha1.UsersService
+- name: UsersService
   description: UsersService
-- name: tcn.ruleengine.ruleset.v1alpha1.RuleEngineService
+- name: RuleEngineService
   description: RuleEngineService is the public API for the ruleengine/ruleset service.
-- name: tcn.tickets.ticket.v1alpha1.TicketService
+- name: TicketService
   description: Ticket service is the public api for the tickets.
-- name: tcn.wfo.scorecards.v1alpha1.ScorecardsService
+- name: ScorecardsService
   description: ScorecardsService provides methods to manage scorecards
-- name: tcn.wfo.vana.v1alpha1.RecordingService
+- name: RecordingService
   description: The recording service.
 servers:
 - url: https://api.cbf.tcn.com
