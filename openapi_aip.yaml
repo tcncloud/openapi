@@ -3,6 +3,202 @@ info:
   title: TCN Operator API
   description: TCN Operator API
 paths:
+  /tcn/bi/insights/v1alpha1/computeBillingSummary:compute:
+    get:
+      tags:
+      - BusinessIntelligenceService
+      summary: ComputeBillingSummary
+      description: ComputeBillingSummary returns the billing summary.
+      operationId: BusinessIntelligenceService_ComputeBillingSummary
+      parameters:
+      - name: org_id
+        in: query
+        description: "identity to get data for\n if not provided, the org_id is inferred
+          from the user"
+        schema:
+          type: string
+          title: org_id
+          description: "(OPTIONAL) identity to get data for\n if not provided, the
+            org_id is inferred from the user"
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ComputeBillingSummaryResponse'
+  /tcn/bi/insights/v1alpha1/viewSchemas:view:
+    get:
+      tags:
+      - BusinessIntelligenceService
+      summary: ViewSchemas
+      description: ViewSchemas lists all accessible datasources and their schemas.
+      operationId: BusinessIntelligenceService_ViewSchemas
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ViewSchemasResponse'
+  /tcn/bi/insights/v1alpha1/executeAdmin:execute:
+    post:
+      tags:
+      - BusinessIntelligenceService
+      summary: ExecuteAdmin
+      description: ExecuteAdmin returns the result as well as the prql, sql, and explain
+        strings of a query.
+      operationId: BusinessIntelligenceService_ExecuteAdmin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ExecuteAdminRequest'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ExecuteAdminResponse'
+  /tcn/bi/insights/v1alpha1/executePipeline:execute:
+    post:
+      tags:
+      - BusinessIntelligenceService
+      summary: ExecutePipeline
+      description: ExecutePipeline queries a datasource.
+      operationId: BusinessIntelligenceService_ExecutePipeline
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ExecutePipelineRequest'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ExecutePipelineResponse'
+  /tcn/bi/insights/v1alpha1/orgs/{org}/regions/{region}/dashboards/{dashboard}/insights/{insight}:execute:
+    post:
+      tags:
+      - BusinessIntelligenceService
+      summary: ExecuteInsight
+      description: ExecuteInsight executes an insight.
+      operationId: BusinessIntelligenceService_ExecuteInsight
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: dashboard
+        in: path
+        description: The dashboard id.
+        required: true
+        schema:
+          type: string
+      - name: insight
+        in: path
+        description: The insight id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              oneOf:
+              - properties:
+                  pipeline_options:
+                    title: pipeline_options
+                    description: pipeline options
+                    $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ExecuteInsightRequest.PipelineOptions'
+                title: pipeline_options
+                required:
+                - pipeline_options
+              properties:
+                org_ids:
+                  type: array
+                  items:
+                    type: string
+                    description: '(OPTIONAL) '
+                  title: org_ids
+                  description: "(OPTIONAL) org_ids is the list of orgs to query.\n
+                    if not provided, the org_id is inferred from the user"
+                start_time:
+                  title: start_time
+                  description: start_time is the start time of the query.
+                  $ref: '#/components/schemas/google.protobuf.Timestamp'
+                end_time:
+                  title: end_time
+                  description: end_time is the end time of the query.
+                  $ref: '#/components/schemas/google.protobuf.Timestamp'
+                time_zone:
+                  type: string
+                  title: time_zone
+                  description: "IANA timezone awareness of the query\n this is how
+                    the timezone is represented in the query"
+                ui_trace_id:
+                  type: string
+                  title: ui_trace_id
+                  description: (OPTIONAL) ui_trace_id is the trace id of the query.
+              title: ExecuteInsightRequest
+              required:
+              - start_time
+              - end_time
+              - time_zone
+              additionalProperties: false
+              description: ExecuteInsightRequest is the request to execute an insight.
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ExecuteInsightResponse'
   /tcn/bi/businessIntelligence/v1alpha1/orgs/{org}/regions/{region}/dashboards/{dashboard}:publish:
     post:
       tags:
@@ -58,6 +254,275 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.PublishDashboardResponse'
+  /tcn/bi/insights/v1alpha1/orgs/{org}/regions/{region}/insights/{insight}:publish:
+    post:
+      tags:
+      - BusinessIntelligenceService
+      summary: PublishInsight
+      description: PublishInsight publishes an insight.
+      operationId: BusinessIntelligenceService_PublishInsight
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: insight
+        in: path
+        description: The insight id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                destination_standard_insight_id:
+                  type: string
+                  title: destination_standard_insight_id
+                  description: (OPTIONAL) destination insight to overwrite
+              title: PublishInsightRequest
+              additionalProperties: false
+              description: PublishInsightRequest is the request to publish an insight.
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.PublishInsightResponse'
+  /tcn/bi/insights/v1alpha1/orgs/{org}/regions/{region}/insights:
+    get:
+      tags:
+      - BusinessIntelligenceService
+      summary: ListInsights
+      description: ListInsights lists insights.
+      operationId: BusinessIntelligenceService_ListInsights
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        description: "The maximum number of insights to return. The service may return
+          fewer than\n this value.\n If unspecified, at most 50 insights will be returned.\n
+          The maximum value is 1000; values above 1000 will be coerced to 1000."
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: "(OPTIONAL) The maximum number of insights to return. The service
+            may return fewer than\n this value.\n If unspecified, at most 50 insights
+            will be returned.\n The maximum value is 1000; values above 1000 will
+            be coerced to 1000."
+      - name: page_token
+        in: query
+        description: "A page token, received from a previous `ListInsights` call.\n
+          Provide this to retrieve the subsequent page."
+        schema:
+          type: string
+          title: page_token
+          description: "(OPTIONAL) A page token, received from a previous `ListInsights`
+            call.\n Provide this to retrieve the subsequent page."
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ListInsightsResponse'
+    post:
+      tags:
+      - BusinessIntelligenceService
+      summary: CreateInsight
+      description: CreateInsight creates an insight.
+      operationId: BusinessIntelligenceService_CreateInsight
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: insight
+              description: The insight to create.
+              $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Insight'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Insight'
+  /tcn/bi/insights/v1alpha1/orgs/{org}/regions/{region}/insights/{insight}:
+    get:
+      tags:
+      - BusinessIntelligenceService
+      summary: GetInsight
+      description: GetInsight gets an insight.
+      operationId: BusinessIntelligenceService_GetInsight
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: insight
+        in: path
+        description: The insight id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Insight'
+    delete:
+      tags:
+      - BusinessIntelligenceService
+      summary: DeleteInsight
+      description: DeleteInsight deletes an insight.
+      operationId: BusinessIntelligenceService_DeleteInsight
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: insight
+        in: path
+        description: The insight id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
+    patch:
+      tags:
+      - BusinessIntelligenceService
+      summary: UpdateInsight
+      description: UpdateInsight updates an insight.
+      operationId: BusinessIntelligenceService_UpdateInsight
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: insight
+        in: path
+        description: The insight id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: insight
+              description: Required. The insight to update.
+              $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Insight'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Insight'
   /tcn/bi/businessIntelligence/v1alpha1/orgs/{org}/regions/{region}/users/{user}/defaultDashboard:upsert:
     post:
       tags:
@@ -109,51 +574,10 @@ paths:
     get:
       tags:
       - BusinessIntelligenceService
-      - BusinessIntelligenceService
       summary: GetDefaultDashboard
       description: "Gets the default dashboard for a user.\n Requires permission PERMISSION_DASHBOARDS_VIEW"
-      operationId: BusinessIntelligenceService_ListDefaultDashboards
+      operationId: BusinessIntelligenceService_GetDefaultDashboard
       parameters:
-      - name: org
-        in: path
-        description: The org id.
-        required: true
-        schema:
-          type: string
-      - name: region
-        in: path
-        description: The region id.
-        required: true
-        schema:
-          type: string
-      - name: user
-        in: path
-        description: The user id.
-        required: true
-        schema:
-          type: string
-      - name: filter
-        in: query
-        description: filter
-        schema:
-          type: string
-          title: filter
-          description: (OPTIONAL) filter
-      - name: page_size
-        in: query
-        description: page size
-        schema:
-          type: integer
-          title: page_size
-          format: int32
-          description: (OPTIONAL) page size
-      - name: page_token
-        in: query
-        description: page token
-        schema:
-          type: string
-          title: page_token
-          description: (OPTIONAL) page token
       - name: org
         in: path
         description: The org id.
@@ -184,7 +608,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ListDefaultDashboardsResponse'
+                $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.DefaultDashboard'
   /tcn/bi/businessIntelligence/v1alpha1/orgs/{org}/regions/{region}/dashboards:
     get:
       tags:
@@ -10634,10 +11058,11 @@ paths:
     get:
       tags:
       - PreferencesService
-      summary: GetVoiceAnalyticsPreferences
-      description: "GetVoiceAnalyticsPreferences requires PERMISSION PERMISSION_ORG_VIEW
-        OR PERMISSION_VOICE_ANALYTICS\n GetVoiceAnalyticsPreferences retrieves the
-        voice analytics preferences for an organization"
+      - PreferencesService
+      summary: ListVoiceAnalyticsPreferences
+      description: "ListVoiceAnalyticsPreferences requires PERMISSION PERMISSION_ORG_VIEW\n
+        ListVoiceAnalyticsPreferences retrieves all voice analytics preferences for
+        an organization"
       operationId: PreferencesService_GetVoiceAnalyticsPreferences
       parameters:
       - name: org
@@ -10646,6 +11071,33 @@ paths:
         required: true
         schema:
           type: string
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        description: The maximum number of preferences to return
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) The maximum number of preferences to return
+      - name: page_token
+        in: query
+        description: "A page token, received from a previous `ListVoiceAnalyticsPreferences`
+          call.\n Provide this to retrieve the subsequent page.\n When paginating,
+          all other parameters provided to `ListVoiceAnalyticsPreferences` must match\n
+          the call that provided the page token."
+        schema:
+          type: string
+          title: page_token
+          description: "(OPTIONAL) A page token, received from a previous `ListVoiceAnalyticsPreferences`
+            call.\n Provide this to retrieve the subsequent page.\n When paginating,
+            all other parameters provided to `ListVoiceAnalyticsPreferences` must
+            match\n the call that provided the page token."
       responses:
         default:
           description: Error
@@ -10695,16 +11147,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.VoiceAnalyticsPreferences'
-  /tcn/org/preferences/v1alpha1/orgs/{org}/voiceAnalyticsPreferens:
+  /tcn/org/preferences/v1alpha1/orgs/{org}/conversationAnalyticsPreferences:
     get:
       tags:
       - PreferencesService
-      summary: ListVoiceAnalyticsPreferences
-      description: "ListVoiceAnalyticsPreferences requires PERMISSION PERMISSION_ORG_VIEW\n
-        ListVoiceAnalyticsPreferences retrieves all voice analytics preferences for
-        an organization"
-      operationId: PreferencesService_ListVoiceAnalyticsPreferences
+      - PreferencesService
+      summary: ListConversationAnalyticsPreferences
+      description: "ListConversationAnalyticsPreferences requires PERMISSION PERMISSION_ORG_VIEW\n
+        ListConversationAnalyticsPreferences retrieves all conversation analytics
+        preferences for an organization"
+      operationId: PreferencesService_GetConversationAnalyticsPreferences
       parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
       - name: org
         in: path
         description: The org id.
@@ -10713,25 +11172,25 @@ paths:
           type: string
       - name: page_size
         in: query
-        description: The maximum number of preferences to return
+        description: The maximum number of preferences to return.
         schema:
           type: integer
           title: page_size
           format: int32
-          description: (OPTIONAL) The maximum number of preferences to return
+          description: (OPTIONAL) The maximum number of preferences to return.
       - name: page_token
         in: query
-        description: "A page token, received from a previous `ListVoiceAnalyticsPreferences`
+        description: "A page token, received from a previous `ListConversationAnalyticsPreferences`
           call.\n Provide this to retrieve the subsequent page.\n When paginating,
-          all other parameters provided to `ListVoiceAnalyticsPreferences` must match\n
-          the call that provided the page token."
+          all other parameters provided to `ListConversationAnalyticsPreferences`
+          must match\n the call that provided the page token."
         schema:
           type: string
           title: page_token
-          description: "(OPTIONAL) A page token, received from a previous `ListVoiceAnalyticsPreferences`
+          description: "(OPTIONAL) A page token, received from a previous `ListConversationAnalyticsPreferences`
             call.\n Provide this to retrieve the subsequent page.\n When paginating,
-            all other parameters provided to `ListVoiceAnalyticsPreferences` must
-            match\n the call that provided the page token."
+            all other parameters provided to `ListConversationAnalyticsPreferences`
+            must match\n the call that provided the page token."
       responses:
         default:
           description: Error
@@ -10744,7 +11203,43 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.ListVoiceAnalyticsPreferencesResponse'
+                $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.ConversationAnalyticsPreferences'
+    patch:
+      tags:
+      - PreferencesService
+      summary: UpdateConversationAnalyticsPreferences
+      description: "UpdateConversationAnalyticsPreferences requires PERMISSION PERMISSION_ORG_EDIT\n
+        UpdateConversationAnalyticsPreferences modifies the conversation analytics
+        preferences for an organization"
+      operationId: PreferencesService_UpdateConversationAnalyticsPreferences
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The conversation analytics preferences to update.
+        content:
+          application/json:
+            schema:
+              title: conversation_analytics_preferences
+              description: The conversation analytics preferences to update.
+              $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.ConversationAnalyticsPreferences'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.ConversationAnalyticsPreferences'
   /tcn/org/preferences/v1alpha1/orgs/{org}/webhookPreferences:
     get:
       tags:
@@ -11888,7 +12383,8 @@ paths:
       tags:
       - TicketService
       summary: CreateSla
-      description: "Method to create a Sla\n Requires permission PERMISSION_TICKETS_ADMIN"
+      description: "Method to create a Sla\n Requires permission PERMISSION_TICKETS_ADMIN\n
+        Requires permission PERMISSION_TICKETS_ADMIN"
       operationId: TicketService_CreateSla
       parameters:
       - name: org
@@ -11930,6 +12426,7 @@ paths:
       - TicketService
       summary: ListSlas
       description: "Method to list Sla\n Requires permissions PERMISSION_TICKETS_ADMIN
+        or PERMISSION_TICKETS_APP\n Requires permissions PERMISSION_TICKETS_ADMIN
         or PERMISSION_TICKETS_APP"
       operationId: TicketService_ListSlas
       parameters:
@@ -11986,6 +12483,7 @@ paths:
       - TicketService
       summary: GetSla
       description: "Method to get a rpoject\n Requires permissions PERMISSION_TICKETS_ADMIN
+        or PERMISSION_TICKETS_APP\n Requires permissions PERMISSION_TICKETS_ADMIN
         or PERMISSION_TICKETS_APP"
       operationId: TicketService_GetSla
       parameters:
@@ -12024,7 +12522,8 @@ paths:
       tags:
       - TicketService
       summary: DeleteSla
-      description: "Method to delete a Sla\n Requires permission PERMISSION_TICKETS_ADMIN"
+      description: "Method to delete a Sla\n Requires permission PERMISSION_TICKETS_ADMIN\n
+        Requires permission PERMISSION_TICKETS_ADMIN"
       operationId: TicketService_DeleteSla
       parameters:
       - name: org
@@ -12062,7 +12561,8 @@ paths:
       tags:
       - TicketService
       summary: UpdateSla
-      description: "Method to update a Sla\n Requires permission PERMISSION_TICKETS_ADMIN"
+      description: "Method to update a Sla\n Requires permission PERMISSION_TICKETS_ADMIN\n
+        Requires permission PERMISSION_TICKETS_ADMIN"
       operationId: TicketService_UpdateSla
       parameters:
       - name: org
@@ -12109,7 +12609,8 @@ paths:
       tags:
       - TicketService
       summary: CreateTicket
-      description: "Public Method to create a ticket.\n Requires permission PERMISSION_TICKETS_APP"
+      description: "Public Method to create a ticket.\n Requires permission PERMISSION_TICKETS_APP\n
+        Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_CreateTicket
       parameters:
       - name: org
@@ -12156,7 +12657,8 @@ paths:
       tags:
       - TicketService
       summary: UpdateTicket
-      description: "Public Method to update a ticket.\n Requires permission PERMISSION_TICKETS_APP"
+      description: "Public Method to update a ticket.\n Requires permission PERMISSION_TICKETS_APP\n
+        Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_UpdateTicket
       parameters:
       - name: org
@@ -12209,7 +12711,8 @@ paths:
       tags:
       - TicketService
       summary: ListTickets
-      description: "Public method to list tickets\n Requires permission PERMISSION_TICKETS_APP"
+      description: "Public method to list tickets\n Requires permission PERMISSION_TICKETS_APP\n
+        Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_ListTickets
       parameters:
       - name: org
@@ -12270,7 +12773,8 @@ paths:
       tags:
       - TicketService
       summary: CloseTicket
-      description: "Public Method to Close a ticket\n Requires permission PERMISSION_TICKETS_APP"
+      description: "Public Method to Close a ticket\n Requires permission PERMISSION_TICKETS_APP\n
+        Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_CloseTicket
       parameters:
       - name: org
@@ -12323,7 +12827,8 @@ paths:
       tags:
       - TicketService
       summary: GetTicket
-      description: "Public method to get ticket\n Requires permission PERMISSION_TICKETS_APP"
+      description: "Public method to get ticket\n Requires permission PERMISSION_TICKETS_APP\n
+        Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_GetTicket
       parameters:
       - name: org
@@ -12368,7 +12873,8 @@ paths:
       tags:
       - TicketService
       summary: ListTicketActions
-      description: "Public method to list ticket_actions\n Requires permission PERMISSION_TICKETS_APP"
+      description: "Public method to list ticket_actions\n Requires permission PERMISSION_TICKETS_APP\n
+        Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_ListTicketActions
       parameters:
       - name: org
@@ -12435,7 +12941,7 @@ paths:
       - TicketService
       summary: CreateTicketAction
       description: "Public Method to create a ticket_action.\n Requires permission
-        PERMISSION_TICKETS_APP"
+        PERMISSION_TICKETS_APP\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_CreateTicketAction
       parameters:
       - name: org
@@ -12489,7 +12995,7 @@ paths:
       - TicketService
       summary: UpdateTicketAction
       description: "Public Method to update a ticket_action.\n Requires permission
-        PERMISSION_TICKETS_APP"
+        PERMISSION_TICKETS_APP\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_UpdateTicketAction
       parameters:
       - name: org
@@ -12548,7 +13054,8 @@ paths:
       tags:
       - TicketService
       summary: CloseTicketAction
-      description: "Public Method to Close a ticket_action\n Requires permission PERMISSION_TICKETS_APP"
+      description: "Public Method to Close a ticket_action\n Requires permission PERMISSION_TICKETS_APP\n
+        Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_CloseTicketAction
       parameters:
       - name: org
@@ -12607,7 +13114,8 @@ paths:
       tags:
       - TicketService
       summary: GetTicketAction
-      description: "Public method to get ticket_action\n Requires permission PERMISSION_TICKETS_APP"
+      description: "Public method to get ticket_action\n Requires permission PERMISSION_TICKETS_APP\n
+        Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_GetTicketAction
       parameters:
       - name: org
@@ -12660,7 +13168,7 @@ paths:
       summary: ListTicketTemplates
       description: "Public method to list ticket_templates\n (-- api-linter: core::0132::method-signature=disabled\n
         \    aip.dev/not-precedent: We need to do this because reasons. --)\n Requires
-        permission PERMISSION_TICKETS_APP"
+        permission PERMISSION_TICKETS_APP\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_ListTicketTemplates
       parameters:
       - name: org
@@ -12729,7 +13237,7 @@ paths:
       - TicketService
       summary: CreateTicketTemplate
       description: "Public Method to create a ticket_tempalte.\n Requires permission
-        PERMISSION_TICKETS_APP"
+        PERMISSION_TICKETS_APP\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_CreateTicketTemplate
       parameters:
       - name: org
@@ -12770,7 +13278,8 @@ paths:
       tags:
       - TicketService
       summary: GetTicketTemplate
-      description: "Public method to get ticket_template\n Requires permission PERMISSION_TICKETS_APP"
+      description: "Public method to get ticket_template\n Requires permission PERMISSION_TICKETS_APP\n
+        Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_GetTicketTemplate
       parameters:
       - name: org
@@ -12823,7 +13332,7 @@ paths:
       - TicketService
       summary: UpdateTicketTemplate
       description: "Public Method to update a ticket_template.\n Requires permission
-        PERMISSION_TICKETS_APP"
+        PERMISSION_TICKETS_APP\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_UpdateTicketTemplate
       parameters:
       - name: org
@@ -12871,7 +13380,7 @@ paths:
       - TicketService
       summary: AssignTicketTemplate
       description: "Public method to assign ticket_template\n Requires permission
-        PERMISSION_TICKETS_APP"
+        PERMISSION_TICKETS_APP\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_AssignTicketTemplate
       parameters:
       - name: org
@@ -12921,7 +13430,8 @@ paths:
       - TicketService
       - TicketService
       summary: ListSlaConditions
-      description: "Public method to list sla conditions\n Requires permission PERMISSION_TICKETS_APP"
+      description: "Public method to list sla conditions\n Requires permission PERMISSION_TICKETS_APP\n
+        Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_ListActions
       parameters:
       - name: org
@@ -13010,7 +13520,8 @@ paths:
       tags:
       - TicketService
       summary: CreateProject
-      description: "Method to create a Project\n Requires permission PERMISSION_TICKETS_ADMIN"
+      description: "Method to create a Project\n Requires permission PERMISSION_TICKETS_ADMIN\n
+        Requires permission PERMISSION_TICKETS_ADMIN"
       operationId: TicketService_CreateProject
       parameters:
       - name: org
@@ -13052,6 +13563,7 @@ paths:
       - TicketService
       summary: ListProjects
       description: "Method to list Projects\n Requires permissions PERMISSION_TICKETS_ADMIN
+        or PERMISSION_TICKETS_APP\n Requires permissions PERMISSION_TICKETS_ADMIN
         or PERMISSION_TICKETS_APP"
       operationId: TicketService_ListProjects
       parameters:
@@ -13108,6 +13620,7 @@ paths:
       - TicketService
       summary: GetProject
       description: "Method to get a project\n Requires permissions PERMISSION_TICKETS_ADMIN
+        or PERMISSION_TICKETS_APP\n Requires permissions PERMISSION_TICKETS_ADMIN
         or PERMISSION_TICKETS_APP"
       operationId: TicketService_GetProject
       parameters:
@@ -13146,7 +13659,8 @@ paths:
       tags:
       - TicketService
       summary: DeleteProject
-      description: "Method to delete a Project\n Requires permission PERMISSION_TICKETS_ADMIN"
+      description: "Method to delete a Project\n Requires permission PERMISSION_TICKETS_ADMIN\n
+        Requires permission PERMISSION_TICKETS_ADMIN"
       operationId: TicketService_DeleteProject
       parameters:
       - name: org
@@ -13192,7 +13706,8 @@ paths:
       tags:
       - TicketService
       summary: UpdateProject
-      description: "Method to update a Project\n Requires permission PERMISSION_TICKETS_ADMIN"
+      description: "Method to update a Project\n Requires permission PERMISSION_TICKETS_ADMIN\n
+        Requires permission PERMISSION_TICKETS_ADMIN"
       operationId: TicketService_UpdateProject
       parameters:
       - name: org
@@ -13239,7 +13754,7 @@ paths:
       tags:
       - TicketService
       summary: CreateComment
-      description: Method to create a Comment
+      description: "Method to create a Comment\n Requires permission PERMISSION_TICKETS_ADMIN"
       operationId: TicketService_CreateComment
       parameters:
       - name: org
@@ -13292,7 +13807,8 @@ paths:
       tags:
       - TicketService
       summary: ListComments
-      description: Method to list Comment
+      description: "Method to list Comment\n Requires permissions PERMISSION_TICKETS_ADMIN
+        or PERMISSION_TICKETS_APP"
       operationId: TicketService_ListComments
       parameters:
       - name: org
@@ -13359,7 +13875,8 @@ paths:
       tags:
       - TicketService
       summary: GetComment
-      description: Method to get a rpoject
+      description: "Method to get a rpoject\n Requires permissions PERMISSION_TICKETS_ADMIN
+        or PERMISSION_TICKETS_APP"
       operationId: TicketService_GetComment
       parameters:
       - name: org
@@ -13409,7 +13926,7 @@ paths:
       tags:
       - TicketService
       summary: DeleteComment
-      description: Method to delete a Comment
+      description: "Method to delete a Comment\n Requires permission PERMISSION_TICKETS_ADMIN"
       operationId: TicketService_DeleteComment
       parameters:
       - name: org
@@ -13460,7 +13977,7 @@ paths:
       tags:
       - TicketService
       summary: UpdateComment
-      description: Method to update a Comment
+      description: "Method to update a Comment\n Requires permission PERMISSION_TICKETS_ADMIN"
       operationId: TicketService_UpdateComment
       parameters:
       - name: org
@@ -13966,7 +14483,9 @@ paths:
       tags:
       - RecordingService
       summary: SearchRecordings
-      description: Searches recordings.
+      description: "SearchRecordings searches for recordings based on the provided
+        criteria.\n Returns a list of recordings matching the search criteria.\n\n
+        Required permissions:\n - PERMISSION_VOICE_ANALYTICS\n - PERMISSION_AGENT_PORTALS_VIEW"
       operationId: RecordingService_SearchRecordings
       parameters:
       - name: org
@@ -14683,6 +15202,22 @@ components:
       additionalProperties: false
       description: ListApplicationDashboardsResponse used in ListApplicationDashboards
         rpc
+    tcn.bi.businessIntelligence.v1alpha1.SerializedContent:
+      type: object
+      properties:
+        version:
+          type: string
+          title: version
+          description: Version of the serialized content
+        content:
+          type: string
+          title: content
+          description: (OPTIONAL) Serialized content
+      title: SerializedContent
+      required:
+      - version
+      additionalProperties: false
+      description: SerializedContent is a serialized content for a pipeline.
     google.protobuf.FieldMask:
       type: string
       description: "`FieldMask` represents a set of symbolic field paths, for example:\n\n
@@ -14847,9 +15382,9 @@ components:
           title: description
           description: (OPTIONAL) description of the dashboard
         serialized_config:
-          type: string
           title: serialized_config
           description: (OPTIONAL) serialized configuration ui uses to render the dashboard
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.SerializedContent'
         panels:
           type: array
           items:
@@ -14899,14 +15434,14 @@ components:
           - string
           title: row_start
           format: int64
-          description: absolute x position of panel
+          description: (OPTIONAL) absolute x position of panel
         column_start:
           type:
           - integer
           - string
           title: column_start
           format: int64
-          description: absoulute y position of panel
+          description: (OPTIONAL) absoulute y position of panel
         insight_id:
           type: string
           title: insight_id
@@ -14914,15 +15449,12 @@ components:
         insight_output_config_id:
           type: string
           title: insight_output_config_id
-          description: insight output configuration identifier
+          description: (OPTIONAL) insight output configuration identifier
       title: DashboardPanel
       required:
       - row_length
       - column_length
-      - row_start
-      - column_start
       - insight_id
-      - insight_output_config_id
       additionalProperties: false
       description: dashboard panels
     tcn.bi.businessIntelligence.v1alpha1.DeleteDashboardRequest:
@@ -15040,47 +15572,6 @@ components:
       - name
       additionalProperties: false
       description: GetDefaultDashboardRequest gets a default dashboard for a user
-    tcn.bi.businessIntelligence.v1alpha1.ListDefaultDashboardsRequest:
-      type: object
-      properties:
-        parent:
-          type: string
-          title: parent
-          description: parent resource
-        filter:
-          type: string
-          title: filter
-          description: (OPTIONAL) filter
-        page_size:
-          type: integer
-          title: page_size
-          format: int32
-          description: (OPTIONAL) page size
-        page_token:
-          type: string
-          title: page_token
-          description: (OPTIONAL) page token
-      title: ListDefaultDashboardsRequest
-      required:
-      - parent
-      additionalProperties: false
-      description: ListDefaultDashboardsRequest lists default dashboards for users
-    tcn.bi.businessIntelligence.v1alpha1.ListDefaultDashboardsResponse:
-      type: object
-      properties:
-        default_dashboards:
-          type: array
-          items:
-            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.DefaultDashboard'
-          title: default_dashboards
-          description: default dashboards
-        next_page_token:
-          type: string
-          title: next_page_token
-          description: next page token
-      title: ListDefaultDashboardsResponse
-      additionalProperties: false
-      description: ListDefaultDashboardsResponse lists default dashboards for users
     tcn.bi.businessIntelligence.v1alpha1.UpsertDefaultDashboardRequest:
       type: object
       properties:
@@ -15113,6 +15604,724 @@ components:
       additionalProperties: false
       description: UpsertDefaultDashboardResponse response for upserting a default
         dashboard
+    tcn.bi.businessIntelligence.v1alpha1.SchemaType:
+      type: string
+      title: SchemaType
+      enum:
+      - SCHEMA_TYPE_UNSPECIFIED
+      - SCHEMA_TYPE_INT
+      - SCHEMA_TYPE_FLOAT
+      - SCHEMA_TYPE_STRING
+      - SCHEMA_TYPE_BOOL
+      - SCHEMA_TYPE_TIMESTAMP
+      - SCHEMA_TYPE_JSON
+      description: SchemaType is an enum for the type of a schema field.
+    tcn.bi.businessIntelligence.v1alpha1.Schema:
+      type: object
+      properties:
+        table:
+          type: string
+          title: table
+          description: table is the name of the table.
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Schema.SchemaField'
+          title: fields
+          description: fields are the fields in the schema.
+        table_description:
+          type: string
+          title: table_description
+          description: description of the table.
+      title: Schema
+      additionalProperties: false
+      description: Schema is a schema for a datasource.
+    tcn.bi.businessIntelligence.v1alpha1.Schema.SchemaField:
+      type: object
+      properties:
+        field:
+          type: string
+          title: field
+          description: field is the name of the field.
+        field_type:
+          title: field_type
+          description: type of the column.
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.SchemaType'
+        is_primary_key:
+          type: boolean
+          title: is_primary_key
+          description: flag to indicate if the field is a primary key.
+        field_description:
+          type: string
+          title: field_description
+          description: description of the column.
+      title: SchemaField
+      additionalProperties: false
+      description: SchemaField is a field in a schema.
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.ResultOptions.ResultFileType:
+      type: string
+      title: ResultFileType
+      enum:
+      - RESULT_FILE_TYPE_UNSPECIFIED
+      - RESULT_FILE_TYPE_CSV
+      - RESULT_FILE_TYPE_PARQUET
+      - RESULT_FILE_TYPE_TXT
+      description: ResultFileType is the type of file to export
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.ResultType:
+      type: string
+      title: ResultType
+      enum:
+      - RESULT_TYPE_UNSPECIFIED
+      - RESULT_TYPE_FORMATTED_TABLE
+      - RESULT_TYPE_FORMATTED_SUMMARY
+      - RESULT_TYPE_FORMATTED_TABLE_AND_SUMMARY
+      description: Result types for a pipeline
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline:
+      type: object
+      properties:
+        primary_datasource:
+          type: string
+          title: primary_datasource
+          description: "Primary Datasource Name\n only applies to EXPLORER_WAREHOUSE_V1
+            insights"
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.Node'
+          title: nodes
+          description: Pipeline nodes
+        column_formats:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.ColumnFormat'
+          title: column_formats
+          description: (OPTIONAL) Post-processing steps to apply to the final dataset
+        pipeline_version:
+          type: string
+          title: pipeline_version
+          description: "(OPTIONAL) Pipeline version provides a version for the pipeline\n
+            if not provided, latest will be used"
+        result_options:
+          title: result_options
+          description: (OPTIONAL) Result options
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.ResultOptions'
+      title: Pipeline
+      required:
+      - primary_datasource
+      - nodes
+      additionalProperties: false
+      description: "Pipeline compiles into an executable query\n Each node is an operation
+        of the query"
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.ColumnFormat:
+      type: object
+      properties:
+        alias:
+          type: string
+          title: alias
+          description: "(OPTIONAL) Column alias\n percent | currency | number | date
+            | time | datetime | string"
+        column:
+          type: string
+          title: column
+          description: Column name
+        format_expression:
+          type: string
+          title: format_expression
+          description: Column format
+        summary_function:
+          type: string
+          title: summary_function
+          description: "(OPTIONAL) Summary function\n sum | avg | min | max | count"
+      title: ColumnFormat
+      required:
+      - column
+      - format_expression
+      additionalProperties: false
+      description: ColumnFormat provides operations to apply to a column
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.DeriveNode:
+      type: object
+      properties:
+        new_columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.NewColumn'
+          title: new_columns
+          description: new columns to create
+      title: DeriveNode
+      required:
+      - new_columns
+      additionalProperties: false
+      description: DeriveNode derives a new column
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.FilterNode:
+      type: object
+      properties:
+        boolean_expression:
+          type: string
+          title: boolean_expression
+          description: expression used to evaluate a row
+      title: FilterNode
+      required:
+      - boolean_expression
+      additionalProperties: false
+      description: FilterNode removes rows based on a boolean expression
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.GroupNode:
+      type: object
+      properties:
+        group_columns:
+          type: array
+          items:
+            type: string
+          title: group_columns
+          description: Columns to group by
+        new_columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.NewColumn'
+          title: new_columns
+          description: The derive nodes to get aggregates from the group
+      title: GroupNode
+      required:
+      - group_columns
+      - new_columns
+      additionalProperties: false
+      description: GroupNode groups data by keys and derives aggregates
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.JoinNode:
+      type: object
+      properties:
+        side:
+          type: string
+          title: side
+          description: "The type of join\n left | right | inner"
+        join_on:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.JoinNode.JoinOn'
+          title: join_on
+          description: The join columns
+        first_parent:
+          title: first_parent
+          description: First parent is left hand side of the join
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.JoinNode.Parent'
+        second_parent:
+          title: second_parent
+          description: Second parent is right hand side of the join
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.JoinNode.Parent'
+      title: JoinNode
+      required:
+      - side
+      - join_on
+      - first_parent
+      - second_parent
+      additionalProperties: false
+      description: JoinNode joins datasets
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.JoinNode.JoinOn:
+      type: object
+      properties:
+        first_parent_column:
+          type: string
+          title: first_parent_column
+          description: First parent column
+        second_parent_column:
+          type: string
+          title: second_parent_column
+          description: second parent column
+      title: JoinOn
+      required:
+      - first_parent_column
+      - second_parent_column
+      additionalProperties: false
+      description: JoinOn describes a join on column
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.JoinNode.Parent:
+      type: object
+      properties:
+        node_id:
+          type: string
+          title: node_id
+          description: node_id to join with
+        title:
+          type: string
+          title: title
+          description: (OPTIONAL) parent title
+        renamed_columns:
+          type: object
+          title: renamed_columns
+          additionalProperties:
+            type: string
+            title: value
+          description: (OPTIONAL) map of renamed columns
+      title: Parent
+      required:
+      - node_id
+      additionalProperties: false
+      description: Parent describes a join node parent
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.JoinNode.Parent.RenamedColumnsEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          type: string
+          title: value
+      title: RenamedColumnsEntry
+      additionalProperties: false
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.LimitNode:
+      type: object
+      properties:
+        limit:
+          type: integer
+          title: limit
+          format: int32
+          description: how many to limit by
+      title: LimitNode
+      required:
+      - limit
+      additionalProperties: false
+      description: LimitNode limits the number of rows
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.NewColumn:
+      type: object
+      properties:
+        new_column:
+          type: string
+          title: new_column
+          description: name of the new column
+        new_column_type:
+          title: new_column_type
+          description: new column type
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.SchemaType'
+        default_result:
+          type: string
+          title: default_result
+          description: default result expression
+        conditional_results:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.NewColumn.ConditionalResult'
+          title: conditional_results
+          description: conditional results
+      title: NewColumn
+      required:
+      - new_column
+      - new_column_type
+      - default_result
+      - conditional_results
+      additionalProperties: false
+      description: NewColumn encapsulates the logic to create a new column
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.NewColumn.ConditionalResult:
+      type: object
+      properties:
+        boolean_expression:
+          type: string
+          title: boolean_expression
+          description: boolean expression
+        result_expression:
+          type: string
+          title: result_expression
+          description: result expression
+      title: ConditionalResult
+      required:
+      - boolean_expression
+      - result_expression
+      additionalProperties: false
+      description: use conditions to determine values of new column
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.Node:
+      type: object
+      oneOf:
+      - properties:
+          derive_node:
+            title: derive_node
+            description: "Derive node\n <-- derive, string manipulation node, map
+              node"
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.DeriveNode'
+        title: derive_node
+        required:
+        - derive_node
+      - properties:
+          filter_node:
+            title: filter_node
+            description: Filter node
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.FilterNode'
+        title: filter_node
+        required:
+        - filter_node
+      - properties:
+          group_node:
+            title: group_node
+            description: Group node
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.GroupNode'
+        title: group_node
+        required:
+        - group_node
+      - properties:
+          join_node:
+            title: join_node
+            description: Join node
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.JoinNode'
+        title: join_node
+        required:
+        - join_node
+      - properties:
+          limit_node:
+            title: limit_node
+            description: Take node
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.LimitNode'
+        title: limit_node
+        required:
+        - limit_node
+      - properties:
+          select_node:
+            title: select_node
+            description: Select node
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.SelectNode'
+        title: select_node
+        required:
+        - select_node
+      - properties:
+          sort_node:
+            title: sort_node
+            description: Sort node
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.SortNode'
+        title: sort_node
+        required:
+        - sort_node
+      - properties:
+          source_node:
+            title: source_node
+            description: From node
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.SourceNode'
+        title: source_node
+        required:
+        - source_node
+      properties:
+        node_id:
+          type: string
+          title: node_id
+          description: Node id
+        type:
+          type: string
+          title: type
+          description: from | filter | derive | group | join | select | sort | limit
+        title:
+          type: string
+          title: title
+          description: (OPTIONAL) Node title
+        alias:
+          type: string
+          title: alias
+          description: (OPTIONAL) Alias for the node
+        input_ids:
+          type: array
+          items:
+            type: string
+            description: '(OPTIONAL) '
+          title: input_ids
+          description: "(OPTIONAL) Input ids of other nodes\n required if node is
+            not 'SourceNode'"
+        output_ids:
+          type: array
+          items:
+            type: string
+            description: '(OPTIONAL) '
+          title: output_ids
+          description: "(OPTIONAL) Output ids of the node\n required for all nodes
+            unless it is the terminating node"
+      title: Node
+      required:
+      - node_id
+      - type
+      additionalProperties: false
+      description: Node describes the type of operations of a pipeline section
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.Parameter:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+          description: named reference to the parameter
+        value:
+          type: string
+          title: value
+          description: the value to inject as key
+        value_type:
+          title: value_type
+          description: the data type of the parameter
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.SchemaType'
+      title: Parameter
+      required:
+      - key
+      - value
+      - value_type
+      additionalProperties: false
+      description: PipelineParameter is a parameter in a pipeline.
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.ResultOptions:
+      type: object
+      properties:
+        delimiter:
+          type: string
+          title: delimiter
+          description: (OPTIONAL) Delimiter for file exports
+        quote_character:
+          type: string
+          title: quote_character
+          description: (OPTIONAL) Quote character for file exports
+        no_header:
+          type: boolean
+          title: no_header
+          description: (OPTIONAL) Flag to include column names in file exports
+        result_file_type:
+          title: result_file_type
+          description: (OPTIONAL) filetype of the export
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.ResultOptions.ResultFileType'
+      title: ResultOptions
+      additionalProperties: false
+      description: ResultOptions provides options for tabular exports
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.SelectNode:
+      type: object
+      properties:
+        columns:
+          type: array
+          items:
+            type: string
+          title: columns
+          description: "Column names to select\n columns should already be renamed"
+        renamed_columns:
+          type: object
+          title: renamed_columns
+          additionalProperties:
+            type: string
+            title: value
+          description: (OPTIONAL) map of renamed columns
+      title: SelectNode
+      required:
+      - columns
+      additionalProperties: false
+      description: SelectNode selects a set of columns
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.SelectNode.RenamedColumnsEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          type: string
+          title: value
+      title: RenamedColumnsEntry
+      additionalProperties: false
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.SortNode:
+      type: object
+      properties:
+        sort_columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.SortNode.SortColumn'
+          title: sort_columns
+          description: Columns to sort
+      title: SortNode
+      required:
+      - sort_columns
+      additionalProperties: false
+      description: SortNode describes which columns to sort
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.SortNode.SortColumn:
+      type: object
+      properties:
+        column:
+          type: string
+          title: column
+          description: Column name to sort
+        ascending:
+          type: boolean
+          title: ascending
+          description: Will determine sort direction
+      title: SortColumn
+      required:
+      - column
+      - ascending
+      additionalProperties: false
+      description: SortColumn describes a column to sort and direction
+    tcn.bi.businessIntelligence.v1alpha1.Pipeline.SourceNode:
+      type: object
+      oneOf:
+      - properties:
+          dataset:
+            type: string
+            title: dataset
+            description: The dataset to select from
+        title: dataset
+        required:
+        - dataset
+      title: SourceNode
+      additionalProperties: false
+      description: SourceNode describes a dataset to select from
+    tcn.bi.businessIntelligence.v1alpha1.Insight.ExecutionType:
+      type: string
+      title: ExecutionType
+      enum:
+      - EXECUTION_TYPE_UNSPECIFIED
+      - EXECUTION_TYPE_EXPLORER_WAREHOUSE_V1
+      - EXECUTION_TYPE_BROWSER_CLIENT_V1
+      description: ExecutionType is where the query is executed
+    tcn.bi.businessIntelligence.v1alpha1.CreateInsightRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: The parent resource where this insight will be created.
+        insight_id:
+          type: string
+          title: insight_id
+          description: (OPTIONAL) The insight id to create.
+        insight:
+          title: insight
+          description: The insight to create.
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Insight'
+      title: CreateInsightRequest
+      required:
+      - parent
+      - insight
+      additionalProperties: false
+      description: CreateInsightRequest is the request to create an insight.
+    tcn.bi.businessIntelligence.v1alpha1.DeleteInsightRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: Required. The name of the insight to delete.
+      title: DeleteInsightRequest
+      required:
+      - name
+      additionalProperties: false
+      description: DeleteInsightRequest is the request to delete an insight.
+    tcn.bi.businessIntelligence.v1alpha1.GetInsightRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: Required. The name of the insight to get.
+      title: GetInsightRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetInsightRequest is the request to get an insight.
+    tcn.bi.businessIntelligence.v1alpha1.Insight:
+      type: object
+      oneOf:
+      - properties:
+          pipeline:
+            title: pipeline
+            description: Pipeline to compile into a query
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline'
+        title: pipeline
+        required:
+        - pipeline
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) Insight identifier
+        title:
+          type: string
+          title: title
+          description: Insight title
+        description:
+          type: string
+          title: description
+          description: (OPTIONAL) Description of the insight
+        is_standard:
+          type: boolean
+          title: is_standard
+          description: Standard flag
+          readOnly: true
+        serialized_config:
+          title: serialized_config
+          description: "(OPTIONAL) JSON serialized metadata\n Data here cannot be
+            used in reporting or querying"
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.SerializedContent'
+        execution_type:
+          title: execution_type
+          description: Where query is executed
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Insight.ExecutionType'
+        render_configs:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.SerializedContent'
+          title: render_configs
+          description: (OPTIONAL) Output configuration configures display
+        create_time:
+          title: create_time
+          description: Time of creation
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        update_time:
+          title: update_time
+          description: Time of last update
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+      title: Insight
+      required:
+      - title
+      - execution_type
+      additionalProperties: false
+      description: Insight contains all information to query data for bi.
+    tcn.bi.businessIntelligence.v1alpha1.ListInsightsRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: The parent resource where this insight will be listed.
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: "(OPTIONAL) The maximum number of insights to return. The service
+            may return fewer than\n this value.\n If unspecified, at most 50 insights
+            will be returned.\n The maximum value is 1000; values above 1000 will
+            be coerced to 1000."
+        page_token:
+          type: string
+          title: page_token
+          description: "(OPTIONAL) A page token, received from a previous `ListInsights`
+            call.\n Provide this to retrieve the subsequent page."
+      title: ListInsightsRequest
+      required:
+      - parent
+      additionalProperties: false
+      description: ListInsightsRequest is the request to list insights.
+    tcn.bi.businessIntelligence.v1alpha1.ListInsightsResponse:
+      type: object
+      properties:
+        insights:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Insight'
+          title: insights
+          description: The list of insights.
+        next_page_token:
+          type: string
+          title: next_page_token
+          description: The next page token.
+      title: ListInsightsResponse
+      additionalProperties: false
+      description: ListInsightsResponse is the response to list insights.
+    tcn.bi.businessIntelligence.v1alpha1.UpdateInsightRequest:
+      type: object
+      properties:
+        insight:
+          title: insight
+          description: Required. The insight to update.
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Insight'
+        update_mask:
+          title: update_mask
+          description: (OPTIONAL) Required. The update mask to apply to the insight.
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: UpdateInsightRequest
+      required:
+      - insight
+      additionalProperties: false
+      description: UpdateInsightRequest is the request to update an insight.
     google.protobuf.Empty:
       type: object
       description: "A generic empty message that you can re-use to avoid defining
@@ -15120,6 +16329,286 @@ components:
         the request\n or the response type of an API method. For instance:\n\n     service
         Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n
         \    }\n\n The JSON representation for `Empty` is empty JSON object `{}`."
+    tcn.bi.businessIntelligence.v1alpha1.ComputeBillingSummaryRequest:
+      type: object
+      properties:
+        org_id:
+          type: string
+          title: org_id
+          description: "(OPTIONAL) identity to get data for\n if not provided, the
+            org_id is inferred from the user"
+      title: ComputeBillingSummaryRequest
+      additionalProperties: false
+      description: ComputeBillingSummaryRequest is the request to get the billing
+        summary.
+    tcn.bi.businessIntelligence.v1alpha1.ComputeBillingSummaryResponse:
+      type: object
+      properties:
+        access_start_time:
+          title: access_start_time
+          description: start date of the data storage
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+      title: ComputeBillingSummaryResponse
+      additionalProperties: false
+      description: ComputeBillingSummaryResponse contains the billing summary.
+    tcn.bi.businessIntelligence.v1alpha1.ExecuteAdminRequest:
+      type: object
+      oneOf:
+      - properties:
+          insight_request:
+            title: insight_request
+            description: the insight to execute
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ExecuteInsightRequest'
+        title: insight_request
+        required:
+        - insight_request
+      - properties:
+          pipeline_request:
+            title: pipeline_request
+            description: the pipeline to execute.
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ExecutePipelineRequest'
+        title: pipeline_request
+        required:
+        - pipeline_request
+      properties:
+        debug:
+          type: boolean
+          title: debug
+          description: (OPTIONAL) include debug information in the response
+      title: ExecuteAdminRequest
+      additionalProperties: false
+      description: ExecuteAdminRequest is the request to execute an insight with support
+        permissions.
+    tcn.bi.businessIntelligence.v1alpha1.ExecuteAdminResponse:
+      type: object
+      oneOf:
+      - properties:
+          insight_response:
+            title: insight_response
+            description: the response of the insight.
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ExecuteInsightResponse'
+        title: insight_response
+        required:
+        - insight_response
+      - properties:
+          query_response:
+            title: query_response
+            description: the response of the query.
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ExecutePipelineResponse'
+        title: query_response
+        required:
+        - query_response
+      properties:
+        prql:
+          type: string
+          title: prql
+          description: "the prql query string\n if debug is true, this will be the
+            prql query string"
+        sql:
+          type: string
+          title: sql
+          description: "the sql query string\n if debug is true, this will be the
+            sql query string"
+        explain:
+          type: string
+          title: explain
+          description: "the sql explain string\n if debug is true, this will be the
+            sql explain string"
+      title: ExecuteAdminResponse
+      additionalProperties: false
+      description: ExecuteAdminResponse contains the result of a datasource query
+        with support permissions.
+    tcn.bi.businessIntelligence.v1alpha1.ExecuteInsightRequest:
+      type: object
+      oneOf:
+      - properties:
+          pipeline_options:
+            title: pipeline_options
+            description: pipeline options
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ExecuteInsightRequest.PipelineOptions'
+        title: pipeline_options
+        required:
+        - pipeline_options
+      properties:
+        name:
+          type: string
+          title: name
+          description: The insight to execute.
+        org_ids:
+          type: array
+          items:
+            type: string
+            description: '(OPTIONAL) '
+          title: org_ids
+          description: "(OPTIONAL) org_ids is the list of orgs to query.\n if not
+            provided, the org_id is inferred from the user"
+        start_time:
+          title: start_time
+          description: start_time is the start time of the query.
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        end_time:
+          title: end_time
+          description: end_time is the end time of the query.
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        time_zone:
+          type: string
+          title: time_zone
+          description: "IANA timezone awareness of the query\n this is how the timezone
+            is represented in the query"
+        ui_trace_id:
+          type: string
+          title: ui_trace_id
+          description: (OPTIONAL) ui_trace_id is the trace id of the query.
+      title: ExecuteInsightRequest
+      required:
+      - name
+      - start_time
+      - end_time
+      - time_zone
+      additionalProperties: false
+      description: ExecuteInsightRequest is the request to execute an insight.
+    tcn.bi.businessIntelligence.v1alpha1.ExecuteInsightRequest.PipelineOptions:
+      type: object
+      properties:
+        output_types:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.ResultType'
+          title: output_types
+          description: "(OPTIONAL) output_type is the type of output to return.\n
+            raw results are always returned as unspecified"
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.Parameter'
+          title: parameters
+          description: (OPTIONAL) parameters
+      title: PipelineOptions
+      additionalProperties: false
+      description: PipelineOptions provides options for a pipeline insight.
+    tcn.bi.businessIntelligence.v1alpha1.ExecuteInsightResponse:
+      type: object
+      oneOf:
+      - properties:
+          query_response:
+            title: query_response
+            description: the response of the insight.
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ExecutePipelineResponse'
+        title: query_response
+        required:
+        - query_response
+      title: ExecuteInsightResponse
+      additionalProperties: false
+      description: ExecuteInsightResponse is the response to execute an insight.
+    tcn.bi.businessIntelligence.v1alpha1.ExecutePipelineRequest:
+      type: object
+      properties:
+        org_ids:
+          type: array
+          items:
+            type: string
+            description: '(OPTIONAL) '
+          title: org_ids
+          description: (OPTIONAL) if not provided, the org_id is inferred from the
+            user
+        start_time:
+          title: start_time
+          description: start_time is the start time of the query.
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        end_time:
+          title: end_time
+          description: end_time is the end time of the query.
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        time_zone:
+          type: string
+          title: time_zone
+          description: "IANA timezone awareness of the query\n this is how the timezone
+            is represented in the query"
+        ui_trace_id:
+          type: string
+          title: ui_trace_id
+          description: (OPTIONAL) ui_trace_id is the trace id of the query.
+        insight_title:
+          type: string
+          title: insight_title
+          description: "(OPTIONAL) insight_title is the title of the insight to execute.\n
+            used for tracking query metrics"
+        pipeline_parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.Parameter'
+          title: pipeline_parameters
+          description: (OPTIONAL) parameters is a map of reference name to parameter.
+        result_types:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.ResultType'
+          title: result_types
+          description: (OPTIONAL) result_types is the list of result types to return.
+        pipeline:
+          title: pipeline
+          description: the query pipeline to be executed
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline'
+      title: ExecutePipelineRequest
+      required:
+      - start_time
+      - end_time
+      - time_zone
+      - pipeline
+      additionalProperties: false
+      description: ExecutePipelineRequest is the request to query a datasource.
+    tcn.bi.businessIntelligence.v1alpha1.ExecutePipelineResponse:
+      type: object
+      properties:
+        result_files:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.ExecutePipelineResponse.ResultFile'
+          title: result_files
+          description: result_files is the list of result files to return.
+        time_filtered_datasources:
+          type: object
+          title: time_filtered_datasources
+          additionalProperties:
+            type: boolean
+            title: value
+          description: map of datasources and a boolean indicating if the datasource
+            is filtered by time
+      title: ExecutePipelineResponse
+      additionalProperties: false
+      description: ExecutePipelineResponse contains the result of a datasource query.
+    tcn.bi.businessIntelligence.v1alpha1.ExecutePipelineResponse.ResultFile:
+      type: object
+      properties:
+        result_type:
+          title: result_type
+          description: result_type is the type of result to return.
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Pipeline.ResultType'
+        result_uri:
+          type: string
+          title: result_uri
+          description: result_uri is the URL to the result of the query.
+        result_size_bytes:
+          type:
+          - integer
+          - string
+          title: result_size_bytes
+          format: int64
+          description: result_size_bytes is the size of the result in bytes.
+      title: ResultFile
+      additionalProperties: false
+      description: ResultFile is a file containing the result of a query.
+    tcn.bi.businessIntelligence.v1alpha1.ExecutePipelineResponse.TimeFilteredDatasourcesEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          type: boolean
+          title: value
+      title: TimeFilteredDatasourcesEntry
+      additionalProperties: false
     tcn.bi.businessIntelligence.v1alpha1.PublishDashboardRequest:
       type: object
       properties:
@@ -15147,6 +16636,49 @@ components:
       title: PublishDashboardResponse
       additionalProperties: false
       description: Response to publish a dashboard.
+    tcn.bi.businessIntelligence.v1alpha1.PublishInsightRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: source insight to publish
+        destination_standard_insight_id:
+          type: string
+          title: destination_standard_insight_id
+          description: (OPTIONAL) destination insight to overwrite
+      title: PublishInsightRequest
+      required:
+      - name
+      additionalProperties: false
+      description: PublishInsightRequest is the request to publish an insight.
+    tcn.bi.businessIntelligence.v1alpha1.PublishInsightResponse:
+      type: object
+      properties:
+        insight:
+          title: insight
+          description: published insight
+          $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Insight'
+      title: PublishInsightResponse
+      additionalProperties: false
+      description: PublishInsightResponse is the response to publish an insight.
+    tcn.bi.businessIntelligence.v1alpha1.ViewSchemasRequest:
+      type: object
+      title: ViewSchemasRequest
+      additionalProperties: false
+      description: ViewSchemasRequest is the request to list datasource schemas.
+    tcn.bi.businessIntelligence.v1alpha1.ViewSchemasResponse:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.bi.businessIntelligence.v1alpha1.Schema'
+          title: schemas
+          description: list of schemas
+      title: ViewSchemasResponse
+      additionalProperties: false
+      description: ViewSchemasResponse contains datasources and their schemas.
     connect-protocol-version:
       type: number
       title: Connect-Protocol-Version
@@ -26577,6 +28109,144 @@ components:
       additionalProperties: false
       description: ContactPreferences is an object containing all fields relating
         to an Org's Contact preferences
+    tcn.org.type.v1alpha1.CronFrequency:
+      type: string
+      title: CronFrequency
+      enum:
+      - CRON_FREQUENCY_UNSPECIFIED
+      - CRON_FREQUENCY_BY_MINUTE
+      - CRON_FREQUENCY_HOURLY
+      - CRON_FREQUENCY_DAILY
+      - CRON_FREQUENCY_WEEKLY
+      - CRON_FREQUENCY_MONTHLY
+      - CRON_FREQUENCY_YEARLY
+      description: CronFrequency specifies the frequency of the cron job.
+    tcn.org.type.v1alpha1.CronExpression:
+      type: object
+      properties:
+        seconds_schedule:
+          type: string
+          title: seconds_schedule
+          description: "(OPTIONAL) Seconds (0-59). Optional: Default is \"0\".\n Example:
+            \"30\" for the 30th second of the minute."
+        minutes:
+          type: string
+          title: minutes
+          description: "Minutes (0-59). Specifies the minute of the hour.\n Example:
+            \"0\" for the start of the hour, \"30\" for the 30th minute."
+        hours:
+          type: string
+          title: hours
+          description: "Hours (0-23). Specifies the hour of the day.\n Example: \"15\"
+            for 3 PM, \"0\" for midnight."
+        month_day:
+          type: string
+          title: month_day
+          description: "Day of the month (1-31). Specifies the day of the month.\n
+            Example: \"1\" for the 1st day of the month, \"*\" for any day."
+        month:
+          type: string
+          title: month
+          description: "Month (1-12). Specifies the month of the year.\n Example:
+            \"1\" for January, \"12\" for December, \"*\" for any month."
+        week_day:
+          type: string
+          title: week_day
+          description: "Day of the week (0-7, where 0 and 7 both represent Sunday).\n
+            Specifies the day of the week.\n Example: \"1\" for Monday, \"5\" for
+            Friday, \"*\" for any day of the week."
+        year:
+          type: string
+          title: year
+          description: "(OPTIONAL) Year (optional). Specifies the year.\n Example:
+            \"2002-2005\" for all years between 2002 and 2005, \"*\" for any year."
+        frequency:
+          title: frequency
+          description: "(OPTIONAL) CronFrequency (optional). Specifies the frequency
+            of the cron job.\n Example: \"DAILY\" for a daily cron job."
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.CronFrequency'
+      title: CronExpression
+      required:
+      - minutes
+      - hours
+      - month_day
+      - month
+      - week_day
+      additionalProperties: false
+      description: "CronExpression is a message for the cron expression of a report.\n
+        Common symbols used in cron expressions:\n (asterisk) * : Matches any value.\n
+        (comma)    , : Specifies a list of values (e.g., 1,3,5).\n (hyphen)   - :
+        Specifies a range of values (e.g., 1-5).\n (slash)    / : Specifies increments
+        (e.g., */5 for every 5 minutes)."
+    tcn.org.preferences.v1alpha1.ConversationAnalyticsPreferences.RedactEntity:
+      type: string
+      title: RedactEntity
+      enum:
+      - REDACT_ENTITY_UNSPECIFIED
+      - CREDIT_CARD
+      description: "RedactEntity is the type of entity to be redacted.\n This enum
+        is expected to grow as we support more types."
+    tcn.org.preferences.v1alpha1.ConversationAnalyticsPreferences:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) Name is the identifier of the conversation analytics
+            preferences.
+        enabled:
+          type: boolean
+          title: enabled
+          description: "When enabled call recordings will be transcribed and archived\n
+            by localmixer in conversation analytics.\n This was documented as OPTIONAL
+            in the legacy code."
+        silence_threshold:
+          type: integer
+          title: silence_threshold
+          format: int32
+          description: "(OPTIONAL) Minimum milliseconds of silence to occur before
+            considered to\n be silence by conversation analytics.\n The value must
+            be between 0 and 1000000."
+        talk_overlap_threshold:
+          type: integer
+          title: talk_overlap_threshold
+          format: int32
+          description: "(OPTIONAL) Minimum milliseconds of talk over to occur before
+            considered to\n be talk over by conversation analytics.\n The value must
+            be between 0 and 1000000.\n Previously named 'talk_over_threshold' - changed
+            to follow the Google AIP standard."
+        redact_rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.RedactRule'
+          title: redact_rules
+          description: "(OPTIONAL) Redaction settings\n\n The rules to be used for
+            redacting numbers."
+        redact_entities:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.ConversationAnalyticsPreferences.RedactEntity'
+          title: redact_entities
+          description: (OPTIONAL) The entities to be redacted.
+        notification:
+          title: notification
+          description: "Notification settings\n\n Flagging transcript notification
+            preferences.\n This was documented as OPTIONAL in the legacy code.\n It
+            defaults to every 15 minutes when not specified.\n Previously named 'notify',
+            and it was of type string - changed to follow the Google AIP standard."
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.CronExpression'
+        region_id:
+          type: string
+          title: region_id
+          description: (OPTIONAL) The region where the organization the conversation
+            analytics preferences belong to is located.
+      title: ConversationAnalyticsPreferences
+      required:
+      - enabled
+      - notification
+      additionalProperties: false
+      description: ConversationAnalyticsPreferences represents the preferences for
+        conversation analytics configurations.
     tcn.org.preferences.v1alpha1.DashboardGeneralPreferences:
       type: object
       properties:
@@ -27092,75 +28762,6 @@ components:
       additionalProperties: false
       description: ScorecardsPreferences represents the preferences for the score
         card.
-    tcn.org.type.v1alpha1.CronFrequency:
-      type: string
-      title: CronFrequency
-      enum:
-      - CRON_FREQUENCY_UNSPECIFIED
-      - CRON_FREQUENCY_BY_MINUTE
-      - CRON_FREQUENCY_HOURLY
-      - CRON_FREQUENCY_DAILY
-      - CRON_FREQUENCY_WEEKLY
-      - CRON_FREQUENCY_MONTHLY
-      - CRON_FREQUENCY_YEARLY
-      description: CronFrequency specifies the frequency of the cron job.
-    tcn.org.type.v1alpha1.CronExpression:
-      type: object
-      properties:
-        seconds_schedule:
-          type: string
-          title: seconds_schedule
-          description: "(OPTIONAL) Seconds (0-59). Optional: Default is \"0\".\n Example:
-            \"30\" for the 30th second of the minute."
-        minutes:
-          type: string
-          title: minutes
-          description: "Minutes (0-59). Specifies the minute of the hour.\n Example:
-            \"0\" for the start of the hour, \"30\" for the 30th minute."
-        hours:
-          type: string
-          title: hours
-          description: "Hours (0-23). Specifies the hour of the day.\n Example: \"15\"
-            for 3 PM, \"0\" for midnight."
-        month_day:
-          type: string
-          title: month_day
-          description: "Day of the month (1-31). Specifies the day of the month.\n
-            Example: \"1\" for the 1st day of the month, \"*\" for any day."
-        month:
-          type: string
-          title: month
-          description: "Month (1-12). Specifies the month of the year.\n Example:
-            \"1\" for January, \"12\" for December, \"*\" for any month."
-        week_day:
-          type: string
-          title: week_day
-          description: "Day of the week (0-7, where 0 and 7 both represent Sunday).\n
-            Specifies the day of the week.\n Example: \"1\" for Monday, \"5\" for
-            Friday, \"*\" for any day of the week."
-        year:
-          type: string
-          title: year
-          description: "(OPTIONAL) Year (optional). Specifies the year.\n Example:
-            \"2002-2005\" for all years between 2002 and 2005, \"*\" for any year."
-        frequency:
-          title: frequency
-          description: "(OPTIONAL) CronFrequency (optional). Specifies the frequency
-            of the cron job.\n Example: \"DAILY\" for a daily cron job."
-          $ref: '#/components/schemas/tcn.org.type.v1alpha1.CronFrequency'
-      title: CronExpression
-      required:
-      - minutes
-      - hours
-      - month_day
-      - month
-      - week_day
-      additionalProperties: false
-      description: "CronExpression is a message for the cron expression of a report.\n
-        Common symbols used in cron expressions:\n (asterisk) * : Matches any value.\n
-        (comma)    , : Specifies a list of values (e.g., 1,3,5).\n (hyphen)   - :
-        Specifies a range of values (e.g., 1-5).\n (slash)    / : Specifies increments
-        (e.g., */5 for every 5 minutes)."
     tcn.org.preferences.v1alpha1.VoiceAnalyticsPreferences:
       type: object
       properties:
@@ -27357,6 +28958,19 @@ components:
       - name
       additionalProperties: false
       description: GetContactPreferencesRequest is the request message for GetContactPreferences.
+    tcn.org.preferences.v1alpha1.GetConversationAnalyticsPreferencesRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The identifier of the conversation analytics preference.
+      title: GetConversationAnalyticsPreferencesRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetConversationAnalyticsPreferencesRequest is the request message
+        for GetConversationAnalyticsPreferences.
     tcn.org.preferences.v1alpha1.GetDashboardGeneralPreferencesRequest:
       type: object
       properties:
@@ -27506,6 +29120,50 @@ components:
       - name
       additionalProperties: false
       description: GetWebhookPreferencesRequest is the request message for GetWebhookPreferences.
+    tcn.org.preferences.v1alpha1.ListConversationAnalyticsPreferencesRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: The parent resource to list conversation analytics preferences
+            for.
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) The maximum number of preferences to return.
+        page_token:
+          type: string
+          title: page_token
+          description: "(OPTIONAL) A page token, received from a previous `ListConversationAnalyticsPreferences`
+            call.\n Provide this to retrieve the subsequent page.\n When paginating,
+            all other parameters provided to `ListConversationAnalyticsPreferences`
+            must match\n the call that provided the page token."
+      title: ListConversationAnalyticsPreferencesRequest
+      required:
+      - parent
+      additionalProperties: false
+      description: ListConversationAnalyticsPreferencesRequest is the request message
+        for ListConversationAnalyticsPreferences.
+    tcn.org.preferences.v1alpha1.ListConversationAnalyticsPreferencesResponse:
+      type: object
+      properties:
+        conversation_analytics_preferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.ConversationAnalyticsPreferences'
+          title: conversation_analytics_preferences
+          description: The list of conversation analytics preferences.
+        next_page_token:
+          type: string
+          title: next_page_token
+          description: "A token that can be sent as `page_token` to retrieve the next
+            page.\n If this field is omitted, there are no subsequent pages."
+      title: ListConversationAnalyticsPreferencesResponse
+      additionalProperties: false
+      description: ListConversationAnalyticsPreferencesResponse is the response message
+        for ListConversationAnalyticsPreferences.
     tcn.org.preferences.v1alpha1.ListVoiceAnalyticsPreferencesRequest:
       type: object
       properties:
@@ -27680,6 +29338,23 @@ components:
       - contact_preferences
       additionalProperties: false
       description: UpdateContactPreferencesRequest is the request message for UpdateContactPreferences.
+    tcn.org.preferences.v1alpha1.UpdateConversationAnalyticsPreferencesRequest:
+      type: object
+      properties:
+        conversation_analytics_preferences:
+          title: conversation_analytics_preferences
+          description: The conversation analytics preferences to update.
+          $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.ConversationAnalyticsPreferences'
+        update_mask:
+          title: update_mask
+          description: (OPTIONAL) The list of fields to update.
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: UpdateConversationAnalyticsPreferencesRequest
+      required:
+      - conversation_analytics_preferences
+      additionalProperties: false
+      description: UpdateConversationAnalyticsPreferencesRequest is the request message
+        for UpdateConversationAnalyticsPreferences.
     tcn.org.preferences.v1alpha1.UpdateDashboardGeneralPreferencesRequest:
       type: object
       properties:
