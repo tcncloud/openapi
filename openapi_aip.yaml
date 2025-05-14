@@ -1333,6 +1333,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.bi.dashboards.v1alpha1.LoadDefaultDashboardResponse'
+  /tcn/compliance/scrublists/v1alpha1/orgs/{org}/regions/{region}/scrublists/{scrublist}:
+    delete:
+      tags:
+      - ScrubListService
+      summary: DeleteScrubList
+      description: "DeleteScrubList deletes a scrub list.\n (-- api-linter: core::0135::response-message-name=disabled\n
+        \    aip.dev/not-precedent: Need custom response message to return warnings.
+        --)"
+      operationId: ScrubListService_DeleteScrubList
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: scrublist
+        in: path
+        description: The scrublist id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.compliance.scrublists.v1alpha1.DeleteScrubListResponse'
   /tcn/delivery/credential/v1alpha1/orgs/{org}/credentials:
     get:
       tags:
@@ -2022,6 +2063,227 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.delivery.transport.v1alpha1.ListSMSNumbersResponse'
+  /tcn/externalingestion/externalclientdataset/v1alpha1/orgs/{org}/externalClientDatasets:
+    get:
+      tags:
+      - ExternalClientDatasetService
+      summary: ListExternalClientDatasets
+      description: ListExternalClientDatasets lists all external client datasets
+      operationId: ExternalClientDatasetService_ListExternalClientDatasets
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        description: returned page size
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) returned page size
+      - name: page_token
+        in: query
+        description: Use to specify the page token
+        schema:
+          type: string
+          title: page_token
+          description: (OPTIONAL) Use to specify the page token
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.externalingestion.externalclientdataset.v1alpha1.ListExternalClientDatasetsResponse'
+    post:
+      tags:
+      - ExternalClientDatasetService
+      summary: CreateExternalClientDataset
+      description: "CreateExternalClientDataset creates a new external client dataset\n
+        (-- api-linter: core::0133::method-signature=disabled\n     aip.dev/not-precedent:
+        we need to include landing_path in the request\n     because it is not a field
+        specific to the external client dataset resource,\n     and it will be deleted
+        after the external client dataset is created. --)"
+      operationId: ExternalClientDatasetService_CreateExternalClientDataset
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The dataset payload
+        content:
+          application/json:
+            schema:
+              title: external_client_dataset
+              description: The dataset payload
+              $ref: '#/components/schemas/tcn.externalingestion.externalclientdataset.v1alpha1.ExternalClientDataset'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.externalingestion.externalclientdataset.v1alpha1.ExternalClientDataset'
+  /tcn/externalingestion/externalclientdataset/v1alpha1/orgs/{org}/externalClientDatasets/{externalClientDataset}:
+    get:
+      tags:
+      - ExternalClientDatasetService
+      summary: GetExternalClientDataset
+      description: GetExternalClientDataset gets a external client dataset
+      operationId: ExternalClientDatasetService_GetExternalClientDataset
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: externalClientDataset
+        in: path
+        description: The externalClientDataset id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.externalingestion.externalclientdataset.v1alpha1.ExternalClientDataset'
+    delete:
+      tags:
+      - ExternalClientDatasetService
+      summary: DeleteExternalClientDataset
+      description: DeleteExternalClientDataset deletes a external client dataset
+      operationId: ExternalClientDatasetService_DeleteExternalClientDataset
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: externalClientDataset
+        in: path
+        description: The externalClientDataset id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
+  /tcn/externalingestion/externalclientdataset/v1alpha1/orgs/{org}/externalClientDatasets/{externalClientDataset}:merge:
+    post:
+      tags:
+      - ExternalClientDatasetService
+      summary: MergeExternalClientDataset
+      description: MergeExternalClientDataset merges a external client dataset
+      operationId: ExternalClientDatasetService_MergeExternalClientDataset
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: externalClientDataset
+        in: path
+        description: The externalClientDataset id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                external_client_dataset:
+                  title: external_client_dataset
+                  description: ExternalClientDataset is the external client dataset
+                    to merge
+                  $ref: '#/components/schemas/tcn.externalingestion.externalclientdataset.v1alpha1.ExternalClientDataset'
+                region_id:
+                  type: string
+                  title: region_id
+                  description: Region is the region to merge the dataset under, e.g.,
+                    "us-central1"
+                landing_path:
+                  type: string
+                  title: landing_path
+                  description: LandingPath is the path to the landing page for the
+                    external client dataset
+                dedup_columns:
+                  type: array
+                  items:
+                    type: string
+                  title: dedup_columns
+                  description: DedupColumns is the list of columns to deduplicate
+                    on
+                version_column:
+                  type: string
+                  title: version_column
+                  description: VersionColumn is the column to use for versioning
+              title: MergeExternalClientDatasetRequest
+              required:
+              - external_client_dataset
+              - region_id
+              - landing_path
+              - dedup_columns
+              - version_column
+              additionalProperties: false
+              description: MergeExternalClientDatasetRequest is the message used for
+                merging a external client dataset
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.externalingestion.externalclientdataset.v1alpha1.ExternalClientDataset'
   /tcn/journey/project/v1beta1/orgs/{org}/collection/{collection}/jobs:
     get:
       tags:
@@ -2171,6 +2433,91 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.journey.rejection.v1beta1.ListRejectionsResponse'
+  /tcn/lms/pipelinecanvas/v1alpha1/orgs/{org}/pipelineCanvases:
+    get:
+      tags:
+      - PipelineCanvasService
+      summary: ListPipelineCanvases
+      description: "ListPipelineCanvases lists all pipeline canvases\n Requires permission
+        PERMISSION_LMS_VIEW"
+      operationId: PipelineCanvasService_ListPipelineCanvases
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        description: "The maximum number of pipeline canvases to return. The service
+          may return fewer than\n this value.\n If unspecified, at most 50 pipeline
+          canvases will be returned.\n The maximum value is 1000; values above 1000
+          will be coerced to 1000."
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: "(OPTIONAL) The maximum number of pipeline canvases to return.
+            The service may return fewer than\n this value.\n If unspecified, at most
+            50 pipeline canvases will be returned.\n The maximum value is 1000; values
+            above 1000 will be coerced to 1000."
+      - name: page_token
+        in: query
+        description: "A page token, received from a previous `ListPipelineCanvases`
+          call.\n Provide this to retrieve the subsequent page."
+        schema:
+          type: string
+          title: page_token
+          description: "(OPTIONAL) A page token, received from a previous `ListPipelineCanvases`
+            call.\n Provide this to retrieve the subsequent page."
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.lms.pipelinecanvas.v1alpha1.ListPipelineCanvasesResponse'
+  /tcn/lms/pipelinecanvas/v1alpha1/orgs/{org}/pipelineCanvases/{pipelineCanvase}:
+    get:
+      tags:
+      - PipelineCanvasService
+      summary: GetPipelineCanvas
+      description: "GetPipelineCanvas gets a pipeline canvas by name\n Requires permission
+        PERMISSION_LMS_VIEW"
+      operationId: PipelineCanvasService_GetPipelineCanvas
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: pipelineCanvase
+        in: path
+        description: The pipelineCanvase id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.lms.pipelinecanvas.v1alpha1.PipelineCanvas'
   /tcn/omni/attachment/v1alpha1/orgs/{org}/attachments:
     post:
       tags:
@@ -5000,13 +5347,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.omni.oauth.v1alpha1.OauthConfig'
-  /tcn/omni/p3scheduler/v1alpha1/orgs/{org}/region/{region}/campaignScheduleDetails/{campaignScheduleDetail}:scheduleCampaign:
-    get:
+  /tcn/omni/p3scheduler/v1alpha1/orgs/{org}/regions/{region}/campaigns:
+    post:
       tags:
       - P3SchedulerService
-      summary: ScheduleCampaign
-      description: Defines a Remote Procedure Call (RPC) named ScheduleCampaign.
-      operationId: P3SchedulerService_ScheduleCampaign
+      summary: CreateCampaign
+      description: "Creates a Campaign resource.\n (-- api-linter: core::0133::response-message-name=disabled\n
+        \    aip.dev/not-precedent: We need to do this because reasons longrunning
+        operation. --)"
+      operationId: P3SchedulerService_CreateCampaign
       parameters:
       - name: org
         in: path
@@ -5020,12 +5369,14 @@ paths:
         required: true
         schema:
           type: string
-      - name: campaignScheduleDetail
-        in: path
-        description: The campaignScheduleDetail id.
-        required: true
-        schema:
-          type: string
+      requestBody:
+        description: The Campaign resource to create. This will move to JOB_ID
+        content:
+          application/json:
+            schema:
+              title: campaign
+              description: The Campaign resource to create. This will move to JOB_ID
+              $ref: '#/components/schemas/tcn.omni.p3scheduler.v1alpha1.Campaign'
       responses:
         default:
           description: Error
@@ -5038,7 +5389,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/tcn.omni.p3scheduler.v1alpha1.ScheduleCampaignResponse'
+                $ref: '#/components/schemas/google.longrunning.Operation'
   /tcn/omni/project/v1alpha1/orgs/{org}/projects:
     get:
       tags:
@@ -12289,6 +12640,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.org.users.v1alpha1.UnArchiveUserResponse'
+  /tcn/org/users/v1alpha1/orgs/{org}/users:batchCreate:
+    post:
+      tags:
+      - UsersService
+      summary: BatchCreateUsers
+      description: "BatchCreateUsers requires PERMISSION PERMISSION_USER_CREATE\n
+        BatchCreateUsers creates multiple new users in a single request"
+      operationId: UsersService_BatchCreateUsers
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                requests:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/tcn.org.users.v1alpha1.CreateUserRequest'
+                  title: requests
+                  description: "The request messages specifying the users to create.\n
+                    A maximum of 100 users can be created in a batch."
+              title: BatchCreateUsersRequest
+              required:
+              - requests
+              additionalProperties: false
+              description: Request message for BatchCreateUsers
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.longrunning.Operation'
   /tcn/ruleengine/ruleset/v1alpha1/orgs/{org}/ruleSet:
     get:
       tags:
@@ -14872,6 +15270,7 @@ components:
       - APPLICATION_WFO_AGENT_MANAGER
       - APPLICATION_KNOWLEDGE_BASE
       - APPLICATION_RULE_ENGINE
+      - APPLICATION_EXTERNAL_INGESTION
       description: Application contains license/permission application name constants.
     tcn.api.Card:
       type: string
@@ -15036,6 +15435,7 @@ components:
       - PERMISSION_CONTACTMANAGER_APP
       - PERMISSION_KNOWLEDGE_BASE_EDIT
       - PERMISSION_RULE_ENGINE
+      - PERMISSION_EXTERNAL_INGESTION
       description: Permission enum contains the permissions to be used for access
         control.
     tcn.api.PermissionSet:
@@ -16994,6 +17394,121 @@ components:
       - dashboard
       additionalProperties: false
       description: Request to update a dashboard.
+    tcn.compliance.scrublists.v1alpha1.ScrubList:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) scrublist identifier
+        title:
+          type: string
+          title: title
+          description: title
+        read_only:
+          type: boolean
+          title: read_only
+          description: read only
+          readOnly: true
+        list_type:
+          type:
+          - integer
+          - string
+          title: list_type
+          format: int64
+          description: list type
+        decompositions:
+          title: decompositions
+          description: (OPTIONAL) decompositions
+          $ref: '#/components/schemas/tcn.compliance.scrublists.v1alpha1.ScrubList.Decompositions'
+        deleted:
+          type: boolean
+          title: deleted
+          description: deleted
+          readOnly: true
+        country_code:
+          type: string
+          title: country_code
+          description: "(OPTIONAL) country code\n (-- api-linter: core::0143::standardized-codes=disabled\n
+            \    aip.dev/not-precedent: Need country code for scrublist. --)"
+        create_time:
+          title: create_time
+          description: creation date
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        update_time:
+          title: update_time
+          description: last update date
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+      title: ScrubList
+      required:
+      - title
+      - list_type
+      additionalProperties: false
+      description: ScrubList
+    tcn.compliance.scrublists.v1alpha1.ScrubList.Decompositions:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.compliance.scrublists.v1alpha1.ScrubList.Decompositions.Decomposition'
+          title: items
+          description: decompositions
+      title: Decompositions
+      required:
+      - items
+      additionalProperties: false
+      description: decompositions
+    tcn.compliance.scrublists.v1alpha1.ScrubList.Decompositions.Decomposition:
+      type: object
+      properties:
+        display_name:
+          type: string
+          title: display_name
+          description: display name
+        start_digit:
+          type: integer
+          title: start_digit
+          format: int32
+          description: start digit
+        end_digit:
+          type: integer
+          title: end_digit
+          format: int32
+          description: end digit
+      title: Decomposition
+      required:
+      - display_name
+      - start_digit
+      - end_digit
+      additionalProperties: false
+      description: decomposition
+    tcn.compliance.scrublists.v1alpha1.DeleteScrubListRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: name
+      title: DeleteScrubListRequest
+      required:
+      - name
+      additionalProperties: false
+      description: DeleteScrubListRequest is the request for deleting a scrub list.
+    tcn.compliance.scrublists.v1alpha1.DeleteScrubListResponse:
+      type: object
+      properties:
+        warnings:
+          type: array
+          items:
+            type: string
+          title: warnings
+          description: warnings
+      title: DeleteScrubListResponse
+      additionalProperties: false
+      description: DeleteScrubListResponse is the response for deleting a scrub list.
     tcn.delivery.credential.v1alpha1.Credential:
       type: object
       oneOf:
@@ -17998,6 +18513,185 @@ components:
       title: ValidateTransportSchemaResponse
       additionalProperties: false
       description: validate response
+    tcn.externalingestion.externalclientdataset.v1alpha1.ExternalClientDataset:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: "(IDENTIFIER) Name is the identifier for a customer dataset\n
+            e.g. \"regions/us-central1/orgs/123/externalClientDatasets/sales_dataset\""
+        view:
+          type: string
+          title: view
+          description: ViewName is the name of the view for the customer dataset
+          readOnly: true
+        create_time:
+          title: create_time
+          description: CreateTime is the time the customer dataset was created
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        update_time:
+          title: update_time
+          description: UpdateTime is the time the customer dataset was last updated
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+      title: ExternalClientDataset
+      additionalProperties: false
+      description: ExternalClientDataset
+    tcn.externalingestion.externalclientdataset.v1alpha1.CreateExternalClientDatasetRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: The parent org to create the dataset under, e.g., "orgs/123"
+        external_client_dataset_id:
+          type: string
+          title: external_client_dataset_id
+          description: The user-provided ID of the dataset, e.g., "my-dataset"
+        external_client_dataset:
+          title: external_client_dataset
+          description: The dataset payload
+          $ref: '#/components/schemas/tcn.externalingestion.externalclientdataset.v1alpha1.ExternalClientDataset'
+        region_id:
+          type: string
+          title: region_id
+          description: "Region is the region to create the dataset under, e.g., \"us-central1\"\n
+            (-- api-linter: core::0133::request-required-fields=disabled\n (-- api-linter:
+            core::0133::request-unknown-fields=disabled\n     aip.dev/not-precedent:
+            region is required to get the correct path to the external client dataset
+            --)"
+        landing_path:
+          type: string
+          title: landing_path
+          description: "LandingPath is the path to the landing page for the external
+            client dataset\n (-- api-linter: core::0133::request-required-fields=disabled\n
+            (-- api-linter: core::0133::request-unknown-fields=disabled\n     aip.dev/not-precedent:
+            landing_path is required to get the file containing the external client
+            data\n     but this is not a field specific to the external client dataset
+            resource,\n     as landing_path will be deleted after the external client
+            dataset is created. --)"
+      title: CreateExternalClientDatasetRequest
+      required:
+      - parent
+      - external_client_dataset_id
+      - external_client_dataset
+      - region_id
+      - landing_path
+      additionalProperties: false
+      description: CreateExternalClientDatasetRequest is the message used for creating
+        a external client dataset
+    tcn.externalingestion.externalclientdataset.v1alpha1.DeleteExternalClientDatasetRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: "Name is the name of the external client dataset to delete\n
+            e.g. \"regions/us-central1/orgs/123/externalClientDatasets/sales_dataset\""
+      title: DeleteExternalClientDatasetRequest
+      required:
+      - name
+      additionalProperties: false
+      description: DeleteExternalClientDatasetRequest is the message used for deleting
+        a external client dataset
+    tcn.externalingestion.externalclientdataset.v1alpha1.GetExternalClientDatasetRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: "Name is the name of the external client dataset to get\n e.g.
+            \"regions/us-central1/orgs/123/externalClientDatasets/sales_dataset\""
+      title: GetExternalClientDatasetRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetExternalClientDatasetRequest is the message used for getting
+        a external client dataset
+    tcn.externalingestion.externalclientdataset.v1alpha1.ListExternalClientDatasetsRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: "Parent is the parent of the external client dataset to list\n
+            e.g. \"regions/us-central1/orgs/123\""
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) returned page size
+        page_token:
+          type: string
+          title: page_token
+          description: (OPTIONAL) Use to specify the page token
+      title: ListExternalClientDatasetsRequest
+      required:
+      - parent
+      additionalProperties: false
+      description: ListExternalClientDatasetsRequest is the message used for listing
+        external client datasets
+    tcn.externalingestion.externalclientdataset.v1alpha1.ListExternalClientDatasetsResponse:
+      type: object
+      properties:
+        external_client_datasets:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.externalingestion.externalclientdataset.v1alpha1.ExternalClientDataset'
+          title: external_client_datasets
+          description: ExternalClientDatasets is the list of external client datasets
+        next_page_token:
+          type: string
+          title: next_page_token
+          description: next page token
+      title: ListExternalClientDatasetsResponse
+      additionalProperties: false
+      description: ListExternalClientDatasetsResponse is the response message used
+        for listing external client datasets
+    tcn.externalingestion.externalclientdataset.v1alpha1.MergeExternalClientDatasetRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: "Name is the name of the external client dataset to merge\n
+            e.g. \"regions/us-central1/orgs/123/externalClientDatasets/sales_dataset\""
+        external_client_dataset:
+          title: external_client_dataset
+          description: ExternalClientDataset is the external client dataset to merge
+          $ref: '#/components/schemas/tcn.externalingestion.externalclientdataset.v1alpha1.ExternalClientDataset'
+        region_id:
+          type: string
+          title: region_id
+          description: Region is the region to merge the dataset under, e.g., "us-central1"
+        landing_path:
+          type: string
+          title: landing_path
+          description: LandingPath is the path to the landing page for the external
+            client dataset
+        dedup_columns:
+          type: array
+          items:
+            type: string
+          title: dedup_columns
+          description: DedupColumns is the list of columns to deduplicate on
+        version_column:
+          type: string
+          title: version_column
+          description: VersionColumn is the column to use for versioning
+      title: MergeExternalClientDatasetRequest
+      required:
+      - name
+      - external_client_dataset
+      - region_id
+      - landing_path
+      - dedup_columns
+      - version_column
+      additionalProperties: false
+      description: MergeExternalClientDatasetRequest is the message used for merging
+        a external client dataset
     tcn.journey.jobs.v1beta1.JobType:
       type: string
       title: JobType
@@ -18178,6 +18872,134 @@ components:
       title: ListRejectionsResponse
       additionalProperties: false
       description: ListRejectionsResponse
+    tcn.lms.pipelinecanvas.v1alpha1.ElementMetadata:
+      type: object
+      properties:
+        element_id:
+          type: string
+          title: element_id
+          description: The unique identifier for the element within the canvas
+          readOnly: true
+        type:
+          type: string
+          title: type
+          description: The type of the element
+          readOnly: true
+        element:
+          type: string
+          title: element
+          description: The name of the element
+        execution_message:
+          type: string
+          title: execution_message
+          description: The most recent execution message for this element
+          readOnly: true
+        execute_time:
+          title: execute_time
+          description: The last execution time of the element
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        cron_string:
+          type: string
+          title: cron_string
+          description: The cron string of the element
+          readOnly: true
+      title: ElementMetadata
+      required:
+      - element
+      additionalProperties: false
+      description: ElementMetadata contains summary information about a pipeline element
+    tcn.lms.pipelinecanvas.v1alpha1.GetPipelineCanvasRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: Required. The name of the pipeline canvas to get.
+      title: GetPipelineCanvasRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetPipelineCanvasRequest is the request to get a pipeline canvas.
+    tcn.lms.pipelinecanvas.v1alpha1.ListPipelineCanvasesRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: The parent resource where this pipeline canvas will be listed.
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: "(OPTIONAL) The maximum number of pipeline canvases to return.
+            The service may return fewer than\n this value.\n If unspecified, at most
+            50 pipeline canvases will be returned.\n The maximum value is 1000; values
+            above 1000 will be coerced to 1000."
+        page_token:
+          type: string
+          title: page_token
+          description: "(OPTIONAL) A page token, received from a previous `ListPipelineCanvases`
+            call.\n Provide this to retrieve the subsequent page."
+      title: ListPipelineCanvasesRequest
+      required:
+      - parent
+      additionalProperties: false
+      description: ListPipelineCanvasesRequest is the request to list pipeline canvases.
+    tcn.lms.pipelinecanvas.v1alpha1.ListPipelineCanvasesResponse:
+      type: object
+      properties:
+        pipeline_canvases:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.lms.pipelinecanvas.v1alpha1.PipelineCanvas'
+          title: pipeline_canvases
+          description: The list of pipeline canvases.
+        next_page_token:
+          type: string
+          title: next_page_token
+          description: The next page token.
+      title: ListPipelineCanvasesResponse
+      additionalProperties: false
+      description: ListInsightsResponse is the response to list insights.
+    tcn.lms.pipelinecanvas.v1alpha1.PipelineCanvas:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) The unique identifier for the pipeline canvas
+        title:
+          type: string
+          title: title
+          description: The human-readable title of the pipeline canvas
+        description:
+          type: string
+          title: description
+          description: (OPTIONAL) A description of the pipeline canvas
+        element_metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.lms.pipelinecanvas.v1alpha1.ElementMetadata'
+          title: element_metadata
+          description: The metadata for each element in the pipeline canvas
+          readOnly: true
+        create_time:
+          title: create_time
+          description: Creation timestamp
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        update_time:
+          title: update_time
+          description: Last update timestamp
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+      title: PipelineCanvas
+      required:
+      - title
+      additionalProperties: false
+      description: PipelineCanvas represents a visual canvas for building and managing
+        data pipelines
     google.protobuf.StringValue:
       type: string
       description: "Wrapper message for `string`.\n\n The JSON representation for
@@ -22072,40 +22894,363 @@ components:
       - oauth_config
       additionalProperties: false
       description: request message UpdateOauthConfigRequest
-    tcn.omni.p3scheduler.v1alpha1.CampaignScheduleDetail:
+    tcn.omni.p3scheduler.v1alpha1.Campaign:
       type: object
       properties:
         name:
           type: string
           title: name
-          description: (IDENTIFIER) name identifier for campaignScheduleDetail
-      title: CampaignScheduleDetail
+          description: (IDENTIFIER) The resource name of the Campaign
+        client_id:
+          type:
+          - integer
+          - string
+          title: client_id
+          format: int64
+          description: The identification of the client_sid to use for the broadcast.
+          readOnly: true
+        login_id:
+          type:
+          - integer
+          - string
+          title: login_id
+          format: int64
+          description: The identification of the login_sid to use for the broadcast.
+          readOnly: true
+        column_order:
+          title: column_order
+          description: (OPTIONAL) ColumnOrder.
+          $ref: '#/components/schemas/tcn.omni.p3scheduler.v1alpha1.Campaign.ColumnOrder'
+        start_time:
+          title: start_time
+          description: (OPTIONAL) schedule time
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        stop_time:
+          title: stop_time
+          description: (OPTIONAL) stop_time
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        use_global_timezone_restrictions:
+          type: boolean
+          title: use_global_timezone_restrictions
+          description: (OPTIONAL) use_global_timezone_restrictions
+        schedule_rule_sid:
+          title: schedule_rule_sid
+          description: (OPTIONAL) schedule_rule_sid
+          $ref: '#/components/schemas/google.protobuf.Int64Value'
+        use_schedule_time_zone:
+          title: use_schedule_time_zone
+          description: (OPTIONAL) use_schedule_time_zone
+          $ref: '#/components/schemas/google.protobuf.BoolValue'
+        selected_schedule_time_zone:
+          type: string
+          title: selected_schedule_time_zone
+          description: (OPTIONAL) selected_schedule_time_zone TimeZone can be represented
+            as a string (e.g., "America/Los_Angeles")
+        do_schedule_as_paused:
+          title: do_schedule_as_paused
+          description: (OPTIONAL) do_schedule_as_paused
+          $ref: '#/components/schemas/google.protobuf.BoolValue'
+      title: Campaign
       additionalProperties: false
-      description: CampaignScheduleDetail -
-    tcn.omni.p3scheduler.v1alpha1.ScheduleCampaignRequest:
+      description: Campaign
+    tcn.omni.p3scheduler.v1alpha1.Campaign.ColumnOrder:
       type: object
+      oneOf:
+      - properties:
+          custom_order:
+            type: boolean
+            title: custom_order
+            description: (OPTIONAL) custom_order.
+        title: custom_order
+        required:
+        - custom_order
+      - properties:
+          first_number_only:
+            type: boolean
+            title: first_number_only
+            description: (OPTIONAL) first_number_only.
+        title: first_number_only
+        required:
+        - first_number_only
+      - properties:
+          natural_order:
+            type: boolean
+            title: natural_order
+            description: (OPTIONAL) natural_order.
+        title: natural_order
+        required:
+        - natural_order
+      title: ColumnOrder
+      additionalProperties: false
+      description: ColumnOrder
+    google.longrunning.Operation:
+      type: object
+      oneOf:
+      - properties:
+          error:
+            title: error
+            description: The error result of the operation in case of failure or cancellation.
+            $ref: '#/components/schemas/google.rpc.Status'
+        title: error
+        required:
+        - error
+      - properties:
+          response:
+            title: response
+            description: "The normal, successful response of the operation.  If the
+              original\n method returns no data on success, such as `Delete`, the
+              response is\n `google.protobuf.Empty`.  If the original method is standard\n
+              `Get`/`Create`/`Update`, the response should be the resource.  For other\n
+              methods, the response should have the type `XxxResponse`, where `Xxx`\n
+              is the original method name.  For example, if the original method name\n
+              is `TakeSnapshot()`, the inferred response type is\n `TakeSnapshotResponse`."
+            $ref: '#/components/schemas/google.protobuf.Any'
+        title: response
+        required:
+        - response
       properties:
         name:
           type: string
           title: name
-          description: Defines a string field named 'name' with field number 1.
-      title: ScheduleCampaignRequest
-      required:
-      - name
+          description: "The server-assigned name, which is only unique within the
+            same service that\n originally returns it. If you use the default HTTP
+            mapping, the\n `name` should be a resource name ending with `operations/{unique_id}`."
+        metadata:
+          title: metadata
+          description: "Service-specific metadata associated with the operation.  It
+            typically\n contains progress information and common metadata such as
+            create time.\n Some services might not provide such metadata.  Any method
+            that returns a\n long-running operation should document the metadata type,
+            if any."
+          $ref: '#/components/schemas/google.protobuf.Any'
+        done:
+          type: boolean
+          title: done
+          description: "If the value is `false`, it means the operation is still in
+            progress.\n If `true`, the operation is completed, and either `error`
+            or `response` is\n available."
+      title: Operation
       additionalProperties: false
-      description: Defines the request message for the ScheduleCampaign RPC.
-    tcn.omni.p3scheduler.v1alpha1.ScheduleCampaignResponse:
+      description: "This resource represents a long-running operation that is the
+        result of a\n network API call."
+    google.rpc.Status:
       type: object
       properties:
+        code:
+          type: integer
+          title: code
+          format: int32
+          description: "The status code, which should be an enum value of\n [google.rpc.Code][google.rpc.Code]."
+        message:
+          type: string
+          title: message
+          description: "A developer-facing error message, which should be in English.
+            Any\n user-facing error message should be localized and sent in the\n
+            [google.rpc.Status.details][google.rpc.Status.details] field, or localized\n
+            by the client."
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          title: details
+          description: "A list of messages that carry the error details.  There is
+            a common set of\n message types for APIs to use."
+      title: Status
+      additionalProperties: false
+      description: "The `Status` type defines a logical error model that is suitable
+        for\n different programming environments, including REST APIs and RPC APIs.
+        It is\n used by [gRPC](https://github.com/grpc). Each `Status` message contains\n
+        three pieces of data: error code, error message, and error details.\n\n You
+        can find out more about this error model and how to work with it in the\n
+        [API Design Guide](https://cloud.google.com/apis/design/errors)."
+    tcn.omni.p3scheduler.v1alpha1.CampaignProcessMetadata:
+      type: object
+      properties:
+        job_id:
+          type:
+          - integer
+          - string
+          title: job_id
+          format: int64
+          description: current job id.
+          readOnly: true
+        error:
+          title: error
+          description: the error message if the job failed.
+          readOnly: true
+          $ref: '#/components/schemas/google.rpc.Status'
+      title: CampaignProcessMetadata
+      additionalProperties: false
+      description: CampaignProcessMetadata
+    tcn.omni.p3scheduler.v1alpha1.CampaignProcessResponse:
+      type: object
+      title: CampaignProcessResponse
+      additionalProperties: false
+      description: CampaignProcessResponse.
+    tcn.omni.p3scheduler.v1alpha1.CreateCampaignRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: "The parent resource where this campaign will be created.\n
+            Format: orgs/{org}/regions/{region}/projects/{project}"
         campaign_id:
           type: string
           title: campaign_id
-          description: Defines a string field named 'campaign_id' with field number
-            1, likely representing the ID of the scheduled campaign.
-          readOnly: true
-      title: ScheduleCampaignResponse
+          description: task_group_name
+        campaign:
+          title: campaign
+          description: The Campaign resource to create. This will move to JOB_ID
+          $ref: '#/components/schemas/tcn.omni.p3scheduler.v1alpha1.Campaign'
+        contact_source:
+          title: contact_source
+          description: contact source.
+          $ref: '#/components/schemas/tcn.omni.p3scheduler.v1alpha1.CreateCampaignRequest.ContactSource'
+        broad_cast_type:
+          title: broad_cast_type
+          description: BroadCastType.
+          $ref: '#/components/schemas/tcn.omni.p3scheduler.v1alpha1.CreateCampaignRequest.BroadCastType'
+        scrub_cell_phone_numbers:
+          title: scrub_cell_phone_numbers
+          description: (OPTIONAL) Settings for scrubbing cell phone numbers.
+          $ref: '#/components/schemas/tcn.omni.p3scheduler.v1alpha1.CreateCampaignRequest.ScrubCellPhoneNumbersSettings'
+        geographically_control_calling:
+          title: geographically_control_calling
+          description: (OPTIONAL) GeographicallyControlCalling.
+          $ref: '#/components/schemas/tcn.omni.p3scheduler.v1alpha1.CreateCampaignRequest.GeographicallyControlCalling'
+        broadcast_template_id:
+          type: string
+          title: broadcast_template_id
+          description: (OPTIONAL) broadcast template settings
+        compliance_detail:
+          type: string
+          title: compliance_detail
+          description: (OPTIONAL) compliance_name
+        contact_fields:
+          type: array
+          items:
+            type: string
+            description: '(OPTIONAL) '
+          title: contact_fields
+          description: (OPTIONAL) contact_list_fields.
+        region_code:
+          type: string
+          title: region_code
+          description: (OPTIONAL) region_code.
+        task_group_parameters:
+          type: object
+          title: task_group_parameters
+          additionalProperties:
+            type: string
+            title: value
+          description: (OPTIONAL) task_group_parameters
+      title: CreateCampaignRequest
+      required:
+      - parent
+      - campaign_id
+      - campaign
+      - contact_source
+      - broad_cast_type
       additionalProperties: false
-      description: Defines the response message for the ScheduleCampaign RPC.
+      description: "(-- api-linter: core::0133::request-id-field=disabled\n     aip.dev/not-precedent:
+        The ID of the campagain will be\n     generated from the service instead of
+        being provided by the client. --)\n (-- api-linter: core::0133::request-unknown-fields=disabled
+        --)\n (-- api-linter: core::0133::request-required-fields=disabled\n     aip.dev/not-precedent:
+        We want to pass the allowed countries in the request\n     to create an campagain.
+        And it will be stored in the campagain Preerences. --)\n Request and response
+        messages for creating a Campaign."
+    tcn.omni.p3scheduler.v1alpha1.CreateCampaignRequest.BroadCastType:
+      type: object
+      oneOf:
+      - properties:
+          custom_type:
+            type: boolean
+            title: custom_type
+            description: (OPTIONAL) custom_type.
+        title: custom_type
+        required:
+        - custom_type
+      - properties:
+          template_type:
+            type: boolean
+            title: template_type
+            description: (OPTIONAL) template_type.
+        title: template_type
+        required:
+        - template_type
+      title: BroadCastType
+      additionalProperties: false
+      description: BroadCastType
+    tcn.omni.p3scheduler.v1alpha1.CreateCampaignRequest.ContactSource:
+      type: object
+      oneOf:
+      - properties:
+          contact_list_id:
+            type: string
+            title: contact_list_id
+            description: (OPTIONAL) contact_list_id.
+        title: contact_list_id
+        required:
+        - contact_list_id
+      title: ContactSource
+      additionalProperties: false
+      description: ContactSource
+    tcn.omni.p3scheduler.v1alpha1.CreateCampaignRequest.GeographicallyControlCalling:
+      type: object
+      oneOf:
+      - properties:
+          follow_the_sun:
+            type: boolean
+            title: follow_the_sun
+            description: (OPTIONAL) follow_the_sun.
+        title: follow_the_sun
+        required:
+        - follow_the_sun
+      - properties:
+          un_controlled:
+            type: boolean
+            title: un_controlled
+            description: (OPTIONAL) un_controlled.
+        title: un_controlled
+        required:
+        - un_controlled
+      title: GeographicallyControlCalling
+      additionalProperties: false
+      description: GeographicallyControlCalling
+    tcn.omni.p3scheduler.v1alpha1.CreateCampaignRequest.ScrubCellPhoneNumbersSettings:
+      type: object
+      oneOf:
+      - properties:
+          dont_scrub:
+            type: boolean
+            title: dont_scrub
+            description: (OPTIONAL) Don't scrub cell calls.
+        title: dont_scrub
+        required:
+        - dont_scrub
+      - properties:
+          scrub_cell_calls:
+            type: boolean
+            title: scrub_cell_calls
+            description: (OPTIONAL) Scrub cell calls.
+        title: scrub_cell_calls
+        required:
+        - scrub_cell_calls
+      title: ScrubCellPhoneNumbersSettings
+      additionalProperties: false
+      description: ScrubCellPhoneNumbersSettings
+    tcn.omni.p3scheduler.v1alpha1.CreateCampaignRequest.TaskGroupParametersEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          type: string
+          title: value
+      title: TaskGroupParametersEntry
+      additionalProperties: false
     tcn.omni.project.v1alpha1.Project.State:
       type: string
       title: State
@@ -24492,86 +25637,6 @@ components:
       - SUCCEEDED
       - FAILED
       description: State -
-    google.longrunning.Operation:
-      type: object
-      oneOf:
-      - properties:
-          error:
-            title: error
-            description: The error result of the operation in case of failure or cancellation.
-            $ref: '#/components/schemas/google.rpc.Status'
-        title: error
-        required:
-        - error
-      - properties:
-          response:
-            title: response
-            description: "The normal, successful response of the operation.  If the
-              original\n method returns no data on success, such as `Delete`, the
-              response is\n `google.protobuf.Empty`.  If the original method is standard\n
-              `Get`/`Create`/`Update`, the response should be the resource.  For other\n
-              methods, the response should have the type `XxxResponse`, where `Xxx`\n
-              is the original method name.  For example, if the original method name\n
-              is `TakeSnapshot()`, the inferred response type is\n `TakeSnapshotResponse`."
-            $ref: '#/components/schemas/google.protobuf.Any'
-        title: response
-        required:
-        - response
-      properties:
-        name:
-          type: string
-          title: name
-          description: "The server-assigned name, which is only unique within the
-            same service that\n originally returns it. If you use the default HTTP
-            mapping, the\n `name` should be a resource name ending with `operations/{unique_id}`."
-        metadata:
-          title: metadata
-          description: "Service-specific metadata associated with the operation.  It
-            typically\n contains progress information and common metadata such as
-            create time.\n Some services might not provide such metadata.  Any method
-            that returns a\n long-running operation should document the metadata type,
-            if any."
-          $ref: '#/components/schemas/google.protobuf.Any'
-        done:
-          type: boolean
-          title: done
-          description: "If the value is `false`, it means the operation is still in
-            progress.\n If `true`, the operation is completed, and either `error`
-            or `response` is\n available."
-      title: Operation
-      additionalProperties: false
-      description: "This resource represents a long-running operation that is the
-        result of a\n network API call."
-    google.rpc.Status:
-      type: object
-      properties:
-        code:
-          type: integer
-          title: code
-          format: int32
-          description: "The status code, which should be an enum value of\n [google.rpc.Code][google.rpc.Code]."
-        message:
-          type: string
-          title: message
-          description: "A developer-facing error message, which should be in English.
-            Any\n user-facing error message should be localized and sent in the\n
-            [google.rpc.Status.details][google.rpc.Status.details] field, or localized\n
-            by the client."
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/google.protobuf.Any'
-          title: details
-          description: "A list of messages that carry the error details.  There is
-            a common set of\n message types for APIs to use."
-      title: Status
-      additionalProperties: false
-      description: "The `Status` type defines a logical error model that is suitable
-        for\n different programming environments, including REST APIs and RPC APIs.
-        It is\n used by [gRPC](https://github.com/grpc). Each `Status` message contains\n
-        three pieces of data: error code, error message, and error details.\n\n You
-        can find out more about this error model and how to work with it in the\n
-        [API Design Guide](https://cloud.google.com/apis/design/errors)."
     tcn.org.billing.event.v1alpha5.CreateProcessEventsJobRequest:
       type: object
       properties:
@@ -28228,6 +29293,11 @@ components:
             $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.ConversationAnalyticsPreferences.RedactEntity'
           title: redact_entities
           description: (OPTIONAL) The entities to be redacted.
+        redact_all_numbers:
+          type: boolean
+          title: redact_all_numbers
+          description: (OPTIONAL) When enabled, the conversation analytics will redact
+            all the numbers.
         notification:
           title: notification
           description: "Notification settings\n\n Flagging transcript notification
@@ -29701,10 +30771,16 @@ components:
           title: skill_group
           description: The skill group to be created
           $ref: '#/components/schemas/tcn.org.skills.v1alpha1.SkillGroup'
+        skill_group_id:
+          type: string
+          title: skill_group_id
+          description: "The ID to use for the skill group\n This value should be 4-63
+            characters, and valid characters\n are /[a-z][0-9]-/."
       title: CreateSkillGroupRequest
       required:
       - parent
       - skill_group
+      - skill_group_id
       additionalProperties: false
       description: Request to create a skill group
     tcn.org.skills.v1alpha1.DeleteSkillGroupRequest:
@@ -30393,6 +31469,83 @@ components:
       title: ArchiveUserResponse
       additionalProperties: false
       description: The response for ArchiveUser
+    tcn.org.users.v1alpha1.BatchCreateUsersOperationMetadata:
+      type: object
+      properties:
+        failed_requests:
+          type: object
+          title: failed_requests
+          additionalProperties:
+            title: value
+            $ref: '#/components/schemas/google.rpc.Status'
+          description: "Mapping of request index to error for failed requests.\n The
+            key is the index of the request in the requests field in the batch request."
+        total_requests:
+          type: integer
+          title: total_requests
+          format: int32
+          description: The total number of requests in the batch.
+        processed_requests:
+          type: integer
+          title: processed_requests
+          format: int32
+          description: The number of currently processed requests.
+      title: BatchCreateUsersOperationMetadata
+      additionalProperties: false
+      description: Metadata for the BatchCreateUsers operation
+    tcn.org.users.v1alpha1.BatchCreateUsersOperationMetadata.FailedRequestsEntry:
+      type: object
+      properties:
+        key:
+          type: integer
+          title: key
+          format: int32
+        value:
+          title: value
+          $ref: '#/components/schemas/google.rpc.Status'
+      title: FailedRequestsEntry
+      additionalProperties: false
+    tcn.org.users.v1alpha1.BatchCreateUsersRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: "The parent resource shared by all users being created.\n Format:
+            orgs/{org}\n If this is set, the parent field in the CreateUserRequest
+            messages\n must either be empty or match this field."
+        requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.users.v1alpha1.CreateUserRequest'
+          title: requests
+          description: "The request messages specifying the users to create.\n A maximum
+            of 100 users can be created in a batch."
+      title: BatchCreateUsersRequest
+      required:
+      - parent
+      - requests
+      additionalProperties: false
+      description: Request message for BatchCreateUsers
+    tcn.org.users.v1alpha1.BatchCreateUsersResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.users.v1alpha1.User'
+          title: users
+          description: Users created.
+        unreachable:
+          type: array
+          items:
+            type: string
+          title: unreachable
+          description: "The names of resources that were requested but could not be
+            reached.\n This can happen if the resource is temporarily unavailable."
+      title: BatchCreateUsersResponse
+      additionalProperties: false
+      description: Response message for BatchCreateUsers
     tcn.org.users.v1alpha1.CreateUserRequest:
       type: object
       properties:
@@ -32709,18 +33862,25 @@ tags:
   description: BusinessIntelligenceService defines the api for business intelligence.
 - name: DashboardsService
   description: DashboardsService is the public API for the bi/dashboards service.
+- name: ScrubListService
+  description: ScrubListService provides CRUD operations for scrub lists.
 - name: CredentialService
   description: delivery credential service
 - name: EncryptionService
   description: encryption service
 - name: TransportSchemaService
   description: transport schema service
+- name: ExternalClientDatasetService
+  description: ExternalClientDatasetService is the public API for the externalingestion/externalclientdataset
+    service.
 - name: JobsService
   description: "JobsService\n (-- api-linter: core::0121::resource-must-support-get=disabled\n
     \    aip.dev/not-precedent: dont need a get method --)"
 - name: RejectionsService
   description: "RejectionService\n (-- api-linter: core::0121::resource-must-support-get=disabled\n
     \    aip.dev/not-precedent: We do not need a get method --)"
+- name: PipelineCanvasService
+  description: PipelineCanvasService provides methods for managing pipeline canvases
 - name: AttachmentService
   description: Attachments service is the public api for the omni/attachments service.
 - name: CampaignService
@@ -32750,7 +33910,10 @@ tags:
 - name: OauthService
   description: OAuth service is the public api for the omni/oauthConfig service.
 - name: P3SchedulerService
-  description: Defines the gRPC service named P3SchedulerService.
+  description: "Defines the gRPC service named P3SchedulerService.\n (-- api-linter:
+    core::0133::method-signature=disabled\n     aip.dev/not-precedent: We need to
+    pass the allowed countries in the request\n     to create an campagin. And it
+    will be stored in the campagin Preferences. --)"
 - name: ProjectService
   description: Projects service is the public api for the omni/projects service.
 - name: RoutingRuleService
