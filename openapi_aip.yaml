@@ -2068,7 +2068,8 @@ paths:
       tags:
       - ExternalClientDatasetService
       summary: ListExternalClientDatasets
-      description: ListExternalClientDatasets lists all external client datasets
+      description: "ListExternalClientDatasets lists all external client datasets\n
+        Requires permission PERMISSION_EXTERNAL_INGESTION"
       operationId: ExternalClientDatasetService_ListExternalClientDatasets
       parameters:
       - name: org
@@ -2113,7 +2114,7 @@ paths:
         (-- api-linter: core::0133::method-signature=disabled\n     aip.dev/not-precedent:
         we need to include landing_path in the request\n     because it is not a field
         specific to the external client dataset resource,\n     and it will be deleted
-        after the external client dataset is created. --)"
+        after the external client dataset is created. --)\n Requires permission PERMISSION_EXTERNAL_INGESTION"
       operationId: ExternalClientDatasetService_CreateExternalClientDataset
       parameters:
       - name: org
@@ -2148,7 +2149,8 @@ paths:
       tags:
       - ExternalClientDatasetService
       summary: GetExternalClientDataset
-      description: GetExternalClientDataset gets a external client dataset
+      description: "GetExternalClientDataset gets a external client dataset\n Requires
+        permission PERMISSION_EXTERNAL_INGESTION"
       operationId: ExternalClientDatasetService_GetExternalClientDataset
       parameters:
       - name: org
@@ -2180,7 +2182,8 @@ paths:
       tags:
       - ExternalClientDatasetService
       summary: DeleteExternalClientDataset
-      description: DeleteExternalClientDataset deletes a external client dataset
+      description: "DeleteExternalClientDataset deletes a external client dataset\n
+        Requires permission PERMISSION_EXTERNAL_INGESTION"
       operationId: ExternalClientDatasetService_DeleteExternalClientDataset
       parameters:
       - name: org
@@ -2213,7 +2216,8 @@ paths:
       tags:
       - ExternalClientDatasetService
       summary: MergeExternalClientDataset
-      description: MergeExternalClientDataset merges a external client dataset
+      description: "MergeExternalClientDataset merges a external client dataset\n
+        Requires permission PERMISSION_EXTERNAL_INGESTION"
       operationId: ExternalClientDatasetService_MergeExternalClientDataset
       parameters:
       - name: org
@@ -2433,6 +2437,379 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.journey.rejection.v1beta1.ListRejectionsResponse'
+  /tcn/lms/action/v1alpha1/orgs/{org}/events/{event}/actions:search:
+    get:
+      tags:
+      - ActionService
+      summary: SearchActions
+      description: "SearchActions searches for actions\n Requires permission PERMISSION_LMS_VIEW"
+      operationId: ActionService_SearchActions
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: event
+        in: path
+        description: The event id.
+        required: true
+        schema:
+          type: string
+      - name: begin_time.seconds
+        in: query
+        description: "Represents seconds of UTC time since Unix epoch\n 1970-01-01T00:00:00Z.
+          Must be from 0001-01-01T00:00:00Z to\n 9999-12-31T23:59:59Z inclusive."
+        schema:
+          type:
+          - integer
+          - string
+          title: seconds
+          format: int64
+          description: "Represents seconds of UTC time since Unix epoch\n 1970-01-01T00:00:00Z.
+            Must be from 0001-01-01T00:00:00Z to\n 9999-12-31T23:59:59Z inclusive."
+      - name: begin_time.nanos
+        in: query
+        description: "Non-negative fractions of a second at nanosecond resolution.
+          Negative\n second values with fractions must still have non-negative nanos
+          values\n that count forward in time. Must be from 0 to 999,999,999\n inclusive."
+        schema:
+          type: integer
+          title: nanos
+          format: int32
+          description: "Non-negative fractions of a second at nanosecond resolution.
+            Negative\n second values with fractions must still have non-negative nanos
+            values\n that count forward in time. Must be from 0 to 999,999,999\n inclusive."
+      - name: event_id
+        in: query
+        description: Optional. If provided, only show actions for this event ID
+        schema:
+          type: string
+          title: event_id
+          description: (OPTIONAL) Optional. If provided, only show actions for this
+            event ID
+      - name: page_size
+        in: query
+        description: "Optional. The maximum number of actions to return. The service
+          may return fewer than\n this value. If unspecified, at most 50 actions will
+          be returned.\n The maximum value is 1000; values above 1000 will be coerced
+          to 1000."
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: "(OPTIONAL) Optional. The maximum number of actions to return.
+            The service may return fewer than\n this value. If unspecified, at most
+            50 actions will be returned.\n The maximum value is 1000; values above
+            1000 will be coerced to 1000."
+      - name: page_token
+        in: query
+        description: "Optional. A page token, received from a previous `SearchActions`
+          call.\n Provide this to retrieve the subsequent page."
+        schema:
+          type: string
+          title: page_token
+          description: "(OPTIONAL) Optional. A page token, received from a previous
+            `SearchActions` call.\n Provide this to retrieve the subsequent page."
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.lms.action.v1alpha1.SearchActionsResponse'
+  /tcn/lms/action/v1alpha1/orgs/{org}/events/{event}/actions/{action}:
+    get:
+      tags:
+      - ActionService
+      summary: GetAction
+      description: "GetAction gets an action by name\n Requires permission PERMISSION_LMS_VIEW"
+      operationId: ActionService_GetAction
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: event
+        in: path
+        description: The event id.
+        required: true
+        schema:
+          type: string
+      - name: action
+        in: path
+        description: The action id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.lms.action.v1alpha1.Action'
+  /tcn/lms/action/v1alpha1/orgs/{org}/events/{event}/actions:
+    get:
+      tags:
+      - ActionService
+      summary: ListActions
+      description: "ListActions lists all actions\n Requires permission PERMISSION_LMS_VIEW"
+      operationId: ActionService_ListActions
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: event
+        in: path
+        description: The event id.
+        required: true
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        description: "The maximum number of actions to return. The service may return
+          fewer than\n this value.\n If unspecified, at most 50 actions will be returned.\n
+          The maximum value is 1000; values above 1000 will be coerced to 1000."
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: "(OPTIONAL) The maximum number of actions to return. The service
+            may return fewer than\n this value.\n If unspecified, at most 50 actions
+            will be returned.\n The maximum value is 1000; values above 1000 will
+            be coerced to 1000."
+      - name: page_token
+        in: query
+        description: "A page token, received from a previous `ListActions` call.\n
+          Provide this to retrieve the subsequent page."
+        schema:
+          type: string
+          title: page_token
+          description: "(OPTIONAL) A page token, received from a previous `ListActions`
+            call.\n Provide this to retrieve the subsequent page."
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.lms.action.v1alpha1.ListActionsResponse'
+  /tcn/lms/event/v1alpha1/orgs/{org}/events:aggregate:
+    get:
+      tags:
+      - EventService
+      summary: AggregateEvents
+      description: "AggregateEvents lists all events\n Requires permission PERMISSION_LMS_VIEW"
+      operationId: EventService_AggregateEvents
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: element_id
+        in: query
+        description: Which element to get events for
+        required: true
+        schema:
+          type: string
+          title: element_id
+          description: Which element to get events for
+      - name: begin_time.seconds
+        in: query
+        description: "Represents seconds of UTC time since Unix epoch\n 1970-01-01T00:00:00Z.
+          Must be from 0001-01-01T00:00:00Z to\n 9999-12-31T23:59:59Z inclusive."
+        schema:
+          type:
+          - integer
+          - string
+          title: seconds
+          format: int64
+          description: "Represents seconds of UTC time since Unix epoch\n 1970-01-01T00:00:00Z.
+            Must be from 0001-01-01T00:00:00Z to\n 9999-12-31T23:59:59Z inclusive."
+      - name: begin_time.nanos
+        in: query
+        description: "Non-negative fractions of a second at nanosecond resolution.
+          Negative\n second values with fractions must still have non-negative nanos
+          values\n that count forward in time. Must be from 0 to 999,999,999\n inclusive."
+        schema:
+          type: integer
+          title: nanos
+          format: int32
+          description: "Non-negative fractions of a second at nanosecond resolution.
+            Negative\n second values with fractions must still have non-negative nanos
+            values\n that count forward in time. Must be from 0 to 999,999,999\n inclusive."
+      - name: increment_size
+        in: query
+        description: "group by step size.\n How big of a time range we group the records
+          on.\n examples:\n - 1h = 1 hour increments (default)\n - 10m = 10 minute
+          increments\n - 3d = 3 day increments"
+        schema:
+          type: string
+          title: increment_size
+          description: "(OPTIONAL) group by step size.\n How big of a time range we
+            group the records on.\n examples:\n - 1h = 1 hour increments (default)\n
+            - 10m = 10 minute increments\n - 3d = 3 day increments"
+      - name: entrypoint_id
+        in: query
+        description: optional, if provided, we only show data that came from this
+          entrypoint id
+        schema:
+          type: string
+          title: entrypoint_id
+          description: (OPTIONAL) optional, if provided, we only show data that came
+            from this entrypoint id
+      - name: parent_id
+        in: query
+        description: "optional, if provided we only show data that fed through to
+          this element from\n the parent_id"
+        schema:
+          type: string
+          title: parent_id
+          description: "(OPTIONAL) optional, if provided we only show data that fed
+            through to this element from\n the parent_id"
+      - name: page_token
+        in: query
+        description: The page token.
+        schema:
+          type: string
+          title: page_token
+          description: (OPTIONAL) The page token.
+      - name: page_size
+        in: query
+        description: "The maximum number of events to return. The service may return
+          fewer than\n this value.\n If unspecified, at most 50 events will be returned.\n
+          The maximum value is 1000; values above 1000 will be coerced to 1000."
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: "(OPTIONAL) The maximum number of events to return. The service
+            may return fewer than\n this value.\n If unspecified, at most 50 events
+            will be returned.\n The maximum value is 1000; values above 1000 will
+            be coerced to 1000."
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.lms.event.v1alpha1.AggregateEventsResponse'
+  /tcn/lms/event/v1alpha1/orgs/{org}/events/{event}:
+    get:
+      tags:
+      - EventService
+      summary: GetEvent
+      description: "GetEvent gets a pipeline canvas by name\n Requires permission
+        PERMISSION_LMS_VIEW"
+      operationId: EventService_GetEvent
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: event
+        in: path
+        description: The event id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.lms.event.v1alpha1.Event'
+  /tcn/lms/event/v1alpha1/orgs/{org}/events:
+    get:
+      tags:
+      - EventService
+      summary: ListEvents
+      description: "ListEvents lists all events\n Requires permission PERMISSION_LMS_VIEW"
+      operationId: EventService_ListEvents
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        description: "The maximum number of events to return. The service may return
+          fewer than\n this value.\n If unspecified, at most 50 events will be returned.\n
+          The maximum value is 1000; values above 1000 will be coerced to 1000."
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: "(OPTIONAL) The maximum number of events to return. The service
+            may return fewer than\n this value.\n If unspecified, at most 50 events
+            will be returned.\n The maximum value is 1000; values above 1000 will
+            be coerced to 1000."
+      - name: page_token
+        in: query
+        description: "A page token, received from a previous `ListEvents` call.\n
+          Provide this to retrieve the subsequent page."
+        schema:
+          type: string
+          title: page_token
+          description: "(OPTIONAL) A page token, received from a previous `ListEvents`
+            call.\n Provide this to retrieve the subsequent page."
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.lms.event.v1alpha1.ListEventsResponse'
   /tcn/lms/pipelinecanvas/v1alpha1/orgs/{org}/pipelineCanvases:
     get:
       tags:
@@ -5347,7 +5724,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.omni.oauth.v1alpha1.OauthConfig'
-  /tcn/omni/p3scheduler/v1alpha1/orgs/{org}/regions/{region}/campaigns:
+  /tcn/omni/p3scheduler/v1alpha1/orgs/{org}/regions/{region}/projects/{project}/campaigns:
     post:
       tags:
       - P3SchedulerService
@@ -5366,6 +5743,12 @@ paths:
       - name: region
         in: path
         description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: project
+        in: path
+        description: The project id.
         required: true
         schema:
           type: string
@@ -9577,6 +9960,623 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ComplianceMetadataScript'
+  /tcn/org/huntgroups/v1alpha1/orgs/{org}/regions/{region}/huntGroups/{huntGroup}/generalSettingsSuite:
+    get:
+      tags:
+      - HuntgroupsService
+      summary: GetGeneralSettingsSuite
+      description: "GetGeneralSettingsSuite requires PERMISSION PERMISSION_HUNTGROUP_VIEW\n
+        GetGeneralSettingsSuite retrieves the general settings suite for a hunt group"
+      operationId: HuntgroupsService_GetGeneralSettingsSuite
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: huntGroup
+        in: path
+        description: The huntGroup id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite'
+    patch:
+      tags:
+      - HuntgroupsService
+      summary: UpdateGeneralSettingsSuite
+      description: "UpdateGeneralSettingsSuite requires PERMISSION_HUNT_GROUP_EDIT\n
+        UpdateGeneralSettingsSuite updates general settings for a hunt group"
+      operationId: HuntgroupsService_UpdateGeneralSettingsSuite
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: huntGroup
+        in: path
+        description: The huntGroup id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: General settings suite to update.
+        content:
+          application/json:
+            schema:
+              title: general_settings_suite
+              description: General settings suite to update.
+              $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite'
+  /tcn/org/huntgroups/v1alpha1/orgs/{org}/regions/{region}/huntGroups/{huntGroup}/communicationSettingsSuite:
+    get:
+      tags:
+      - HuntgroupsService
+      summary: GetCommunicationSettingsSuite
+      description: "GetCommunicationSettingsSuite requires PERMISSION PERMISSION_HUNTGROUP_VIEW\n
+        GetCommunicationSettingsSuite retrieves the communication settings suite for
+        a hunt group"
+      operationId: HuntgroupsService_GetCommunicationSettingsSuite
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: huntGroup
+        in: path
+        description: The huntGroup id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite'
+    patch:
+      tags:
+      - HuntgroupsService
+      summary: UpdateCommunicationSettingsSuite
+      description: "UpdateCommunicationSettingsSuite requires PERMISSION_HUNT_GROUP_EDIT\n
+        UpdateCommunicationSettingsSuite updates communication settings for a hunt
+        group"
+      operationId: HuntgroupsService_UpdateCommunicationSettingsSuite
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: huntGroup
+        in: path
+        description: The huntGroup id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Communication settings suite to update.
+        content:
+          application/json:
+            schema:
+              title: communication_settings_suite
+              description: Communication settings suite to update.
+              $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite'
+  /tcn/org/huntgroups/v1alpha1/orgs/{org}/regions/{region}/huntGroups/{huntGroup}/callbackSettingsSuite:
+    get:
+      tags:
+      - HuntgroupsService
+      summary: GetCallbackSettingsSuite
+      description: "GetCallbackSettingsSuite requires PERMISSION PERMISSION_HUNTGROUP_VIEW\n
+        GetCallbackSettingsSuite retrieves the callback settings suite for a hunt
+        group"
+      operationId: HuntgroupsService_GetCallbackSettingsSuite
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: huntGroup
+        in: path
+        description: The huntGroup id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CallbackSettingsSuite'
+    patch:
+      tags:
+      - HuntgroupsService
+      summary: UpdateCallbackSettingsSuite
+      description: "UpdateCallbackSettingsSuite requires PERMISSION_HUNT_GROUP_EDIT\n
+        UpdateCallbackSettingsSuite updates callback settings for a hunt group"
+      operationId: HuntgroupsService_UpdateCallbackSettingsSuite
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: huntGroup
+        in: path
+        description: The huntGroup id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Callback settings suite to update.
+        content:
+          application/json:
+            schema:
+              title: callback_settings_suite
+              description: Callback settings suite to update.
+              $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CallbackSettingsSuite'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CallbackSettingsSuite'
+  /tcn/org/huntgroups/v1alpha1/orgs/{org}/regions/{region}/huntGroups/{huntGroup}/previewDialSettingsSuite:
+    get:
+      tags:
+      - HuntgroupsService
+      summary: GetPreviewDialSettingsSuite
+      description: "GetPreviewDialSettingsSuite requires PERMISSION PERMISSION_HUNTGROUP_VIEW\n
+        GetPreviewDialSettingsSuite retrieves the preview dial settings suite for
+        a hunt group"
+      operationId: HuntgroupsService_GetPreviewDialSettingsSuite
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: huntGroup
+        in: path
+        description: The huntGroup id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.PreviewDialSettingsSuite'
+    patch:
+      tags:
+      - HuntgroupsService
+      summary: UpdatePreviewDialSettingsSuite
+      description: "UpdatePreviewDialSettingsSuite requires PERMISSION_HUNT_GROUP_EDIT\n
+        UpdatePreviewDialSettingsSuite updates preview dial settings for a hunt group"
+      operationId: HuntgroupsService_UpdatePreviewDialSettingsSuite
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: huntGroup
+        in: path
+        description: The huntGroup id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Preview dial settings suite to update.
+        content:
+          application/json:
+            schema:
+              title: preview_dial_settings_suite
+              description: Preview dial settings suite to update.
+              $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.PreviewDialSettingsSuite'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.PreviewDialSettingsSuite'
+  /tcn/org/huntgroups/v1alpha1/orgs/{org}/regions/{region}/huntGroups/{huntGroup}/manualDialSettingsSuite:
+    get:
+      tags:
+      - HuntgroupsService
+      summary: GetManualDialSettingsSuite
+      description: "GetManualDialSettingsSuite requires PERMISSION PERMISSION_HUNTGROUP_VIEW\n
+        GetManualDialSettingsSuite retrieves the manual dial settings suite for a
+        hunt group"
+      operationId: HuntgroupsService_GetManualDialSettingsSuite
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: huntGroup
+        in: path
+        description: The huntGroup id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ManualDialSettingsSuite'
+    patch:
+      tags:
+      - HuntgroupsService
+      summary: UpdateManualDialSettingsSuite
+      description: "UpdateManualDialSettingsSuite requires PERMISSION_HUNT_GROUP_EDIT\n
+        UpdateManualDialSettingsSuite updates manual dial settings for a hunt group"
+      operationId: HuntgroupsService_UpdateManualDialSettingsSuite
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: huntGroup
+        in: path
+        description: The huntGroup id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Manual dial settings suite to update.
+        content:
+          application/json:
+            schema:
+              title: manual_dial_settings_suite
+              description: Manual dial settings suite to update.
+              $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ManualDialSettingsSuite'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ManualDialSettingsSuite'
+  /tcn/org/huntgroups/v1alpha1/orgs/{org}/regions/{region}/huntGroups/{huntGroup}/transferCallSettingsSuite:
+    get:
+      tags:
+      - HuntgroupsService
+      summary: GetTransferCallSettingsSuite
+      description: "GetTransferCallSettingsSuite requires PERMISSION PERMISSION_HUNTGROUP_VIEW\n
+        GetTransferCallSettingsSuite retrieves the transfer call settings suite for
+        a hunt group"
+      operationId: HuntgroupsService_GetTransferCallSettingsSuite
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: huntGroup
+        in: path
+        description: The huntGroup id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite'
+    patch:
+      tags:
+      - HuntgroupsService
+      summary: UpdateTransferCallSettingsSuite
+      description: "UpdateTransferCallSettingsSuite requires PERMISSION_HUNT_GROUP_EDIT\n
+        UpdateTransferCallSettingsSuite updates transfer settings for a hunt group"
+      operationId: HuntgroupsService_UpdateTransferCallSettingsSuite
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: huntGroup
+        in: path
+        description: The huntGroup id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Transfer call settings suite to update.
+        content:
+          application/json:
+            schema:
+              title: transfer_call_settings_suite
+              description: Transfer call settings suite to update.
+              $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite'
+  /tcn/org/huntgroups/v1alpha1/orgs/{org}/regions/{region}/huntGroups/{huntGroup}/numberHistorySettingsSuite:
+    get:
+      tags:
+      - HuntgroupsService
+      summary: GetNumberHistorySettingsSuite
+      description: "GetNumberHistorySettingsSuite requires PERMISSION PERMISSION_HUNTGROUP_VIEW\n
+        GetNumberHistorySettingsSuite retrieves the number history settings suite
+        for a hunt group"
+      operationId: HuntgroupsService_GetNumberHistorySettingsSuite
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: huntGroup
+        in: path
+        description: The huntGroup id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.NumberHistorySettingsSuite'
+    patch:
+      tags:
+      - HuntgroupsService
+      summary: UpdateNumberHistorySettingsSuite
+      description: "UpdateNumberHistorySettingsSuite requires PERMISSION_HUNT_GROUP_EDIT\n
+        UpdateNumberHistorySettingsSuite updates number history settings for a hunt
+        group"
+      operationId: HuntgroupsService_UpdateNumberHistorySettingsSuite
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        description: The region id.
+        required: true
+        schema:
+          type: string
+      - name: huntGroup
+        in: path
+        description: The huntGroup id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Number history settings suite to update.
+        content:
+          application/json:
+            schema:
+              title: number_history_settings_suite
+              description: Number history settings suite to update.
+              $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.NumberHistorySettingsSuite'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.NumberHistorySettingsSuite'
   /tcn/org/idp/v1alpha1/regions/{region}/orgs/{org}/idpClients/{idpClient}:
     get:
       tags:
@@ -11409,11 +12409,10 @@ paths:
     get:
       tags:
       - PreferencesService
-      - PreferencesService
-      summary: ListVoiceAnalyticsPreferences
-      description: "ListVoiceAnalyticsPreferences requires PERMISSION PERMISSION_ORG_VIEW\n
-        ListVoiceAnalyticsPreferences retrieves all voice analytics preferences for
-        an organization"
+      summary: GetVoiceAnalyticsPreferences
+      description: "GetVoiceAnalyticsPreferences requires PERMISSION PERMISSION_ORG_VIEW
+        OR PERMISSION_VOICE_ANALYTICS\n GetVoiceAnalyticsPreferences retrieves the
+        voice analytics preferences for an organization"
       operationId: PreferencesService_GetVoiceAnalyticsPreferences
       parameters:
       - name: org
@@ -11422,33 +12421,6 @@ paths:
         required: true
         schema:
           type: string
-      - name: org
-        in: path
-        description: The org id.
-        required: true
-        schema:
-          type: string
-      - name: page_size
-        in: query
-        description: The maximum number of preferences to return
-        schema:
-          type: integer
-          title: page_size
-          format: int32
-          description: (OPTIONAL) The maximum number of preferences to return
-      - name: page_token
-        in: query
-        description: "A page token, received from a previous `ListVoiceAnalyticsPreferences`
-          call.\n Provide this to retrieve the subsequent page.\n When paginating,
-          all other parameters provided to `ListVoiceAnalyticsPreferences` must match\n
-          the call that provided the page token."
-        schema:
-          type: string
-          title: page_token
-          description: "(OPTIONAL) A page token, received from a previous `ListVoiceAnalyticsPreferences`
-            call.\n Provide this to retrieve the subsequent page.\n When paginating,
-            all other parameters provided to `ListVoiceAnalyticsPreferences` must
-            match\n the call that provided the page token."
       responses:
         default:
           description: Error
@@ -11498,23 +12470,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.VoiceAnalyticsPreferences'
-  /tcn/org/preferences/v1alpha1/orgs/{org}/conversationAnalyticsPreferences:
+  /tcn/org/preferences/v1alpha1/orgs/{org}/voiceAnalyticsPreferencesList:
     get:
       tags:
       - PreferencesService
-      - PreferencesService
-      summary: ListConversationAnalyticsPreferences
-      description: "ListConversationAnalyticsPreferences requires PERMISSION PERMISSION_ORG_VIEW\n
-        ListConversationAnalyticsPreferences retrieves all conversation analytics
-        preferences for an organization"
-      operationId: PreferencesService_GetConversationAnalyticsPreferences
+      summary: ListVoiceAnalyticsPreferences
+      description: "ListVoiceAnalyticsPreferences requires PERMISSION PERMISSION_ORG_VIEW\n
+        ListVoiceAnalyticsPreferences retrieves all voice analytics preferences for
+        an organization"
+      operationId: PreferencesService_ListVoiceAnalyticsPreferences
       parameters:
-      - name: org
-        in: path
-        description: The org id.
-        required: true
-        schema:
-          type: string
       - name: org
         in: path
         description: The org id.
@@ -11523,25 +12488,54 @@ paths:
           type: string
       - name: page_size
         in: query
-        description: The maximum number of preferences to return.
+        description: The maximum number of preferences to return
         schema:
           type: integer
           title: page_size
           format: int32
-          description: (OPTIONAL) The maximum number of preferences to return.
+          description: (OPTIONAL) The maximum number of preferences to return
       - name: page_token
         in: query
-        description: "A page token, received from a previous `ListConversationAnalyticsPreferences`
+        description: "A page token, received from a previous `ListVoiceAnalyticsPreferences`
           call.\n Provide this to retrieve the subsequent page.\n When paginating,
-          all other parameters provided to `ListConversationAnalyticsPreferences`
-          must match\n the call that provided the page token."
+          all other parameters provided to `ListVoiceAnalyticsPreferences` must match\n
+          the call that provided the page token."
         schema:
           type: string
           title: page_token
-          description: "(OPTIONAL) A page token, received from a previous `ListConversationAnalyticsPreferences`
+          description: "(OPTIONAL) A page token, received from a previous `ListVoiceAnalyticsPreferences`
             call.\n Provide this to retrieve the subsequent page.\n When paginating,
-            all other parameters provided to `ListConversationAnalyticsPreferences`
-            must match\n the call that provided the page token."
+            all other parameters provided to `ListVoiceAnalyticsPreferences` must
+            match\n the call that provided the page token."
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.ListVoiceAnalyticsPreferencesResponse'
+  /tcn/org/preferences/v1alpha1/orgs/{org}/conversationAnalyticsPreferences:
+    get:
+      tags:
+      - PreferencesService
+      summary: GetConversationAnalyticsPreferences
+      description: "GetConversationAnalyticsPreferences requires PERMISSION PERMISSION_ORG_VIEW
+        OR PERMISSION_VOICE_ANALYTICS\n GetConversationAnalyticsPreferences retrieves
+        the conversation analytics preferences for an organization"
+      operationId: PreferencesService_GetConversationAnalyticsPreferences
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
       responses:
         default:
           description: Error
@@ -11591,6 +12585,56 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.ConversationAnalyticsPreferences'
+  /tcn/org/preferences/v1alpha1/orgs/{org}/conversationAnalyticsPreferencesList:
+    get:
+      tags:
+      - PreferencesService
+      summary: ListConversationAnalyticsPreferences
+      description: "ListConversationAnalyticsPreferences requires PERMISSION PERMISSION_ORG_VIEW\n
+        ListConversationAnalyticsPreferences retrieves all conversation analytics
+        preferences for an organization"
+      operationId: PreferencesService_ListConversationAnalyticsPreferences
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        description: The maximum number of preferences to return.
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) The maximum number of preferences to return.
+      - name: page_token
+        in: query
+        description: "A page token, received from a previous `ListConversationAnalyticsPreferences`
+          call.\n Provide this to retrieve the subsequent page.\n When paginating,
+          all other parameters provided to `ListConversationAnalyticsPreferences`
+          must match\n the call that provided the page token."
+        schema:
+          type: string
+          title: page_token
+          description: "(OPTIONAL) A page token, received from a previous `ListConversationAnalyticsPreferences`
+            call.\n Provide this to retrieve the subsequent page.\n When paginating,
+            all other parameters provided to `ListConversationAnalyticsPreferences`
+            must match\n the call that provided the page token."
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.ListConversationAnalyticsPreferencesResponse'
   /tcn/org/preferences/v1alpha1/orgs/{org}/webhookPreferences:
     get:
       tags:
@@ -12776,6 +13820,95 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1alpha1.EventMetadata'
+  /tcn/ruleengine/ruleset/v1beta1/orgs/{org}/ruleSet:
+    get:
+      tags:
+      - RuleEngineService
+      summary: GetRuleSet
+      description: "GetRuleSet gets the rule set\n Requires permission PERMISSION_RULE_ENGINE"
+      operationId: RuleEngineService_GetRuleSet
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta1.RuleSet'
+    patch:
+      tags:
+      - RuleEngineService
+      summary: UpdateRuleSet
+      description: "UpdateRuleSet updates the rule set\n Requires permission PERMISSION_RULE_ENGINE"
+      operationId: RuleEngineService_UpdateRuleSet
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The rule set to update
+        content:
+          application/json:
+            schema:
+              title: rule_set
+              description: The rule set to update
+              $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta1.RuleSet'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta1.RuleSet'
+  /tcn/ruleengine/ruleset/v1beta1/orgs/{org}/eventMetadata:
+    get:
+      tags:
+      - RuleEngineService
+      summary: GetEventMetadata
+      description: "GetEventMetadata gets the event metadata\n Requires permission
+        PERMISSION_RULE_ENGINE"
+      operationId: RuleEngineService_GetEventMetadata
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta1.EventMetadata'
   /tcn/tickets/ticket/v1alpha1/orgs/{org}/regions/{region}/sla:
     post:
       tags:
@@ -18872,6 +20005,487 @@ components:
       title: ListRejectionsResponse
       additionalProperties: false
       description: ListRejectionsResponse
+    tcn.lms.action.v1alpha1.Action:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) The unique identifier for the action
+        element_id:
+          type: string
+          title: element_id
+          description: The element ID associated with this action
+          readOnly: true
+        entrypoint_id:
+          type: string
+          title: entrypoint_id
+          description: The entrypoint ID of the action
+          readOnly: true
+        event_id:
+          type: string
+          title: event_id
+          description: The event ID associated with this action
+          readOnly: true
+        message:
+          type: string
+          title: message
+          description: The message associated with this action
+          readOnly: true
+        tag:
+          type: string
+          title: tag
+          description: The tag associated with this action
+          readOnly: true
+        input_count:
+          type:
+          - integer
+          - string
+          title: input_count
+          format: int64
+          description: Number of input records processed by this action
+          readOnly: true
+        output_count:
+          type:
+          - integer
+          - string
+          title: output_count
+          format: int64
+          description: Number of output records produced by this action
+          readOnly: true
+        processing_duration:
+          title: processing_duration
+          description: How long the action took to process
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Duration'
+        canceled:
+          type: boolean
+          title: canceled
+          description: If the event was canceled
+          readOnly: true
+      title: Action
+      additionalProperties: false
+      description: Action represents an action that is part of an event in the system
+    tcn.lms.action.v1alpha1.GetActionRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: Required. The name of the action to get.
+      title: GetActionRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetActionRequest is the request to get an action.
+    tcn.lms.action.v1alpha1.ListActionsRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: Required. The parent resource where these actions will be listed.
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: "(OPTIONAL) The maximum number of actions to return. The service
+            may return fewer than\n this value.\n If unspecified, at most 50 actions
+            will be returned.\n The maximum value is 1000; values above 1000 will
+            be coerced to 1000."
+        page_token:
+          type: string
+          title: page_token
+          description: "(OPTIONAL) A page token, received from a previous `ListActions`
+            call.\n Provide this to retrieve the subsequent page."
+      title: ListActionsRequest
+      required:
+      - parent
+      additionalProperties: false
+      description: ListActionsRequest is the request to list actions.
+    tcn.lms.action.v1alpha1.ListActionsResponse:
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.lms.action.v1alpha1.Action'
+          title: actions
+          description: The actions.
+        next_page_token:
+          type: string
+          title: next_page_token
+          description: The next page token.
+      title: ListActionsResponse
+      additionalProperties: false
+      description: ListActionsResponse is the response to list actions.
+    tcn.lms.action.v1alpha1.SearchActionsRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: Required. The parent resource where these actions will be searched
+        begin_time:
+          title: begin_time
+          description: (OPTIONAL) Begin time of the time range to search actions for
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        end_time:
+          title: end_time
+          description: (OPTIONAL) End time of the time range to search actions for
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        event_id:
+          type: string
+          title: event_id
+          description: (OPTIONAL) Optional. If provided, only show actions for this
+            event ID
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: "(OPTIONAL) Optional. The maximum number of actions to return.
+            The service may return fewer than\n this value. If unspecified, at most
+            50 actions will be returned.\n The maximum value is 1000; values above
+            1000 will be coerced to 1000."
+        page_token:
+          type: string
+          title: page_token
+          description: "(OPTIONAL) Optional. A page token, received from a previous
+            `SearchActions` call.\n Provide this to retrieve the subsequent page."
+      title: SearchActionsRequest
+      required:
+      - parent
+      additionalProperties: false
+      description: SearchActionsRequest is the request to search actions.
+    tcn.lms.action.v1alpha1.SearchActionsResponse:
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.lms.action.v1alpha1.Action'
+          title: actions
+          description: The list of actions matching the search criteria.
+        next_page_token:
+          type: string
+          title: next_page_token
+          description: "A token that can be sent as `page_token` to retrieve the next
+            page.\n If this field is empty, there are no subsequent pages."
+      title: SearchActionsResponse
+      additionalProperties: false
+      description: SearchActionsResponse is the response from searching actions.
+    tcn.lms.event.v1alpha1.AggregateEventsRequest:
+      type: object
+      properties:
+        element_id:
+          type: string
+          title: element_id
+          description: Which element to get events for
+        begin_time:
+          title: begin_time
+          description: (OPTIONAL) time range to get events for
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        end_time:
+          title: end_time
+          description: (OPTIONAL) The end time of the time range to get events for.
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        increment_size:
+          type: string
+          title: increment_size
+          description: "(OPTIONAL) group by step size.\n How big of a time range we
+            group the records on.\n examples:\n - 1h = 1 hour increments (default)\n
+            - 10m = 10 minute increments\n - 3d = 3 day increments"
+        entrypoint_id:
+          type: string
+          title: entrypoint_id
+          description: (OPTIONAL) optional, if provided, we only show data that came
+            from this entrypoint id
+        parent_id:
+          type: string
+          title: parent_id
+          description: "(OPTIONAL) optional, if provided we only show data that fed
+            through to this element from\n the parent_id"
+        page_token:
+          type: string
+          title: page_token
+          description: (OPTIONAL) The page token.
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: "(OPTIONAL) The maximum number of events to return. The service
+            may return fewer than\n this value.\n If unspecified, at most 50 events
+            will be returned.\n The maximum value is 1000; values above 1000 will
+            be coerced to 1000."
+      title: AggregateEventsRequest
+      required:
+      - element_id
+      additionalProperties: false
+      description: "AggregateEventsRequest is the request to aggregate events.\n (--
+        api-linter: core::0192::only-leading-comments=disabled\n     aip.dev/not-precedent:
+        We need to keep this commented code block for reference --)"
+    tcn.lms.event.v1alpha1.AggregateEventsResponse:
+      type: object
+      properties:
+        aggregations:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.lms.event.v1alpha1.AggregateStats'
+          title: aggregations
+          description: The aggregated results, grouped by the specified field
+        next_page_token:
+          type: string
+          title: next_page_token
+          description: (OPTIONAL) The next page token.
+      title: AggregateEventsResponse
+      additionalProperties: false
+      description: AggregateEventsResponse is the response to aggregate events.
+    tcn.lms.event.v1alpha1.AggregateStats:
+      type: object
+      properties:
+        input_record_count:
+          type:
+          - integer
+          - string
+          title: input_record_count
+          format: int64
+          description: Number of input records processed
+          readOnly: true
+        output_record_count:
+          type:
+          - integer
+          - string
+          title: output_record_count
+          format: int64
+          description: Number of output records produced
+          readOnly: true
+        discarded_record_count:
+          type:
+          - integer
+          - string
+          title: discarded_record_count
+          format: int64
+          description: Number of records that were discarded
+          readOnly: true
+        queue_wait_duration:
+          title: queue_wait_duration
+          description: How long the element sat in the queue waiting to start processing
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Duration'
+        processing_duration:
+          title: processing_duration
+          description: How long the element took (in milliseconds) to process all
+            the data
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Duration'
+        entrypoint_ids:
+          type: array
+          items:
+            type: string
+            readOnly: true
+          title: entrypoint_ids
+          description: The entrypoints that were triggered during this time frame
+          readOnly: true
+        parent_ids:
+          type: array
+          items:
+            type: string
+            readOnly: true
+          title: parent_ids
+          description: The parent paths that lead into this element that were triggered
+            during this time frame
+          readOnly: true
+        columns:
+          type: array
+          items:
+            type: string
+            readOnly: true
+          title: columns
+          description: The columns used for these records in this time frame
+          readOnly: true
+        server_messages:
+          type: array
+          items:
+            type: string
+            readOnly: true
+          title: server_messages
+          description: The latest 5 server messages that were for this element for
+            this time range
+          readOnly: true
+        aggregate_start_time:
+          title: aggregate_start_time
+          description: "beginning of the time frame for this specific aggregation.\n
+            not the same as ListEventsRequest.begin."
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        aggregate_end_time:
+          title: aggregate_end_time
+          description: "end of the time frame for this specific aggregation.\n not
+            the same as ListEventsRequest.end."
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+      title: AggregateStats
+      additionalProperties: false
+      description: AggregateStats contains statistics about events aggregated by a
+        field
+    tcn.lms.event.v1alpha1.Event:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) The unique identifier for the event
+        entrypoint_id:
+          type: string
+          title: entrypoint_id
+          description: The entrypoint of the event
+        tag:
+          type: string
+          title: tag
+          description: Tag of the event (to identify the event)
+      title: Event
+      required:
+      - entrypoint_id
+      additionalProperties: false
+      description: "Event represents an event in the system\n (-- api-linter: core::0192::only-leading-comments=disabled\n
+        \    aip.dev/not-precedent: We need to keep this commented code block for
+        reference --)"
+    tcn.lms.event.v1alpha1.GetEventRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: Required. The name of the event to get.
+      title: GetEventRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetEventRequest is the request to get an event.
+    tcn.lms.event.v1alpha1.ListEventsRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: Required. The parent resource where these events will be listed.
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: "(OPTIONAL) The maximum number of events to return. The service
+            may return fewer than\n this value.\n If unspecified, at most 50 events
+            will be returned.\n The maximum value is 1000; values above 1000 will
+            be coerced to 1000."
+        page_token:
+          type: string
+          title: page_token
+          description: "(OPTIONAL) A page token, received from a previous `ListEvents`
+            call.\n Provide this to retrieve the subsequent page."
+      title: ListEventsRequest
+      required:
+      - parent
+      additionalProperties: false
+      description: ListEventsRequest is the request to list events.
+    tcn.lms.event.v1alpha1.ListEventsResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.lms.event.v1alpha1.Event'
+          title: events
+          description: The events.
+        next_page_token:
+          type: string
+          title: next_page_token
+          description: The next page token.
+      title: ListEventsResponse
+      additionalProperties: false
+      description: ListEventsResponse is the response to list events.
+    tcn.lms.event.v1alpha1.PeekListRequest:
+      type: object
+      properties:
+        begin_time:
+          title: begin_time
+          description: "(OPTIONAL) our range we are looking at. Should be fetched
+            from the ListEventsResponse.\n not setting begin/end results in us getting
+            the last 12 hours."
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        end_time:
+          title: end_time
+          description: (OPTIONAL) The end time of the time range to get events for.
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        external_tag:
+          type: string
+          title: external_tag
+          description: "(OPTIONAL) tag is optionally given when queueing a file or
+            sending data. It has significance to the client\n only. But we store it
+            on all results for the operation so it can be searched.\n If provided
+            here, we only show results with this matching tag."
+        page_token:
+          type: string
+          title: page_token
+          description: (OPTIONAL) if empty we will start at begining/end of list
+        asc:
+          type: boolean
+          title: asc
+          description: (OPTIONAL) sort ascending instead of descending
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) how many records to get
+        element_id:
+          type: string
+          title: element_id
+          description: (OPTIONAL) which element we are looking at events for in the
+            dag
+        columns:
+          type: array
+          items:
+            type: string
+            description: '(OPTIONAL) '
+          title: columns
+          description: (OPTIONAL) the columns and ordering we want the results to
+            be in
+        entrypoint_id:
+          type: string
+          title: entrypoint_id
+          description: "(OPTIONAL) optional. If specified we will only look at results
+            that went through\n the named entrypoint. Otherwise, we will look at all
+            data that went through\n the node"
+        parent_id:
+          type: string
+          title: parent_id
+          description: "(OPTIONAL) optional. If specified we only look at results
+            that came from this element's\n parent path. Otherwise we look at all
+            data that went through the node."
+        view_discards:
+          type: boolean
+          title: view_discards
+          description: "(OPTIONAL) if true we look at the discarded records from this
+            node.\n defaults to false, where we look at the kept records."
+      title: PeekListRequest
+      additionalProperties: false
+      description: PeekListRequest is the request to peek at the data in a list of
+        events.
+    tcn.lms.event.v1alpha1.PeekListResponse:
+      type: object
+      properties:
+        json_records:
+          type: array
+          items:
+            type: string
+          title: json_records
+          description: each item is a json record.
+        page_token:
+          type: string
+          title: page_token
+          description: the result_id.oid.record_index of where we left off, so we
+            can paginate this call. See task notes for structure.
+      title: PeekListResponse
+      additionalProperties: false
+      description: PeekListResponse is the response to peek at the data in a list
+        of events.
     tcn.lms.pipelinecanvas.v1alpha1.ElementMetadata:
       type: object
       properties:
@@ -22916,11 +24530,6 @@ components:
           title: login_id
           format: int64
           description: The identification of the login_sid to use for the broadcast.
-          readOnly: true
-        column_order:
-          title: column_order
-          description: (OPTIONAL) ColumnOrder.
-          $ref: '#/components/schemas/tcn.omni.p3scheduler.v1alpha1.Campaign.ColumnOrder'
         start_time:
           title: start_time
           description: (OPTIONAL) schedule time
@@ -22951,38 +24560,10 @@ components:
           description: (OPTIONAL) do_schedule_as_paused
           $ref: '#/components/schemas/google.protobuf.BoolValue'
       title: Campaign
+      required:
+      - login_id
       additionalProperties: false
       description: Campaign
-    tcn.omni.p3scheduler.v1alpha1.Campaign.ColumnOrder:
-      type: object
-      oneOf:
-      - properties:
-          custom_order:
-            type: boolean
-            title: custom_order
-            description: (OPTIONAL) custom_order.
-        title: custom_order
-        required:
-        - custom_order
-      - properties:
-          first_number_only:
-            type: boolean
-            title: first_number_only
-            description: (OPTIONAL) first_number_only.
-        title: first_number_only
-        required:
-        - first_number_only
-      - properties:
-          natural_order:
-            type: boolean
-            title: natural_order
-            description: (OPTIONAL) natural_order.
-        title: natural_order
-        required:
-        - natural_order
-      title: ColumnOrder
-      additionalProperties: false
-      description: ColumnOrder
     google.longrunning.Operation:
       type: object
       oneOf:
@@ -27005,6 +28586,118 @@ components:
       title: RotateExileCertificateResponse
       additionalProperties: false
       description: RotateExileCertificateResponse
+    tcn.org.type.v1alpha1.AgentCallHistoryScope:
+      type: string
+      title: AgentCallHistoryScope
+      enum:
+      - AGENT_CALL_HISTORY_SCOPE_UNSPECIFIED
+      - AGENT_CALL_HISTORY_SCOPE_NONE
+      - AGENT_CALL_HISTORY_SCOPE_AGENT_SESSION_STATS
+      - AGENT_CALL_HISTORY_SCOPE_TODAYS_STATS
+      description: The duration (scope) the call history includes.
+    tcn.org.type.v1alpha1.AgentRouting:
+      type: string
+      title: AgentRouting
+      enum:
+      - AGENT_ROUTING_UNSPECIFIED
+      - AGENT_ROUTING_ANY_AGENT
+      - AGENT_ROUTING_ORIGINAL_AGENT_PREFERRED
+      - AGENT_ROUTING_ORIGINAL_AGENT_REQUIRED
+      description: Hold queue monitoring ange routing choices.
+    tcn.org.type.v1alpha1.AlphanumericKeypadDelimiter:
+      type: string
+      title: AlphanumericKeypadDelimiter
+      enum:
+      - ALPHANUMERIC_KEYPAD_DELIMITER_UNSPECIFIED
+      - ALPHANUMERIC_KEYPAD_DELIMITER_ASTERISK
+      - ALPHANUMERIC_KEYPAD_DELIMITER_POUND
+      - ALPHANUMERIC_KEYPAD_DELIMITER_SPACE
+      description: Delimiter for alphanumeric keypad.
+    tcn.org.type.v1alpha1.CommunicationExpiration:
+      type: string
+      title: CommunicationExpiration
+      enum:
+      - COMMUNICATION_EXPIRATION_UNSPECIFIED
+      - COMMUNICATION_EXPIRATION_NEVER
+      - COMMUNICATION_EXPIRATION_ONE_HOUR
+      - COMMUNICATION_EXPIRATION_TWO_HOURS
+      - COMMUNICATION_EXPIRATION_THREE_HOURS
+      - COMMUNICATION_EXPIRATION_FOUR_HOURS
+      - COMMUNICATION_EXPIRATION_FIVE_HOURS
+      - COMMUNICATION_EXPIRATION_SIX_HOURS
+      - COMMUNICATION_EXPIRATION_SEVEN_HOURS
+      - COMMUNICATION_EXPIRATION_EIGHT_HOURS
+      - COMMUNICATION_EXPIRATION_NINE_HOURS
+      - COMMUNICATION_EXPIRATION_TEN_HOURS
+      - COMMUNICATION_EXPIRATION_ELEVEN_HOURS
+      - COMMUNICATION_EXPIRATION_TWELVE_HOURS
+      - COMMUNICATION_EXPIRATION_THIRTEEN_HOURS
+      - COMMUNICATION_EXPIRATION_SIXTEEN_HOURS
+      - COMMUNICATION_EXPIRATION_TWENTY_HOURS
+      - COMMUNICATION_EXPIRATION_TWENTY_FOUR_HOURS
+      - COMMUNICATION_EXPIRATION_THIRTY_SIX_HOURS
+      - COMMUNICATION_EXPIRATION_TWO_DAYS
+      - COMMUNICATION_EXPIRATION_THREE_DAYS
+      - COMMUNICATION_EXPIRATION_FOUR_DAYS
+      - COMMUNICATION_EXPIRATION_FIVE_DAYS
+      - COMMUNICATION_EXPIRATION_SIX_DAYS
+      - COMMUNICATION_EXPIRATION_ONE_WEEK
+      - COMMUNICATION_EXPIRATION_TWO_WEEKS
+      - COMMUNICATION_EXPIRATION_THREE_WEEKS
+      - COMMUNICATION_EXPIRATION_FOUR_WEEKS
+      - COMMUNICATION_EXPIRATION_ONE_MONTH
+      - COMMUNICATION_EXPIRATION_TWO_MONTHS
+      - COMMUNICATION_EXPIRATION_THREE_MONTHS
+      - COMMUNICATION_EXPIRATION_SIX_MONTHS
+      - COMMUNICATION_EXPIRATION_NINE_MONTHS
+      - COMMUNICATION_EXPIRATION_ONE_YEAR
+      - COMMUNICATION_EXPIRATION_THIRTEEN_MONTHS
+      description: Communication expiration time.
+    tcn.org.type.v1alpha1.DefaultCallbackRouting:
+      type: string
+      title: DefaultCallbackRouting
+      enum:
+      - DEFAULT_CALLBACK_ROUTING_UNSPECIFIED
+      - DEFAULT_CALLBACK_ROUTING_NONE
+      - DEFAULT_CALLBACK_ROUTING_TO_AGENT
+      - DEFAULT_CALLBACK_ROUTING_AGENT_SKILLSET
+      description: Default scheduled callback routing.
+    tcn.org.type.v1alpha1.DefaultManualDialCallerId:
+      type: string
+      title: DefaultManualDialCallerId
+      enum:
+      - DEFAULT_MANUAL_DIAL_CALLER_ID_UNSPECIFIED
+      - DEFAULT_MANUAL_DIAL_CALLER_ID_NONE
+      - DEFAULT_MANUAL_DIAL_CALLER_ID_CUSTOM
+      - DEFAULT_MANUAL_DIAL_CALLER_ID_AGENT_CALLER_ID
+      description: Hunt Group Settings options for Default Manual Dial Caller ID
+    tcn.org.type.v1alpha1.DefaultTransferCallerId:
+      type: string
+      title: DefaultTransferCallerId
+      enum:
+      - DEFAULT_TRANSFER_CALLER_ID_UNSPECIFIED
+      - DEFAULT_TRANSFER_CALLER_ID_NONE
+      - DEFAULT_TRANSFER_CALLER_ID_CUSTOM
+      - DEFAULT_TRANSFER_CALLER_ID_3RD_PARTY_NUMBER
+      description: Hunt Group Settings options for Default Transfer Caller ID
+    tcn.org.type.v1alpha1.HuntGroupOrgDefaultCustom:
+      type: string
+      title: HuntGroupOrgDefaultCustom
+      enum:
+      - HUNT_GROUP_ORG_DEFAULT_CUSTOM_UNSPECIFIED
+      - HUNT_GROUP_USE_ORG_DEFAULT
+      - HUNT_GROUP_CUSTOM_ENABLED
+      - HUNT_GROUP_CUSTOM_DISABLED
+      description: For settings with three states; Use Org Default (Client Preference),
+        Enabled for this hunt group or Disabled for this hunt group.
+    tcn.org.type.v1alpha1.InitialAgentState:
+      type: string
+      title: InitialAgentState
+      enum:
+      - INITIAL_AGENT_STATE_UNSPECIFIED
+      - INITIAL_AGENT_STATE_READY
+      - INITIAL_AGENT_STATE_PAUSED
+      description: "Hunt Group Settings types\n Possible initial agent states."
     tcn.org.type.v1alpha1.InputType:
       type: string
       title: InputType
@@ -27029,6 +28722,1543 @@ components:
       - INPUT_VALIDATION_REGULAR_EXPRESSION
       description: InputValidation describes validation that may be applied to input
         values.
+    tcn.org.type.v1alpha1.ManualDialDataDipHandling:
+      type: string
+      title: ManualDialDataDipHandling
+      enum:
+      - MANUAL_DIAL_DATA_DIP_HANDLING_UNSPECIFIED
+      - MANUAL_DIAL_DATA_DIP_HANDLING_CANCEL
+      - MANUAL_DIAL_DATA_DIP_HANDLING_NOTIFY_AND_CANCEL
+      - MANUAL_DIAL_DATA_DIP_HANDLING_NOTIFY_AND_CALL
+      - MANUAL_DIAL_DATA_DIP_HANDLING_CALL_WITH_ORIGINAL_VALUES
+      description: Action to take if the data dip fails or the integration fails.
+    tcn.org.type.v1alpha1.ManualDialDataDipIntegration:
+      type: string
+      title: ManualDialDataDipIntegration
+      enum:
+      - MANUAL_DIAL_DATA_DIP_INTEGRATION_UNSPECIFIED
+      - MANUAL_DIAL_DATA_DIP_INTEGRATION_NUMBER
+      - MANUAL_DIAL_DATA_DIP_INTEGRATION_CALLER_ID
+      - MANUAL_DIAL_DATA_DIP_INTEGRATION_CONTACT_FIELD_DESCRIPTION
+      description: Manual Dial Data Dip integration mapping options.
+    tcn.org.type.v1alpha1.ManualDialDataDipScope:
+      type: string
+      title: ManualDialDataDipScope
+      enum:
+      - MANUAL_DIAL_DATA_DIP_SCOPE_UNSPECIFIED
+      - MANUAL_DIAL_DATA_DIP_SCOPE_DISABLED
+      - MANUAL_DIAL_DATA_DIP_SCOPE_STANDARD_CALLS
+      - MANUAL_DIAL_DATA_DIP_SCOPE_SCHEDULED_CALLBACKS
+      - MANUAL_DIAL_DATA_DIP_SCOPE_ALL
+      description: Which manual dial calls to apply data dip to.
+    tcn.org.type.v1alpha1.ManualDialTimeZoneValidation:
+      type: string
+      title: ManualDialTimeZoneValidation
+      enum:
+      - MANUAL_DIAL_TIME_ZONE_VALIDATION_UNSPECIFIED
+      - MANUAL_DIAL_TIME_ZONE_VALIDATION_DISABLED
+      - MANUAL_DIAL_TIME_ZONE_VALIDATION_OPTIONAL
+      - MANUAL_DIAL_TIME_ZONE_VALIDATION_REQUIRED
+      description: Hunt Group Setting options for time zone validation postal code
+        setting.
+    tcn.org.type.v1alpha1.PhonePostalDisplayOption:
+      type: string
+      title: PhonePostalDisplayOption
+      enum:
+      - PHONE_POSTAL_DISPLAY_OPTION_UNSPECIFIED
+      - PHONE_POSTAL_DISPLAY_OPTION_ADMIN_CODE_1
+      - PHONE_POSTAL_DISPLAY_OPTION_ADMIN_CODE_2
+      - PHONE_POSTAL_DISPLAY_OPTION_ADMIN_CODE_3
+      - PHONE_POSTAL_DISPLAY_OPTION_ADMIN_NAME_1
+      - PHONE_POSTAL_DISPLAY_OPTION_ADMIN_NAME_2
+      - PHONE_POSTAL_DISPLAY_OPTION_ADMIN_NAME_3
+      - PHONE_POSTAL_DISPLAY_OPTION_AREA_CODE
+      - PHONE_POSTAL_DISPLAY_OPTION_CARRIER
+      - PHONE_POSTAL_DISPLAY_OPTION_CENTRAL_OFFICE_CODE_TYPE
+      - PHONE_POSTAL_DISPLAY_OPTION_CITY
+      - PHONE_POSTAL_DISPLAY_OPTION_CITY_NAME
+      - PHONE_POSTAL_DISPLAY_OPTION_CITY_TYPE
+      - PHONE_POSTAL_DISPLAY_OPTION_COUNTRY_CODE
+      - PHONE_POSTAL_DISPLAY_OPTION_COUNTRY_CODE_SUBSCRIBER_NUMBER
+      - PHONE_POSTAL_DISPLAY_OPTION_ISO_2
+      - PHONE_POSTAL_DISPLAY_OPTION_COUNTY_NAME
+      - PHONE_POSTAL_DISPLAY_OPTION_COUNTY_FIPS
+      - PHONE_POSTAL_DISPLAY_OPTION_INTERNATIONAL_PREFIX
+      - PHONE_POSTAL_DISPLAY_OPTION_LANGUAGE
+      - PHONE_POSTAL_DISPLAY_OPTION_LATITUDE
+      - PHONE_POSTAL_DISPLAY_OPTION_LONGITUDE_LATITUDE_ACCURACY
+      - PHONE_POSTAL_DISPLAY_OPTION_LONGITUDE
+      - PHONE_POSTAL_DISPLAY_OPTION_MAXIMUM_BLOCK_NUMBER
+      - PHONE_POSTAL_DISPLAY_OPTION_METROPOLITAN_STATISTICAL_AREA
+      - PHONE_POSTAL_DISPLAY_OPTION_MINIMUM_BLOCK_NUMBER
+      - PHONE_POSTAL_DISPLAY_OPTION_NATIONAL_DESTINATION_CODE
+      - PHONE_POSTAL_DISPLAY_OPTION_NATIONAL_PREFIX
+      - PHONE_POSTAL_DISPLAY_OPTION_NUMBER_PREFIX
+      - PHONE_POSTAL_DISPLAY_OPTION_NUMBER_TYPE
+      - PHONE_POSTAL_DISPLAY_OPTION_NUMBER_USES_NDC
+      - PHONE_POSTAL_DISPLAY_OPTION_OBSERVES_DAYLIGHT_SAVINGS_TIME
+      - PHONE_POSTAL_DISPLAY_OPTION_PLACE_NAME
+      - PHONE_POSTAL_DISPLAY_OPTION_POSTAL_CODE
+      - PHONE_POSTAL_DISPLAY_OPTION_POSTAL_CODE_ALPHANUMERIC
+      - PHONE_POSTAL_DISPLAY_OPTION_POSTAL_TYPE
+      - PHONE_POSTAL_DISPLAY_OPTION_PROVINCE_ABBREVIATION
+      - PHONE_POSTAL_DISPLAY_OPTION_PROVINCE_NAME
+      - PHONE_POSTAL_DISPLAY_OPTION_SPECIAL_SERVICE_CODE_1
+      - PHONE_POSTAL_DISPLAY_OPTION_SPECIAL_SERVICE_CODE_2
+      - PHONE_POSTAL_DISPLAY_OPTION_SPECIAL_SERVICE_CODE_3
+      - PHONE_POSTAL_DISPLAY_OPTION_SPECIAL_SERVICE_CODE_4
+      - PHONE_POSTAL_DISPLAY_OPTION_PROVINCE_STATE_NAME
+      - PHONE_POSTAL_DISPLAY_OPTION_STATE_FIPS_CODE
+      - PHONE_POSTAL_DISPLAY_OPTION_TIME_ZONE
+      - PHONE_POSTAL_DISPLAY_OPTION_UTC_OFFSET
+      description: PhonePostalDisplayOption is an enum for the keys used to specify
+        what Phone/Zip metadata to display in the Agent app.
+    tcn.org.type.v1alpha1.RequeueTransferQueueConfig:
+      type: string
+      title: RequeueTransferQueueConfig
+      enum:
+      - REQUEUE_TRANSFER_QUEUE_CONFIG_UNSPECIFIED
+      - REQUEUE_TRANSFER_QUEUE_CONFIG_CURRENT
+      - REQUEUE_TRANSFER_QUEUE_CONFIG_DEFAULT
+      - REQUEUE_TRANSFER_QUEUE_CONFIG_CUSTOM
+      description: Hunt Group Settings options for Requeue Transfer Queue Config
+    tcn.org.type.v1alpha1.TransferRecordingState:
+      type: string
+      title: TransferRecordingState
+      enum:
+      - TRANSFER_RECORDING_STATE_UNSPECIFIED
+      - TRANSFER_RECORDING_STATE_KEEP_STATE
+      - TRANSFER_RECORDING_STATE_START_RECORDING
+      - TRANSFER_RECORDING_STATE_STOP_RECORDING
+      description: Hunt Group Settings options for recording state upon transfer.
+    tcn.org.huntgroups.v1alpha1.CallbackSettingsSuite:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) Callback settings suite identifier
+        enable_callback_scheduling:
+          type: boolean
+          title: enable_callback_scheduling
+          description: (OPTIONAL) Enable callback scheduling. `Allow Callback Scheduling`
+        default_callback_routing:
+          title: default_callback_routing
+          description: (OPTIONAL) Default callback routing. `Default Callback Routing`
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CallbackSettingsSuite.DefaultRouting'
+        enable_callback_calling:
+          type: boolean
+          title: enable_callback_calling
+          description: (OPTIONAL) Enable callback calling ` Allow Scheduled Callback
+            Calling`
+        enable_automatic_retrieval:
+          type: boolean
+          title: enable_automatic_retrieval
+          description: Enable automatic callback retrieval `Callbacks Retrieval Mode`
+        callback_routing_disallowed:
+          title: callback_routing_disallowed
+          description: "(OPTIONAL) Indicates whether and how to limit callback routing.\n
+            `Callback Routing Disallowed`"
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CallbackSettingsSuite.CallbackRoutingDisallowed'
+        enable_customizable_caller_id:
+          type: boolean
+          title: enable_customizable_caller_id
+          description: Enable caller ID customization. 'Scheduled Callback Editable
+            Caller ID'
+        default_caller_id:
+          type: string
+          title: default_caller_id
+          description: "(OPTIONAL) Default scheduled callback caller ID.\n `Scheduled
+            Callback Default Caller ID`"
+        enable_callback_calendar:
+          type: boolean
+          title: enable_callback_calendar
+          description: "(OPTIONAL) Enable viewing the Scheduled Callback calendar.\n
+            `Allow Scheduled Callback Calendar`"
+      title: CallbackSettingsSuite
+      required:
+      - enable_automatic_retrieval
+      - enable_customizable_caller_id
+      additionalProperties: false
+      description: "CallbackSettingsSuite is an entity containing the hunt group settings
+        for the\n scheduled callbacks section of the hunt group manager."
+    tcn.org.huntgroups.v1alpha1.CallbackSettingsSuite.CallbackRoutingDisallowed:
+      type: object
+      properties:
+        use_routing_limiting:
+          type: boolean
+          title: use_routing_limiting
+          description: Indicates whether callback routing should be limited.
+        agent_sids:
+          type: array
+          items:
+            type:
+            - integer
+            - string
+            format: int64
+            description: '(OPTIONAL) '
+          title: agent_sids
+          description: (OPTIONAL) Prohibited Agent Sids
+        hunt_group_sids:
+          type: array
+          items:
+            type:
+            - integer
+            - string
+            format: int64
+            description: '(OPTIONAL) '
+          title: hunt_group_sids
+          description: (OPTIONAL) Prohibited Hunt Group Sids
+        agent_skill_sids:
+          type: array
+          items:
+            type:
+            - integer
+            - string
+            format: int64
+            description: '(OPTIONAL) '
+          title: agent_skill_sids
+          description: (OPTIONAL) Prohibited agent skill sids
+      title: CallbackRoutingDisallowed
+      required:
+      - use_routing_limiting
+      additionalProperties: false
+      description: Control which skills may be used when selecting routing.
+    tcn.org.huntgroups.v1alpha1.CallbackSettingsSuite.DefaultRouting:
+      type: object
+      properties:
+        routing_mode:
+          title: routing_mode
+          description: Default callback routing option (agent, skill set, none).
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.DefaultCallbackRouting'
+        agent_sid:
+          type:
+          - integer
+          - string
+          title: agent_sid
+          format: int64
+          description: (OPTIONAL) Agent to callback to.
+        agent_skillsets:
+          type: array
+          items:
+            type:
+            - integer
+            - string
+            format: int64
+            description: '(OPTIONAL) '
+          title: agent_skillsets
+          description: (OPTIONAL) Agent skillsets to callback to.
+        hunt_group_sids:
+          type: array
+          items:
+            type:
+            - integer
+            - string
+            format: int64
+            description: '(OPTIONAL) '
+          title: hunt_group_sids
+          description: (OPTIONAL) Hunt Groups selected by default
+      title: DefaultRouting
+      required:
+      - routing_mode
+      additionalProperties: false
+      description: Default callback routing properties.
+    tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) Communication settings suite identifier
+        enable_scrub_list_adding:
+          type: boolean
+          title: enable_scrub_list_adding
+          description: "(OPTIONAL) Enable the ability to add valuess from the compliance
+            scrub list.\n `doAllowAddDncl`"
+        scrub_lists:
+          type: array
+          items:
+            type: string
+            description: '(OPTIONAL) '
+          title: scrub_lists
+          description: (OPTIONAL) Hunt group compliance scrub lists. `Hunt Group Compliance
+            Scrub Lists`
+        enable_scrub_list_removal:
+          type: boolean
+          title: enable_scrub_list_removal
+          description: "(OPTIONAL) Enable the ability to remove values from the compliance
+            scrub lists.\n `doAllowRemoveDncl`"
+        scrub_lists_removal_allowed:
+          type: array
+          items:
+            type: string
+            description: '(OPTIONAL) '
+          title: scrub_lists_removal_allowed
+          description: "(OPTIONAL) List of compliance scrub lists which can be removed.\n
+            `Hunt Group Compliance Scrub Lists Removal Allowed`"
+        compliance_default_country:
+          type: string
+          title: compliance_default_country
+          description: Select compliance default country. `Default DNCL Country` ISO
+            3166-1 alpha-3
+        wrapup_dncl_display_options:
+          type: boolean
+          title: wrapup_dncl_display_options
+          description: (OPTIONAL) Display DNCL options in wrap up. `Display DNCL Options
+            In Wrapup`
+        inbound_scrub_list_expiration:
+          title: inbound_scrub_list_expiration
+          description: "EXPIRATION SETTINGS\n Default inbound scrub list expiration.
+            `defaultIBCallDnclExpiration`"
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite.ScrubListExpiration'
+        manual_scrub_list_expiration:
+          title: manual_scrub_list_expiration
+          description: Default manual scrub list expiration. `defaultMDCallDnclExpiration`
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite.ScrubListExpiration'
+        outbound_scrub_list_expiration:
+          title: outbound_scrub_list_expiration
+          description: Default outbound scrub list expiration. `defaultOBCallExpiration`
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite.ScrubListExpiration'
+        preview_scrub_list_expiration:
+          title: preview_scrub_list_expiration
+          description: Default preview scrub list expiration. `defaultPRCallDnclExpiration`
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite.ScrubListExpiration'
+        automate_manually_dialed_scrub_list:
+          type: boolean
+          title: automate_manually_dialed_scrub_list
+          description: "(OPTIONAL) AUTO ADDITION SETTINGS\n Automate manually dialed
+            number scrub list. `Manual Dial Auto Dncl Add`"
+        automate_preview_dialed_scrub_list:
+          type: boolean
+          title: automate_preview_dialed_scrub_list
+          description: (OPTIONAL) Automate preview dialed number scrub list. `Preview
+            Dial Auto Dncl Add`
+        automate_response_rules:
+          title: automate_response_rules
+          description: (OPTIONAL) Automate response rules. `AgentDispositionConditionalDncl`
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite.AutomateResponseRules'
+        automate_scrub_list_call_data:
+          title: automate_scrub_list_call_data
+          description: "(OPTIONAL) Enable automatic addition of call data to scrub
+            lists.\n `Call Data Scrub Lists Info`"
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite.AutomateScrubListCallData'
+      title: CommunicationSettingsSuite
+      required:
+      - compliance_default_country
+      - inbound_scrub_list_expiration
+      - manual_scrub_list_expiration
+      - outbound_scrub_list_expiration
+      - preview_scrub_list_expiration
+      additionalProperties: false
+      description: "CommunicationSettingsSuite is an entity containing the hunt group
+        settings for the\n communication compliance section of the hunt group manager."
+    tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite.AutomateResponseRules:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          title: enabled
+          description: Whether automated response rules are enabled.
+        rule_sid:
+          type:
+          - integer
+          - string
+          title: rule_sid
+          format: int64
+          description: "(OPTIONAL) Sid associated with response rule.\n xml_client_property_sid
+            where property_key =\n 'AgentDispositionConditionalDncl'"
+      title: AutomateResponseRules
+      required:
+      - enabled
+      additionalProperties: false
+      description: Automate response rules properties.
+    tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite.AutomateScrubListCallData:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          title: enabled
+          description: Whether automatic additional of call data to scrub lists is
+            enabled.
+        scrub_list_data_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite.AutomateScrubListCallData.ScrubListDataField'
+          title: scrub_list_data_fields
+          description: (OPTIONAL) List of scrub list call data fields which will automatically
+            be added.
+      title: AutomateScrubListCallData
+      required:
+      - enabled
+      additionalProperties: false
+      description: Automate response rules properties.
+    tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite.AutomateScrubListCallData.ScrubListDataField:
+      type: object
+      properties:
+        scrub_list:
+          type: string
+          title: scrub_list
+          description: Scrub list sid.
+        call_data_field:
+          type:
+          - integer
+          - string
+          title: call_data_field
+          format: int64
+          description: Call data field sid.
+      title: ScrubListDataField
+      required:
+      - scrub_list
+      - call_data_field
+      additionalProperties: false
+      description: Scrub list data field properties.
+    tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite.ScrubListExpiration:
+      type: object
+      properties:
+        default_expiration:
+          title: default_expiration
+          description: (OPTIONAL) Default call DNCL/scrub list expiration time.
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.CommunicationExpiration'
+        limit_expiration:
+          type: boolean
+          title: limit_expiration
+          description: Enable limiting scrub list expiration choices.
+        limited_expirations:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.type.v1alpha1.CommunicationExpiration'
+          title: limited_expirations
+          description: (OPTIONAL) List of possible expiration times to choose from.
+      title: ScrubListExpiration
+      required:
+      - limit_expiration
+      additionalProperties: false
+      description: Scrub list expiration properties.
+    tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) General settings suite identifier
+        enable_agent_gateway_title_bar:
+          type: boolean
+          title: enable_agent_gateway_title_bar
+          description: Displays browser window tab information. `UseAdvancedGatewayTitle`
+        default_agent_dial_in:
+          type: string
+          title: default_agent_dial_in
+          description: "(-- api-linter: core::0140::prepositions=disabled\n     aip.dev/not-precedent:
+            This is a compound word. --)\n Default agent phone number dialing into
+            IVR system. `AgentDialInNumber`"
+        require_end_call_confirmation:
+          type: boolean
+          title: require_end_call_confirmation
+          description: (OPTIONAL) Requires secondary confirmation to end call. `DisconnectConfirmation`
+        enable_authorization_by_ip:
+          type: boolean
+          title: enable_authorization_by_ip
+          description: "(OPTIONAL) (-- api-linter: core::0140::prepositions=disabled\n
+            \    aip.dev/not-precedent: The authorization restriction is specifically
+            by IP. --)\n Enables authorization and whitelist by IP. `UseIpBasedAuth`"
+        authorized_ip_addresses:
+          type: array
+          items:
+            type: string
+            description: '(OPTIONAL) '
+          title: authorized_ip_addresses
+          description: (OPTIONAL) Whitelisted IPs. `AllowedIps`
+        initial_agent_status:
+          title: initial_agent_status
+          description: "(OPTIONAL) AGENT PAUSE SETTINGS\n (-- api-linter: core::0216::state-field-output-only=disabled\n
+            \    aip.dev/not-precedent: This is a state referencing field, not a state
+            field. --)\n Initial agent status. `Initial Agent Status`"
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.InitialAgentState'
+        enable_agent_pause:
+          type: boolean
+          title: enable_agent_pause
+          description: Enable agents to pause calls. `Allow Agent Pause`
+        agent_pause_option_set:
+          title: agent_pause_option_set
+          description: (OPTIONAL) Pause option sets per hunt group. `Use Agent Pause
+            Codes`
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.PauseOptionSet'
+        default_agent_pause_option:
+          type: string
+          title: default_agent_pause_option
+          description: (OPTIONAL) Default agent pause code. `Default Agent Pause Code`
+        enable_pause_option_reset:
+          type: boolean
+          title: enable_pause_option_reset
+          description: (OPTIONAL) Enable agents to switch between pause options. `Agent
+            Pause Reset`
+        display_recording_indicator:
+          type: boolean
+          title: display_recording_indicator
+          description: "VOICE/CALL RECORDING SETTINGS\n Display recording indicator.
+            `Display Recording Indicator`"
+        enable_call_recording_pause:
+          type: boolean
+          title: enable_call_recording_pause
+          description: (OPTIONAL) Enable pausing of agent call recording. `Enable
+            Recording Pause`
+        call_recording_pause_confirmation:
+          type: boolean
+          title: call_recording_pause_confirmation
+          description: (OPTIONAL) Require call recording pause confirmation. `Recording
+            Pause Confirmation`
+        call_recording_delay:
+          type:
+          - integer
+          - string
+          title: call_recording_delay
+          format: int64
+          description: (OPTIONAL) Call recording delay in seconds. `Recording Delay`
+        enable_pause_recording_on_hold:
+          type: boolean
+          title: enable_pause_recording_on_hold
+          description: "(OPTIONAL) Automatically pauses recording when starting hold.\n
+            `Pause Recording on Hold`"
+        enable_envision_screen_recording:
+          type: boolean
+          title: enable_envision_screen_recording
+          description: "(OPTIONAL) SCREEN RECORDING SETTINGS\n Enable envision agent
+            screen recording. `Use Agent Screen Recording`"
+        agent_screen_recording:
+          type: boolean
+          title: agent_screen_recording
+          description: (OPTIONAL) Read only- shows if the Agent Screen Recording is
+            enabled for the Org
+        enable_agent_simple_hold:
+          type: boolean
+          title: enable_agent_simple_hold
+          description: "(OPTIONAL) HOLD SETTINGS\n Enable agent simple hold. `Allow
+            Agent Hold`"
+        enable_agent_multi_accept:
+          type: boolean
+          title: enable_agent_multi_accept
+          description: (OPTIONAL) Enable agent multi-accept hold. `Allow Agent Hold`
+        pause_agent_after_multi_accept:
+          type: boolean
+          title: pause_agent_after_multi_accept
+          description: "(OPTIONAL) (-- api-linter: core::0140::prepositions=disabled\n
+            \    aip.dev/not-precedent: Very specific setting. --)\n Automatically
+            pause agent after multi-accept hold. `AutoPauseOnMultiHold`"
+        hold_queue_monitoring:
+          title: hold_queue_monitoring
+          description: (OPTIONAL) Agent hold queue monitoring.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.HoldQueueMonitoring'
+        display_machine_deliver:
+          type: boolean
+          title: display_machine_deliver
+          description: "(OPTIONAL) DISPLAY SETTINGS\n Whether to display the machine-deliver
+            button on the UI."
+        display_linkback_hunt_group:
+          type: boolean
+          title: display_linkback_hunt_group
+          description: Whether to display the call's linkback Hunt Group in the data
+            panel.
+        display_sip_header_data:
+          type: boolean
+          title: display_sip_header_data
+          description: (OPTIONAL) Whether to display SIP header data in the data panel.
+        display_ivr_navigation_keys:
+          type: boolean
+          title: display_ivr_navigation_keys
+          description: Whether to display the IVR navigation (Keys Pressed) in the
+            data panel.
+        display_data_collect_data:
+          type: boolean
+          title: display_data_collect_data
+          description: Whether to display Data Collect data in the data panel.
+        display_data_dipped_data:
+          title: display_data_dipped_data
+          description: (OPTIONAL) Whether to display the Data Dip'ed data in the data
+            panel.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.DataDipDataDisplay'
+        integration_data_display:
+          title: integration_data_display
+          description: (OPTIONAL) Payment Integration data display
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.IntegrationDataDisplay'
+        journey_data_display:
+          title: journey_data_display
+          description: (OPTIONAL) Whether to display the Journey Integration returned
+            data in the data panel.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.JourneyDataDisplay'
+        agent_call_history_scope:
+          title: agent_call_history_scope
+          description: (OPTIONAL) Whether and what call history statistics to display
+            in the UI.
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.AgentCallHistoryScope'
+        agent_login_gui_stats_display:
+          title: agent_login_gui_stats_display
+          description: (OPTIONAL) Agent Login Gui Statistics display and template
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.AgentLoginGuiStatsDisplay'
+        phone_zip_metadata_display:
+          title: phone_zip_metadata_display
+          description: (OPTIONAL) Phone / Postal Metadata display
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.PhoneZipMetadataDisplay'
+        display_skills:
+          type: boolean
+          title: display_skills
+          description: (OPTIONAL) Whether to display the call and agent skills to
+            the agent ` Display Skills`
+        display_web_links:
+          type: boolean
+          title: display_web_links
+          description: Whether to display Web Links to the agent ` Display Web Links`
+        enable_agent_hunt_group_reassignment:
+          type: boolean
+          title: enable_agent_hunt_group_reassignment
+          description: "(OPTIONAL) REASSIGNMENT SETTINGS\n Enable agent to reassign
+            hunt groups. `Agent Skills Reassignment`"
+        disallowed_hunt_groups:
+          title: disallowed_hunt_groups
+          description: (OPTIONAL) Limited available hunt groups. `Hunt Group Reassignment
+            Disallowed`
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.DisallowedHuntGroups'
+        enable_call_manual_approval:
+          type: boolean
+          title: enable_call_manual_approval
+          description: "(OPTIONAL) MANUAL APPROVAL SETTINGS\n Enable manual approval
+            of calls. `Allow Manual Approval`"
+        require_call_manual_approval_number:
+          type: boolean
+          title: require_call_manual_approval_number
+          description: (OPTIONAL) Require manual approval number confirmation. `MAC
+            Number Confirmation`
+        enable_sms_manual_approval:
+          type: boolean
+          title: enable_sms_manual_approval
+          description: (OPTIONAL) Enable manual approval of SMS. `Allow Manual Approval
+            For Messaging`
+        require_sms_manual_approval_number:
+          type: boolean
+          title: require_sms_manual_approval_number
+          description: "(OPTIONAL) Require manual approval number confirmation for
+            SMS.\n `MAM Number Confirmation`"
+        disable_reject_option:
+          type: boolean
+          title: disable_reject_option
+          description: (OPTIONAL) Control whether the reject option is available to
+            the approvers.
+        alphanumeric_keypad:
+          title: alphanumeric_keypad
+          description: "(OPTIONAL) MISCELLANEOUS SETTINGS\n Alphanumeric keypad properties.
+            `Alphanumeric Keypad`"
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.AlphanumericKeypad'
+        enable_call_desktop_notifications:
+          type: boolean
+          title: enable_call_desktop_notifications
+          description: (OPTIONAL) Enable queued call desktop notifications. `Allow
+            Queued Call Notifications`
+        inbound_compliance_metadata:
+          title: inbound_compliance_metadata
+          description: "(OPTIONAL) Inbound natural language compliance metadata.\n
+            `Optional Inbound Compliance Metadata`\n `Required Inbound Compliance
+            Metadata`"
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.InboundComplianceMetadata'
+        enable_agent_intercom:
+          type: boolean
+          title: enable_agent_intercom
+          description: "Whether to allow the agent to intercom with other agents.\n
+            `AllowAgentIntercom`"
+        prepare_state_call_delivery:
+          title: prepare_state_call_delivery
+          description: "(OPTIONAL) Enables the delivery of incoming calls to the agent\n
+            depending on the dial status prior to them clicking \"Dial\"."
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.PrepareStateCallDelivery'
+      title: GeneralSettingsSuite
+      required:
+      - enable_agent_gateway_title_bar
+      - default_agent_dial_in
+      - enable_agent_pause
+      - display_recording_indicator
+      - display_linkback_hunt_group
+      - display_ivr_navigation_keys
+      - display_data_collect_data
+      - display_web_links
+      - enable_agent_intercom
+      additionalProperties: false
+      description: "GeneralSettingsSuite is an entity containing a section of the
+        hunt group settings\n for the hunt group manager."
+    tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.AgentLoginGuiStatsDisplay:
+      type: object
+      properties:
+        display_agent_login_gui_stats:
+          type: boolean
+          title: display_agent_login_gui_stats
+          description: Whether to allow the display of general agent statistics to
+            the UI.
+        agent_login_gui_stats_template:
+          type:
+          - integer
+          - string
+          title: agent_login_gui_stats_template
+          format: int64
+          description: "(OPTIONAL) The ID (XML Client Property Sid) of the agent login
+            gui statistics\n template."
+      title: AgentLoginGuiStatsDisplay
+      required:
+      - display_agent_login_gui_stats
+      additionalProperties: false
+      description: Agent Login GUI Statistics display and template.
+    tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.AlphanumericKeypad:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          title: enabled
+          description: Whether keypad delimiting is enabled.
+        delimiter:
+          title: delimiter
+          description: (OPTIONAL) Character to delimit with.
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.AlphanumericKeypadDelimiter'
+      title: AlphanumericKeypad
+      required:
+      - enabled
+      additionalProperties: false
+      description: Alphanumeric keypad options.
+    tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.DataDipDataDisplay:
+      type: object
+      properties:
+        display_data_dip_data:
+          type: boolean
+          title: display_data_dip_data
+          description: Whether to display the Data Dipped data in the data panel.
+        data_dip_display_keys:
+          type: array
+          items:
+            type: string
+          title: data_dip_display_keys
+          description: The keys of the Data Dipped data key/value pairs.
+      title: DataDipDataDisplay
+      required:
+      - display_data_dip_data
+      - data_dip_display_keys
+      additionalProperties: false
+      description: Data Dip data display options.
+    tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.DisallowedHuntGroups:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          title: enabled
+          description: Whether to limit available hunt groups for agents.
+        hunt_groups:
+          type: array
+          items:
+            type:
+            - integer
+            - string
+            format: int64
+            description: '(OPTIONAL) '
+          title: hunt_groups
+          description: (OPTIONAL) The list of hunt groups that are available to choose
+            from.
+      title: DisallowedHuntGroups
+      required:
+      - enabled
+      additionalProperties: false
+      description: Available hunt group options.
+    tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.HoldQueueMonitoring:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          title: enabled
+          description: Whether hold queue monitoring is enabled. `Hold Queue Monitoring`
+        agent_routing:
+          title: agent_routing
+          description: (OPTIONAL) Agent routing. `HQM Agent Routing`
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.AgentRouting'
+        required_hunt_group_routing:
+          type:
+          - integer
+          - string
+          title: required_hunt_group_routing
+          format: int64
+          description: (OPTIONAL) Hunt group required to route to. `HQM Required Hunt
+            Group Routing`
+        preferred_hunt_group_routing:
+          type:
+          - integer
+          - string
+          title: preferred_hunt_group_routing
+          format: int64
+          description: (OPTIONAL) Hunt group preferred to route to. `HQM Preferred
+            Hunt Group Routing`
+      title: HoldQueueMonitoring
+      required:
+      - enabled
+      additionalProperties: false
+      description: Hold queue monitoring options.
+    tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.InboundComplianceMetadata:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          title: enabled
+          description: Whether compliance metadata is used.
+        optional_data:
+          type: array
+          items:
+            type:
+            - integer
+            - string
+            format: int64
+            description: '(OPTIONAL) '
+          title: optional_data
+          description: "(OPTIONAL) List of optional contact field description metadata.\n
+            List of contact_field_description_sids"
+        required_data:
+          type: array
+          items:
+            type:
+            - integer
+            - string
+            format: int64
+            description: '(OPTIONAL) '
+          title: required_data
+          description: "(OPTIONAL) List of required contact field description metadata.\n
+            List of contact_field_description_sids"
+      title: InboundComplianceMetadata
+      required:
+      - enabled
+      additionalProperties: false
+      description: Inbound natural compiance metadata options.
+    tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.IntegrationDataDisplay:
+      type: object
+      properties:
+        display_integration_data:
+          type: boolean
+          title: display_integration_data
+          description: "Whether to display the Payment Integration returned data in
+            the\n data panel."
+        integration_display_keys:
+          type: array
+          items:
+            type: string
+          title: integration_display_keys
+          description: The keys of the Payment Integration data key/value pairs.
+      title: IntegrationDataDisplay
+      required:
+      - display_integration_data
+      - integration_display_keys
+      additionalProperties: false
+      description: Payment Integration data display options.
+    tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.JourneyDataDisplay:
+      type: object
+      properties:
+        display_journey_data:
+          type: boolean
+          title: display_journey_data
+          description: "Whether to display the Journey Integration returned data in
+            the\n data panel."
+        journey_display_keys:
+          type: array
+          items:
+            type: string
+          title: journey_display_keys
+          description: The keys of the Journey Integration data key/value pairs.
+      title: JourneyDataDisplay
+      required:
+      - display_journey_data
+      - journey_display_keys
+      additionalProperties: false
+      description: Journey Integration data display options.
+    tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.PauseOptionSet:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          title: enabled
+          description: Whether pause option sets will be enabled.
+        set_sid:
+          type:
+          - integer
+          - string
+          title: set_sid
+          format: int64
+          description: "(OPTIONAL) The sid of the agent pause code set.\n xml_client_property_sid
+            where property_key = 'Agent Pause Codes'"
+      title: PauseOptionSet
+      required:
+      - enabled
+      additionalProperties: false
+      description: Pause option set properties.
+    tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.PhoneZipMetadataDisplay:
+      type: object
+      properties:
+        display_phone_zip_metadata:
+          type: boolean
+          title: display_phone_zip_metadata
+          description: "Whether to display the Phone / Postal Metadata related to
+            the call's\n phone number."
+        phone_zip_metadata_keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.type.v1alpha1.PhonePostalDisplayOption'
+          title: phone_zip_metadata_keys
+          description: (OPTIONAL) The keys of the Phone / Postal Metadata for display
+            in the UI.
+      title: PhoneZipMetadataDisplay
+      required:
+      - display_phone_zip_metadata
+      additionalProperties: false
+      description: Phone / Postal Metadata display options.
+    tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite.PrepareStateCallDelivery:
+      type: object
+      properties:
+        manual_dial:
+          type: boolean
+          title: manual_dial
+          description: Whether manual dial state is enabled
+        preview_dial:
+          type: boolean
+          title: preview_dial
+          description: Whether preview dial state is enabled
+      title: PrepareStateCallDelivery
+      required:
+      - manual_dial
+      - preview_dial
+      additionalProperties: false
+      description: PrepareStateCallDelivery options (the dial modes).
+    tcn.org.huntgroups.v1alpha1.ManualDialSettingsSuite:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) Manual dial settings suite identifier
+        enable_manual_dial:
+          type: boolean
+          title: enable_manual_dial
+          description: Allow the agent to make manual dial calls.
+        queue_config:
+          type: string
+          title: queue_config
+          description: (OPTIONAL) ACD queue  folder name.
+        default_call_recording:
+          title: default_call_recording
+          description: (OPTIONAL) The default setting for recording manual dial calls.
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.HuntGroupOrgDefaultCustom'
+        cell_phone_scrub:
+          title: cell_phone_scrub
+          description: (OPTIONAL) Determines whether to scrub cell phone calls.
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.HuntGroupOrgDefaultCustom'
+        time_zone_restriction:
+          title: time_zone_restriction
+          description: (OPTIONAL) Determines whether to scrub calls by time zone.
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.HuntGroupOrgDefaultCustom'
+        time_zone_validation_postal_code:
+          title: time_zone_validation_postal_code
+          description: "(OPTIONAL) Determines whether to allow or require collection
+            of ZIP/postal\n for compliance."
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.ManualDialTimeZoneValidation'
+        natural_compliance_scrub:
+          title: natural_compliance_scrub
+          description: (OPTIONAL) Use Natural Language Compliance and rule set.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.NaturalLanguageComplianceScrub'
+        scrub_override:
+          title: scrub_override
+          description: (OPTIONAL) Allow agent to override scrub options
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ManualDialSettingsSuite.ScrubOverride'
+        enable_whitelist:
+          type: boolean
+          title: enable_whitelist
+          description: (OPTIONAL) Allow toll-free white list for manual dial calls.
+        default_outbound_country:
+          type: string
+          title: default_outbound_country
+          description: The default selected country for outbound number. ISO 3166-1
+            alpha-3
+        display_outbound_country_selection:
+          type: boolean
+          title: display_outbound_country_selection
+          description: Determines whether to display the country select menu to the
+            agent.
+        display_outbound_number_phone_book:
+          type: boolean
+          title: display_outbound_number_phone_book
+          description: (OPTIONAL) Determines whether to display the outbound number
+            phone book to the agent.
+        default_caller_id_country:
+          type: string
+          title: default_caller_id_country
+          description: Indicates the default Country to use with the caller ID number.
+            ISO 3166-1 alpha-3
+        display_caller_id_country_selection:
+          type: boolean
+          title: display_caller_id_country_selection
+          description: "Determines whether to display the caller ID country select
+            menu to\n the agent.\n `Manual Dial Display Caller ID Country Select`"
+        display_caller_id_phone_book:
+          type: boolean
+          title: display_caller_id_phone_book
+          description: "Determines whether to display the caller ID phone book to
+            the agent.\n `Manual Dial Display Phone Book`"
+        enable_customizable_caller_id:
+          type: boolean
+          title: enable_customizable_caller_id
+          description: "Determines whether the agent may customize/edit the caller
+            ID.\n `Manual Dial Editable Caller ID`"
+        default_caller_id:
+          title: default_caller_id
+          description: "(OPTIONAL) Indicates the default number to use as the caller
+            ID.\n `Manual Dial Default Caller ID`"
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ManualDialSettingsSuite.DefaultCallerId'
+        enable_caller_id_bucket:
+          type: boolean
+          title: enable_caller_id_bucket
+          description: "(OPTIONAL) Determines whether to allow the use of caller ID
+            buckets in the agent app.\n `Manual Dial Caller Id Bucket Enabled`"
+        random_caller_id_bucket:
+          type:
+          - integer
+          - string
+          title: random_caller_id_bucket
+          format: int64
+          description: "Indicates which caller ID bucket to use.\n `Manual Dial Random
+            Caller Id Bucket`"
+        automate_random_caller_id:
+          type: boolean
+          title: automate_random_caller_id
+          description: "(OPTIONAL) Determines whether to automatically select a random
+            caller ID.\n `Manual Dial Random Caller Id Enabled`"
+        enable_mask_caller_id:
+          type: boolean
+          title: enable_mask_caller_id
+          description: "(OPTIONAL) Determines whether to mask the caller ID from the
+            agent.\n `Mask Manual Dial Caller ID`"
+        enable_sip_address:
+          type: boolean
+          title: enable_sip_address
+          description: "Determines whether to enable SIP addresses as an optional
+            outbound\n number and/or caller ID format.\n `Enable SIP Address`"
+        natural_language_compliance_metadata:
+          title: natural_language_compliance_metadata
+          description: "(OPTIONAL) Manual Dial natural language compliance metadata.\n
+            `Optional Inbound Compliance Metadata`\n `Required Inbound Compliance
+            Metadata`"
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.NaturalLanguageComplianceMetadata'
+        data_dip_scope:
+          title: data_dip_scope
+          description: (OPTIONAL) Application scope; disabled, standard calls, scheduled
+            callbacks or all.
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.ManualDialDataDipScope'
+        data_dip_config_sid:
+          type:
+          - integer
+          - string
+          title: data_dip_config_sid
+          format: int64
+          description: (OPTIONAL) The ID of the data dip config to execute.
+        data_dip_result_handling:
+          title: data_dip_result_handling
+          description: (OPTIONAL) The action to take if data dip execution fails.
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.ManualDialDataDipHandling'
+        data_dip_integration_mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ManualDialSettingsSuite.DataDipIntegrationMapping'
+          title: data_dip_integration_mappings
+          description: (OPTIONAL) Map data dip values to manual dial call values.
+        data_dip_integration_handling:
+          title: data_dip_integration_handling
+          description: (OPTIONAL) The action to take if the integration mapping fails.
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.ManualDialDataDipHandling'
+        enable_reject_option_for_approvers:
+          type: boolean
+          title: enable_reject_option_for_approvers
+          description: "Control whether the reject option is available to the approvers.\n
+            Please use disable_reject_option_for_approvers under GeneralSettings."
+          deprecated: true
+      title: ManualDialSettingsSuite
+      required:
+      - enable_manual_dial
+      - default_outbound_country
+      - display_outbound_country_selection
+      - default_caller_id_country
+      - display_caller_id_country_selection
+      - display_caller_id_phone_book
+      - enable_customizable_caller_id
+      - random_caller_id_bucket
+      - enable_sip_address
+      additionalProperties: false
+      description: "ManualDialSettingsSuite is an entity containing the hunt group
+        settings for the\n Manual Dial section of the hunt group settings manager."
+    tcn.org.huntgroups.v1alpha1.ManualDialSettingsSuite.DataDipIntegrationMapping:
+      type: object
+      properties:
+        mapping_type:
+          title: mapping_type
+          description: Mapping type; manual dial number, caller ID or field description.
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.ManualDialDataDipIntegration'
+        data_dip_return_key:
+          type: string
+          title: data_dip_return_key
+          description: The key of the data dipped data to map to the manual call data.
+        contact_field_description_sid:
+          type:
+          - integer
+          - string
+          title: contact_field_description_sid
+          format: int64
+          description: (OPTIONAL) The contact field description to map to when it
+            is the type.
+      title: DataDipIntegrationMapping
+      required:
+      - mapping_type
+      - data_dip_return_key
+      additionalProperties: false
+      description: Describes a mapping of return keys to manual dial values.
+    tcn.org.huntgroups.v1alpha1.ManualDialSettingsSuite.DefaultCallerId:
+      type: object
+      properties:
+        usage:
+          title: usage
+          description: Describes how the field is used; none, custom or agent caller
+            ID.
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.DefaultManualDialCallerId'
+        custom_caller_id:
+          type: string
+          title: custom_caller_id
+          description: (OPTIONAL) The caller ID (if needed).
+      title: DefaultCallerId
+      required:
+      - usage
+      additionalProperties: false
+      description: 'DefaultCallerId: custom or "Agent Caller ID" and number (if needed).'
+    tcn.org.huntgroups.v1alpha1.ManualDialSettingsSuite.ScrubOverride:
+      type: object
+      properties:
+        enable_dncl_override:
+          type: boolean
+          title: enable_dncl_override
+          description: Allow the agent to override DNCL scrubbing.
+        enable_cell_scrub_override:
+          type: boolean
+          title: enable_cell_scrub_override
+          description: Allow the agent to override cell phone scrubbing.
+        enable_time_zone_scrub_override:
+          type: boolean
+          title: enable_time_zone_scrub_override
+          description: Allow the agent to override the global time zone scrubbing.
+        natural_compliance_override:
+          type: boolean
+          title: natural_compliance_override
+          description: Allow the agent to override Natural Language Compliance scrubbing.
+      title: ScrubOverride
+      required:
+      - enable_dncl_override
+      - enable_cell_scrub_override
+      - enable_time_zone_scrub_override
+      - natural_compliance_override
+      additionalProperties: false
+      description: Allow the agent to override scrub settings.
+    tcn.org.huntgroups.v1alpha1.NaturalLanguageComplianceMetadata:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          title: enabled
+          description: Whether compliance metadata is used.
+        optional_data:
+          type: array
+          items:
+            type:
+            - integer
+            - string
+            format: int64
+            description: '(OPTIONAL) '
+          title: optional_data
+          description: "(OPTIONAL) List of optional contact field description metadata.\n
+            List of contact_field_description_sids"
+        required_data:
+          type: array
+          items:
+            type:
+            - integer
+            - string
+            format: int64
+            description: '(OPTIONAL) '
+          title: required_data
+          description: "(OPTIONAL) List of required contact field description metadata.\n
+            List of contact_field_description_sids"
+      title: NaturalLanguageComplianceMetadata
+      required:
+      - enabled
+      additionalProperties: false
+      description: Manual Dial natural compiance metadata options.
+    tcn.org.huntgroups.v1alpha1.NaturalLanguageComplianceScrub:
+      type: object
+      properties:
+        compliance_scrub:
+          title: compliance_scrub
+          description: Org default or enabled or disabled.
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.HuntGroupOrgDefaultCustom'
+        rule_set_id:
+          type: string
+          title: rule_set_id
+          description: (OPTIONAL) The ID of the Natural Language Compliance rule set.
+      title: NaturalLanguageComplianceScrub
+      required:
+      - compliance_scrub
+      additionalProperties: false
+      description: Use Natural Language Compliance and rule set ID.
+    tcn.org.huntgroups.v1alpha1.NumberHistorySettingsSuite:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) Number history settings suite identifier
+        enable_search:
+          type: boolean
+          title: enable_search
+          description: (OPTIONAL) Allow the agent to access number history search.
+        enable_report_download:
+          type: boolean
+          title: enable_report_download
+          description: (OPTIONAL) Allow the export of the number history report.
+        enable_recordings_download:
+          type: boolean
+          title: enable_recordings_download
+          description: (OPTIONAL) Allow the export of the number history related call
+            recordings.
+        enable_agent_response_editing:
+          type: boolean
+          title: enable_agent_response_editing
+          description: (OPTIONAL) Allow the agent to edit number history related agent
+            call responses.
+      title: NumberHistorySettingsSuite
+      additionalProperties: false
+      description: "NumberHistorySettings is an entity containing the hunt group settings
+        for the\n Number History section of the hunt group settings manager."
+    tcn.org.huntgroups.v1alpha1.PreviewDialSettingsSuite:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) Preview dial settings suite identifier
+        enable_preview_dial_cancel:
+          type: boolean
+          title: enable_preview_dial_cancel
+          description: Enable cancelling of Preview Dialing.  `AllowPreviewDialCancel`
+        enable_auto_pause_on_cancel:
+          type: boolean
+          title: enable_auto_pause_on_cancel
+          description: "(OPTIONAL) Enable automatic pausing when cancelling a Preview
+            Dial call.\n `AutoPauseOnPreviewDial`"
+        timeout_minutes:
+          type:
+          - integer
+          - string
+          title: timeout_minutes
+          format: int64
+          description: "Indicates when queued preview dial calls should no longer
+            be presented\n to agents.\n `Preview Dial Call Time-out`"
+        require_number_confirmation:
+          type: boolean
+          title: require_number_confirmation
+          description: "(OPTIONAL) Indicates if agents must confirm numbers before
+            calling.\n `Preview Dial Confirmation`"
+        preview_queue_config:
+          type: string
+          title: preview_queue_config
+          description: "(OPTIONAL) The name of the Call Queue Config (folder name).\n
+            `PreviewQueueConfig`"
+      title: PreviewDialSettingsSuite
+      required:
+      - enable_preview_dial_cancel
+      - timeout_minutes
+      additionalProperties: false
+      description: "PreviewDialSettingsSuite is an entity containing the hunt group
+        settings for the\n Preview Dial section of the hunt group manager."
+    tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) Transfer call settings suite identifier
+        enable_transfer:
+          type: boolean
+          title: enable_transfer
+          description: Allow the agent to make transfer calls.
+        hand_off_types:
+          title: hand_off_types
+          description: Allowed hand-off types for transfer calls.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite.HandOffTypes'
+        recording_state:
+          title: recording_state
+          description: "(OPTIONAL) (-- api-linter: core::0216::state-field-output-only=disabled\n
+            \    aip.dev/not-precedent: This is a state referencing field, not a state
+            field. --)\n Indicates start, stop or keep current recording state on
+            transfer."
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.TransferRecordingState'
+        transfer_types:
+          title: transfer_types
+          description: (OPTIONAL) Indicates type of allowed transfer types.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite.TransferTypes'
+        display_transfer_number_phone_book:
+          type: boolean
+          title: display_transfer_number_phone_book
+          description: Indicates whether or not to display.
+        enable_transfer_number_editing:
+          type: boolean
+          title: enable_transfer_number_editing
+          description: Indicates whether to allow the agent to edit the transfer number.
+        default_transfer_number:
+          type: string
+          title: default_transfer_number
+          description: (OPTIONAL) The default transfer number prepopulated in the
+            text box.
+        start_recording_numbers:
+          type: array
+          items:
+            type: string
+            description: '(OPTIONAL) '
+          title: start_recording_numbers
+          description: (OPTIONAL) Transfer numbers which will initiate recording the
+            call.
+        stop_recording_numbers:
+          type: array
+          items:
+            type: string
+            description: '(OPTIONAL) '
+          title: stop_recording_numbers
+          description: (OPTIONAL) Transfer numbers which will stop recording the call.
+        transfer_number_country:
+          type: string
+          title: transfer_number_country
+          description: The default country to use with the transfer number. ISO 3166-1
+            alpha-3
+        display_transfer_country_selection:
+          type: boolean
+          title: display_transfer_country_selection
+          description: Indicate whether to display the country select menu.
+        display_caller_id_phone_book:
+          type: boolean
+          title: display_caller_id_phone_book
+          description: Indicate whether to display the caller ID phone book.
+        enable_caller_id_editing:
+          type: boolean
+          title: enable_caller_id_editing
+          description: Indicates whether to allow the agent to edit the caller ID.
+        default_caller_id:
+          title: default_caller_id
+          description: (OPTIONAL) The default caller ID prepopulated in the text box.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite.DefaultCallerId'
+        caller_id_country:
+          type: string
+          title: caller_id_country
+          description: The default country to use with the caller ID. ISO 3166-1 alpha-3
+        display_caller_id_country_selection:
+          type: boolean
+          title: display_caller_id_country_selection
+          description: Indicates whether to display the caller ID country select menu.
+        display_agent_transfer_filtering:
+          type: boolean
+          title: display_agent_transfer_filtering
+          description: (OPTIONAL) Indicates whether to display agent transfer filtering
+            to the agent.
+        default_agent_transfer_filtering:
+          type: boolean
+          title: default_agent_transfer_filtering
+          description: Indicates whether to filter agents by default.
+        enable_hunt_group_filtering:
+          type: boolean
+          title: enable_hunt_group_filtering
+          description: (OPTIONAL) Indicates whether to limit transferring to agents
+            in the same hunt group.
+        requeue_queue_config:
+          title: requeue_queue_config
+          description: The name of the Requeue Transfer Queue Config.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite.RequeueQueueConfig'
+        requeue_transfer_disallowed:
+          title: requeue_transfer_disallowed
+          description: (OPTIONAL) Disallow specific agent skills for requeue transfer
+            routing.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite.RequeueTransferDisallowed'
+        pbx_transfer_disallowed:
+          title: pbx_transfer_disallowed
+          description: (OPTIONAL) Disallow specific PBX extensions for PBX transfers.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite.PbxTransferDisallowed'
+        enable_scrub_override:
+          type: boolean
+          title: enable_scrub_override
+          description: (OPTIONAL) Allow agent to override scrub decisions.
+        enable_whitelist:
+          type: boolean
+          title: enable_whitelist
+          description: (OPTIONAL) Indicates whether to apply the whitelist to transfer
+            call scrubbing.
+        natural_compliance_scrub:
+          title: natural_compliance_scrub
+          description: (OPTIONAL) Whether and what NLC compliance rule to apply.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.NaturalLanguageComplianceScrub'
+        natural_language_compliance_metadata:
+          title: natural_language_compliance_metadata
+          description: "(OPTIONAL) Transfer call natural language compliance metadata.\n
+            `Optional Transfer Compliance Metadata`\n `Required Transfer Compliance
+            Metadata`"
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.NaturalLanguageComplianceMetadata'
+      title: TransferCallSettingsSuite
+      required:
+      - enable_transfer
+      - hand_off_types
+      - display_transfer_number_phone_book
+      - enable_transfer_number_editing
+      - transfer_number_country
+      - display_transfer_country_selection
+      - display_caller_id_phone_book
+      - enable_caller_id_editing
+      - caller_id_country
+      - display_caller_id_country_selection
+      - default_agent_transfer_filtering
+      - requeue_queue_config
+      additionalProperties: false
+      description: "TransferCallSettingsSuite is an entity containing the hunt group
+        settings for the\n Transfer Call section of the hunt group settings manager."
+    tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite.DefaultCallerId:
+      type: object
+      properties:
+        usage:
+          title: usage
+          description: How the caller ID should be used
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.DefaultTransferCallerId'
+        custom_caller_id:
+          type: string
+          title: custom_caller_id
+          description: (OPTIONAL) Custom caller ID number if needed
+      title: DefaultCallerId
+      required:
+      - usage
+      additionalProperties: false
+      description: DefaultCallerId indicates custom or 3rd party and number (if needed).
+    tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite.HandOffTypes:
+      type: object
+      properties:
+        enable_conference:
+          type: boolean
+          title: enable_conference
+          description: Whether conference transfer is enabled
+        enable_warm:
+          type: boolean
+          title: enable_warm
+          description: Whether warm transfer is enabled
+        enable_cold:
+          type: boolean
+          title: enable_cold
+          description: Whether cold transfer is enabled
+      title: HandOffTypes
+      required:
+      - enable_conference
+      - enable_warm
+      - enable_cold
+      additionalProperties: false
+      description: HandOffTypes indicates which Hand-off types the agent may use.
+    tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite.PbxTransferDisallowed:
+      type: object
+      properties:
+        enable:
+          type: boolean
+          title: enable
+          description: Whether PBX transfer restrictions are enabled
+        extensions:
+          type: array
+          items:
+            type: string
+            description: '(OPTIONAL) '
+          title: extensions
+          description: (OPTIONAL) List of prohibited PBX extensions
+      title: PbxTransferDisallowed
+      required:
+      - enable
+      additionalProperties: false
+      description: PbxTransferDisallowed if enabled, prohibits these extensions.
+    tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite.RequeueQueueConfig:
+      type: object
+      properties:
+        usage:
+          title: usage
+          description: Which queue config to use
+          $ref: '#/components/schemas/tcn.org.type.v1alpha1.RequeueTransferQueueConfig'
+        custom_config:
+          type: string
+          title: custom_config
+          description: (OPTIONAL) Custom queue config name if needed
+      title: RequeueQueueConfig
+      required:
+      - usage
+      additionalProperties: false
+      description: RequeueQueueConfig indicates which config to use on transfer.
+    tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite.RequeueTransferDisallowed:
+      type: object
+      properties:
+        enable:
+          type: boolean
+          title: enable
+          description: Whether requeue transfer restrictions are enabled
+        agent_skill_sids:
+          type: array
+          items:
+            type:
+            - integer
+            - string
+            format: int64
+            description: '(OPTIONAL) '
+          title: agent_skill_sids
+          description: (OPTIONAL) List of prohibited agent skill SIDs
+        hunt_group_sids:
+          type: array
+          items:
+            type:
+            - integer
+            - string
+            format: int64
+            description: '(OPTIONAL) '
+          title: hunt_group_sids
+          description: (OPTIONAL) List of prohibited hunt group SIDs
+      title: RequeueTransferDisallowed
+      required:
+      - enable
+      additionalProperties: false
+      description: RequeueTransferDisallowed if enabled, prohibits skills/hunt groups.
+    tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite.TransferTypes:
+      type: object
+      properties:
+        enable_agent_transfer:
+          type: boolean
+          title: enable_agent_transfer
+          description: Whether agent transfer is enabled
+        enable_open_transfer:
+          type: boolean
+          title: enable_open_transfer
+          description: Whether open transfer is enabled
+        enable_requeue_transfer:
+          type: boolean
+          title: enable_requeue_transfer
+          description: Whether requeue transfer is enabled
+        enable_pbx_extension_transfer:
+          type: boolean
+          title: enable_pbx_extension_transfer
+          description: Whether PBX extension transfer is enabled
+        enable_voicemail_transfer:
+          type: boolean
+          title: enable_voicemail_transfer
+          description: (OPTIONAL) Whether voicemail transfer is enabled
+      title: TransferTypes
+      required:
+      - enable_agent_transfer
+      - enable_open_transfer
+      - enable_requeue_transfer
+      - enable_pbx_extension_transfer
+      additionalProperties: false
+      description: TransferTypes indicates which transfer types the agent may use.
     tcn.org.huntgroups.v1alpha1.ComplianceMetadataScript:
       type: object
       properties:
@@ -27139,6 +30369,30 @@ components:
       - name
       additionalProperties: false
       description: DeleteComplianceMetadataScriptRequest
+    tcn.org.huntgroups.v1alpha1.GetCallbackSettingsSuiteRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: Name of the hunt group.
+      title: GetCallbackSettingsSuiteRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetCallbackSettingsSuiteRequest
+    tcn.org.huntgroups.v1alpha1.GetCommunicationSettingsSuiteRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: Name of the hunt group.
+      title: GetCommunicationSettingsSuiteRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetCommunicationSettingsSuiteRequest
     tcn.org.huntgroups.v1alpha1.GetComplianceMetadataScriptRequest:
       type: object
       properties:
@@ -27151,6 +30405,66 @@ components:
       - name
       additionalProperties: false
       description: GetComplianceMetadataScriptRequest
+    tcn.org.huntgroups.v1alpha1.GetGeneralSettingsSuiteRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: Name of the hunt group.
+      title: GetGeneralSettingsSuiteRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetGeneralSettingsSuiteRequest
+    tcn.org.huntgroups.v1alpha1.GetManualDialSettingsSuiteRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: Name of the hunt group.
+      title: GetManualDialSettingsSuiteRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetManualDialSettingsSuiteRequest
+    tcn.org.huntgroups.v1alpha1.GetNumberHistorySettingsSuiteRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: Name of the hunt group.
+      title: GetNumberHistorySettingsSuiteRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetNumberHistorySettingsSuiteRequest
+    tcn.org.huntgroups.v1alpha1.GetPreviewDialSettingsSuiteRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: Name of the hunt group.
+      title: GetPreviewDialSettingsSuiteRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetPreviewDialSettingsSuiteRequest
+    tcn.org.huntgroups.v1alpha1.GetTransferCallSettingsSuiteRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: Name of the hunt group.
+      title: GetTransferCallSettingsSuiteRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetTransferCallSettingsSuiteRequest
     tcn.org.huntgroups.v1alpha1.ListComplianceMetadataScriptsRequest:
       type: object
       properties:
@@ -27197,6 +30511,38 @@ components:
       title: ListComplianceMetadataScriptsResponse
       additionalProperties: false
       description: ListComplianceMetadataScriptResponse
+    tcn.org.huntgroups.v1alpha1.UpdateCallbackSettingsSuiteRequest:
+      type: object
+      properties:
+        callback_settings_suite:
+          title: callback_settings_suite
+          description: Callback settings suite to update.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CallbackSettingsSuite'
+        update_mask:
+          title: update_mask
+          description: (OPTIONAL) Update mask.
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: UpdateCallbackSettingsSuiteRequest
+      required:
+      - callback_settings_suite
+      additionalProperties: false
+      description: UpdateCallbackSettingsSuiteRequest
+    tcn.org.huntgroups.v1alpha1.UpdateCommunicationSettingsSuiteRequest:
+      type: object
+      properties:
+        communication_settings_suite:
+          title: communication_settings_suite
+          description: Communication settings suite to update.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.CommunicationSettingsSuite'
+        update_mask:
+          title: update_mask
+          description: (OPTIONAL) Update mask.
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: UpdateCommunicationSettingsSuiteRequest
+      required:
+      - communication_settings_suite
+      additionalProperties: false
+      description: UpdateCommunicationSettingsSuiteRequest
     tcn.org.huntgroups.v1alpha1.UpdateComplianceMetadataScriptRequest:
       type: object
       properties:
@@ -27213,6 +30559,86 @@ components:
       - compliance_metadata_script
       additionalProperties: false
       description: UpdateComplianceMetadataScriptRequest
+    tcn.org.huntgroups.v1alpha1.UpdateGeneralSettingsSuiteRequest:
+      type: object
+      properties:
+        general_settings_suite:
+          title: general_settings_suite
+          description: General settings suite to update.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.GeneralSettingsSuite'
+        update_mask:
+          title: update_mask
+          description: (OPTIONAL) Update mask.
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: UpdateGeneralSettingsSuiteRequest
+      required:
+      - general_settings_suite
+      additionalProperties: false
+      description: UpdateGeneralSettingsSuiteRequest
+    tcn.org.huntgroups.v1alpha1.UpdateManualDialSettingsSuiteRequest:
+      type: object
+      properties:
+        manual_dial_settings_suite:
+          title: manual_dial_settings_suite
+          description: Manual dial settings suite to update.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.ManualDialSettingsSuite'
+        update_mask:
+          title: update_mask
+          description: (OPTIONAL) Update mask.
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: UpdateManualDialSettingsSuiteRequest
+      required:
+      - manual_dial_settings_suite
+      additionalProperties: false
+      description: UpdateManualDialSettingsSuiteRequest
+    tcn.org.huntgroups.v1alpha1.UpdateNumberHistorySettingsSuiteRequest:
+      type: object
+      properties:
+        number_history_settings_suite:
+          title: number_history_settings_suite
+          description: Number history settings suite to update.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.NumberHistorySettingsSuite'
+        update_mask:
+          title: update_mask
+          description: (OPTIONAL) Update mask.
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: UpdateNumberHistorySettingsSuiteRequest
+      required:
+      - number_history_settings_suite
+      additionalProperties: false
+      description: UpdateNumberHistorySettingsSuiteRequest
+    tcn.org.huntgroups.v1alpha1.UpdatePreviewDialSettingsSuiteRequest:
+      type: object
+      properties:
+        preview_dial_settings_suite:
+          title: preview_dial_settings_suite
+          description: Preview dial settings suite to update.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.PreviewDialSettingsSuite'
+        update_mask:
+          title: update_mask
+          description: (OPTIONAL) Update mask.
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: UpdatePreviewDialSettingsSuiteRequest
+      required:
+      - preview_dial_settings_suite
+      additionalProperties: false
+      description: UpdatePreviewDialSettingsSuiteRequest
+    tcn.org.huntgroups.v1alpha1.UpdateTransferCallSettingsSuiteRequest:
+      type: object
+      properties:
+        transfer_call_settings_suite:
+          title: transfer_call_settings_suite
+          description: Transfer call settings suite to update.
+          $ref: '#/components/schemas/tcn.org.huntgroups.v1alpha1.TransferCallSettingsSuite'
+        update_mask:
+          title: update_mask
+          description: (OPTIONAL) Update mask.
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: UpdateTransferCallSettingsSuiteRequest
+      required:
+      - transfer_call_settings_suite
+      additionalProperties: false
+      description: UpdateTransferCallSettingsSuiteRequest
     tcn.org.idp.v1alpha1.IdpClient:
       type: object
       properties:
@@ -30224,7 +33650,9 @@ components:
           items:
             $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.ConversationAnalyticsPreferences'
           title: conversation_analytics_preferences
-          description: The list of conversation analytics preferences.
+          description: "The list of conversation analytics preferences.\n (-- api-linter:
+            core::0158::response-plural-first-field=disabled\n     aip.dev/not-precedent:
+            Plural and singular names do not follow convention. --)"
         next_page_token:
           type: string
           title: next_page_token
@@ -30267,7 +33695,9 @@ components:
           items:
             $ref: '#/components/schemas/tcn.org.preferences.v1alpha1.VoiceAnalyticsPreferences'
           title: voice_analytics_preferences
-          description: The list of voice analytics preferences.
+          description: "The list of voice analytics preferences.\n (-- api-linter:
+            core::0158::response-plural-first-field=disabled\n     aip.dev/not-precedent:
+            Plural and singular names do not follow convention. --)"
         next_page_token:
           type: string
           title: next_page_token
@@ -31813,6 +35243,163 @@ components:
           title: rule_set
           description: The rule set to update
           $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1alpha1.RuleSet'
+        update_mask:
+          title: update_mask
+          description: (OPTIONAL) The field mask to apply to the rule set.
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: UpdateRuleSetRequest
+      required:
+      - rule_set
+      additionalProperties: false
+      description: UpdateRuleSetRequest is the message used for updating a rule set
+    tcn.ruleengine.ruleset.v1beta1.Action:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the action
+        alias:
+          type: string
+          title: alias
+          description: The alias name of the action
+        params:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta1.Param'
+          title: params
+          description: The list of parameters of the action
+      title: Action
+      required:
+      - name
+      - alias
+      - params
+      additionalProperties: false
+      description: Action -
+    tcn.ruleengine.ruleset.v1beta1.EventMetadata:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) The name of the metadata
+        body:
+          type: string
+          title: body
+          description: The body of the metadata
+      title: EventMetadata
+      required:
+      - body
+      additionalProperties: false
+      description: EventMetadata -
+    tcn.ruleengine.ruleset.v1beta1.Param:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the parameter
+        value:
+          type: string
+          title: value
+          description: The value of the parameter
+      title: Param
+      required:
+      - name
+      - value
+      additionalProperties: false
+      description: Param -
+    tcn.ruleengine.ruleset.v1beta1.Rule:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the rule
+        desc:
+          type: string
+          title: desc
+          description: The description of the rule
+        when:
+          type: string
+          title: when
+          description: JSON format of the when trigger
+        conditions:
+          type: array
+          items:
+            type: string
+          title: conditions
+          description: JSON list of conditions
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta1.Action'
+          title: actions
+          description: The set of actions of the rule
+        is_active:
+          type: boolean
+          title: is_active
+          description: The state of the rule
+      title: Rule
+      required:
+      - name
+      - desc
+      - when
+      - conditions
+      - actions
+      - is_active
+      additionalProperties: false
+      description: Rule -
+    tcn.ruleengine.ruleset.v1beta1.RuleSet:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) Name is the identifier for a rule set
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta1.Rule'
+          title: rules
+          description: The set of rules
+      title: RuleSet
+      required:
+      - rules
+      additionalProperties: false
+      description: RuleSet -
+    tcn.ruleengine.ruleset.v1beta1.GetEventMetadataRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the metadata
+      title: GetEventMetadataRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetEventMetadataRequest is the message used for getting an event
+        metadata
+    tcn.ruleengine.ruleset.v1beta1.GetRuleSetRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name for the rule set
+      title: GetRuleSetRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetRuleSetRequest is the message used for getting a rule set
+    tcn.ruleengine.ruleset.v1beta1.UpdateRuleSetRequest:
+      type: object
+      properties:
+        rule_set:
+          title: rule_set
+          description: The rule set to update
+          $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta1.RuleSet'
         update_mask:
           title: update_mask
           description: (OPTIONAL) The field mask to apply to the rule set.
@@ -33879,6 +37466,10 @@ tags:
 - name: RejectionsService
   description: "RejectionService\n (-- api-linter: core::0121::resource-must-support-get=disabled\n
     \    aip.dev/not-precedent: We do not need a get method --)"
+- name: ActionService
+  description: ActionService provides methods for viewing actions
+- name: EventService
+  description: EventService -
 - name: PipelineCanvasService
   description: PipelineCanvasService provides methods for managing pipeline canvases
 - name: AttachmentService
@@ -33947,8 +37538,6 @@ tags:
   description: BillingPlanService manages billing plans.
 - name: BillingTagService
   description: BillingTagService manages billing tags.
-- name: EventService
-  description: EventService -
 - name: InvoiceService
   description: InvoiceService -
 - name: MatchingRuleService
