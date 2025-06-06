@@ -2063,6 +2063,213 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.delivery.transport.v1alpha1.ListSMSNumbersResponse'
+  /tcn/exile/admin/v1alpha1/tenants:
+    get:
+      tags:
+      - AdminService
+      summary: ListTenants
+      description: "ListConnectedTenants - list all tenants connected to the admin
+        service.\n (-- api-linter: core::0132::http-uri-parent=disabled\n     aip.dev/not-precedent:
+        This list does not have a parent. --)"
+      operationId: AdminService_ListTenants
+      parameters:
+      - name: page_size
+        in: query
+        description: "Optional. The maximum number of tenants to return.\n If not
+          specified, the server will decide the number of results to return."
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: "(OPTIONAL) Optional. The maximum number of tenants to return.\n
+            If not specified, the server will decide the number of results to return."
+      - name: page_token
+        in: query
+        description: Optional. The page token from the previous response.
+        schema:
+          type: string
+          title: page_token
+          description: (OPTIONAL) Optional. The page token from the previous response.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.exile.admin.v1alpha1.ListTenantsResponse'
+  /tcn/exile/admin/v1alpha1/tenants/{tenant}/logs:
+    get:
+      tags:
+      - AdminService
+      summary: ListTenantLogs
+      description: ListTenantLogs - list all logs for a tenant.
+      operationId: AdminService_ListTenantLogs
+      parameters:
+      - name: tenant
+        in: path
+        description: The tenant id.
+        required: true
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        description: Optional. The maximum number of logs to return.
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) Optional. The maximum number of logs to return.
+      - name: page_token
+        in: query
+        description: Optional. A token to retrieve the next page of results.
+        schema:
+          type: string
+          title: page_token
+          description: (OPTIONAL) Optional. A token to retrieve the next page of results.
+      - name: filter
+        in: query
+        description: "Optional. Filter for the returned logs.\n Filter syntax follows
+          AIP-160. For example:\n `timestamp >= \"2023-01-01T00:00:00Z\" AND timestamp
+          <= \"2023-01-31T23:59:59Z\"`"
+        schema:
+          type: string
+          title: filter
+          description: "(OPTIONAL) Optional. Filter for the returned logs.\n Filter
+            syntax follows AIP-160. For example:\n `timestamp >= \"2023-01-01T00:00:00Z\"
+            AND timestamp <= \"2023-01-31T23:59:59Z\"`"
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.exile.admin.v1alpha1.ListTenantLogsResponse'
+  /tcn/exile/admin/v1alpha1/tenants/{tenant}:versionHistory:
+    get:
+      tags:
+      - AdminService
+      summary: ListTenantVersionHistory
+      description: ListTenantVersionHistory - list the version history for a tenant.
+      operationId: AdminService_ListTenantVersionHistory
+      parameters:
+      - name: tenant
+        in: path
+        description: The tenant id.
+        required: true
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        description: Optional. The maximum number of versions to return.
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) Optional. The maximum number of versions to return.
+      - name: page_token
+        in: query
+        description: Optional. The page token from the previous response.
+        schema:
+          type: string
+          title: page_token
+          description: (OPTIONAL) Optional. The page token from the previous response.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.exile.admin.v1alpha1.ListTenantVersionHistoryResponse'
+  /tcn/exile/admin/v1alpha1/tenants/{tenant}:setLogLevel:
+    post:
+      tags:
+      - AdminService
+      summary: SetLogLevel
+      description: "SetLogLevelForTenant sets the log level for a specific tenant.\n
+        (-- api-linter: core::0134::synonyms=disabled\n     aip.dev/not-precedent:
+        This isnt a standard update call. --)"
+      operationId: AdminService_SetLogLevel
+      parameters:
+      - name: tenant
+        in: path
+        description: The tenant id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                log_level:
+                  title: log_level
+                  description: The log level to set.
+                  $ref: '#/components/schemas/tcn.exile.admin.v1alpha1.SetLogLevelRequest.LogLevel'
+              title: SetLogLevelRequest
+              required:
+              - log_level
+              additionalProperties: false
+              description: Request message for SetLogLevelForTenant method.
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.exile.admin.v1alpha1.SetLogLevelResponse'
+  /tcn/exile/admin/v1alpha1/tenants/{tenant}:seppuku:
+    post:
+      tags:
+      - AdminService
+      summary: SeppukuTenant
+      description: SeppukuTenant deletes a tenant from the system.
+      operationId: AdminService_SeppukuTenant
+      parameters:
+      - name: tenant
+        in: path
+        description: The tenant id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.exile.admin.v1alpha1.SeppukuTenantResponse'
   /tcn/externalingestion/externalclientdataset/v1alpha1/orgs/{org}/externalClientDatasets:
     get:
       tags:
@@ -2699,6 +2906,13 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: element
+              description: The element to update
+              $ref: '#/components/schemas/tcn.lms.element.v1alpha1.Element'
       responses:
         default:
           description: Error
@@ -12125,6 +12339,27 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  title: message
+                  description: The message to send
+                  $ref: '#/components/schemas/tcn.omni.message.v1alpha1.Message'
+                campaign_sid:
+                  type: string
+                  title: campaign_sid
+                  description: (OPTIONAL) Optional campaign SID to associate with
+                    the message
+              title: SendMessageRequest
+              required:
+              - message
+              additionalProperties: false
+              description: request message SendMessageRequest
+        required: true
       responses:
         default:
           description: Error
@@ -20107,6 +20342,406 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.org.skills.v1alpha1.SkillGroup'
+  /tcn/org/skills/v1alpha2/orgs/{org}/skills:
+    get:
+      tags:
+      - SkillsService
+      summary: ListSkills
+      description: ListSkills lists skills.
+      operationId: SkillsService_ListSkills
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        description: The page size to return.
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) The page size to return.
+      - name: page_token
+        in: query
+        description: The page token to return.
+        schema:
+          type: string
+          title: page_token
+          description: (OPTIONAL) The page token to return.
+      - name: filter
+        in: query
+        description: The filter to apply to list results.
+        schema:
+          type: string
+          title: filter
+          description: (OPTIONAL) The filter to apply to list results.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.skills.v1alpha2.ListSkillsResponse'
+    post:
+      tags:
+      - SkillsService
+      summary: CreateSkill
+      description: "CreateSkill creates a skill. All skills created by this endpoint
+        will be given the\n USER_CREATED type."
+      operationId: SkillsService_CreateSkill
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The skill to be created.
+        content:
+          application/json:
+            schema:
+              title: skill
+              description: The skill to be created.
+              $ref: '#/components/schemas/tcn.org.skills.v1alpha2.Skill'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.skills.v1alpha2.Skill'
+  /tcn/org/skills/v1alpha2/orgs/{org}/skills/{skill}:
+    get:
+      tags:
+      - SkillsService
+      summary: GetSkill
+      description: GetSkill gets a skill.
+      operationId: SkillsService_GetSkill
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: skill
+        in: path
+        description: The skill id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.skills.v1alpha2.Skill'
+    delete:
+      tags:
+      - SkillsService
+      summary: DeleteSkill
+      description: DeleteSkill deletes a skill. Only USER_CREATED skills can be deleted.
+      operationId: SkillsService_DeleteSkill
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: skill
+        in: path
+        description: The skill id.
+        required: true
+        schema:
+          type: string
+      - name: force
+        in: query
+        description: If true, the skill will be deleted even if it is assigned to
+          a user or skill group.
+        schema:
+          type: boolean
+          title: force
+          description: (OPTIONAL) If true, the skill will be deleted even if it is
+            assigned to a user or skill group.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
+    patch:
+      tags:
+      - SkillsService
+      summary: UpdateSkill
+      description: UpdateSkill updates a skill. Only USER_CREATED skills can be updated.
+      operationId: SkillsService_UpdateSkill
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: skill
+        in: path
+        description: The skill id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The skill to update.
+        content:
+          application/json:
+            schema:
+              title: skill
+              description: The skill to update.
+              $ref: '#/components/schemas/tcn.org.skills.v1alpha2.Skill'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.skills.v1alpha2.Skill'
+  /tcn/org/skills/v1alpha2/orgs/{org}/skillGroups:
+    post:
+      tags:
+      - SkillsService
+      summary: CreateSkillGroup
+      description: "CreateSkillGroup requires PERMISSION PERMISSION_ORG_EDIT\n CreateSkillGroup
+        creates a new skill group within an organization"
+      operationId: SkillsService_CreateSkillGroup
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The skill group to be created
+        content:
+          application/json:
+            schema:
+              title: skill_group
+              description: The skill group to be created
+              $ref: '#/components/schemas/tcn.org.skills.v1alpha2.SkillGroup'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.skills.v1alpha2.SkillGroup'
+  /tcn/org/skills/v1alpha2/orgs/{org}/skillGroups/{skillGroup}:
+    get:
+      tags:
+      - SkillsService
+      summary: GetSkillGroup
+      description: "GetSkillGroup requires PERMISSION PERMISSION_ORG_VIEW\n GetSkillGroup
+        retrieves a specific skill group by name"
+      operationId: SkillsService_GetSkillGroup
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: skillGroup
+        in: path
+        description: The skillGroup id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.skills.v1alpha2.SkillGroup'
+    delete:
+      tags:
+      - SkillsService
+      summary: DeleteSkillGroup
+      description: "DeleteSkillGroup requires PERMISSION PERMISSION_ORG_EDIT\n DeleteSkillGroup
+        removes a skill group from an organization"
+      operationId: SkillsService_DeleteSkillGroup
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: skillGroup
+        in: path
+        description: The skillGroup id.
+        required: true
+        schema:
+          type: string
+      - name: force
+        in: query
+        description: If true, the skill group will be deleted even if it is assigned
+          to a user.
+        schema:
+          type: boolean
+          title: force
+          description: (OPTIONAL) If true, the skill group will be deleted even if
+            it is assigned to a user.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
+    patch:
+      tags:
+      - SkillsService
+      summary: UpdateSkillGroup
+      description: "UpdateSkillGroup requires PERMISSION PERMISSION_ORG_EDIT\n UpdateSkillGroup
+        modifies an existing skill group"
+      operationId: SkillsService_UpdateSkillGroup
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: skillGroup
+        in: path
+        description: The skillGroup id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The skill group to update.
+        content:
+          application/json:
+            schema:
+              title: skill_group
+              description: The skill group to update.
+              $ref: '#/components/schemas/tcn.org.skills.v1alpha2.SkillGroup'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.skills.v1alpha2.SkillGroup'
+  /tcn/org/skills/v1alpha2/orgs/{org}/skillgroups:
+    get:
+      tags:
+      - SkillsService
+      summary: ListSkillGroups
+      description: Method to list skill groups
+      operationId: SkillsService_ListSkillGroups
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        description: Returned page.
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) Returned page.
+      - name: page_token
+        in: query
+        description: Used to specify the page token.
+        schema:
+          type: string
+          title: page_token
+          description: (OPTIONAL) Used to specify the page token.
+      - name: filter
+        in: query
+        description: The filter to apply to list results.
+        schema:
+          type: string
+          title: filter
+          description: (OPTIONAL) The filter to apply to list results.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.skills.v1alpha2.ListSkillGroupsResponse'
   /tcn/org/tokens/v1alpha1/orgs/{org}/apiTokens:
     get:
       tags:
@@ -20689,6 +21324,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.longrunning.Operation'
+  /tcn/org/users/v1alpha1/users:userLogin:
+    post:
+      tags:
+      - UsersService
+      summary: UserLogin
+      description: "UserLogin requires PERMISSION PERMISSION_CUSTOMER_SUPPORT\n UserLogin
+        logs in a user"
+      operationId: UsersService_UserLogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tcn.org.users.v1alpha1.UserLoginRequest'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.users.v1alpha1.UserLoginResponse'
   /tcn/ruleengine/ruleset/v1alpha1/orgs/{org}/ruleSet:
     get:
       tags:
@@ -22009,8 +22671,7 @@ paths:
       tags:
       - TicketService
       summary: CreateProject
-      description: "Method to create a Project\n Requires permission PERMISSION_TICKETS_ADMIN\n
-        Requires permission PERMISSION_TICKETS_ADMIN"
+      description: "Method to create a Project\n Requires permission PERMISSION_TICKETS_ADMIN"
       operationId: TicketService_CreateProject
       parameters:
       - name: org
@@ -22553,13 +23214,15 @@ paths:
         schema:
           type: string
       requestBody:
-        description: the CustomField to be created
+        description: an array of CustomFields to be created
         content:
           application/json:
             schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/tcn.tickets.ticket.v1alpha1.CustomField'
               title: custom_field
-              description: the CustomField to be created
-              $ref: '#/components/schemas/tcn.tickets.ticket.v1alpha1.CustomField'
+              description: an array of CustomFields to be created
       responses:
         default:
           description: Error
@@ -26876,6 +27539,294 @@ components:
       title: ValidateTransportSchemaResponse
       additionalProperties: false
       description: validate response
+    tcn.exile.admin.v1alpha1.LogGroup:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) The resource name of the log group.
+        logs:
+          type: array
+          items:
+            type: string
+          title: logs
+          description: The list of logs associated with this log group.
+        time_range:
+          title: time_range
+          description: The time range for which this log group is relevant.
+          $ref: '#/components/schemas/tcn.exile.admin.v1alpha1.LogGroup.TimeRange'
+      title: LogGroup
+      required:
+      - logs
+      - time_range
+      additionalProperties: false
+      description: LogGroup represents a collection of logs with a specified time
+        range.
+    tcn.exile.admin.v1alpha1.LogGroup.TimeRange:
+      type: object
+      properties:
+        start_time:
+          title: start_time
+          description: Start of the time range (inclusive).
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        end_time:
+          title: end_time
+          description: End of the time range (inclusive).
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+      title: TimeRange
+      additionalProperties: false
+      description: TimeRange represents an inclusive time interval for the log group.
+    tcn.exile.admin.v1alpha1.Tenant:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) The name of the tenant. name will be in the format
+            {org_id}::{unique_identifier}
+        version:
+          type: string
+          title: version
+          description: The version of the tenant.
+          readOnly: true
+        update_time:
+          title: update_time
+          description: The time when the tenant was last updated.
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        connected_gate:
+          type: string
+          title: connected_gate
+          description: The gate the tenant is connected with. will be empty if the
+            tenant is not connected.
+          readOnly: true
+      title: Tenant
+      additionalProperties: false
+      description: Tenant represents a tenant in the Exile service.
+    tcn.exile.admin.v1alpha1.TenantVersion:
+      type: object
+      properties:
+        tenant_id:
+          type: string
+          title: tenant_id
+          description: The ID of the tenant.
+        current_version:
+          type: integer
+          title: current_version
+          format: int32
+          description: The current version number of the tenant.
+      title: TenantVersion
+      additionalProperties: false
+      description: Represents the current version information for a tenant.
+    tcn.exile.admin.v1alpha1.TenantVersionHistory:
+      type: object
+      properties:
+        id:
+          type: string
+          title: id
+          description: The ID of the tenant.
+        version_history:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.exile.admin.v1alpha1.VersionHistory'
+          title: version_history
+          description: The version history of the tenant.
+      title: TenantVersionHistory
+      additionalProperties: false
+      description: TenantWithVersionHistory represents a tenant with its version history.
+    tcn.exile.admin.v1alpha1.VersionHistory:
+      type: object
+      properties:
+        version:
+          type: string
+          title: version
+          description: The version of the tenant.
+        update_time:
+          title: update_time
+          description: The time when the version was updated.
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+      title: VersionHistory
+      additionalProperties: false
+      description: Represents a single version in a tenant's history
+    tcn.exile.admin.v1alpha1.SetLogLevelRequest.LogLevel:
+      type: string
+      title: LogLevel
+      enum:
+      - LOG_LEVEL_UNSPECIFIED
+      - TRACE
+      - DEBUG
+      - INFO
+      - WARNING
+      - ERROR
+      - FATAL
+      description: LogLevel represents the severity of a log message.
+    tcn.exile.admin.v1alpha1.ListTenantLogsRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: The parent resource name.
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) Optional. The maximum number of logs to return.
+        page_token:
+          type: string
+          title: page_token
+          description: (OPTIONAL) Optional. A token to retrieve the next page of results.
+        filter:
+          type: string
+          title: filter
+          description: "(OPTIONAL) Optional. Filter for the returned logs.\n Filter
+            syntax follows AIP-160. For example:\n `timestamp >= \"2023-01-01T00:00:00Z\"
+            AND timestamp <= \"2023-01-31T23:59:59Z\"`"
+      title: ListTenantLogsRequest
+      required:
+      - parent
+      additionalProperties: false
+      description: Request message for ListTenantLogs method, which retrieves logs
+        for a tenant.
+    tcn.exile.admin.v1alpha1.ListTenantLogsResponse:
+      type: object
+      properties:
+        log_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.exile.admin.v1alpha1.LogGroup'
+          title: log_groups
+          description: The log groups matching the request.
+        next_page_token:
+          type: string
+          title: next_page_token
+          description: A token to retrieve the next page of results.
+      title: ListTenantLogsResponse
+      additionalProperties: false
+      description: Response message for ListTenantLogs method, containing log groups
+        and pagination token.
+    tcn.exile.admin.v1alpha1.ListTenantVersionHistoryRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: The parent resource name.
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) Optional. The maximum number of versions to return.
+        page_token:
+          type: string
+          title: page_token
+          description: (OPTIONAL) Optional. The page token from the previous response.
+      title: ListTenantVersionHistoryRequest
+      required:
+      - parent
+      additionalProperties: false
+      description: Request message for ListTenantVersionHistory method.
+    tcn.exile.admin.v1alpha1.ListTenantVersionHistoryResponse:
+      type: object
+      properties:
+        version_histories:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.exile.admin.v1alpha1.TenantVersionHistory'
+          title: version_histories
+          description: The tenant version histories matching the request.
+        next_page_token:
+          type: string
+          title: next_page_token
+          description: "A token to retrieve the next page of results.\n If empty,
+            there are no more results."
+      title: ListTenantVersionHistoryResponse
+      additionalProperties: false
+      description: Response message for ListTenantVersionHistory method.
+    tcn.exile.admin.v1alpha1.ListTenantsRequest:
+      type: object
+      properties:
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: "(OPTIONAL) Optional. The maximum number of tenants to return.\n
+            If not specified, the server will decide the number of results to return."
+        page_token:
+          type: string
+          title: page_token
+          description: (OPTIONAL) Optional. The page token from the previous response.
+      title: ListTenantsRequest
+      additionalProperties: false
+      description: "Request message for ListTenants method.\n (-- api-linter: core::0132::request-parent-required=disabled\n
+        \    aip.dev/not-precedent: Does not have or need a parent. --)"
+    tcn.exile.admin.v1alpha1.ListTenantsResponse:
+      type: object
+      properties:
+        tenants:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.exile.admin.v1alpha1.Tenant'
+          title: tenants
+          description: The tenants matching the request.
+        next_page_token:
+          type: string
+          title: next_page_token
+          description: "A token to retrieve the next page of results.\n If empty,
+            there are no more results."
+      title: ListTenantsResponse
+      additionalProperties: false
+      description: Response message for ListTenants method.
+    tcn.exile.admin.v1alpha1.SeppukuTenantRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the tenant to delete.
+      title: SeppukuTenantRequest
+      required:
+      - name
+      additionalProperties: false
+      description: Request message for deleting a tenant.
+    tcn.exile.admin.v1alpha1.SeppukuTenantResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the tenant that was deleted.
+      title: SeppukuTenantResponse
+      additionalProperties: false
+      description: Response message for SeppukuTenant method.
+    tcn.exile.admin.v1alpha1.SetLogLevelRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the tenant to update.
+        log_level:
+          title: log_level
+          description: The log level to set.
+          $ref: '#/components/schemas/tcn.exile.admin.v1alpha1.SetLogLevelRequest.LogLevel'
+      title: SetLogLevelRequest
+      required:
+      - name
+      - log_level
+      additionalProperties: false
+      description: Request message for SetLogLevelForTenant method.
+    tcn.exile.admin.v1alpha1.SetLogLevelResponse:
+      type: object
+      properties:
+        tenant:
+          title: tenant
+          description: The tenant that was updated.
+          $ref: '#/components/schemas/tcn.exile.admin.v1alpha1.Tenant'
+      title: SetLogLevelResponse
+      additionalProperties: false
+      description: Response message for SetLogLevelForTenant method.
     tcn.externalingestion.externalclientdataset.v1alpha1.ExternalClientDataset:
       type: object
       properties:
@@ -32991,6 +33942,13 @@ components:
         required:
         - epic_entry_point
       - properties:
+          external_ingestion_process:
+            title: external_ingestion_process
+            $ref: '#/components/schemas/tcn.lms.element.v1alpha1.ExternalIngestionProcess'
+        title: external_ingestion_process
+        required:
+        - external_ingestion_process
+      - properties:
           filter:
             title: filter
             $ref: '#/components/schemas/tcn.lms.element.v1alpha1.FilterProcess'
@@ -34771,6 +35729,17 @@ components:
       - name
       additionalProperties: false
       description: Request message for rerunning a pipeline
+    tcn.lms.element.v1alpha1.UpdateElementRequest:
+      type: object
+      properties:
+        element:
+          title: element
+          description: The element to update
+          $ref: '#/components/schemas/tcn.lms.element.v1alpha1.Element'
+      title: UpdateElementRequest
+      required:
+      - element
+      additionalProperties: false
     tcn.lms.event.v1alpha1.AggregateEventsRequest:
       type: object
       properties:
@@ -37376,6 +38345,13 @@ components:
         title: dedup
         required:
         - dedup
+      - properties:
+          external_ingestion_process:
+            title: external_ingestion_process
+            $ref: '#/components/schemas/tcn.lms.legacy.dockworker.v1alpha1.ExternalIngestionProcess'
+        title: external_ingestion_process
+        required:
+        - external_ingestion_process
       - properties:
           filter:
             title: filter
@@ -45243,6 +46219,13 @@ components:
         title: epic_entry_point
         required:
         - epic_entry_point
+      - properties:
+          external_ingestion_process:
+            title: external_ingestion_process
+            $ref: '#/components/schemas/tcn.lms.legacy.lms.v1alpha1.ExternalIngestionProcess'
+        title: external_ingestion_process
+        required:
+        - external_ingestion_process
       - properties:
           filter:
             title: filter
@@ -53896,6 +54879,10 @@ components:
           title: assigned_agent_sid
           format: int64
           description: The assigned agent sid.
+        event_time:
+          title: event_time
+          description: The event time.
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
       title: ConversationEvent
       additionalProperties: false
       description: ConversationEvent -
@@ -54660,11 +55647,32 @@ components:
       description: response message ListMessagesResponse
     tcn.omni.message.v1alpha1.SendMessageRequest:
       type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: The parent resource where the message will be created
+        message:
+          title: message
+          description: The message to send
+          $ref: '#/components/schemas/tcn.omni.message.v1alpha1.Message'
+        campaign_sid:
+          type: string
+          title: campaign_sid
+          description: (OPTIONAL) Optional campaign SID to associate with the message
       title: SendMessageRequest
+      required:
+      - parent
+      - message
       additionalProperties: false
       description: request message SendMessageRequest
     tcn.omni.message.v1alpha1.SendMessageResponse:
       type: object
+      properties:
+        message:
+          title: message
+          description: The sent message
+          $ref: '#/components/schemas/tcn.omni.message.v1alpha1.Message'
       title: SendMessageResponse
       additionalProperties: false
       description: response message SendMessageResponse
@@ -58810,6 +59818,11 @@ components:
           title: phone_digits
           format: int32
           description: (OPTIONAL) phone digits
+        region_digits:
+          type: integer
+          title: region_digits
+          format: int32
+          description: (OPTIONAL) region digits
         total_digits:
           type: integer
           title: total_digits
@@ -59702,6 +60715,13 @@ components:
             description: '(OPTIONAL) '
           title: authorized_ip_addresses
           description: (OPTIONAL) Whitelisted IPs. `AllowedIps`
+        agent_assisted_payment_portals:
+          type: array
+          items:
+            type: string
+            description: '(OPTIONAL) '
+          title: agent_assisted_payment_portals
+          description: (OPTIONAL) Agent-assisted payment portal IDs.
         initial_agent_status:
           title: initial_agent_status
           description: "(OPTIONAL) AGENT PAUSE SETTINGS\n (-- api-linter: core::0216::state-field-output-only=disabled\n
@@ -59763,6 +60783,13 @@ components:
           title: agent_screen_recording
           description: (OPTIONAL) Read only- shows if the Agent Screen Recording is
             enabled for the Org
+        envision_call_data_keys:
+          type: array
+          items:
+            type: string
+            description: '(OPTIONAL) '
+          title: envision_call_data_keys
+          description: (OPTIONAL) Envision call data keys.
         enable_agent_simple_hold:
           type: boolean
           title: enable_agent_simple_hold
@@ -62502,6 +63529,24 @@ components:
       enum:
       - REDACT_ENTITY_UNSPECIFIED
       - CREDIT_CARD
+      - CRYPTO
+      - IBAN_CODE
+      - CURRENCY
+      - DATE_TIME
+      - EMAIL_ADDRESS
+      - IP_ADDRESS
+      - NRP
+      - LOCATION
+      - PERSON
+      - PHONE_NUMBER
+      - MEDICAL_LICENSE
+      - URL
+      - POSTAL_CODE
+      - US_BANK_NUMBER
+      - US_DRIVER_LICENSE
+      - US_ITIN
+      - US_PASSPORT
+      - US_SSN
       description: "RedactEntity is the type of entity to be redacted.\n This enum
         is expected to grow as we support more types."
     tcn.org.preferences.v1alpha1.ConversationAnalyticsPreferences:
@@ -64185,6 +65230,318 @@ components:
       - skill_group
       additionalProperties: false
       description: Request to update a skill group
+    tcn.org.skills.v1alpha2.SkillGroup:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) skill group identifier
+        title:
+          type: string
+          title: title
+          description: skill group title
+        description:
+          type: string
+          title: description
+          description: skill group description
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.skills.v1alpha2.SkillGroup.Skill'
+          title: skills
+          description: (OPTIONAL) skill group skill sets
+        create_time:
+          title: create_time
+          description: creation date
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        update_time:
+          title: update_time
+          description: update date
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+      title: SkillGroup
+      required:
+      - title
+      - description
+      additionalProperties: false
+      description: SkillGroup -
+    tcn.org.skills.v1alpha2.SkillGroup.Skill:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the skill
+        proficiency:
+          type: integer
+          title: proficiency
+          format: int32
+          description: The proficiency of the skill as a percent [1,100].
+      title: Skill
+      required:
+      - name
+      - proficiency
+      additionalProperties: false
+      description: skill set for the skill group
+    tcn.org.skills.v1alpha2.Skill.Type:
+      type: string
+      title: Type
+      enum:
+      - TYPE_UNSPECIFIED
+      - TYPE_USER_CREATED
+      - TYPE_HUNT_GROUP
+      - TYPE_USER_SPECIFIC
+      - TYPE_PBX
+      description: types of skill
+    tcn.org.skills.v1alpha2.Skill:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) skill group identifier
+        create_time:
+          title: create_time
+          description: the time the skill was created
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        update_time:
+          title: update_time
+          description: the time the skill was last updated
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        title:
+          type: string
+          title: title
+          description: skill title
+        description:
+          type: string
+          title: description
+          description: skill description
+        type:
+          title: type
+          description: kind of skill
+          readOnly: true
+          $ref: '#/components/schemas/tcn.org.skills.v1alpha2.Skill.Type'
+        legacy_skill_id:
+          type: string
+          title: legacy_skill_id
+          description: legacy skill id
+          readOnly: true
+      title: Skill
+      required:
+      - title
+      - description
+      additionalProperties: false
+      description: Skill
+    tcn.org.skills.v1alpha2.CreateSkillGroupRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: the parent resource where this skill group will be created.
+        skill_group:
+          title: skill_group
+          description: The skill group to be created
+          $ref: '#/components/schemas/tcn.org.skills.v1alpha2.SkillGroup'
+      title: CreateSkillGroupRequest
+      required:
+      - parent
+      - skill_group
+      additionalProperties: false
+      description: Request to create a skill group
+    tcn.org.skills.v1alpha2.CreateSkillRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: The parent resource where this skill will be created.
+        skill:
+          title: skill
+          description: The skill to be created.
+          $ref: '#/components/schemas/tcn.org.skills.v1alpha2.Skill'
+      title: CreateSkillRequest
+      required:
+      - parent
+      - skill
+      additionalProperties: false
+      description: Request message for the CreateSkill rpc.
+    tcn.org.skills.v1alpha2.DeleteSkillGroupRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: the name of the skill group to delete
+        force:
+          type: boolean
+          title: force
+          description: (OPTIONAL) If true, the skill group will be deleted even if
+            it is assigned to a user.
+      title: DeleteSkillGroupRequest
+      required:
+      - name
+      additionalProperties: false
+      description: Request message to delete a skill group
+    tcn.org.skills.v1alpha2.DeleteSkillRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the skill to delete.
+        force:
+          type: boolean
+          title: force
+          description: (OPTIONAL) If true, the skill will be deleted even if it is
+            assigned to a user or skill group.
+      title: DeleteSkillRequest
+      required:
+      - name
+      additionalProperties: false
+      description: Request message for the DeleteSkill rpc.
+    tcn.org.skills.v1alpha2.GetSkillGroupRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the skill group to retrieve.
+      title: GetSkillGroupRequest
+      required:
+      - name
+      additionalProperties: false
+      description: Request for getting a skill group
+    tcn.org.skills.v1alpha2.GetSkillRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the skill to retrieve.
+      title: GetSkillRequest
+      required:
+      - name
+      additionalProperties: false
+      description: Request message for the GetSkill rpc.
+    tcn.org.skills.v1alpha2.ListSkillGroupsRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: The parent resource to list skill groups from
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) Returned page.
+        page_token:
+          type: string
+          title: page_token
+          description: (OPTIONAL) Used to specify the page token.
+        filter:
+          type: string
+          title: filter
+          description: (OPTIONAL) The filter to apply to list results.
+      title: ListSkillGroupsRequest
+      required:
+      - parent
+      additionalProperties: false
+      description: Request used listing all skill groups
+    tcn.org.skills.v1alpha2.ListSkillGroupsResponse:
+      type: object
+      properties:
+        skill_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.skills.v1alpha2.SkillGroup'
+          title: skill_groups
+          description: The list of skill groups.
+        next_page_token:
+          type: string
+          title: next_page_token
+          description: The next page token.
+      title: ListSkillGroupsResponse
+      additionalProperties: false
+      description: response used listing all skill groups
+    tcn.org.skills.v1alpha2.ListSkillsRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: The parent resource to list skills from.
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) The page size to return.
+        page_token:
+          type: string
+          title: page_token
+          description: (OPTIONAL) The page token to return.
+        filter:
+          type: string
+          title: filter
+          description: (OPTIONAL) The filter to apply to list results.
+      title: ListSkillsRequest
+      required:
+      - parent
+      additionalProperties: false
+      description: Request message for the ListSkills rpc.
+    tcn.org.skills.v1alpha2.ListSkillsResponse:
+      type: object
+      properties:
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.skills.v1alpha2.Skill'
+          title: skills
+          description: The list of skills.
+        next_page_token:
+          type: string
+          title: next_page_token
+          description: The next page token.
+      title: ListSkillsResponse
+      additionalProperties: false
+      description: Response message for the ListSkills rpc.
+    tcn.org.skills.v1alpha2.UpdateSkillGroupRequest:
+      type: object
+      properties:
+        skill_group:
+          title: skill_group
+          description: The skill group to update.
+          $ref: '#/components/schemas/tcn.org.skills.v1alpha2.SkillGroup'
+        update_mask:
+          title: update_mask
+          description: (OPTIONAL) The list of fields to update.
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: UpdateSkillGroupRequest
+      required:
+      - skill_group
+      additionalProperties: false
+      description: Request to update a skill group
+    tcn.org.skills.v1alpha2.UpdateSkillRequest:
+      type: object
+      properties:
+        skill:
+          title: skill
+          description: The skill to update.
+          $ref: '#/components/schemas/tcn.org.skills.v1alpha2.Skill'
+        update_mask:
+          title: update_mask
+          description: (OPTIONAL) The list of fields to update.
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: UpdateSkillRequest
+      required:
+      - skill
+      additionalProperties: false
+      description: Request message for the UpdateSkill rpc.
     tcn.org.tokens.v1alpha1.APIToken:
       type: object
       oneOf:
@@ -64429,6 +65786,15 @@ components:
       - OPERATOR_APPLICATION_CONTACTMANAGER_APP
       - OPERATOR_APPLICATION_KNOWLEDGE_BASE_APP
       description: Operator Application enum
+    tcn.org.users.v1alpha1.UserRole:
+      type: string
+      title: UserRole
+      enum:
+      - USER_ROLE_UNSPECIFIED
+      - USER_ROLE_AGENT
+      - USER_ROLE_USER
+      - USER_ROLE_ACCOUNT_OWNER
+      description: User Role enum
     tcn.org.users.v1alpha1.User:
       type: object
       properties:
@@ -64922,6 +66288,33 @@ components:
       - user
       additionalProperties: false
       description: request message UpdateUserRequest
+    tcn.org.users.v1alpha1.UserLoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          title: username
+          description: username of the user
+        password:
+          type: string
+          title: password
+          description: password of the user
+        org_id:
+          type: string
+          title: org_id
+          description: org id of the user
+      title: UserLoginRequest
+      required:
+      - username
+      - password
+      - org_id
+      additionalProperties: false
+      description: request message UserLoginRequest
+    tcn.org.users.v1alpha1.UserLoginResponse:
+      type: object
+      title: UserLoginResponse
+      additionalProperties: false
+      description: request message UserLoginResponse
     tcn.ruleengine.ruleset.v1alpha1.Action:
       type: object
       properties:
@@ -65596,6 +66989,11 @@ components:
             $ref: '#/components/schemas/tcn.tickets.ticket.v1alpha1.TemplateDescription'
           title: template_description
           description: (OPTIONAL) A list of template base details
+        creator_id:
+          type: string
+          title: creator_id
+          description: (OPTIONAL) The userId (uuid) who is creating the project setup
+            in tickets
       title: Project
       required:
       - title
@@ -65959,9 +67357,11 @@ components:
           title: parent
           description: the parent of the
         custom_field:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.tickets.ticket.v1alpha1.CustomField'
           title: custom_field
-          description: the CustomField to be created
-          $ref: '#/components/schemas/tcn.tickets.ticket.v1alpha1.CustomField'
+          description: an array of CustomFields to be created
       title: CreateCustomFieldRequest
       required:
       - parent
@@ -65979,6 +67379,13 @@ components:
           title: project
           description: the project to be created
           $ref: '#/components/schemas/tcn.tickets.ticket.v1alpha1.Project'
+        project_id:
+          type:
+          - integer
+          - string
+          title: project_id
+          format: int64
+          description: (OPTIONAL) identifier of the project from omni
       title: CreateProjectRequest
       required:
       - parent
@@ -67028,13 +68435,12 @@ components:
           $ref: '#/components/schemas/google.protobuf.Timestamp'
         focus:
           title: focus
-          description: Question focus specifies the focus of the question (AGENT |
-            CUSTOMER)
+          description: "(OPTIONAL) Question focus specifies the focus of the question
+            (AGENT | CUSTOMER)\n Relevant to smart questions only."
           $ref: '#/components/schemas/tcn.wfo.scorecards.v1alpha1.Question.Focus'
       title: Question
       required:
       - question
-      - focus
       additionalProperties: false
       description: Question is a template question for creating scorecards.
     tcn.wfo.scorecards.v1alpha1.Question.User:
@@ -67439,6 +68845,10 @@ tags:
   description: encryption service
 - name: TransportSchemaService
   description: transport schema service
+- name: AdminService
+  description: "AdminService provides management capabilities for the Exile service.\n
+    (-- api-linter: core::0121::resource-must-support-get=disabled\n     aip.dev/not-precedent:
+    dont need a get method --)"
 - name: ExternalClientDatasetService
   description: ExternalClientDatasetService is the public API for the externalingestion/externalclientdataset
     service.
