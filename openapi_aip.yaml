@@ -17663,6 +17663,81 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.org.users.v1alpha1.UserLoginResponse'
+  /tcn/org/users/v1alpha1/orgs/{org}/users/{user}/mfaInfo:
+    get:
+      tags:
+      - UsersService
+      summary: GetMfaInfo
+      description: "GetMfaInfo requires PERMISSION PERMISSION_ORG_VIEW\n GetMfaInfo
+        returns mfa info for the given user."
+      operationId: UsersService_GetMfaInfo
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: path
+        description: The user id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.users.v1alpha1.MfaInfo'
+    patch:
+      tags:
+      - UsersService
+      summary: UpdateMfaInfo
+      description: "UpdateMfaInfo requires PERMISSION PERMISSION_USER_EDIT\n UpdateMfaInfo
+        updates the MFA info for the given user."
+      operationId: UsersService_UpdateMfaInfo
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: path
+        description: The user id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: mfa info to update
+        content:
+          application/json:
+            schema:
+              title: mfa_info
+              description: mfa info to update
+              $ref: '#/components/schemas/tcn.org.users.v1alpha1.MfaInfo'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.org.users.v1alpha1.MfaInfo'
   /tcn/pbx/ringGroups/v1alpha1/orgs/{org}/regions/{region}/ringGroups/{ringGroup}:
     get:
       tags:
@@ -18473,7 +18548,6 @@ paths:
       - TicketService
       summary: ListSlas
       description: "Method to list Sla\n Requires permissions PERMISSION_TICKETS_ADMIN
-        or PERMISSION_TICKETS_APP\n Requires permissions PERMISSION_TICKETS_ADMIN
         or PERMISSION_TICKETS_APP"
       operationId: TicketService_ListSlas
       parameters:
@@ -18530,7 +18604,6 @@ paths:
       - TicketService
       summary: GetSla
       description: "Method to get a rpoject\n Requires permissions PERMISSION_TICKETS_ADMIN
-        or PERMISSION_TICKETS_APP\n Requires permissions PERMISSION_TICKETS_ADMIN
         or PERMISSION_TICKETS_APP"
       operationId: TicketService_GetSla
       parameters:
@@ -18569,8 +18642,7 @@ paths:
       tags:
       - TicketService
       summary: DeleteSla
-      description: "Method to delete a Sla\n Requires permission PERMISSION_TICKETS_ADMIN\n
-        Requires permission PERMISSION_TICKETS_ADMIN"
+      description: "Method to delete a Sla\n Requires permission PERMISSION_TICKETS_ADMIN"
       operationId: TicketService_DeleteSla
       parameters:
       - name: org
@@ -18608,8 +18680,7 @@ paths:
       tags:
       - TicketService
       summary: UpdateSla
-      description: "Method to update a Sla\n Requires permission PERMISSION_TICKETS_ADMIN\n
-        Requires permission PERMISSION_TICKETS_ADMIN"
+      description: "Method to update a Sla\n Requires permission PERMISSION_TICKETS_ADMIN"
       operationId: TicketService_UpdateSla
       parameters:
       - name: org
@@ -18656,8 +18727,7 @@ paths:
       tags:
       - TicketService
       summary: CreateTicket
-      description: "Public Method to create a ticket.\n Requires permission PERMISSION_TICKETS_APP\n
-        Requires permission PERMISSION_TICKETS_APP"
+      description: "Public Method to create a ticket.\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_CreateTicket
       parameters:
       - name: org
@@ -18704,8 +18774,7 @@ paths:
       tags:
       - TicketService
       summary: UpdateTicket
-      description: "Public Method to update a ticket.\n Requires permission PERMISSION_TICKETS_APP\n
-        Requires permission PERMISSION_TICKETS_APP"
+      description: "Public Method to update a ticket.\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_UpdateTicket
       parameters:
       - name: org
@@ -18758,8 +18827,7 @@ paths:
       tags:
       - TicketService
       summary: ListTickets
-      description: "Public method to list tickets\n Requires permission PERMISSION_TICKETS_APP\n
-        Requires permission PERMISSION_TICKETS_APP"
+      description: "Public method to list tickets\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_ListTickets
       parameters:
       - name: org
@@ -18820,8 +18888,7 @@ paths:
       tags:
       - TicketService
       summary: CloseTicket
-      description: "Public Method to Close a ticket\n Requires permission PERMISSION_TICKETS_APP\n
-        Requires permission PERMISSION_TICKETS_APP"
+      description: "Public Method to Close a ticket\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_CloseTicket
       parameters:
       - name: org
@@ -18874,8 +18941,7 @@ paths:
       tags:
       - TicketService
       summary: GetTicket
-      description: "Public method to get ticket\n Requires permission PERMISSION_TICKETS_APP\n
-        Requires permission PERMISSION_TICKETS_APP"
+      description: "Public method to get ticket\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_GetTicket
       parameters:
       - name: org
@@ -18920,8 +18986,7 @@ paths:
       tags:
       - TicketService
       summary: ListTicketActions
-      description: "Public method to list ticket_actions\n Requires permission PERMISSION_TICKETS_APP\n
-        Requires permission PERMISSION_TICKETS_APP"
+      description: "Public method to list ticket_actions\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_ListTicketActions
       parameters:
       - name: org
@@ -18988,7 +19053,7 @@ paths:
       - TicketService
       summary: CreateTicketAction
       description: "Public Method to create a ticket_action.\n Requires permission
-        PERMISSION_TICKETS_APP\n Requires permission PERMISSION_TICKETS_APP"
+        PERMISSION_TICKETS_APP"
       operationId: TicketService_CreateTicketAction
       parameters:
       - name: org
@@ -19042,7 +19107,7 @@ paths:
       - TicketService
       summary: UpdateTicketAction
       description: "Public Method to update a ticket_action.\n Requires permission
-        PERMISSION_TICKETS_APP\n Requires permission PERMISSION_TICKETS_APP"
+        PERMISSION_TICKETS_APP"
       operationId: TicketService_UpdateTicketAction
       parameters:
       - name: org
@@ -19101,8 +19166,7 @@ paths:
       tags:
       - TicketService
       summary: CloseTicketAction
-      description: "Public Method to Close a ticket_action\n Requires permission PERMISSION_TICKETS_APP\n
-        Requires permission PERMISSION_TICKETS_APP"
+      description: "Public Method to Close a ticket_action\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_CloseTicketAction
       parameters:
       - name: org
@@ -19135,14 +19199,14 @@ paths:
         required: true
         schema:
           type: string
-      - name: comment
+      - name: modifier_id
         in: query
-        description: description of the comment
+        description: closed by user-id
         required: true
         schema:
           type: string
-          title: comment
-          description: description of the comment
+          title: modifier_id
+          description: closed by user-id
       responses:
         default:
           description: Error
@@ -19161,8 +19225,7 @@ paths:
       tags:
       - TicketService
       summary: GetTicketAction
-      description: "Public method to get ticket_action\n Requires permission PERMISSION_TICKETS_APP\n
-        Requires permission PERMISSION_TICKETS_APP"
+      description: "Public method to get ticket_action\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_GetTicketAction
       parameters:
       - name: org
@@ -19215,7 +19278,7 @@ paths:
       summary: ListTicketTemplates
       description: "Public method to list ticket_templates\n (-- api-linter: core::0132::method-signature=disabled\n
         \    aip.dev/not-precedent: We need to do this because reasons. --)\n Requires
-        permission PERMISSION_TICKETS_APP\n Requires permission PERMISSION_TICKETS_APP"
+        permission PERMISSION_TICKETS_APP"
       operationId: TicketService_ListTicketTemplates
       parameters:
       - name: org
@@ -19284,7 +19347,7 @@ paths:
       - TicketService
       summary: CreateTicketTemplate
       description: "Public Method to create a ticket_tempalte.\n Requires permission
-        PERMISSION_TICKETS_APP\n Requires permission PERMISSION_TICKETS_APP"
+        PERMISSION_TICKETS_APP"
       operationId: TicketService_CreateTicketTemplate
       parameters:
       - name: org
@@ -19325,8 +19388,7 @@ paths:
       tags:
       - TicketService
       summary: GetTicketTemplate
-      description: "Public method to get ticket_template\n Requires permission PERMISSION_TICKETS_APP\n
-        Requires permission PERMISSION_TICKETS_APP"
+      description: "Public method to get ticket_template\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_GetTicketTemplate
       parameters:
       - name: org
@@ -19379,7 +19441,7 @@ paths:
       - TicketService
       summary: UpdateTicketTemplate
       description: "Public Method to update a ticket_template.\n Requires permission
-        PERMISSION_TICKETS_APP\n Requires permission PERMISSION_TICKETS_APP"
+        PERMISSION_TICKETS_APP"
       operationId: TicketService_UpdateTicketTemplate
       parameters:
       - name: org
@@ -19427,7 +19489,7 @@ paths:
       - TicketService
       summary: AssignTicketTemplate
       description: "Public method to assign ticket_template\n Requires permission
-        PERMISSION_TICKETS_APP\n Requires permission PERMISSION_TICKETS_APP"
+        PERMISSION_TICKETS_APP"
       operationId: TicketService_AssignTicketTemplate
       parameters:
       - name: org
@@ -19477,8 +19539,7 @@ paths:
       - TicketService
       - TicketService
       summary: ListSlaConditions
-      description: "Public method to list sla conditions\n Requires permission PERMISSION_TICKETS_APP\n
-        Requires permission PERMISSION_TICKETS_APP"
+      description: "Public method to list sla conditions\n Requires permission PERMISSION_TICKETS_APP"
       operationId: TicketService_ListActions
       parameters:
       - name: org
@@ -19609,7 +19670,6 @@ paths:
       - TicketService
       summary: ListProjects
       description: "Method to list Projects\n Requires permissions PERMISSION_TICKETS_ADMIN
-        or PERMISSION_TICKETS_APP\n Requires permissions PERMISSION_TICKETS_ADMIN
         or PERMISSION_TICKETS_APP"
       operationId: TicketService_ListProjects
       parameters:
@@ -19666,7 +19726,6 @@ paths:
       - TicketService
       summary: GetProject
       description: "Method to get a project\n Requires permissions PERMISSION_TICKETS_ADMIN
-        or PERMISSION_TICKETS_APP\n Requires permissions PERMISSION_TICKETS_ADMIN
         or PERMISSION_TICKETS_APP"
       operationId: TicketService_GetProject
       parameters:
@@ -19705,8 +19764,7 @@ paths:
       tags:
       - TicketService
       summary: DeleteProject
-      description: "Method to delete a Project\n Requires permission PERMISSION_TICKETS_ADMIN\n
-        Requires permission PERMISSION_TICKETS_ADMIN"
+      description: "Method to delete a Project\n Requires permission PERMISSION_TICKETS_ADMIN"
       operationId: TicketService_DeleteProject
       parameters:
       - name: org
@@ -19752,8 +19810,7 @@ paths:
       tags:
       - TicketService
       summary: UpdateProject
-      description: "Method to update a Project\n Requires permission PERMISSION_TICKETS_ADMIN\n
-        Requires permission PERMISSION_TICKETS_ADMIN"
+      description: "Method to update a Project\n Requires permission PERMISSION_TICKETS_ADMIN"
       operationId: TicketService_UpdateProject
       parameters:
       - name: org
@@ -52097,6 +52154,105 @@ components:
       - name
       additionalProperties: false
       description: Request to revoke a API token
+    tcn.org.users.v1alpha1.MfaInfo:
+      type: object
+      oneOf:
+      - properties:
+          duo:
+            title: duo
+            description: (OPTIONAL) Duo is the type of MFA that uses a duo client.
+            $ref: '#/components/schemas/tcn.org.users.v1alpha1.MfaInfo.Duo'
+        title: duo
+        required:
+        - duo
+      - properties:
+          none:
+            title: none
+            description: (OPTIONAL) No MFA is enabled for the user.
+            $ref: '#/components/schemas/tcn.org.users.v1alpha1.MfaInfo.NoneSelected'
+        title: none
+        required:
+        - none
+      - properties:
+          otp:
+            title: otp
+            description: (OPTIONAL) OTP is the type of MFA that uses a one-time password.
+            $ref: '#/components/schemas/tcn.org.users.v1alpha1.MfaInfo.OtpType'
+        title: otp
+        required:
+        - otp
+      - properties:
+          totp:
+            title: totp
+            description: (OPTIONAL) Totp is the type of MFA that uses a time-based
+              one-time password.
+            $ref: '#/components/schemas/tcn.org.users.v1alpha1.MfaInfo.Totp'
+        title: totp
+        required:
+        - totp
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) The name of the MFA info.
+        mfa_enabled:
+          type: boolean
+          title: mfa_enabled
+          description: Whether or not MFA is enabled for the user.
+      title: MfaInfo
+      required:
+      - mfa_enabled
+      additionalProperties: false
+      description: MfaInfo contains the MFA/2FA information for a user.
+    tcn.org.users.v1alpha1.MfaInfo.Duo:
+      type: object
+      properties:
+        duo_username:
+          type: string
+          title: duo_username
+          description: The username for the duo client.
+      title: Duo
+      required:
+      - duo_username
+      additionalProperties: false
+      description: Duo is the type of MFA that uses a duo client.
+    tcn.org.users.v1alpha1.MfaInfo.NoneSelected:
+      type: object
+      properties:
+        mfa_timeout_time:
+          title: mfa_timeout_time
+          description: "The time by wich the user must setup MFA\n to avoid being
+            locked out."
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+      title: NoneSelected
+      required:
+      - mfa_timeout_time
+      additionalProperties: false
+      description: NoneSelected is the type of MFA that is not enabled.
+    tcn.org.users.v1alpha1.MfaInfo.OtpType:
+      type: object
+      oneOf:
+      - properties:
+          email:
+            title: email
+            description: EmailDeliveryMethod is the delivery method for the OTP.
+            $ref: '#/components/schemas/tcn.org.users.v1alpha1.MfaInfo.OtpType.EmailDeliveryMethod'
+        title: email
+        required:
+        - email
+      title: OtpType
+      additionalProperties: false
+      description: OtpType is the type of MFA that uses a one-time password.
+    tcn.org.users.v1alpha1.MfaInfo.OtpType.EmailDeliveryMethod:
+      type: object
+      title: EmailDeliveryMethod
+      additionalProperties: false
+      description: EmailDeliveryMethod is the delivery method for the OTP.
+    tcn.org.users.v1alpha1.MfaInfo.Totp:
+      type: object
+      title: Totp
+      additionalProperties: false
+      description: Totp is the type of MFA that uses a time-based one-time password.
     tcn.org.users.v1alpha1.OperatorApplication:
       type: string
       title: OperatorApplication
@@ -52538,6 +52694,18 @@ components:
         \    aip.dev/not-precedent: The password of the user is required\n     api-linter:
         core::0133::request-required-fields=disabled\n     aip.dev/not-precedent:
         The password of the user is required\n --)\n request message CreateUserRequest"
+    tcn.org.users.v1alpha1.GetMfaInfoRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: name of the user
+      title: GetMfaInfoRequest
+      required:
+      - name
+      additionalProperties: false
+      description: request message GetMfaInfoRequest
     tcn.org.users.v1alpha1.GetUserRequest:
       type: object
       properties:
@@ -52614,6 +52782,22 @@ components:
       title: UnArchiveUserResponse
       additionalProperties: false
       description: The response for UnArchiveUser
+    tcn.org.users.v1alpha1.UpdateMfaInfoRequest:
+      type: object
+      properties:
+        mfa_info:
+          title: mfa_info
+          description: mfa info to update
+          $ref: '#/components/schemas/tcn.org.users.v1alpha1.MfaInfo'
+        update_mask:
+          title: update_mask
+          description: (OPTIONAL) update mask
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: UpdateMfaInfoRequest
+      required:
+      - mfa_info
+      additionalProperties: false
+      description: request message UpdateMfaInfoRequest
     tcn.org.users.v1alpha1.UpdateUserRequest:
       type: object
       properties:
@@ -54193,14 +54377,14 @@ components:
           type: string
           title: name
           description: the name of the TicketAction
-        comment:
+        modifier_id:
           type: string
-          title: comment
-          description: description of the comment
+          title: modifier_id
+          description: closed by user-id
       title: CloseTicketActionRequest
       required:
       - name
-      - comment
+      - modifier_id
       additionalProperties: false
       description: CloseTicketActionRequest -
     tcn.tickets.ticket.v1alpha1.CloseTicketActionResponse:
