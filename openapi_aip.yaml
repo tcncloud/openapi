@@ -18500,6 +18500,146 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta1.EventMetadata'
+  /tcn/ruleengine/ruleset/v1beta2/orgs/{org}/ruleSet:
+    get:
+      tags:
+      - RuleEngineService
+      summary: GetRuleSet
+      description: "GetRuleSet gets the rule set\n Requires permission PERMISSION_RULE_ENGINE"
+      operationId: RuleEngineService_GetRuleSet
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta2.RuleSet'
+    patch:
+      tags:
+      - RuleEngineService
+      summary: UpdateRuleSet
+      description: "UpdateRuleSet updates the rule set\n Requires permission PERMISSION_RULE_ENGINE"
+      operationId: RuleEngineService_UpdateRuleSet
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The rule set to update
+        content:
+          application/json:
+            schema:
+              title: rule_set
+              description: The rule set to update
+              $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta2.RuleSet'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta2.RuleSet'
+  /tcn/ruleengine/ruleset/v1beta2/orgs/{org}/eventMetadata/{eventMetadata}:
+    get:
+      tags:
+      - RuleEngineService
+      summary: GetEventMetadata
+      description: "GetEventMetadata gets metadata for a specific event\n Requires
+        permission PERMISSION_RULE_ENGINE"
+      operationId: RuleEngineService_GetEventMetadata
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: eventMetadata
+        in: path
+        description: The eventMetadata id.
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta2.EventMetadata'
+  /tcn/ruleengine/ruleset/v1beta2/orgs/{org}/eventMetadata:
+    get:
+      tags:
+      - RuleEngineService
+      summary: ListEventMetadata
+      description: "ListEventMetadata lists metadata for all events\n Requires permission
+        PERMISSION_RULE_ENGINE"
+      operationId: RuleEngineService_ListEventMetadata
+      parameters:
+      - name: org
+        in: path
+        description: The org id.
+        required: true
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        description: The maximum number of event metadata to return
+        schema:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) The maximum number of event metadata to return
+      - name: page_token
+        in: query
+        description: The next_page_token value returned from a previous List request,
+          if any
+        schema:
+          type: string
+          title: page_token
+          description: (OPTIONAL) The next_page_token value returned from a previous
+            List request, if any
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta2.ListEventMetadataResponse'
   /tcn/tickets/ticket/v1alpha1/orgs/{org}/regions/{region}/sla:
     post:
       tags:
@@ -28398,18 +28538,12 @@ components:
           title: fields
           description: (OPTIONAL) The fields included in the receipt.
         campaign_sid:
-          type:
-          - integer
-          - string
+          type: string
           title: campaign_sid
-          format: int64
           description: (OPTIONAL) campaign identifier for delivering the receipt
         campaign_module_sid:
-          type:
-          - integer
-          - string
+          type: string
           title: campaign_module_sid
-          format: int64
           description: (OPTIONAL) campaign module identifier for delivering the receipt
       title: Receipt
       additionalProperties: false
@@ -45110,6 +45244,1021 @@ components:
       - rate_definition
       additionalProperties: false
       description: UpdateRateDefinitionRequest -
+    tcn.org.callqueueconfig.v1alpha1.ActionEvent:
+      type: string
+      title: ActionEvent
+      enum:
+      - ACTION_EVENT_UNSPECIFIED
+      - ACTION_EVENT_CHOICE_HANG_UP
+      - ACTION_EVENT_CHOICE_TRIGGER_IVR_TEMPLATE
+      - ACTION_EVENT_CHOICE_ADD_CALL_SKILLS
+      - ACTION_EVENT_CHOICE_DROP_CALL_SKILLS
+      - ACTION_EVENT_CHOICE_GOTO_VOICE_MAIL
+      - ACTION_EVENT_CHOICE_QUEUED_CALLBACK
+      - ACTION_EVENT_CHOICE_RESET_STRATEGY
+      - ACTION_EVENT_CHOICE_NO_ACTION
+      description: ActionEvent defines the available action events.
+    tcn.org.callqueueconfig.v1alpha1.AgentAttentionChoice:
+      type: string
+      title: AgentAttentionChoice
+      enum:
+      - AGENT_ATTENTION_CHOICE_UNSPECIFIED
+      - AGENT_ATTENTION_CHOICE_USE_DEFAULT
+      - AGENT_ATTENTION_CHOICE_PLAY_TONES
+      - AGENT_ATTENTION_CHOICE_PLAY_SOUND_FILE
+      - AGENT_ATTENTION_CHOICE_DISABLE_AGENT_ATTENTION
+      description: AgentAttentionChoice defines the options for agent attention behavior.
+    tcn.org.callqueueconfig.v1alpha1.AnnouncementChoice:
+      type: string
+      title: AnnouncementChoice
+      enum:
+      - ANNOUNCEMENT_CHOICE_UNSPECIFIED
+      - ANNOUNCEMENT_CHOICE_USE_DEFAULT
+      - ANNOUNCEMENT_CHOICE_USE_ANNOUNCEMENTS
+      - ANNOUNCEMENT_CHOICE_DISABLE_ANNOUNCEMENTS
+      description: AnnouncementChoice defines the options for announcement behavior.
+    tcn.org.callqueueconfig.v1alpha1.AnnouncementMixingChoice:
+      type: string
+      title: AnnouncementMixingChoice
+      enum:
+      - ANNOUNCEMENT_MIXING_CHOICE_UNSPECIFIED
+      - ANNOUNCEMENT_MIXING_CHOICE_USE_DEFAULT
+      - ANNOUNCEMENT_MIXING_CHOICE_MUTE_HOLD_MUSIC
+      - ANNOUNCEMENT_MIXING_CHOICE_PLAY_OVER_HOLD_MUSIC
+      description: AnnouncementMixingChoice defines the options for announcement mixing
+        behavior.
+    tcn.org.callqueueconfig.v1alpha1.CallSpecificSettingChoice:
+      type: string
+      title: CallSpecificSettingChoice
+      enum:
+      - CALL_SPECIFIC_SETTING_CHOICE_UNSPECIFIED
+      - CALL_SPECIFIC_SETTING_CHOICE_USE_DEFAULT
+      - CALL_SPECIFIC_SETTING_CHOICE_USE_SETTING
+      description: CallSpecificSettingChoice defines the options for call-specific
+        settings.
+    tcn.org.callqueueconfig.v1alpha1.DTMFToneOption:
+      type: string
+      title: DTMFToneOption
+      enum:
+      - DTMF_TONE_OPTION_UNSPECIFIED
+      - DTMF_TONE_OPTION_TONE_ONE
+      - DTMF_TONE_OPTION_TONE_TWO
+      - DTMF_TONE_OPTION_TONE_THREE
+      - DTMF_TONE_OPTION_TONE_FOUR
+      - DTMF_TONE_OPTION_TONE_FIVE
+      - DTMF_TONE_OPTION_TONE_SIX
+      - DTMF_TONE_OPTION_TONE_SEVEN
+      - DTMF_TONE_OPTION_TONE_EIGHT
+      - DTMF_TONE_OPTION_TONE_NINE
+      - DTMF_TONE_OPTION_TONE_ZERO
+      - DTMF_TONE_OPTION_PAUSE_500
+      - DTMF_TONE_OPTION_PAUSE_1500
+      - DTMF_TONE_OPTION_PAUSE_2000
+      - DTMF_TONE_OPTION_PAUSE_2500
+      - DTMF_TONE_OPTION_PAUSE_3000
+      - DTMF_TONE_OPTION_PAUSE_3500
+      - DTMF_TONE_OPTION_PAUSE_4000
+      description: DTMFToneOption defines the available DTMF tones and pause length
+        options.
+    tcn.org.callqueueconfig.v1alpha1.StrategyOption:
+      type: string
+      title: StrategyOption
+      enum:
+      - STRATEGY_OPTION_UNSPECIFIED
+      - STRATEGY_OPTION_RING_ALL
+      - STRATEGY_OPTION_AGENT_SCORE
+      - STRATEGY_OPTION_AGENT_SCORE_MEMORY
+      - STRATEGY_OPTION_HIGHEST_SCORE_ONLY
+      - STRATEGY_OPTION_RANDOM_SELECTION
+      description: StrategyOption defines the available ring strategy options used
+        for PBX ring strategy.
+    tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) The resource name of the call configuration ruleset.
+        config_ruleset:
+          type: string
+          title: config_ruleset
+          description: The name of the ruleset.
+        description:
+          type: string
+          title: description
+          description: (OPTIONAL) The description of the ruleset.
+        update_time:
+          title: update_time
+          description: The timestamp when the ruleset was last modified.
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        announcement_mixing:
+          title: announcement_mixing
+          description: The announcement mixing choice that determines how announcements
+            are played with the hold music.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.AnnouncementMixingChoice'
+        position_announcements:
+          title: position_announcements
+          description: The settings that handle caller position announcements.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.PositionAnnouncementSection'
+        wait_time_announcements:
+          title: wait_time_announcements
+          description: The settings that handle estimated caller wait time announcements.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.WaitTimeAnnouncementSection'
+        agent_attention_settings:
+          title: agent_attention_settings
+          description: The settings that handle the call specific Agent Attention
+            conditions.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.SpecificAgentSection'
+        inqueue_conditions:
+          title: inqueue_conditions
+          description: The settings that handle the call specific In-Queue conditions.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.QueueConditionsSection'
+        inqueue_key_actions:
+          title: inqueue_key_actions
+          description: The settings that handle the call specific In-Queue key press
+            events actions.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.QueueKeyActionsSection'
+        pbx_ring_settings:
+          title: pbx_ring_settings
+          description: (OPTIONAL) The settings that handle the call specific PBX ring
+            conditions.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.PBXStrategySection'
+      title: CallQueueConfigRuleset
+      required:
+      - config_ruleset
+      - announcement_mixing
+      - position_announcements
+      - wait_time_announcements
+      - agent_attention_settings
+      - inqueue_conditions
+      - inqueue_key_actions
+      additionalProperties: false
+      description: "CallQueueRuleset defines the ruleset config for call queue operations.\n
+        These rulesets have been designed to be agnostic of the specific call types.\n
+        Any ruleset can be used for any call type."
+    tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.ActionChoice:
+      type: object
+      properties:
+        event:
+          title: event
+          description: The action to perform at the chosen time.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.ActionEvent'
+        ivr_script_event:
+          type: integer
+          title: ivr_script_event
+          format: int32
+          description: (OPTIONAL) If IVR is chosen, this is the IVR key choice for
+            the campaign's script event.
+        skills_list:
+          title: skills_list
+          description: (OPTIONAL) If a skill based action is chosen, this is the skills
+            list configuration.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.SkillsList'
+      title: ActionChoice
+      required:
+      - event
+      additionalProperties: false
+      description: ActionChoice defines the configuration for actions.
+    tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.InQueueConditionChoice:
+      type: object
+      properties:
+        time_until_action:
+          type: integer
+          title: time_until_action
+          format: int32
+          description: The time in seconds to wait before performing the chosen action.
+        action:
+          title: action
+          description: The action with associated data which will perform at the chosen
+            time.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.ActionChoice'
+      title: InQueueConditionChoice
+      required:
+      - time_until_action
+      - action
+      additionalProperties: false
+      description: InQueueConditionChoice defines the configuration for in-queue conditions.
+    tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.PBXStrategySection:
+      type: object
+      properties:
+        pbx_ring_strategy:
+          title: pbx_ring_strategy
+          description: The PBX ring strategy choice.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallSpecificSettingChoice'
+        strategy_choice:
+          title: strategy_choice
+          description: (OPTIONAL) The strategy choice configuration.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.RingStrategy'
+      title: PBXStrategySection
+      required:
+      - pbx_ring_strategy
+      additionalProperties: false
+      description: PBXStrategySection defines the configuration for PBX strategy.
+    tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.PositionAnnouncementSection:
+      type: object
+      properties:
+        announcement:
+          title: announcement
+          description: The choice of how to handle position announcements.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.AnnouncementChoice'
+        first_position:
+          type: integer
+          title: first_position
+          format: int32
+          description: (OPTIONAL) The time to wait (1-28,859 seconds) before playing
+            the first position announcement played to the caller.
+        repeated_position:
+          type: integer
+          title: repeated_position
+          format: int32
+          description: (OPTIONAL) The time to wait (1-28,859 seconds) before playing
+            the next/repeated position announcement played to the caller.
+        threshold:
+          type: integer
+          title: threshold
+          format: int32
+          description: (OPTIONAL) The caller position threshold (1-100) to determine
+            if the "shortly" announcement is played.
+      title: PositionAnnouncementSection
+      required:
+      - announcement
+      additionalProperties: false
+      description: PositionAnnouncementSection defines the configuration for position
+        announcement sections.
+    tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.QueueConditionsSection:
+      type: object
+      properties:
+        specific_inqueue:
+          title: specific_inqueue
+          description: The choice of how to handle specific in-queue conditions.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallSpecificSettingChoice'
+        condition_no_agents_logged:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.InQueueConditionChoice'
+          title: condition_no_agents_logged
+          description: (OPTIONAL) Conditions when no Agents are logged in.
+        condition_no_skills_logged:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.InQueueConditionChoice'
+          title: condition_no_skills_logged
+          description: (OPTIONAL) Conditions when there are no Agents with the required
+            skills logged in.
+        condition_no_agents_available:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.InQueueConditionChoice'
+          title: condition_no_agents_available
+          description: (OPTIONAL) Conditions when no Agents are available.
+        condition_no_skills_available:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.InQueueConditionChoice'
+          title: condition_no_skills_available
+          description: (OPTIONAL) Conditions when no Agents with the required skills
+            are available.
+        condition_pbx_ringing:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.InQueueConditionChoice'
+          title: condition_pbx_ringing
+          description: (OPTIONAL) Conditions when PBX is ringing and waiting for an
+            Agent to accept the call.
+        condition_agent_lost:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.InQueueConditionChoice'
+          title: condition_agent_lost
+          description: (OPTIONAL) Conditions when the Agent is lost.
+        use_exceeded_limit:
+          type: boolean
+          title: use_exceeded_limit
+          description: (OPTIONAL) Whether to use the exceeded limit conditions.
+        exceeded_calls:
+          type: integer
+          title: exceeded_calls
+          format: int32
+          description: (OPTIONAL) Only use the exceeded limit conditions if the number
+            of calls in the queue is greater than this number.
+        condition_exceeded_limit:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.InQueueConditionChoice'
+          title: condition_exceeded_limit
+          description: (OPTIONAL) Conditions when limit is exceeded.
+        condition_default:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.InQueueConditionChoice'
+          title: condition_default
+          description: (OPTIONAL) Default conditions that don't fit any of the other
+            conditions.
+      title: QueueConditionsSection
+      required:
+      - specific_inqueue
+      additionalProperties: false
+      description: QueueConditionsSection defines the configuration for queue conditions.
+    tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.QueueKeyActionsSection:
+      type: object
+      properties:
+        specific_key_press:
+          title: specific_key_press
+          description: The choice of how to handle specific in-queue key press conditions.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallSpecificSettingChoice'
+        key_one_action:
+          title: key_one_action
+          description: (OPTIONAL) Action for key one.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.ActionChoice'
+        key_two_action:
+          title: key_two_action
+          description: (OPTIONAL) Action for key two.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.ActionChoice'
+        key_three_action:
+          title: key_three_action
+          description: (OPTIONAL) Action for key three.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.ActionChoice'
+        key_four_action:
+          title: key_four_action
+          description: (OPTIONAL) Action for key four.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.ActionChoice'
+        key_five_action:
+          title: key_five_action
+          description: (OPTIONAL) Action for key five.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.ActionChoice'
+        key_six_action:
+          title: key_six_action
+          description: (OPTIONAL) Action for key six.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.ActionChoice'
+        key_seven_action:
+          title: key_seven_action
+          description: (OPTIONAL) Action for key seven.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.ActionChoice'
+        key_eight_action:
+          title: key_eight_action
+          description: (OPTIONAL) Action for key eight.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.ActionChoice'
+        key_nine_action:
+          title: key_nine_action
+          description: (OPTIONAL) Action for key nine.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.ActionChoice'
+        key_zero_action:
+          title: key_zero_action
+          description: (OPTIONAL) Action for key zero.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.ActionChoice'
+        key_asterisk_action:
+          title: key_asterisk_action
+          description: (OPTIONAL) Action for asterisk key.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.ActionChoice'
+        key_pound_action:
+          title: key_pound_action
+          description: (OPTIONAL) Action for pound key.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.ActionChoice'
+      title: QueueKeyActionsSection
+      required:
+      - specific_key_press
+      additionalProperties: false
+      description: QueueKeyActionsSection defines the configuration for queue key
+        actions.
+    tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.RingStrategy:
+      type: object
+      properties:
+        strategy:
+          title: strategy
+          description: Which strategy option to use.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.StrategyOption'
+        time_out:
+          type: integer
+          title: time_out
+          format: int32
+          description: (OPTIONAL) The ring time-out in seconds used with the Agent
+            score or memory options.
+      title: RingStrategy
+      required:
+      - strategy
+      additionalProperties: false
+      description: RingStrategy defines the configuration for ring strategy.
+    tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.SkillsList:
+      type: object
+      properties:
+        drop_all_skills:
+          type: boolean
+          title: drop_all_skills
+          description: (OPTIONAL) Whether to drop all skills after the action.
+        drop_all_agent_as_skills:
+          type: boolean
+          title: drop_all_agent_as_skills
+          description: (OPTIONAL) Whether to drop all agent-as skills after the action.
+        drop_all_hunt_group_skills:
+          type: boolean
+          title: drop_all_hunt_group_skills
+          description: (OPTIONAL) Whether to drop all hunt group skills after the
+            action.
+        agent_skills:
+          type: array
+          items:
+            type: integer
+            format: int32
+            description: '(OPTIONAL) '
+          title: agent_skills
+          description: (OPTIONAL) List of chosen agent skills.
+        required_agent_skills:
+          type: array
+          items:
+            type: integer
+            format: int32
+            description: '(OPTIONAL) '
+          title: required_agent_skills
+          description: (OPTIONAL) List of chosen required agent skills.
+        agent_as_skills:
+          type: array
+          items:
+            type: integer
+            format: int32
+            description: '(OPTIONAL) '
+          title: agent_as_skills
+          description: (OPTIONAL) List of chosen agent-as skills.
+        required_agent_as_skills:
+          type: array
+          items:
+            type: integer
+            format: int32
+            description: '(OPTIONAL) '
+          title: required_agent_as_skills
+          description: (OPTIONAL) List of chosen required agent-as skills.
+        hunt_group_skills:
+          type: array
+          items:
+            type: integer
+            format: int32
+            description: '(OPTIONAL) '
+          title: hunt_group_skills
+          description: (OPTIONAL) List of chosen hunt group skills.
+        required_hunt_group_skills:
+          type: array
+          items:
+            type: integer
+            format: int32
+            description: '(OPTIONAL) '
+          title: required_hunt_group_skills
+          description: (OPTIONAL) List of chosen required hunt group skills.
+      title: SkillsList
+      additionalProperties: false
+      description: SkillsList defines the list of skills, agent-as skills, and hunt
+        group skills, along with options around them.
+    tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.SpecificAgentSection:
+      type: object
+      properties:
+        specific_agent:
+          title: specific_agent
+          description: The choice of how to handle specific agent attention settings.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.AgentAttentionChoice'
+        use_agent_paused:
+          type: boolean
+          title: use_agent_paused
+          description: Whether to target agents in the paused status. Will be for
+            Tones or Sound file.
+        use_agent_wrap_up:
+          type: boolean
+          title: use_agent_wrap_up
+          description: Whether to target agents in the wrap-up status. Will be for
+            Tones or Sound file.
+        use_agent_on_call:
+          type: boolean
+          title: use_agent_on_call
+          description: Whether to target agents in the on-call status. Will be only
+            for Sound file.
+        tones_list_dtmf:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.DTMFToneOption'
+          title: tones_list_dtmf
+          description: (OPTIONAL) List of DTMF tones and pause length options.
+      title: SpecificAgentSection
+      required:
+      - specific_agent
+      - use_agent_paused
+      - use_agent_wrap_up
+      - use_agent_on_call
+      additionalProperties: false
+      description: SpecificAgentSection defines the configuration for call specific
+        agent attention settings.
+    tcn.org.callqueueconfig.v1alpha1.CallQueueConfigRuleset.WaitTimeAnnouncementSection:
+      type: object
+      properties:
+        announcement:
+          title: announcement
+          description: The choice of how to handle wait time announcements.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.AnnouncementChoice'
+        first_position:
+          type: integer
+          title: first_position
+          format: int32
+          description: (OPTIONAL) The time to wait (1-28,859 seconds) before playing
+            the first wait time announcement played to the caller.
+        repeated_position:
+          type: integer
+          title: repeated_position
+          format: int32
+          description: (OPTIONAL) The time to wait (1-28,859 seconds) before playing
+            the next/repeated wait time announcement played to the caller.
+        threshold:
+          type: integer
+          title: threshold
+          format: int32
+          description: (OPTIONAL) The caller wait time threshold (1-28,259 seconds),
+            no announcement is played unless the caller's wait time is greater than
+            this threshold.
+      title: WaitTimeAnnouncementSection
+      required:
+      - announcement
+      additionalProperties: false
+      description: WaitTimeAnnouncementSection defines the configuration for wait
+        time announcement sections.
+    tcn.org.callqueueconfig.v1alpha1.GenderOption:
+      type: string
+      title: GenderOption
+      enum:
+      - GENDER_OPTION_UNSPECIFIED
+      - GENDER_OPTION_MALE
+      - GENDER_OPTION_FEMALE
+      description: GenderOption defines the available gender options for sounds.
+    tcn.org.callqueueconfig.v1alpha1.LanguageOption:
+      type: string
+      title: LanguageOption
+      enum:
+      - LANGUAGE_OPTION_UNSPECIFIED
+      - LANGUAGE_OPTION_ENGLISH_AMERICAN
+      - LANGUAGE_OPTION_ENGLISH_AUSTRALIAN
+      - LANGUAGE_OPTION_SPANISH
+      - LANGUAGE_OPTION_FRENCH
+      - LANGUAGE_OPTION_PORTUGUESE
+      description: LanguageOption defines the available language options for sounds.
+    tcn.org.callqueueconfig.v1alpha1.SoundNameOption:
+      type: string
+      title: SoundNameOption
+      enum:
+      - SOUND_NAME_OPTION_UNSPECIFIED
+      - ANNOUNCEMENT_POSITION_END
+      - ANNOUNCEMENT_POSITION_SHORTLY
+      - ANNOUNCEMENT_POSITION_START
+      - ANNOUNCEMENT_TIME_END
+      - ANNOUNCEMENT_TIME_SHORTLY
+      - ANNOUNCEMENT_TIME_START
+      - AGENT_GATEWAY_CALL_ENDED
+      - AGENT_GATEWAY_TRUMPET
+      - AGENT_ATTENTION_GENERAL
+      - AGENT_ATTENTION_PBX
+      - AGENT_ATTENTION_AGENT_SKILLS
+      - AGENT_ATTENTION_TRANSFER
+      - CALL_TYPE_INBOUND_AGENT_JOIN
+      - CALL_TYPE_INBOUND_AGENT_LEAVE
+      - CALL_TYPE_INBOUND_CALLER_JOIN
+      - CALL_TYPE_INBOUND_CALLER_LEAVE
+      - CALL_TYPE_INBOUND_QUEUE_HOLD
+      - CALL_TYPE_INBOUND_SIMPLE_HOLD
+      - CALL_TYPE_INBOUND_MULTI_HOLD
+      - CALL_TYPE_INBOUND_TRANSFER_HOLD
+      - CALL_TYPE_INBOUND_NO_AGENTS_AVAILABLE
+      - CALL_TYPE_INBOUND_QUEUED_CALLBACK
+      - CALL_TYPE_OUTBOUND_AGENT_JOIN
+      - CALL_TYPE_OUTBOUND_AGENT_LEAVE
+      - CALL_TYPE_OUTBOUND_CALLER_JOIN
+      - CALL_TYPE_OUTBOUND_CALLER_LEAVE
+      - CALL_TYPE_OUTBOUND_QUEUE_HOLD
+      - CALL_TYPE_OUTBOUND_SIMPLE_HOLD
+      - CALL_TYPE_OUTBOUND_MULTI_HOLD
+      - CALL_TYPE_OUTBOUND_TRANSFER_HOLD
+      - CALL_TYPE_OUTBOUND_NO_AGENTS_AVAILABLE
+      - CALL_TYPE_OUTBOUND_QUEUED_CALLBACK
+      - CALL_TYPE_MANUAL_AGENT_JOIN
+      - CALL_TYPE_MANUAL_AGENT_LEAVE
+      - CALL_TYPE_MANUAL_CALLER_JOIN
+      - CALL_TYPE_MANUAL_CALLER_LEAVE
+      - CALL_TYPE_MANUAL_QUEUE_HOLD
+      - CALL_TYPE_MANUAL_SIMPLE_HOLD
+      - CALL_TYPE_MANUAL_MULTI_HOLD
+      - CALL_TYPE_MANUAL_TRANSFER_HOLD
+      - CALL_TYPE_MANUAL_NO_AGENTS_AVAILABLE
+      - CALL_TYPE_MANUAL_QUEUED_CALLBACK
+      - CALL_TYPE_MANUAL_AGENT_PREPARE
+      - CALL_TYPE_PREVIEW_AGENT_JOIN
+      - CALL_TYPE_PREVIEW_AGENT_LEAVE
+      - CALL_TYPE_PREVIEW_CALLER_JOIN
+      - CALL_TYPE_PREVIEW_CALLER_LEAVE
+      - CALL_TYPE_PREVIEW_QUEUE_HOLD
+      - CALL_TYPE_PREVIEW_SIMPLE_HOLD
+      - CALL_TYPE_PREVIEW_MULTI_HOLD
+      - CALL_TYPE_PREVIEW_TRANSFER_HOLD
+      - CALL_TYPE_PREVIEW_NO_AGENTS_AVAILABLE
+      - CALL_TYPE_PREVIEW_QUEUED_CALLBACK
+      - CALL_TYPE_PREVIEW_AGENT_PREPARE
+      - MISCELLANEOUS_PBX_INCOMING
+      - MISCELLANEOUS_SIMPLE_BEEP
+      - MISCELLANEOUS_CALM_RIVER
+      - MISCELLANEOUS_AGENT_LOST
+      - MISCELLANEOUS_CALLBACK_QUEUED
+      - CARDINAL_NUMBER_1
+      - CARDINAL_NUMBER_2
+      - CARDINAL_NUMBER_3
+      - CARDINAL_NUMBER_4
+      - CARDINAL_NUMBER_5
+      - CARDINAL_NUMBER_6
+      - CARDINAL_NUMBER_7
+      - CARDINAL_NUMBER_8
+      - CARDINAL_NUMBER_9
+      - CARDINAL_NUMBER_10
+      - CARDINAL_NUMBER_11
+      - CARDINAL_NUMBER_12
+      - CARDINAL_NUMBER_13
+      - CARDINAL_NUMBER_14
+      - CARDINAL_NUMBER_15
+      - CARDINAL_NUMBER_16
+      - CARDINAL_NUMBER_17
+      - CARDINAL_NUMBER_18
+      - CARDINAL_NUMBER_19
+      - CARDINAL_NUMBER_20
+      - CARDINAL_NUMBER_21
+      - CARDINAL_NUMBER_22
+      - CARDINAL_NUMBER_23
+      - CARDINAL_NUMBER_24
+      - CARDINAL_NUMBER_25
+      - CARDINAL_NUMBER_26
+      - CARDINAL_NUMBER_27
+      - CARDINAL_NUMBER_28
+      - CARDINAL_NUMBER_29
+      - CARDINAL_NUMBER_30
+      - CARDINAL_NUMBER_31
+      - CARDINAL_NUMBER_32
+      - CARDINAL_NUMBER_33
+      - CARDINAL_NUMBER_34
+      - CARDINAL_NUMBER_35
+      - CARDINAL_NUMBER_36
+      - CARDINAL_NUMBER_37
+      - CARDINAL_NUMBER_38
+      - CARDINAL_NUMBER_39
+      - CARDINAL_NUMBER_40
+      - CARDINAL_NUMBER_41
+      - CARDINAL_NUMBER_42
+      - CARDINAL_NUMBER_43
+      - CARDINAL_NUMBER_44
+      - CARDINAL_NUMBER_45
+      - CARDINAL_NUMBER_46
+      - CARDINAL_NUMBER_47
+      - CARDINAL_NUMBER_48
+      - CARDINAL_NUMBER_49
+      - CARDINAL_NUMBER_50
+      - CARDINAL_NUMBER_51
+      - CARDINAL_NUMBER_52
+      - CARDINAL_NUMBER_53
+      - CARDINAL_NUMBER_54
+      - CARDINAL_NUMBER_55
+      - CARDINAL_NUMBER_56
+      - CARDINAL_NUMBER_57
+      - CARDINAL_NUMBER_58
+      - CARDINAL_NUMBER_59
+      - CARDINAL_NUMBER_60
+      - CARDINAL_NUMBER_61
+      - CARDINAL_NUMBER_62
+      - CARDINAL_NUMBER_63
+      - CARDINAL_NUMBER_64
+      - CARDINAL_NUMBER_65
+      - CARDINAL_NUMBER_66
+      - CARDINAL_NUMBER_67
+      - CARDINAL_NUMBER_68
+      - CARDINAL_NUMBER_69
+      - CARDINAL_NUMBER_70
+      - CARDINAL_NUMBER_71
+      - CARDINAL_NUMBER_72
+      - CARDINAL_NUMBER_73
+      - CARDINAL_NUMBER_74
+      - CARDINAL_NUMBER_75
+      - CARDINAL_NUMBER_76
+      - CARDINAL_NUMBER_77
+      - CARDINAL_NUMBER_78
+      - CARDINAL_NUMBER_79
+      - CARDINAL_NUMBER_80
+      - CARDINAL_NUMBER_81
+      - CARDINAL_NUMBER_82
+      - CARDINAL_NUMBER_83
+      - CARDINAL_NUMBER_84
+      - CARDINAL_NUMBER_85
+      - CARDINAL_NUMBER_86
+      - CARDINAL_NUMBER_87
+      - CARDINAL_NUMBER_88
+      - CARDINAL_NUMBER_89
+      - CARDINAL_NUMBER_90
+      - CARDINAL_NUMBER_91
+      - CARDINAL_NUMBER_92
+      - CARDINAL_NUMBER_93
+      - CARDINAL_NUMBER_94
+      - CARDINAL_NUMBER_95
+      - CARDINAL_NUMBER_96
+      - CARDINAL_NUMBER_97
+      - CARDINAL_NUMBER_98
+      - CARDINAL_NUMBER_99
+      - CARDINAL_NUMBER_100
+      - ORDINAL_NUMBER_1ST
+      - ORDINAL_NUMBER_2ND
+      - ORDINAL_NUMBER_3RD
+      - ORDINAL_NUMBER_4TH
+      - ORDINAL_NUMBER_5TH
+      - ORDINAL_NUMBER_6TH
+      - ORDINAL_NUMBER_7TH
+      - ORDINAL_NUMBER_8TH
+      - ORDINAL_NUMBER_9TH
+      - ORDINAL_NUMBER_10TH
+      - ORDINAL_NUMBER_11TH
+      - ORDINAL_NUMBER_12TH
+      - ORDINAL_NUMBER_13TH
+      - ORDINAL_NUMBER_14TH
+      - ORDINAL_NUMBER_15TH
+      - ORDINAL_NUMBER_16TH
+      - ORDINAL_NUMBER_17TH
+      - ORDINAL_NUMBER_18TH
+      - ORDINAL_NUMBER_19TH
+      - ORDINAL_NUMBER_20TH
+      - ORDINAL_NUMBER_21ST
+      - ORDINAL_NUMBER_22ND
+      - ORDINAL_NUMBER_23RD
+      - ORDINAL_NUMBER_24TH
+      - ORDINAL_NUMBER_25TH
+      - ORDINAL_NUMBER_26TH
+      - ORDINAL_NUMBER_27TH
+      - ORDINAL_NUMBER_28TH
+      - ORDINAL_NUMBER_29TH
+      - ORDINAL_NUMBER_30TH
+      - ORDINAL_NUMBER_31ST
+      - ORDINAL_NUMBER_32ND
+      - ORDINAL_NUMBER_33RD
+      - ORDINAL_NUMBER_34TH
+      - ORDINAL_NUMBER_35TH
+      - ORDINAL_NUMBER_36TH
+      - ORDINAL_NUMBER_37TH
+      - ORDINAL_NUMBER_38TH
+      - ORDINAL_NUMBER_39TH
+      - ORDINAL_NUMBER_40TH
+      - ORDINAL_NUMBER_41ST
+      - ORDINAL_NUMBER_42ND
+      - ORDINAL_NUMBER_43RD
+      - ORDINAL_NUMBER_44TH
+      - ORDINAL_NUMBER_45TH
+      - ORDINAL_NUMBER_46TH
+      - ORDINAL_NUMBER_47TH
+      - ORDINAL_NUMBER_48TH
+      - ORDINAL_NUMBER_49TH
+      - ORDINAL_NUMBER_50TH
+      - ORDINAL_NUMBER_51ST
+      - ORDINAL_NUMBER_52ND
+      - ORDINAL_NUMBER_53RD
+      - ORDINAL_NUMBER_54TH
+      - ORDINAL_NUMBER_55TH
+      - ORDINAL_NUMBER_56TH
+      - ORDINAL_NUMBER_57TH
+      - ORDINAL_NUMBER_58TH
+      - ORDINAL_NUMBER_59TH
+      - ORDINAL_NUMBER_60TH
+      - ORDINAL_NUMBER_61ST
+      - ORDINAL_NUMBER_62ND
+      - ORDINAL_NUMBER_63RD
+      - ORDINAL_NUMBER_64TH
+      - ORDINAL_NUMBER_65TH
+      - ORDINAL_NUMBER_66TH
+      - ORDINAL_NUMBER_67TH
+      - ORDINAL_NUMBER_68TH
+      - ORDINAL_NUMBER_69TH
+      - ORDINAL_NUMBER_70TH
+      - ORDINAL_NUMBER_71ST
+      - ORDINAL_NUMBER_72ND
+      - ORDINAL_NUMBER_73RD
+      - ORDINAL_NUMBER_74TH
+      - ORDINAL_NUMBER_75TH
+      - ORDINAL_NUMBER_76TH
+      - ORDINAL_NUMBER_77TH
+      - ORDINAL_NUMBER_78TH
+      - ORDINAL_NUMBER_79TH
+      - ORDINAL_NUMBER_80TH
+      - ORDINAL_NUMBER_81ST
+      - ORDINAL_NUMBER_82ND
+      - ORDINAL_NUMBER_83RD
+      - ORDINAL_NUMBER_84TH
+      - ORDINAL_NUMBER_85TH
+      - ORDINAL_NUMBER_86TH
+      - ORDINAL_NUMBER_87TH
+      - ORDINAL_NUMBER_88TH
+      - ORDINAL_NUMBER_89TH
+      - ORDINAL_NUMBER_90TH
+      - ORDINAL_NUMBER_91ST
+      - ORDINAL_NUMBER_92ND
+      - ORDINAL_NUMBER_93RD
+      - ORDINAL_NUMBER_94TH
+      - ORDINAL_NUMBER_95TH
+      - ORDINAL_NUMBER_96TH
+      - ORDINAL_NUMBER_97TH
+      - ORDINAL_NUMBER_98TH
+      - ORDINAL_NUMBER_99TH
+      - ORDINAL_NUMBER_100TH
+      description: SoundNameOption defines all available sound name options.
+    tcn.org.callqueueconfig.v1alpha1.CallQueueSoundRuleset:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) The resource name of the sound ruleset.
+        sound_ruleset:
+          type: string
+          title: sound_ruleset
+          description: The name of the sound ruleset.
+        description:
+          type: string
+          title: description
+          description: (OPTIONAL) The description of the sound ruleset.
+        language_option:
+          title: language_option
+          description: The language option that determines the default sound files
+            for the TCN sound ruleset.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.LanguageOption'
+        gender_option:
+          title: gender_option
+          description: The gender option that determines the default sound files for
+            the TCN sound ruleset.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.GenderOption'
+        update_time:
+          title: update_time
+          description: The timestamp when the sound ruleset was last modified.
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        sound_list:
+          type: object
+          title: sound_list
+          additionalProperties:
+            title: value
+            $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueSoundRuleset.Sound'
+          description: The map of sound names (the key is a SoundNameOption enum value
+            as int32) to sound configurations.
+      title: CallQueueSoundRuleset
+      required:
+      - sound_ruleset
+      - language_option
+      - gender_option
+      - sound_list
+      additionalProperties: false
+      description: CallQueueSoundRuleset defines the sound files for call queue events
+        that are played to the caller.
+    tcn.org.callqueueconfig.v1alpha1.CallQueueSoundRuleset.Sound:
+      type: object
+      properties:
+        is_default:
+          type: boolean
+          title: is_default
+          description: Whether this is using the default sound based on the language
+            and gender or has an updated sound file.
+        last_updated_filename:
+          type: string
+          title: last_updated_filename
+          description: (OPTIONAL) The last updated filename, will be empty if is_default
+            is true.
+        update_time:
+          title: update_time
+          description: The timestamp when the sound was last modified.
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+      title: Sound
+      required:
+      - is_default
+      additionalProperties: false
+      description: Sound defines the configuration for individual sounds.
+    tcn.org.callqueueconfig.v1alpha1.CallQueueSoundRuleset.SoundListEntry:
+      type: object
+      properties:
+        key:
+          type: integer
+          title: key
+          format: int32
+        value:
+          title: value
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueSoundRuleset.Sound'
+      title: SoundListEntry
+      additionalProperties: false
+    tcn.org.callqueueconfig.v1alpha1.CallQueueConfigGroup.InboundOverrideChoice:
+      type: string
+      title: InboundOverrideChoice
+      enum:
+      - INBOUND_OVERRIDE_CHOICE_UNSPECIFIED
+      - INBOUND_OVERRIDE_CHOICE_DO_NOTHING
+      - INBOUND_OVERRIDE_CHOICE_OVERRIDE
+      - INBOUND_OVERRIDE_CHOICE_HANG_UP
+      description: InboundOverrideChoice defines the options for inbound override
+        behavior.
+    tcn.org.callqueueconfig.v1alpha1.CallQueueConfigGroup:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) The resource name of the call configuration group.
+        config_group:
+          type: string
+          title: config_group
+          description: The display name of the configuration group.
+        description:
+          type: string
+          title: description
+          description: (OPTIONAL) The description of the configuration group.
+        update_time:
+          title: update_time
+          description: The timestamp when the configuration was last modified.
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        allow_dtmf_pass_through:
+          type: boolean
+          title: allow_dtmf_pass_through
+          description: Whether to allow DTMF pass through, e.g. can the caller hear
+            the call's DTMF tones.
+        require_agent_acceptance_on_intercom:
+          type: boolean
+          title: require_agent_acceptance_on_intercom
+          description: Whether intercom connection is automatic between agents or
+            if the connection requires an agent to accept.
+        callback_timeout_minutes:
+          type:
+          - integer
+          - string
+          title: callback_timeout_minutes
+          format: int64
+          description: The callback timeout in minutes between 30 and 720.
+        callback_requires_number_update:
+          type: boolean
+          title: callback_requires_number_update
+          description: Whether Callbacks are executed as soon as an agent becomes
+            available or if the phone number and or caller ID must be updated before
+            the callback is executed.
+        number_update_timeout_minutes:
+          type:
+          - integer
+          - string
+          title: number_update_timeout_minutes
+          format: int64
+          description: If CallbackRequiresNumberUpdate is required, this is the update
+            timeout in minutes between 1 and 10 before the system times out.
+        cancel_number_update_on_failure:
+          type: boolean
+          title: cancel_number_update_on_failure
+          description: Whether to cancel number update on failure or otherwise attempt
+            to execute the callback with the original number.
+        inbound_override:
+          title: inbound_override
+          description: The Inbound call may override an existing callback if phone
+            number and caller ID are a match. This is the choice for how it it handled.
+          $ref: '#/components/schemas/tcn.org.callqueueconfig.v1alpha1.CallQueueConfigGroup.InboundOverrideChoice'
+        default_ruleset:
+          type: string
+          title: default_ruleset
+          description: (OPTIONAL) The Call Queue Ruleset chosen to control the behavior
+            of all calls that have not specified their settings.
+        outbound_ruleset:
+          type: string
+          title: outbound_ruleset
+          description: (OPTIONAL) The Call Queue Ruleset chosen to control the behavior
+            of Outbound calls.
+        inbound_ruleset:
+          type: string
+          title: inbound_ruleset
+          description: (OPTIONAL) The Call Queue Ruleset chosen to control the behavior
+            of Inbound calls.
+        preview_ruleset:
+          type: string
+          title: preview_ruleset
+          description: (OPTIONAL) The Call Queue Ruleset chosen to control the behavior
+            of Preview calls.
+        manual_ruleset:
+          type: string
+          title: manual_ruleset
+          description: (OPTIONAL) The Call Queue Ruleset chosen to control the behavior
+            of Manual calls.
+        sound_ruleset:
+          type: string
+          title: sound_ruleset
+          description: The Sound Ruleset chosen to control the sounds played during
+            each action in the Call Queue.
+      title: CallQueueConfigGroup
+      required:
+      - config_group
+      - allow_dtmf_pass_through
+      - require_agent_acceptance_on_intercom
+      - callback_timeout_minutes
+      - callback_requires_number_update
+      - number_update_timeout_minutes
+      - cancel_number_update_on_failure
+      - inbound_override
+      - sound_ruleset
+      additionalProperties: false
+      description: "CallQueueConfigGroup is an entity for the Call Queue Config Group
+        manager.\n This contains fields that define the general settings for a call
+        queue config group\n as well as the rulesets for the four call types and the
+        sound ruleset."
     tcn.org.countries.v1alpha1.Country:
       type: object
       properties:
@@ -49801,6 +50950,7 @@ components:
       - CRYPTO
       - IBAN_CODE
       - CURRENCY
+      - CARD_SECURITY_CODE
       - DATE_TIME
       - EMAIL_ADDRESS
       - IP_ADDRESS
@@ -52324,10 +53474,11 @@ components:
           type: string
           title: default_region
           description: region_id of a the user's default region
+          readOnly: true
         email:
           type: string
           title: email
-          description: The User's email.
+          description: (OPTIONAL) The User's email.
         email_verified:
           type: boolean
           title: email_verified
@@ -52436,7 +53587,7 @@ components:
           items:
             $ref: '#/components/schemas/tcn.org.users.v1alpha1.User.PermissionGroup'
           title: permission_groups
-          description: The permission groups that the new user will have.
+          description: (OPTIONAL) The permission groups that the new user will have.
         hunt_group:
           title: hunt_group
           description: (OPTIONAL) The hunt group that the user belongs to.
@@ -52450,12 +53601,9 @@ components:
       title: User
       required:
       - username
-      - default_region
-      - email
       - given_name
       - family_name
       - default_application
-      - permission_groups
       additionalProperties: false
       description: User contains the basic properties for a user.
     tcn.org.users.v1alpha1.User.HuntGroup:
@@ -53712,6 +54860,211 @@ components:
           title: rule_set
           description: The rule set to update
           $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta1.RuleSet'
+        update_mask:
+          title: update_mask
+          description: (OPTIONAL) The field mask to apply to the rule set.
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: UpdateRuleSetRequest
+      required:
+      - rule_set
+      additionalProperties: false
+      description: UpdateRuleSetRequest is the message used for updating a rule set
+    tcn.ruleengine.ruleset.v1beta2.Action:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the action
+        alias:
+          type: string
+          title: alias
+          description: The alias name of the action
+        params:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta2.Param'
+          title: params
+          description: The list of parameters of the action
+      title: Action
+      required:
+      - name
+      - alias
+      - params
+      additionalProperties: false
+      description: Action -
+    tcn.ruleengine.ruleset.v1beta2.EventMetadata:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) The metadata identifier
+        alias:
+          type: string
+          title: alias
+          description: The event alias
+        body:
+          type: string
+          title: body
+          description: The body of the metadata
+      title: EventMetadata
+      required:
+      - alias
+      - body
+      additionalProperties: false
+      description: EventMetadata -
+    tcn.ruleengine.ruleset.v1beta2.Param:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the parameter
+        value:
+          type: string
+          title: value
+          description: The value of the parameter
+      title: Param
+      required:
+      - name
+      - value
+      additionalProperties: false
+      description: Param -
+    tcn.ruleengine.ruleset.v1beta2.Rule:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the rule
+        desc:
+          type: string
+          title: desc
+          description: The description of the rule
+        when:
+          type: string
+          title: when
+          description: JSON format of the when trigger
+        conditions:
+          type: array
+          items:
+            type: string
+          title: conditions
+          description: JSON list of conditions
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta2.Action'
+          title: actions
+          description: The set of actions of the rule
+        is_active:
+          type: boolean
+          title: is_active
+          description: The state of the rule
+      title: Rule
+      required:
+      - name
+      - desc
+      - when
+      - conditions
+      - actions
+      - is_active
+      additionalProperties: false
+      description: Rule -
+    tcn.ruleengine.ruleset.v1beta2.RuleSet:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: (IDENTIFIER) Name is the identifier for a rule set
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta2.Rule'
+          title: rules
+          description: The set of rules
+      title: RuleSet
+      required:
+      - rules
+      additionalProperties: false
+      description: RuleSet -
+    tcn.ruleengine.ruleset.v1beta2.GetEventMetadataRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the metadata
+      title: GetEventMetadataRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetEventMetadataRequest is the message used for getting an event
+        metadata
+    tcn.ruleengine.ruleset.v1beta2.GetRuleSetRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name for the rule set
+      title: GetRuleSetRequest
+      required:
+      - name
+      additionalProperties: false
+      description: GetRuleSetRequest is the message used for getting a rule set
+    tcn.ruleengine.ruleset.v1beta2.ListEventMetadataRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: 'The parent resource name, must be in the format: orgs/{org}'
+        page_size:
+          type: integer
+          title: page_size
+          format: int32
+          description: (OPTIONAL) The maximum number of event metadata to return
+        page_token:
+          type: string
+          title: page_token
+          description: (OPTIONAL) The next_page_token value returned from a previous
+            List request, if any
+      title: ListEventMetadataRequest
+      required:
+      - parent
+      additionalProperties: false
+      description: ListEventMetadataRequest is the message used for listing event
+        metadata
+    tcn.ruleengine.ruleset.v1beta2.ListEventMetadataResponse:
+      type: object
+      properties:
+        event_metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta2.EventMetadata'
+          title: event_metadata
+          description: The list of event metadata
+        next_page_token:
+          type: string
+          title: next_page_token
+          description: (OPTIONAL) Token to retrieve the next page of results, or empty
+            if there are no more results
+      title: ListEventMetadataResponse
+      required:
+      - event_metadata
+      additionalProperties: false
+      description: ListEventMetadataResponse is the message used for listing event
+        metadata
+    tcn.ruleengine.ruleset.v1beta2.UpdateRuleSetRequest:
+      type: object
+      properties:
+        rule_set:
+          title: rule_set
+          description: The rule set to update
+          $ref: '#/components/schemas/tcn.ruleengine.ruleset.v1beta2.RuleSet'
         update_mask:
           title: update_mask
           description: (OPTIONAL) The field mask to apply to the rule set.
